@@ -1,4 +1,4 @@
-# erb
+# ERB
 
 A new Flutter application.
 
