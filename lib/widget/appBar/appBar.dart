@@ -1,22 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:erb/constants.dart';
 
-Widget _appBarButton(String title, VoidCallback onTap) {
-  // ignore: deprecated_member_use
-  return FlatButton(
-    child: Text(
-      title,
-      style: TextStyle(
-        color: TextColor,
-        fontSize: 20,
-      ),
-    ),
-    hoverColor: HoverColor,
-    onPressed: onTap,
-    height: 70,
-  );
-}
-
 class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -34,28 +18,28 @@ class CustomAppBar extends StatelessWidget {
             Spacer(
               flex: 2,
             ),
-            _appBarButton(
+            appButton(
               'Apps',
               () {},
             ),
             SizedBox(
               width: 20,
             ),
-            _appBarButton(
+            appButton(
               'Pricing',
               () {},
             ),
             SizedBox(
               width: 20,
             ),
-            _appBarButton(
+            appButton(
               'Support',
               () {},
             ),
             SizedBox(
               width: 20,
             ),
-            _appBarButton(
+            appButton(
               'Sign In',
               () {},
             ),
