@@ -23,67 +23,76 @@ class HomeDesktop extends StatelessWidget {
       body: FooterView(
         flex: 8,
         children: [
-          SizedBox(
-            height: height * 0.05,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/home.png',
-                width: width * 0.3,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: height * 0.05,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Create your own System with Web Hosting',
-                style: TextStyle(
-                  color: TextColor,
-                  fontSize: width * 0.03,
+          Container(
+            color: Colors.white,
+            width: width,
+            height: height,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: height * 0.05,
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: height * 0.05,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Go Serverless and Pay only for what you use',
-                style: TextStyle(
-                  color: TextColor,
-                  fontSize: width * 0.02,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/home.png',
+                      width: width * 0.3,
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: height * 0.06,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/down.png',
-                width: height * 0.1,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: height * 0.07,
+                SizedBox(
+                  height: height * 0.05,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Create your own System with Web Hosting',
+                      style: TextStyle(
+                        color: TextColor,
+                        fontSize: width * 0.03,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: height * 0.05,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Go Serverless and Pay only for what you use',
+                      style: TextStyle(
+                        color: TextColor,
+                        fontSize: width * 0.02,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: height * 0.06,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/down.png',
+                      width: height * 0.1,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: height * 0.07,
+                ),
+              ],
+            ),
           ),
           Container(
             color: Colors.blue,
             width: width,
-            height: 800,
+            height: height,
             child: Row(
               children: [],
             ),
