@@ -9,6 +9,8 @@ Color SecondaryColor = Color(0xFF1D1D1D);
 Color TextColor = Colors.black;
 // ignore: non_constant_identifier_names
 Color HoverColor = Color(0xFF00B9FF);
+// ignore: non_constant_identifier_names
+Color WidgetColor = Color(0xFFECECEC);
 
 // Custom Button
 Widget appButton(String title, VoidCallback onTap) {
@@ -23,7 +25,7 @@ Widget appButton(String title, VoidCallback onTap) {
     ),
     hoverColor: HoverColor,
     onPressed: onTap,
-    height: 70,
+    height: 100,
   );
 }
 
@@ -35,9 +37,10 @@ Widget labelButton(String title, VoidCallback onTap) {
       style: TextStyle(
         color: SecondaryColor,
         fontSize: 20,
+        fontWeight: FontWeight.w300,
       ),
     ),
-    height: 40,
+    height: 50,
     hoverColor: PrimaryColor,
     onPressed: onTap,
   );
