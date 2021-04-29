@@ -1,5 +1,8 @@
+import 'package:erb/pages/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:erb/constants.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:page_transition/page_transition.dart';
 
 class CustomAppBar extends StatelessWidget {
   @override
@@ -15,8 +18,19 @@ class CustomAppBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image.asset(
-              'assets/logo.png',
+            InkWell(
+              onTap: () => Navigator.push(
+                context,
+                PageTransition(
+                  child: Home(),
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 100),
+                ),
+              ),
+              child: Image.asset(
+                'assets/logo.png',
+
+              ),
             ),
             Spacer(
               flex: 2,
