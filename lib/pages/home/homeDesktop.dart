@@ -185,7 +185,7 @@ class HomeDesktop extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.only(top: 70),
-            height: height * 0.6,
+            height: height * 0.7,
             width: width,
             color: PrimaryColor,
             child: Row(
@@ -273,7 +273,86 @@ class HomeDesktop extends StatelessWidget {
                         color: TextColor,
                         fontSize: width * 0.03,
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    // ignore: deprecated_member_use
+                    RaisedButton(
+                      color: SecondaryColor,
+                      padding: EdgeInsets.only(
+                        top: 20,
+                        bottom: 20,
+                        left: 35,
+                        right: 35,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            'assets/android.png',
+                            height: 60,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            'Download for Android',
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: PrimaryColor,
+                            ),
+                          )
+                        ],
+                      ),
+                      onPressed: () {},
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    // ignore: deprecated_member_use
+                    RaisedButton(
+                      color: SecondaryColor,
+                      padding: EdgeInsets.only(
+                        top: 15,
+                        bottom: 15,
+                        left: 35,
+                        right: 35,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            'assets/ios.png',
+                            height: 70,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            'Download for IOS',
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: PrimaryColor,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 35,
+                          ),
+                        ],
+                      ),
+                      onPressed: () {},
+                    ),
                   ],
                 ),
               ],
