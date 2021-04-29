@@ -183,6 +183,102 @@ class HomeDesktop extends StatelessWidget {
               )
             ],
           ),
+          Container(
+            padding: EdgeInsets.only(top: 70),
+            height: height * 0.6,
+            width: width,
+            color: PrimaryColor,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'About us',
+                      style: TextStyle(
+                        color: TextColor,
+                        fontSize: width * 0.022,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    labelButton(
+                      'Our Company',
+                      () {},
+                    ),
+                    labelButton(
+                      'Contact us',
+                      () {},
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    labelButton(
+                      'Privacy',
+                      () {},
+                    ),
+                    labelButton(
+                      'Security',
+                      () {},
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: width * 0.06,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Services',
+                      style: TextStyle(
+                        color: TextColor,
+                        fontSize: width * 0.022,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    labelButton(
+                      'Local Hosting',
+                      () {},
+                    ),
+                    labelButton(
+                      'Cloud Hosting',
+                      () {},
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    labelButton(
+                      'Support',
+                      () {},
+                    ),
+                    labelButton(
+                      'Upgrade',
+                      () {},
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: width * 0.30,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      'Get the Mobile App',
+                      style: TextStyle(
+                        color: TextColor,
+                        fontSize: width * 0.03,
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
         footer: new Footer(
           child: CustomFooter(),
