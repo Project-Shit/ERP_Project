@@ -24,7 +24,7 @@ class HomeDesktop extends StatelessWidget {
         flex: 8,
         children: [
           Container(
-            color: Colors.white,
+            color: PrimaryColor,
             width: width,
             height: height,
             child: Column(
@@ -90,12 +90,93 @@ class HomeDesktop extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.blue,
+            padding: EdgeInsets.only(top: height * 0.15),
+            color: HoverColor,
             width: width,
-            height: height,
+            height: height * 0.8,
             child: Row(
-              children: [],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    Image.asset(
+                      'assets/timetable.png',
+                      width: width * 0.16,
+                    ),
+                    SizedBox(
+                      height: height * 0.05,
+                    ),
+                    Text(
+                      'Keep every thing on schedule '
+                      '\nand organize your meeting'
+                      '\n and events',
+                      style: TextStyle(
+                        fontSize: height * 0.03,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: width * 0.06,
+                ),
+                Column(
+                  children: [
+                    Image.asset(
+                      'assets/phone.png',
+                      width: width * 0.16,
+                    ),
+                    SizedBox(
+                      height: height * 0.05,
+                    ),
+                    Text(
+                      'Be Updated all the time and Follow '
+                      '\nyour company progress from any '
+                      '\nware with the mobile application',
+                      style: TextStyle(
+                        fontSize: height * 0.03,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: width * 0.06,
+                ),
+                Column(
+                  children: [
+                    Image.asset(
+                      'assets/wallet.png',
+                      width: width * 0.16,
+                    ),
+                    SizedBox(
+                      height: height * 0.05,
+                    ),
+                    Text(
+                      'Select Your Pricing Plane '
+                      '\naccording to your company '
+                      '\nneeds and save money',
+                      style: TextStyle(
+                        fontSize: height * 0.03,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ],
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/logo.png',
+                width: width * 0.25,
+              )
+            ],
           ),
         ],
         footer: new Footer(
