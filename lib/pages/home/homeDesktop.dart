@@ -90,10 +90,15 @@ class HomeDesktop extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top: height * 0.15),
-            color: HoverColor,
+            padding: EdgeInsets.only(top: height * 0.35),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.elliptical(width, 200),
+              ),
+              color: HoverColor,
+            ),
             width: width,
-            height: height * 0.8,
+            height: height,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
