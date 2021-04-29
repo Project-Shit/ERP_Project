@@ -7,7 +7,7 @@ class CustomAppBar extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: 100,
+          horizontal: 90,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
