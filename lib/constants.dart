@@ -26,3 +26,19 @@ Widget appButton(String title, VoidCallback onTap) {
     height: 70,
   );
 }
+
+Widget labelButton(String title, VoidCallback onTap) {
+  // ignore: deprecated_member_use
+  return FlatButton(
+    child: Text(
+      title,
+      style: TextStyle(
+        color: SecondaryColor,
+        fontSize: 20,
+      ),
+    ),
+    height: 40,
+    hoverColor: PrimaryColor,
+    onPressed: onTap,
+  );
+}
