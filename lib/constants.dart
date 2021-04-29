@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 // ignore: non_constant_identifier_names
 Color PrimaryColor = Colors.white;
 // ignore: non_constant_identifier_names
+Color SecondaryColor = Color(0xFF1D1D1D);
+// ignore: non_constant_identifier_names
 Color TextColor = Colors.black;
 // ignore: non_constant_identifier_names
-Color HoverColor = Colors.blue.shade700;
+Color HoverColor = Color(0xFF00B9FF);
 
 // Custom Button
 Widget appButton(String title, VoidCallback onTap) {
