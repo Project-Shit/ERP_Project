@@ -16,13 +16,13 @@ class HomeDesktop extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: PrimaryColor,
-      appBar: PreferredSize(
-        preferredSize: Size(width, 70),
-        child: CustomAppBar(),
-      ),
       body: FooterView(
         flex: 8,
         children: [
+          Container(
+            child: CustomAppBar(),
+            height: 70,
+          ),
           Container(
             color: PrimaryColor,
             width: width,
@@ -37,7 +37,7 @@ class HomeDesktop extends StatelessWidget {
                   children: [
                     Image.asset(
                       'assets/home.png',
-                      width: width * 0.3,
+                      width: width * 0.25,
                     ),
                   ],
                 ),
@@ -51,7 +51,7 @@ class HomeDesktop extends StatelessWidget {
                       'Create your own System with Web Hosting',
                       style: TextStyle(
                         color: TextColor,
-                        fontSize: width * 0.03,
+                        fontSize: width * 0.026,
                       ),
                     ),
                   ],
@@ -66,7 +66,7 @@ class HomeDesktop extends StatelessWidget {
                       'Go Serverless and Pay only for what you use',
                       style: TextStyle(
                         color: TextColor,
-                        fontSize: width * 0.02,
+                        fontSize: width * 0.016,
                       ),
                     ),
                   ],
@@ -82,9 +82,6 @@ class HomeDesktop extends StatelessWidget {
                       width: height * 0.1,
                     ),
                   ],
-                ),
-                SizedBox(
-                  height: height * 0.07,
                 ),
               ],
             ),
@@ -185,7 +182,7 @@ class HomeDesktop extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.only(top: 70),
-            height: height * 0.7,
+            height: height * 0.75,
             width: width,
             color: PrimaryColor,
             child: Row(
@@ -194,6 +191,9 @@ class HomeDesktop extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 50,
+                    ),
                     Text(
                       'About us',
                       style: TextStyle(
@@ -202,7 +202,7 @@ class HomeDesktop extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 30,
                     ),
                     labelButton(
                       'Our Company',
@@ -213,7 +213,7 @@ class HomeDesktop extends StatelessWidget {
                       () {},
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 20,
                     ),
                     labelButton(
                       'Privacy',
@@ -231,6 +231,9 @@ class HomeDesktop extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 50,
+                    ),
                     Text(
                       'Services',
                       style: TextStyle(
@@ -239,7 +242,7 @@ class HomeDesktop extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 30,
                     ),
                     labelButton(
                       'Local Hosting',
@@ -250,7 +253,7 @@ class HomeDesktop extends StatelessWidget {
                       () {},
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 20,
                     ),
                     labelButton(
                       'Support',
