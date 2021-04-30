@@ -105,7 +105,8 @@ class HomeMobile extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.only(
-              top: height * 0.15,
+              top: height * 0.12,
+              bottom: 5,
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
@@ -114,35 +115,35 @@ class HomeMobile extends StatelessWidget {
               color: HoverColor,
             ),
             width: width,
-            height: height * 1.65,
+            height: height,
             child: Column(
               children: [
                 Image.asset(
                   'assets/timetable.png',
-                  width: width * 0.55,
+                  width: width * 0.25,
                 ),
                 SizedBox(
-                  height: height * 0.04,
+                  height: height * 0.02,
                 ),
                 Text(
                   'Keep every thing on schedule '
                   '\nand organize your meeting'
                   '\n and events',
                   style: TextStyle(
-                    fontSize: height * 0.03,
+                    fontSize: height * 0.025,
                     fontWeight: FontWeight.w500,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: height * 0.06,
+                  height: height * 0.03,
                 ),
                 Image.asset(
                   'assets/phone.png',
-                  width: width * 0.55,
+                  width: width * 0.25,
                 ),
                 SizedBox(
-                  height: height * 0.04,
+                  height: height * 0.02,
                 ),
                 Text(
                   'Be Updated all the time and '
@@ -150,27 +151,27 @@ class HomeMobile extends StatelessWidget {
                   '\nfrom any ware with the '
                   '\nmobile application',
                   style: TextStyle(
-                    fontSize: height * 0.03,
+                    fontSize: height * 0.025,
                     fontWeight: FontWeight.w500,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: height * 0.06,
+                  height: height * 0.02,
                 ),
                 Image.asset(
                   'assets/wallet.png',
-                  width: width * 0.55,
+                  width: width * 0.25,
                 ),
                 SizedBox(
-                  height: height * 0.04,
+                  height: height * 0.02,
                 ),
                 Text(
                   'Select Your Pricing Plane '
                   '\naccording to your company '
                   '\nneeds and save money',
                   style: TextStyle(
-                    fontSize: height * 0.03,
+                    fontSize: height * 0.025,
                     fontWeight: FontWeight.w500,
                   ),
                   textAlign: TextAlign.center,
@@ -190,7 +191,7 @@ class HomeMobile extends StatelessWidget {
           Container(
             color: PrimaryColor,
             width: width,
-            height: height * 1.15,
+            height: height * 0.9,
             padding: EdgeInsets.only(
               top: height * 0.05,
               right: width * 0.1,
@@ -286,66 +287,80 @@ class HomeMobile extends StatelessWidget {
                 SizedBox(
                   height: height * 0.06,
                 ),
-                Text(
-                  'About us',
-                  style: TextStyle(
-                    color: TextColor,
-                    fontSize: width * 0.09,
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                labelButton(
-                  'Our Company',
-                  () {},
-                ),
-                labelButton(
-                  'Contact us',
-                  () {},
-                ),
-                SizedBox(
-                  height: height * 0.01,
-                ),
-                labelButton(
-                  'Privacy',
-                  () {},
-                ),
-                labelButton(
-                  'Security',
-                  () {},
-                ),
-                SizedBox(
-                  height: height * 0.06,
-                ),
-                Text(
-                  'Services',
-                  style: TextStyle(
-                    color: TextColor,
-                    fontSize: width * 0.09,
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                labelButton(
-                  'Local Hosting',
-                      () {},
-                ),
-                labelButton(
-                  'Cloud Hosting',
-                      () {},
-                ),
-                SizedBox(
-                  height: height * 0.01,
-                ),
-                labelButton(
-                  'Support',
-                      () {},
-                ),
-                labelButton(
-                  'Upgrade',
-                      () {},
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'About us',
+                          style: TextStyle(
+                            color: TextColor,
+                            fontSize: width * 0.07,
+                          ),
+                        ),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+                        labelButton(
+                          'Our Company',
+                          () {},
+                        ),
+                        labelButton(
+                          'Contact us',
+                          () {},
+                        ),
+                        SizedBox(
+                          height: height * 0.01,
+                        ),
+                        labelButton(
+                          'Privacy',
+                          () {},
+                        ),
+                        labelButton(
+                          'Security',
+                          () {},
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: width * 0.15,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Services',
+                          style: TextStyle(
+                            color: TextColor,
+                            fontSize: width * 0.07,
+                          ),
+                        ),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+                        labelButton(
+                          'Local Hosting',
+                          () {},
+                        ),
+                        labelButton(
+                          'Cloud Hosting',
+                          () {},
+                        ),
+                        SizedBox(
+                          height: height * 0.01,
+                        ),
+                        labelButton(
+                          'Support',
+                          () {},
+                        ),
+                        labelButton(
+                          'Upgrade',
+                          () {},
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
