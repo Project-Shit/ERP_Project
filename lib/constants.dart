@@ -36,7 +36,7 @@ Widget labelButton(String title, VoidCallback onTap) {
       title,
       style: TextStyle(
         color: SecondaryColor,
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: FontWeight.w300,
       ),
     ),
