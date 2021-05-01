@@ -1,5 +1,5 @@
 // @dart=2.9
-import 'package:erb/pages/home/home.dart';
+import 'package:erp/pages/home/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ERB System',
+      title: 'ERP System',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
