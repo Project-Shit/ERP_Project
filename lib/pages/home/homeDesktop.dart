@@ -1,7 +1,7 @@
-import 'package:erb/widget/appBar/appBar.dart';
-import 'package:erb/widget/footer/footer.dart';
+import 'package:erp/widget/appBar/appBar.dart';
+import 'package:erp/widget/footer/footer.dart';
 import 'package:flutter/material.dart';
-import 'package:erb/constants.dart';
+import 'package:erp/constants.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:footer/footer.dart';
