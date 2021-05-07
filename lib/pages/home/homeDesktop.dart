@@ -308,7 +308,7 @@ class HomeDesktop extends StatelessWidget {
                             'Download for Android',
                             style: TextStyle(
                               fontSize: 30,
-                              color: PrimaryColor,
+                              color: TextColor,
                             ),
                           )
                         ],
@@ -346,7 +346,7 @@ class HomeDesktop extends StatelessWidget {
                             'Download for IOS',
                             style: TextStyle(
                               fontSize: 30,
-                              color: PrimaryColor,
+                              color: TextColor,
                             ),
                           ),
                           SizedBox(
