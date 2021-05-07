@@ -17,7 +17,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
               decoration: BoxDecoration(
-                color: WidgetColor,
+                color: Colors.grey.shade300,
               ),
             ),
             ListTileTheme(
