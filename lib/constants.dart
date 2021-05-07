@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 // ignore: non_constant_identifier_names
 Color PrimaryColor = Colors.white;
 // ignore: non_constant_identifier_names
-Color SecondaryColor = Color(0xFF1D1D1D);
+Color SecondaryColor = Color(0xFF898989);
 // ignore: non_constant_identifier_names
-Color TextColor = Colors.black;
+Color TextColor = Color(0xFF1D1D1D);
 // ignore: non_constant_identifier_names
 Color HoverColor = Color(0xFF00B9FF);
-// ignore: non_constant_identifier_names
-Color WidgetColor = Color(0xFFECECEC);
 
 // Custom Button
 Widget appButton(String title, VoidCallback onTap) {
@@ -35,9 +33,9 @@ Widget labelButton(String title, VoidCallback onTap) {
     child: Text(
       title,
       style: TextStyle(
-        color: SecondaryColor,
+        color: TextColor,
         fontSize: 15,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w500,
       ),
     ),
     height: 50,
