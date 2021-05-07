@@ -20,7 +20,7 @@ class HomeMobile extends StatelessWidget {
         preferredSize: Size(width, 70),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: SecondaryColor,
+            color: TextColor,
           ),
           backgroundColor: PrimaryColor,
           actions: [
@@ -191,7 +191,7 @@ class HomeMobile extends StatelessWidget {
           Container(
             color: PrimaryColor,
             width: width,
-            height: height * 0.9,
+            height: height * 0.8,
             padding: EdgeInsets.only(
               top: height * 0.05,
               right: width * 0.1,
@@ -239,7 +239,7 @@ class HomeMobile extends StatelessWidget {
                         'Download for Android',
                         style: TextStyle(
                           fontSize: width * 0.05,
-                          color: PrimaryColor,
+                          color: TextColor,
                         ),
                       )
                     ],
@@ -277,7 +277,7 @@ class HomeMobile extends StatelessWidget {
                         'Download for IOS',
                         style: TextStyle(
                           fontSize: width * 0.05,
-                          color: PrimaryColor,
+                          color: TextColor,
                         ),
                       ),
                     ],
