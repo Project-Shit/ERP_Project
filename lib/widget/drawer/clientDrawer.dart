@@ -1,7 +1,7 @@
 import 'package:erp/constants.dart';
 import 'package:flutter/material.dart';
 
-class CustomDrawer extends StatelessWidget {
+class ClientDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -11,11 +11,13 @@ class CustomDrawer extends StatelessWidget {
           children: <Widget>[
             DrawerHeader(
               child: Center(
-                child: Image.asset(
-                  'assets/logo.png',
-                  width: 230,
+                  child: Text(
+                'Company Name',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: TextColor,
                 ),
-              ),
+              )),
               decoration: BoxDecoration(
                 color: Colors.grey.shade300,
               ),
