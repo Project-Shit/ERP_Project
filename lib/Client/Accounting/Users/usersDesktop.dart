@@ -13,9 +13,9 @@ class _UsersDesktopState extends State<UsersDesktop> {
   List<String> _locations = ['A', 'B', 'C', 'D'];
   String _selectedLocation;
 
-  Widget dropList(List<String> list, String selected) {
+  Widget dropList(List<String> list, String selected, double w) {
     return Container(
-      width: 500,
+      width: w,
       child: DropdownButtonFormField(
         decoration: InputDecoration(
           border: OutlineInputBorder(
@@ -44,7 +44,6 @@ class _UsersDesktopState extends State<UsersDesktop> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
@@ -70,9 +69,9 @@ class _UsersDesktopState extends State<UsersDesktop> {
                       width: 2,
                     )),
                 width: width * 0.6,
-                height: height * 1.5,
+                height: 900,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 70),
+                  padding: const EdgeInsets.only(left: 70,right: 60),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,25 +140,25 @@ class _UsersDesktopState extends State<UsersDesktop> {
                               labelText('User Type'),
                             ],
                           ),
-                          SizedBox(width: 20,),
+                          SizedBox(width: width * 0.04,),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              dropList(_locations, _selectedLocation),
+                              dropList(_locations, _selectedLocation,width * 0.34),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation),
+                              dropList(_locations, _selectedLocation,width * 0.34),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation),
+                              dropList(_locations, _selectedLocation,width * 0.34),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation),
+                              dropList(_locations, _selectedLocation,width * 0.34),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation),
+                              dropList(_locations, _selectedLocation,width * 0.34),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation),
+                              dropList(_locations, _selectedLocation,width * 0.34),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation),
+                              dropList(_locations, _selectedLocation,width * 0.34),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation),
+                              dropList(_locations, _selectedLocation,width * 0.34),
                             ],
                           ),
                         ],
