@@ -10,36 +10,22 @@ class UsersDesktop extends StatefulWidget {
 }
 
 class _UsersDesktopState extends State<UsersDesktop> {
-  List<String> _locations = ['A', 'B', 'C', 'D'];
+  List<String> _locations = [];
   String _selectedLocation;
+  bool password = true;
+  TextEditingController _textController;
 
-  Widget dropList(List<String> list, String selected, double w) {
-    return Container(
-      width: w,
-      child: DropdownButtonFormField(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-          ),
-          filled: true,
-          fillColor: SecondaryColor,
-        ),
-        value: selected,
-        onChanged: (newValue) {
-          setState(() {
-            selected = newValue;
-          });
-        },
-        items: list.map((location) {
-          return DropdownMenuItem(
-            child: new Text(location),
-            value: location,
-          );
-        }).toList(),
-      ),
-    );
+  void hidePassword(){
+    setState(() {
+      password = !password;
+    });
+  }
+
+  void setValue(){
+    String value = '';
+    setState(() {
+      _selectedLocation = value;
+    });
   }
 
   @override
@@ -68,10 +54,10 @@ class _UsersDesktopState extends State<UsersDesktop> {
                       color: TextColor,
                       width: 2,
                     )),
-                width: width * 0.6,
+                width: width * 0.62,
                 height: 900,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 70,right: 60),
+                  padding: EdgeInsets.only(left: 70,right: 70),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,21 +130,21 @@ class _UsersDesktopState extends State<UsersDesktop> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              dropList(_locations, _selectedLocation,width * 0.34),
+                              dropList(_locations, _selectedLocation,width * 0.34,setValue),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation,width * 0.34),
+                              textField(_textController,width * 0.34),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation,width * 0.34),
+                              textField(_textController,width * 0.34),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation,width * 0.34),
+                              textField(_textController,width * 0.34),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation,width * 0.34),
+                              passwordField(width * 0.34,password,hidePassword),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation,width * 0.34),
+                              textField(_textController,width * 0.34),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation,width * 0.34),
+                              dropList(_locations, _selectedLocation,width * 0.34,setValue),
                               SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation,width * 0.34),
+                              dropList(_locations, _selectedLocation,width * 0.34,setValue),
                             ],
                           ),
                         ],
@@ -167,6 +153,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                         height: 40,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           actionButtons('Apply',(){},Colors.green),
                           SizedBox(width: 80,),
