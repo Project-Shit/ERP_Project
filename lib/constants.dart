@@ -74,10 +74,12 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
   );
 }
 
-Widget textField(TextEditingController text, double w){
+Widget textField(TextEditingController text, double w, double h,bool status){
   return Container(
     width: w,
+    height: h,
     child: TextFormField(
+      enabled: status,
       controller: text,
       decoration: InputDecoration(
         border: OutlineInputBorder(
@@ -92,9 +94,10 @@ Widget textField(TextEditingController text, double w){
   );
 }
 
-Widget dropList(List<String> list, String selected, double w, VoidCallback change) {
+Widget dropList(List<String> list, String selected, double w, double h, VoidCallback change) {
   return Container(
     width: w,
+    height: h,
     child: DropdownButtonFormField(
       decoration: InputDecoration(
         border: OutlineInputBorder(
@@ -117,10 +120,12 @@ Widget dropList(List<String> list, String selected, double w, VoidCallback chang
   );
 }
 
-Widget passwordField(double w, bool password, VoidCallback onTap){
+Widget passwordField(double w,double h, bool password,bool status, VoidCallback onTap){
   return Container(
     width: w,
+    height: h,
     child: TextFormField(
+      enabled: status,
       style: TextStyle(
         color: TextColor,
       ),
