@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:erp/constants.dart';
 
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:page_transition/page_transition.dart';
-
 class ClientAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
