@@ -78,7 +78,8 @@ class _TaxMobileState extends State<TaxMobile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   labelText('Tax Plan'),
-                  dropList(_locations, _selectedLocation, width * 0.9, 45.0, setValue),
+                  dropList(_locations, _selectedLocation, width * 0.9, 45.0,
+                      setValue),
                   SizedBox(
                     height: 20,
                   ),
@@ -87,13 +88,13 @@ class _TaxMobileState extends State<TaxMobile> {
                     width: width,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: SecondaryColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))
-                    ),
+                        color: SecondaryColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     child: CupertinoDateTextBox(
-                        initialValue: _selectedDateTime,
-                        onDateChange: onBirthdayChange,
-                        hintText: _selectedDateTime.toString(),),
+                      initialValue: _selectedDateTime,
+                      onDateChange: onBirthdayChange,
+                      hintText: _selectedDateTime.toString(),
+                    ),
                   ),
                   SizedBox(
                     height: 20,
