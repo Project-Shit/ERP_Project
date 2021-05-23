@@ -15,13 +15,13 @@ class _UsersDesktopState extends State<UsersDesktop> {
   bool password = true;
   TextEditingController _textController;
 
-  void hidePassword(){
+  void hidePassword() {
     setState(() {
       password = !password;
     });
   }
 
-  void setValue(){
+  void setValue() {
     String value = '';
     setState(() {
       _selectedLocation = value;
@@ -57,7 +57,10 @@ class _UsersDesktopState extends State<UsersDesktop> {
                 width: width * 0.62,
                 height: 900,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 70,right: 70),
+                  padding: EdgeInsets.only(
+                    left: 70,
+                    right: 70,
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,41 +113,79 @@ class _UsersDesktopState extends State<UsersDesktop> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               labelText('ID'),
-                              SizedBox(height: 40,),
+                              SizedBox(
+                                height: 40,
+                              ),
                               labelText('Name'),
-                              SizedBox(height: 40,),
+                              SizedBox(
+                                height: 40,
+                              ),
                               labelText('Phone'),
-                              SizedBox(height: 40,),
+                              SizedBox(
+                                height: 40,
+                              ),
                               labelText('Email'),
-                              SizedBox(height: 40,),
+                              SizedBox(
+                                height: 40,
+                              ),
                               labelText('Password'),
-                              SizedBox(height: 40,),
+                              SizedBox(
+                                height: 40,
+                              ),
                               labelText('Address'),
-                              SizedBox(height: 40,),
+                              SizedBox(
+                                height: 40,
+                              ),
                               labelText('Department'),
-                              SizedBox(height: 40,),
+                              SizedBox(
+                                height: 40,
+                              ),
                               labelText('User Type'),
                             ],
                           ),
-                          SizedBox(width: width * 0.04,),
+                          SizedBox(
+                            width: width * 0.04,
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              dropList(_locations, _selectedLocation,width * 0.34,60.0,setValue),
-                              SizedBox(height: 20,),
-                              textField(_textController,width * 0.34,60.0,true),
-                              SizedBox(height: 20,),
-                              textField(_textController,width * 0.34,60.0,true),
-                              SizedBox(height: 20,),
-                              textField(_textController,width * 0.34,60.0,true),
-                              SizedBox(height: 20,),
-                              passwordField(width * 0.34,60.0,password,true,hidePassword),
-                              SizedBox(height: 20,),
-                              textField(_textController,width * 0.34,60.0,true),
-                              SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation,width * 0.34,60.0,setValue),
-                              SizedBox(height: 20,),
-                              dropList(_locations, _selectedLocation,width * 0.34,60.0,setValue),
+                              dropList(_locations, _selectedLocation,
+                                  width * 0.34, 60.0, setValue),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              textField(
+                                  _textController, width * 0.34, 60.0, true),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              textField(
+                                  _textController, width * 0.34, 60.0, true),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              textField(
+                                  _textController, width * 0.34, 60.0, true),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              passwordField(width * 0.34, 60.0, password, true,
+                                  hidePassword),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              textField(
+                                  _textController, width * 0.34, 60.0, true),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              dropList(_locations, _selectedLocation,
+                                  width * 0.34, 60.0, setValue),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              dropList(_locations, _selectedLocation,
+                                  width * 0.34, 60.0, setValue),
                             ],
                           ),
                         ],
@@ -155,9 +196,11 @@ class _UsersDesktopState extends State<UsersDesktop> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          actionButtons('Apply',(){},Colors.green),
-                          SizedBox(width: 80,),
-                          actionButtons('Delete',(){},Colors.red.shade900),
+                          actionButtons('Apply', () {}, Colors.green),
+                          SizedBox(
+                            width: 80,
+                          ),
+                          actionButtons('Delete', () {}, Colors.red.shade900),
                         ],
                       ),
                     ],
