@@ -63,18 +63,18 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
         ),
       ),
       child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 30,
-              color: TextColor,
-            ),
-          ),
+        title,
+        style: TextStyle(
+          fontSize: 30,
+          color: TextColor,
+        ),
+      ),
       onPressed: onTap,
     ),
   );
 }
 
-Widget textField(TextEditingController text, double w, double h,bool status){
+Widget textField(TextEditingController text, double w, double h, bool status) {
   return Container(
     width: w,
     height: h,
@@ -94,7 +94,8 @@ Widget textField(TextEditingController text, double w, double h,bool status){
   );
 }
 
-Widget dropList(List<String> list, String selected, double w, double h, VoidCallback change) {
+Widget dropList(List<String> list, String selected, double w, double h,
+    VoidCallback change) {
   return Container(
     width: w,
     height: h,
@@ -120,7 +121,8 @@ Widget dropList(List<String> list, String selected, double w, double h, VoidCall
   );
 }
 
-Widget passwordField(double w,double h, bool password,bool status, VoidCallback onTap){
+Widget passwordField(
+    double w, double h, bool password, bool status, VoidCallback onTap) {
   return Container(
     width: w,
     height: h,
@@ -135,9 +137,7 @@ Widget passwordField(double w,double h, bool password,bool status, VoidCallback 
             right: 10,
           ),
           child: IconButton(
-            icon: Icon(
-                password? Icons.visibility_off : Icons.visibility
-            ),
+            icon: Icon(password ? Icons.visibility_off : Icons.visibility),
             onPressed: onTap,
           ),
         ),
