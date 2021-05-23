@@ -26,6 +26,7 @@ dependencies:
   responsive_builder: ^0.1.2
   footer: ^0.0.3
   page_transition: ^1.1.7+6
+  cupertino_date_textbox: ^1.0.0+4
 
 
   # The following adds the Cupertino Icons font to your application.
