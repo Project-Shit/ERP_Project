@@ -74,6 +74,93 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
   );
 }
 
+Widget textField(TextEditingController text, double w){
+  return Container(
+    width: w,
+    child: TextFormField(
+      controller: text,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+        filled: true,
+        fillColor: SecondaryColor,
+      ),
+    ),
+  );
+}
+
+Widget dropList(List<String> list, String selected, double w, VoidCallback change) {
+  return Container(
+    width: w,
+    child: DropdownButtonFormField(
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+        filled: true,
+        fillColor: SecondaryColor,
+      ),
+      value: selected,
+      onChanged: (newValue) => change,
+      items: list.map((location) {
+        return DropdownMenuItem(
+          child: new Text(location),
+          value: location,
+        );
+      }).toList(),
+    ),
+  );
+}
+
+Widget passwordField(double w, bool password, VoidCallback onTap){
+  return Container(
+    width: w,
+    child: TextFormField(
+      style: TextStyle(
+        color: TextColor,
+      ),
+      decoration: InputDecoration(
+        suffixIcon: Padding(
+          padding: const EdgeInsets.only(
+            right: 10,
+          ),
+          child: IconButton(
+            icon: Icon(
+                password? Icons.visibility_off : Icons.visibility
+            ),
+            onPressed: onTap,
+          ),
+        ),
+        fillColor: SecondaryColor,
+        filled: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            new Radius.circular(
+              10.0,
+            ),
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 1,
+          ),
+          borderRadius: BorderRadius.all(
+            new Radius.circular(
+              10.0,
+            ),
+          ),
+        ),
+      ),
+      obscureText: password,
+    ),
+  );
+}
+
 Widget labelText(String title) {
   return Text(
     title,
