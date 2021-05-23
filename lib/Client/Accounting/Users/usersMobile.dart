@@ -65,48 +65,55 @@ class _UsersMobileState extends State<UsersMobile> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.only(top: 50,bottom: 50,left: 20,right: 20,),
+              padding: EdgeInsets.only(
+                top: 50,
+                bottom: 50,
+                left: 20,
+                right: 20,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   labelText('ID'),
-                  dropList(_locations, _selectedLocation, width * 0.9,45.0, setValue),
+                  dropList(_locations, _selectedLocation, width * 0.9, 45.0,
+                      setValue),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Name'),
-                  textField(_textController,width,45.0,false),
+                  textField(_textController, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Phone'),
-                  textField(_textController,width,45.0,false),
+                  textField(_textController, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Email'),
-                  textField(_textController,width,45.0,false),
+                  textField(_textController, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Password'),
-                  passwordField(width * 0.9,45.0,password,false,hidePassword),
+                  passwordField(
+                      width * 0.9, 45.0, password, false, hidePassword),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Address'),
-                  textField(_textController,width,45.0,false),
+                  textField(_textController, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Department'),
-                  textField(_textController,width,45.0,false),
+                  textField(_textController, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('User Type'),
-                  textField(_textController,width,45.0,false),
+                  textField(_textController, width, 45.0, false),
                 ],
               ),
             ),
