@@ -97,9 +97,9 @@ class _TaxMobileState extends State<TaxMobile> {
                           context: context,
                           initialDate: DateTime.now(),
                           firstDate: DateTime(1900),
-                          lastDate: DateTime(2100),);
-                        _dateController.text =
-                            date.toString().substring(0, 10);
+                          lastDate: DateTime(2100),
+                        );
+                        _dateController.text = date.toString().substring(0, 10);
                       },
                     ),
                   ),
