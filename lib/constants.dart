@@ -94,11 +94,11 @@ Widget textField(TextEditingController text, double width, double height, bool s
   );
 }
 
-Widget dropList(List<String> list, String selected, double w, double h,
+Widget dropList(List<String> list, String selected, double width, double height,
     VoidCallback change) {
   return Container(
-    width: w,
-    height: h,
+    width: width,
+    height: height,
     child: DropdownButtonFormField(
       decoration: InputDecoration(
         border: OutlineInputBorder(
@@ -122,10 +122,10 @@ Widget dropList(List<String> list, String selected, double w, double h,
 }
 
 Widget passwordField(
-    double w, double h, bool password, bool status, VoidCallback onTap) {
+    double width, double height, bool password, bool status, VoidCallback onTap) {
   return Container(
-    width: w,
-    height: h,
+    width: width,
+    height: height,
     child: TextFormField(
       enabled: status,
       style: TextStyle(
