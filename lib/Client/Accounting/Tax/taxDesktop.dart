@@ -48,12 +48,12 @@ class _TaxDesktopState extends State<TaxDesktop> {
                       color: TextColor,
                       width: 2,
                     )),
-                width: width * 0.62,
+                width: width * 0.65,
                 height: 900,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: 70,
-                    right: 70,
+                    left: 100,
+                    right: 100,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
