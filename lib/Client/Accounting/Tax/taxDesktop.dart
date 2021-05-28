@@ -161,10 +161,11 @@ class _TaxDesktopState extends State<TaxDesktop> {
                                   controller: _dateController,
                                   onTap: () async {
                                     var date = await showDatePicker(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(1900),
-                                        lastDate: DateTime(2100),);
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1900),
+                                      lastDate: DateTime(2100),
+                                    );
                                     _dateController.text =
                                         date.toString().substring(0, 10);
                                   },
