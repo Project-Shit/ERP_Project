@@ -64,13 +64,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  cupertino_date_textbox:
-    dependency: "direct main"
-    description:
-      name: cupertino_date_textbox
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0+4"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -116,13 +109,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
-  intl:
-    dependency: transitive
-    description:
-      name: intl
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.17.0"
   matcher:
     dependency: transitive
     description:
