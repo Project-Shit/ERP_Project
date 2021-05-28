@@ -74,10 +74,10 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
   );
 }
 
-Widget textField(TextEditingController text, double w, double h, bool status) {
+Widget textField(TextEditingController text, double width, double height, bool status) {
   return Container(
-    width: w,
-    height: h,
+    width: width,
+    height: height,
     child: TextFormField(
       enabled: status,
       controller: text,
