@@ -1,8 +1,7 @@
-// ignore: import_of_legacy_library_into_null_safe
+// @dart=2.9
+import 'package:erp/Client/Accounting/Tax/taxDesktop.dart';
 import 'package:erp/Client/Accounting/Tax/taxMobile.dart';
 import 'package:flutter/material.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:responsive_builder/responsive_builder.dart';
 
 class Tax extends StatelessWidget {
@@ -10,6 +9,7 @@ class Tax extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
       mobile: TaxMobile(),
+      desktop: TaxDesktop(),
     );
   }
 }
