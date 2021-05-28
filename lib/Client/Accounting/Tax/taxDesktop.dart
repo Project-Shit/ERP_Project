@@ -1,33 +1,24 @@
 // @dart=2.9
-import 'package:cupertino_date_textbox/cupertino_date_textbox.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
 
 class TaxDesktop extends StatefulWidget {
-
   @override
   _TaxDesktopState createState() => _TaxDesktopState();
 }
 
 class _TaxDesktopState extends State<TaxDesktop> {
-
   List<String> _locations = [];
   String _selectedLocation;
   bool password = true;
-  TextEditingController _textController;
-  DateTime _selectedDateTime = DateTime.now();
+  final _textController = TextEditingController();
+  final _dateController = TextEditingController();
 
   void setValue() {
     String value = '';
     setState(() {
       _selectedLocation = value;
-    });
-  }
-
-  void onBirthdayChange(DateTime birthday) {
-    setState(() {
-      _selectedDateTime = birthday;
     });
   }
 
@@ -157,12 +148,21 @@ class _TaxDesktopState extends State<TaxDesktop> {
                                 width: width * 0.34,
                                 height: 60.0,
                                 decoration: BoxDecoration(
-                                    color: SecondaryColor,
-                                    borderRadius: BorderRadius.all(Radius.circular(10.0),),),
-                                child: CupertinoDateTextBox(
-                                  initialValue: _selectedDateTime,
-                                  onDateChange: onBirthdayChange,
-                                  hintText: _selectedDateTime.toString(),
+                                  color: SecondaryColor,
+                                  borderRadius: BorderRadius.all(Radius.circular(10.0))
+                                ),
+                                child: TextFormField(
+                                  readOnly: true,
+                                  controller: _dateController,
+                                  onTap: () async {
+                                    var date = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime(2100));
+                                    _dateController.text =
+                                        date.toString().substring(0, 10);
+                                  },
                                 ),
                               ),
                               SizedBox(
