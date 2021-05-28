@@ -12,7 +12,7 @@ class _UsersMobileState extends State<UsersMobile> {
   List<String> _locations = [];
   String _selectedLocation;
   bool password = true;
-  TextEditingController _textController;
+  final _textController = TextEditingController();
 
   void hidePassword() {
     setState(() {
