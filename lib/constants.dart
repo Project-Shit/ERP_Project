@@ -74,7 +74,8 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
   );
 }
 
-Widget textField(TextEditingController text, double width, double height, bool status) {
+Widget textField(
+    TextEditingController text, double width, double height, bool status) {
   return Container(
     width: width,
     height: height,
@@ -121,8 +122,8 @@ Widget dropList(List<String> list, String selected, double width, double height,
   );
 }
 
-Widget passwordField(
-    double width, double height, bool password, bool status, VoidCallback onTap) {
+Widget passwordField(double width, double height, bool password, bool status,
+    VoidCallback onTap) {
   return Container(
     width: width,
     height: height,
