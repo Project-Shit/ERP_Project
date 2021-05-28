@@ -1,4 +1,5 @@
 // @dart=2.9
+import 'package:cupertino_date_textbox/cupertino_date_textbox.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
@@ -114,35 +115,31 @@ class _TaxDesktopState extends State<TaxDesktop> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              labelText('ID'),
+                              labelText('Tax Plane'),
                               SizedBox(
                                 height: 40,
                               ),
-                              labelText('Name'),
+                              labelText('Date'),
                               SizedBox(
                                 height: 40,
                               ),
-                              labelText('Phone'),
+                              labelText('Total Profit'),
                               SizedBox(
                                 height: 40,
                               ),
-                              labelText('Email'),
+                              labelText('Tax n Profit'),
                               SizedBox(
                                 height: 40,
                               ),
-                              labelText('Password'),
+                              labelText('Total Salary'),
                               SizedBox(
                                 height: 40,
                               ),
-                              labelText('Address'),
+                              labelText('Tax on Salary'),
                               SizedBox(
                                 height: 40,
                               ),
-                              labelText('Department'),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              labelText('User Type'),
+                              labelText('Total Tax'),
                             ],
                           ),
                           SizedBox(
@@ -156,8 +153,18 @@ class _TaxDesktopState extends State<TaxDesktop> {
                               SizedBox(
                                 height: 20,
                               ),
-                              textField(
-                                  _textController, width * 0.34, 60.0, true),
+                              Container(
+                                width: width * 0.34,
+                                height: 60.0,
+                                decoration: BoxDecoration(
+                                    color: SecondaryColor,
+                                    borderRadius: BorderRadius.all(Radius.circular(10.0),),),
+                                child: CupertinoDateTextBox(
+                                  initialValue: _selectedDateTime,
+                                  onDateChange: onBirthdayChange,
+                                  hintText: _selectedDateTime.toString(),
+                                ),
+                              ),
                               SizedBox(
                                 height: 20,
                               ),
@@ -176,13 +183,13 @@ class _TaxDesktopState extends State<TaxDesktop> {
                               SizedBox(
                                 height: 20,
                               ),
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.34, 60.0, setValue),
+                              textField(
+                                  _textController, width * 0.34, 60.0, true),
                               SizedBox(
                                 height: 20,
                               ),
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.34, 60.0, setValue),
+                              textField(
+                                  _textController, width * 0.34, 60.0, true),
                             ],
                           ),
                         ],
