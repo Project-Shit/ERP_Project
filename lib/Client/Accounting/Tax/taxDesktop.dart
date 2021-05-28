@@ -147,11 +147,16 @@ class _TaxDesktopState extends State<TaxDesktop> {
                               Container(
                                 width: width * 0.34,
                                 height: 60.0,
-                                decoration: BoxDecoration(
-                                  color: SecondaryColor,
-                                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-                                ),
                                 child: TextFormField(
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0),
+                                      ),
+                                    ),
+                                    filled: true,
+                                    fillColor: SecondaryColor,
+                                  ),
                                   readOnly: true,
                                   controller: _dateController,
                                   onTap: () async {
@@ -159,7 +164,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
                                         context: context,
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime(1900),
-                                        lastDate: DateTime(2100));
+                                        lastDate: DateTime(2100),);
                                     _dateController.text =
                                         date.toString().substring(0, 10);
                                   },
