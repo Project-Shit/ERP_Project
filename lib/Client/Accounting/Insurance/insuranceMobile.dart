@@ -13,7 +13,6 @@ class _InsuranceMobileState extends State<InsuranceMobile> {
 
   List<String> _locations = [];
   String _selectedLocation;
-  bool password = true;
   final _textController = TextEditingController();
 
   void setValue() {
