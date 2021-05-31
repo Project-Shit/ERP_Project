@@ -11,7 +11,6 @@ class ExpensesMobile extends StatefulWidget {
 
 class _ExpensesMobileState extends State<ExpensesMobile> {
 
-  bool password = true;
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
 
