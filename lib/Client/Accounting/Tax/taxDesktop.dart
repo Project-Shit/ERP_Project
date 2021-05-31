@@ -11,7 +11,6 @@ class TaxDesktop extends StatefulWidget {
 class _TaxDesktopState extends State<TaxDesktop> {
   List<String> _locations = [];
   String _selectedLocation;
-  bool password = true;
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
 
