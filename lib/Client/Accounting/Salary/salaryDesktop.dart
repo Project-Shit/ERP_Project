@@ -11,7 +11,6 @@ class SalaryDesktop extends StatefulWidget {
 class _SalaryDesktopState extends State<SalaryDesktop> {
   List<String> _locations = [];
   String _selectedLocation;
-  bool password = true;
   final _textController = TextEditingController();
 
   void setValue() {
