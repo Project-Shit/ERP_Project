@@ -9,18 +9,9 @@ class ExpensesDesktop extends StatefulWidget {
 }
 
 class _ExpensesDesktopState extends State<ExpensesDesktop> {
-  List<String> _locations = [];
-  String _selectedLocation;
   bool password = true;
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
-
-  void setValue() {
-    String value = '';
-    setState(() {
-      _selectedLocation = value;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
