@@ -80,11 +80,6 @@ class _SalaryMobileState extends State<SalaryMobile> {
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Total Profit'),
-                  textField(_textController, width, 45.0, false),
-                  SizedBox(
-                    height: 20,
-                  ),
                   labelText('Department'),
                   textField(_textController, width, 45.0, false),
                   SizedBox(
