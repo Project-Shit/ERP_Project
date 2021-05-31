@@ -11,7 +11,6 @@ class SalaryMobile extends StatefulWidget {
 class _SalaryMobileState extends State<SalaryMobile> {
   List<String> _locations = [];
   String _selectedLocation;
-  bool password = true;
   final _textController = TextEditingController();
 
   void setValue() {
