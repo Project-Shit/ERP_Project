@@ -9,7 +9,6 @@ class ExpensesDesktop extends StatefulWidget {
 }
 
 class _ExpensesDesktopState extends State<ExpensesDesktop> {
-  bool password = true;
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
 
