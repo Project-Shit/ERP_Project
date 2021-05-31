@@ -13,7 +13,6 @@ class _InsuranceDesktopState extends State<InsuranceDesktop> {
 
   List<String> _locations = [];
   String _selectedLocation;
-  bool password = true;
   final _textController = TextEditingController();
 
   void setValue() {
