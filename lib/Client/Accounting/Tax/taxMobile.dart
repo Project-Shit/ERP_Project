@@ -11,7 +11,6 @@ class TaxMobile extends StatefulWidget {
 class _TaxMobileState extends State<TaxMobile> {
   List<String> _locations = [];
   String _selectedLocation;
-  bool password = true;
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
 
