@@ -24,8 +24,8 @@ class _ProductDesktopState extends State<ProductDesktop> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-            top: 40,
-            bottom: 40,
+            top: 30,
+            bottom: 30,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -39,20 +39,20 @@ class _ProductDesktopState extends State<ProductDesktop> {
                       color: TextColor,
                       width: 2,
                     )),
-                width: width * 0.75,
-                height: 770,
+                width: width * 0.7,
+                height: 540,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: 100,
-                    right: 100,
-                    top: 60,
-                    bottom: 60,
+                    left: 70,
+                    right: 70,
+                    top: 30,
+                    bottom: 30,
                   ),
                   child: Column(
                     children: [
                       Container(
                         width: width,
-                        height: 45.0,
+                        height: 40.0,
                         child: TextFormField(
                           style: TextStyle(
                             color: TextColor,
@@ -90,7 +90,7 @@ class _ProductDesktopState extends State<ProductDesktop> {
                         ),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,54 +103,54 @@ class _ProductDesktopState extends State<ProductDesktop> {
                               ),
                               labelText('Item ID'),
                               SizedBox(
-                                height: 40,
+                                height: 25,
                               ),
                               labelText('Item Name'),
                               SizedBox(
-                                height: 40,
+                                height: 25,
                               ),
                               labelText('Wholesale Price'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Price of Peace'),
                               SizedBox(
-                                height: 35,
+                                height: 30,
                               ),
                               labelText('Price of Sale'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Profit'),
                             ],
                           ),
                           SizedBox(
-                            width: width * 0.03,
+                            width: width * 0.04,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              textField(_textController, width * 0.4, 60.0, true),
+                              textField(_textController, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_textController, width * 0.4, 60.0, true),
+                              textField(_textController, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_textController, width * 0.4, 60.0, true),
+                              textField(_textController, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_textController, width * 0.4, 60.0, true),
+                              textField(_textController, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_textController, width * 0.4, 60.0, true),
+                              textField(_textController, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_textController, width * 0.4, 60.0, true),
+                              textField(_textController, width * 0.46, 40.0, true),
                             ],
                           ),
                         ],
