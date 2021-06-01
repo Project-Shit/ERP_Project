@@ -39,8 +39,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-            top: 40,
-            bottom: 40,
+            top: 30,
+            bottom: 30,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -54,8 +54,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
                       color: TextColor,
                       width: 2,
                     )),
-                width: width * 0.62,
-                height: 900,
+                width: width * 0.7,
+                height: 620,
                 child: Padding(
                   padding: EdgeInsets.only(
                     left: 70,
@@ -66,7 +66,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        width: width * 0.5,
+                        width: width,
+                        height: 40,
                         child: TextFormField(
                           style: TextStyle(
                             color: TextColor,
@@ -104,7 +105,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                         ),
                       ),
                       SizedBox(
-                        height: 60,
+                        height: 30,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -114,31 +115,31 @@ class _UsersDesktopState extends State<UsersDesktop> {
                             children: [
                               labelText('ID'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Name'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Phone'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Email'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Password'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Address'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Department'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('User Type'),
                             ],
@@ -150,42 +151,42 @@ class _UsersDesktopState extends State<UsersDesktop> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               dropList(_locations, _selectedLocation,
-                                  width * 0.34, 60.0, setValue),
+                                  width * 0.49, 40.0, setValue),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.34, 60.0, true),
+                                  _textController, width * 0.49, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.34, 60.0, true),
+                                  _textController, width * 0.49, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.34, 60.0, true),
+                                  _textController, width * 0.49, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
-                              passwordField(width * 0.34, 60.0, password, true,
+                              passwordField(width * 0.49, 40.0, password, true,
                                   hidePassword),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.34, 60.0, true),
+                                  _textController, width * 0.49, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               dropList(_locations, _selectedLocation,
-                                  width * 0.34, 60.0, setValue),
+                                  width * 0.49, 40, setValue),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               dropList(_locations, _selectedLocation,
-                                  width * 0.34, 60.0, setValue),
+                                  width * 0.49, 40.0, setValue),
                             ],
                           ),
                         ],
