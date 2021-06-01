@@ -22,8 +22,8 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-            top: 40,
-            bottom: 40,
+            top: 30,
+            bottom: 30,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -37,12 +37,12 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                       color: TextColor,
                       width: 2,
                     )),
-                width: width * 0.75,
-                height: 800,
+                width: width * 0.7,
+                height: 520,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: 100,
-                    right: 100,
+                    left: 70,
+                    right: 70,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -50,6 +50,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                     children: [
                       Container(
                         width: width,
+                        height: 40,
                         child: TextFormField(
                           style: TextStyle(
                             color: TextColor,
@@ -87,7 +88,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                         ),
                       ),
                       SizedBox(
-                        height: 60,
+                        height: 30,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -97,23 +98,23 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                             children: [
                               labelText('Date'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Total Balance'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Total Expenses'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Total Salary'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Total Profit'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Total Tax'),
                             ],
@@ -125,8 +126,8 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Container(
-                                width: width * 0.42,
-                                height: 60.0,
+                                width: width * 0.469,
+                                height: 40.0,
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
@@ -152,30 +153,30 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                 ),
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.42, 60.0, true),
+                                  _textController, width * 0.469, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.42, 60.0, true),
+                                  _textController, width * 0.469, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.42, 60.0, true),
+                                  _textController, width * 0.469, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.42, 60.0, true),
+                                  _textController, width * 0.469, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.42, 60.0, true),
+                                  _textController, width * 0.469, 40.0, true),
                             ],
                           ),
                         ],
