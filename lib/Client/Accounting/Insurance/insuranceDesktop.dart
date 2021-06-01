@@ -33,8 +33,8 @@ class _InsuranceDesktopState extends State<InsuranceDesktop> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-            top: 40,
-            bottom: 40,
+            top: 30,
+            bottom: 30,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -48,14 +48,14 @@ class _InsuranceDesktopState extends State<InsuranceDesktop> {
                       color: TextColor,
                       width: 2,
                     )),
-                width: width * 0.75,
-                height: 1000,
+                width: width * 0.7,
+                height: 690,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: 100,
-                    right: 100,
-                    top: 60,
-                    bottom: 60,
+                    left: 70,
+                    right: 70,
+                    top: 30,
+                    bottom: 30,
                   ),
                   child: Column(
                     children: [
@@ -66,100 +66,100 @@ class _InsuranceDesktopState extends State<InsuranceDesktop> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                height: 15,
+                                height: 5,
                               ),
                               labelText('Employee ID'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Employee Name'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('SSIN'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Social Number'),
                               SizedBox(
-                                height: 35,
+                                height: 30,
                               ),
                               labelText('Balance'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Monthly Payment'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Expenses'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Insurance Type'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Insurance Plane'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Hospital Name'),
                             ],
                           ),
                           SizedBox(
-                            width: width * 0.03,
+                            width: width * 0.04,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               dropList(_locations, _selectedLocation,
-                                  width * 0.4, 60.0, setValue),
+                                  width * 0.45, 40.0, setValue),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               dropList(_locations, _selectedLocation,
-                                  width * 0.4, 60.0, setValue),
+                                  width * 0.45, 40.0, setValue),
                               SizedBox(
                                 height: 15,
                               ),
                               dropList(_locations, _selectedLocation,
-                                  width * 0.4, 60.0, setValue),
+                                  width * 0.45, 40.0, setValue),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                             ],
                           ),
                         ],
