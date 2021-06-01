@@ -23,8 +23,8 @@ class _ExpensesDesktopState extends State<ExpensesDesktop> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-            top: 40,
-            bottom: 40,
+            top: 30,
+            bottom: 30,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -38,12 +38,12 @@ class _ExpensesDesktopState extends State<ExpensesDesktop> {
                       color: TextColor,
                       width: 2,
                     )),
-                width: width * 0.75,
-                height: 900,
+                width: width * 0.7,
+                height: 520,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: 100,
-                    right: 100,
+                    left: 70,
+                    right: 70,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -51,6 +51,7 @@ class _ExpensesDesktopState extends State<ExpensesDesktop> {
                     children: [
                       Container(
                         width: width,
+                        height: 40,
                         child: TextFormField(
                           style: TextStyle(
                             color: TextColor,
@@ -88,7 +89,7 @@ class _ExpensesDesktopState extends State<ExpensesDesktop> {
                         ),
                       ),
                       SizedBox(
-                        height: 60,
+                        height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -98,23 +99,23 @@ class _ExpensesDesktopState extends State<ExpensesDesktop> {
                             children: [
                               labelText('Date'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Total Income'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Expenses'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Equipment\'s Cost'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Repairing Cost'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Total Net Profit'),
                             ],
@@ -126,8 +127,8 @@ class _ExpensesDesktopState extends State<ExpensesDesktop> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Container(
-                                width: width * 0.42,
-                                height: 60.0,
+                                width: width * 0.45,
+                                height: 40.0,
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
@@ -153,30 +154,30 @@ class _ExpensesDesktopState extends State<ExpensesDesktop> {
                                 ),
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.42, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.42, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.42, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.42, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.42, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                             ],
                           ),
                         ],
