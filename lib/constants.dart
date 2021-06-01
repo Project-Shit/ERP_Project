@@ -46,8 +46,8 @@ Widget labelButton(String title, VoidCallback onTap) {
 
 Widget actionButtons(String title, VoidCallback onTap, Color color) {
   return Container(
-    width: 400,
-    height: 70,
+    width: 300,
+    height: 50,
     // ignore: deprecated_member_use
     child: RaisedButton(
       color: color,
@@ -65,7 +65,7 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
       child: Text(
         title,
         style: TextStyle(
-          fontSize: 30,
+          fontSize: 22,
           color: TextColor,
         ),
       ),
@@ -172,7 +172,7 @@ Widget labelText(String title) {
     title,
     style: TextStyle(
       color: TextColor,
-      fontSize: 30,
+      fontSize: 22,
     ),
   );
 }
