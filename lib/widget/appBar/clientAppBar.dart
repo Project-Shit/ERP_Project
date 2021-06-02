@@ -1,3 +1,4 @@
+import 'package:erp/Client/Application/application.dart';
 import 'package:flutter/material.dart';
 import 'package:erp/constants.dart';
 
@@ -27,7 +28,12 @@ class ClientAppBar extends StatelessWidget {
             ),
             appButton(
               'Home',
-              () {},
+              () {Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Application(),
+                ),
+              );},
             ),
             SizedBox(
               width: 20,
