@@ -176,3 +176,33 @@ Widget labelText(String title) {
     ),
   );
 }
+
+Widget applicationCard(String title,double width, double height, VoidCallback onTap) {
+  return InkWell(
+    child: Container(
+      padding: EdgeInsets.only(
+        top: 30,
+        bottom: 30,
+      ),
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(
+          width: 3,
+          color: SecondaryColor,
+        ),
+      ),
+      child: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 30,
+        ),
+      ),
+    ),
+    onTap: onTap,
+    hoverColor: HoverColor,
+    borderRadius: BorderRadius.circular(10.0),
+  );
+}
