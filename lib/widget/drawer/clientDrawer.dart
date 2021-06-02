@@ -1,3 +1,5 @@
+// @dart=2.9
+import 'package:erp/Client/Application/application.dart';
 import 'package:erp/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +38,14 @@ class ClientDrawer extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Application(),
+                    ),
+                  );
+                },
               ),
             ),
             ListTileTheme(
