@@ -4,13 +4,11 @@ import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
 
 class SubscriptionDesktop extends StatefulWidget {
-
   @override
   _SubscriptionDesktopState createState() => _SubscriptionDesktopState();
 }
 
 class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
-
   List<String> _locations = [];
   String _selectedLocation;
   final _textController = TextEditingController();
@@ -108,8 +106,7 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                           SizedBox(
                             width: width * 0.07,
                           ),
-                          textField(
-                              _textController, width * 0.24, 40.0, true),
+                          textField(_textController, width * 0.24, 40.0, true),
                         ],
                       ),
                       SizedBox(
@@ -123,7 +120,8 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       labelText('Client Name'),
                                       SizedBox(
@@ -148,15 +146,16 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                     width: width * 0.01,
                                   ),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      textField(
-                                          _textController, width * 0.24, 40.0, true),
+                                      textField(_textController, width * 0.24,
+                                          40.0, true),
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      textField(
-                                          _textController, width * 0.24, 40.0, true),
+                                      textField(_textController, width * 0.24,
+                                          40.0, true),
                                       SizedBox(
                                         height: 15,
                                       ),
@@ -192,8 +191,9 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                               firstDate: DateTime(1900),
                                               lastDate: DateTime(2100),
                                             );
-                                            _dateController.text =
-                                                date.toString().substring(0, 10);
+                                            _dateController.text = date
+                                                .toString()
+                                                .substring(0, 10);
                                           },
                                         ),
                                       ),
@@ -212,7 +212,8 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       labelText('Client Phone'),
                                       SizedBox(
@@ -237,20 +238,21 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                     width: width * 0.01,
                                   ),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      textField(
-                                          _textController, width * 0.24, 40.0, true),
+                                      textField(_textController, width * 0.24,
+                                          40.0, true),
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      textField(
-                                          _textController, width * 0.24, 40.0, true),
+                                      textField(_textController, width * 0.24,
+                                          40.0, true),
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      textField(
-                                          _textController, width * 0.24, 40.0, true),
+                                      textField(_textController, width * 0.24,
+                                          40.0, true),
                                       SizedBox(
                                         height: 15,
                                       ),
@@ -281,8 +283,9 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                               firstDate: DateTime(1900),
                                               lastDate: DateTime(2100),
                                             );
-                                            _dateController.text =
-                                                date.toString().substring(0, 10);
+                                            _dateController.text = date
+                                                .toString()
+                                                .substring(0, 10);
                                           },
                                         ),
                                       ),
@@ -306,7 +309,8 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                               SizedBox(
                                 height: 30,
                               ),
-                              actionButtons('Delete Client', () {}, Colors.red.shade900),
+                              actionButtons(
+                                  'Delete Client', () {}, Colors.red.shade900),
                             ],
                           ),
                           SizedBox(
@@ -314,7 +318,8 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                           ),
                           Column(
                             children: [
-                              actionButtons('Update Client', () {}, Colors.blue),
+                              actionButtons(
+                                  'Update Client', () {}, Colors.blue),
                               SizedBox(
                                 height: 30,
                               ),
