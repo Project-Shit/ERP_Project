@@ -10,7 +10,7 @@ Color TextColor = Color(0xFF1D1D1D);
 // ignore: non_constant_identifier_names
 Color HoverColor = Color(0xFF00B9FF);
 
-// Custom Button
+// Custom AppBar Buttons
 Widget appButton(String title, VoidCallback onTap) {
   // ignore: deprecated_member_use
   return FlatButton(
@@ -27,6 +27,7 @@ Widget appButton(String title, VoidCallback onTap) {
   );
 }
 
+// Custom Flat Button for Home Page
 Widget labelButton(String title, VoidCallback onTap) {
   // ignore: deprecated_member_use
   return FlatButton(
@@ -44,6 +45,7 @@ Widget labelButton(String title, VoidCallback onTap) {
   );
 }
 
+// Custom Button for all pages to act on database
 Widget actionButtons(String title, VoidCallback onTap, Color color) {
   return Container(
     width: 300,
@@ -74,6 +76,7 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
   );
 }
 
+// Custom Text Field
 Widget textField(
     TextEditingController text, double width, double height, bool status) {
   return Container(
@@ -95,6 +98,7 @@ Widget textField(
   );
 }
 
+// Custom Drop Down List
 Widget dropList(List<String> list, String selected, double width, double height,
     VoidCallback change) {
   return Container(
@@ -122,6 +126,7 @@ Widget dropList(List<String> list, String selected, double width, double height,
   );
 }
 
+// Custom Password Field
 Widget passwordField(double width, double height, bool password, bool status,
     VoidCallback onTap) {
   return Container(
@@ -167,6 +172,7 @@ Widget passwordField(double width, double height, bool password, bool status,
   );
 }
 
+// Custom Label with Text
 Widget labelText(String title) {
   return Text(
     title,
@@ -177,7 +183,9 @@ Widget labelText(String title) {
   );
 }
 
-Widget applicationCard(String title,double width, double height, VoidCallback onTap) {
+// Custom Card for Home Page
+Widget applicationCard(
+    String title, double width, double height, VoidCallback onTap) {
   return InkWell(
     child: Container(
       padding: EdgeInsets.only(
