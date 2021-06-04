@@ -43,7 +43,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                       50.0,
                     ),
                     border: Border.all(
-                      color: TextColor,
+                      color: textColor,
                       width: 2,
                     )),
                 width: width * 0.7,
