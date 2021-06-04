@@ -11,30 +11,37 @@ import 'package:erp/constants.dart';
 import 'package:erp/widget/drawer/clientDrawer.dart';
 import 'package:flutter/material.dart';
 
+// home page for the client's system
 class ApplicationMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: PrimaryColor,
+      // calling the client's custom AppBar
+      backgroundColor: primaryColor,
       appBar: PreferredSize(
         preferredSize: Size(width, 60),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: TextColor,
+            color: textColor,
           ),
-          backgroundColor: PrimaryColor,
+          backgroundColor: primaryColor,
           title: Text(
             'Company Name',
             style: TextStyle(
-              color: TextColor,
+              color: textColor,
               fontSize: 25,
             ),
           ),
           centerTitle: true,
         ),
       ),
+
+      // calling the client's custom Drawer
       drawer: ClientDrawer(),
+
+      // implementing th body with scroll View
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -43,6 +50,12 @@ class ApplicationMobile extends StatelessWidget {
             left: 40,
             right: 40,
           ),
+
+          /* implementing a column widget to contain all widget inside of it,
+          *  which include a custom card widget for each application in
+          *  the client's system, and passing the parameters for each
+          * card => title, width, height and the onTap action, with sizedBox
+          * between each widget to give it a good looking view. */
           child: Column(
             children: [
               applicationCard(
@@ -65,7 +78,7 @@ class ApplicationMobile extends StatelessWidget {
                 'Company',
                 width,
                 100,
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -81,7 +94,7 @@ class ApplicationMobile extends StatelessWidget {
                 'Expenses',
                 width,
                 100,
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -97,7 +110,7 @@ class ApplicationMobile extends StatelessWidget {
                 'Insurance',
                 width,
                 100,
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -113,7 +126,7 @@ class ApplicationMobile extends StatelessWidget {
                 'Product',
                 width,
                 100,
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -129,7 +142,7 @@ class ApplicationMobile extends StatelessWidget {
                 'Salary',
                 width,
                 100,
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -145,7 +158,7 @@ class ApplicationMobile extends StatelessWidget {
                 'Subscription',
                 width,
                 100,
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -161,7 +174,7 @@ class ApplicationMobile extends StatelessWidget {
                 'Tax',
                 width,
                 100,
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
