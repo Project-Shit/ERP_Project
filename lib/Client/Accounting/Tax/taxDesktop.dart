@@ -44,7 +44,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
                       50.0,
                     ),
                     border: Border.all(
-                      color: TextColor,
+                      color: textColor,
                       width: 2,
                     )),
                 width: width * 0.7,
@@ -63,7 +63,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
                         height: 40,
                         child: TextFormField(
                           style: TextStyle(
-                            color: TextColor,
+                            color: textColor,
                           ),
                           decoration: InputDecoration(
                             suffixIcon: Padding(
@@ -75,7 +75,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
                                 onPressed: () {},
                               ),
                             ),
-                            fillColor: SecondaryColor,
+                            fillColor: secondaryColor,
                             filled: true,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -155,7 +155,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
                                       ),
                                     ),
                                     filled: true,
-                                    fillColor: SecondaryColor,
+                                    fillColor: secondaryColor,
                                   ),
                                   readOnly: true,
                                   controller: _dateController,
