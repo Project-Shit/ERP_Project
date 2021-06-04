@@ -44,7 +44,7 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                       50.0,
                     ),
                     border: Border.all(
-                      color: TextColor,
+                      color: textColor,
                       width: 2,
                     )),
                 width: width * 0.86,
@@ -65,7 +65,7 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                             height: 40,
                             child: TextFormField(
                               style: TextStyle(
-                                color: TextColor,
+                                color: textColor,
                               ),
                               decoration: InputDecoration(
                                 suffixIcon: Padding(
@@ -77,7 +77,7 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                     onPressed: () {},
                                   ),
                                 ),
-                                fillColor: SecondaryColor,
+                                fillColor: secondaryColor,
                                 filled: true,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
@@ -180,7 +180,7 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                               ),
                                             ),
                                             filled: true,
-                                            fillColor: SecondaryColor,
+                                            fillColor: secondaryColor,
                                           ),
                                           readOnly: true,
                                           controller: _dateController,
@@ -272,7 +272,7 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                               ),
                                             ),
                                             filled: true,
-                                            fillColor: SecondaryColor,
+                                            fillColor: secondaryColor,
                                           ),
                                           readOnly: true,
                                           controller: _dateController,
