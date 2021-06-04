@@ -16,7 +16,7 @@ class _ProductDesktopState extends State<ProductDesktop> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: PrimaryColor,
+      backgroundColor: primaryColor,
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
         child: ClientAppBar(),
@@ -36,7 +36,7 @@ class _ProductDesktopState extends State<ProductDesktop> {
                       50.0,
                     ),
                     border: Border.all(
-                      color: TextColor,
+                      color: textColor,
                       width: 2,
                     )),
                 width: width * 0.7,
@@ -55,7 +55,7 @@ class _ProductDesktopState extends State<ProductDesktop> {
                         height: 40.0,
                         child: TextFormField(
                           style: TextStyle(
-                            color: TextColor,
+                            color: textColor,
                           ),
                           decoration: InputDecoration(
                             suffixIcon: Padding(
@@ -67,7 +67,7 @@ class _ProductDesktopState extends State<ProductDesktop> {
                                 onPressed: () {},
                               ),
                             ),
-                            fillColor: SecondaryColor,
+                            fillColor: secondaryColor,
                             filled: true,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
