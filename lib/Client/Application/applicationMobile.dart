@@ -18,7 +18,7 @@ class ApplicationMobile extends StatelessWidget {
     // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      // calling the client's custom AppBar
+      // implementing the client's AppBar
       backgroundColor: primaryColor,
       appBar: PreferredSize(
         preferredSize: Size(width, 60),
@@ -37,10 +37,8 @@ class ApplicationMobile extends StatelessWidget {
           centerTitle: true,
         ),
       ),
-
       // calling the client's custom Drawer
       drawer: ClientDrawer(),
-
       // implementing th body with scroll View
       body: SingleChildScrollView(
         child: Padding(
