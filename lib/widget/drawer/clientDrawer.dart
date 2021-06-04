@@ -3,13 +3,13 @@ import 'package:erp/Client/Application/application.dart';
 import 'package:erp/constants.dart';
 import 'package:flutter/material.dart';
 
-// custom Drawer for Client System
+// custom Drawer Widget for the Client System
 class ClientDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: PrimaryColor,
+        color: primaryColor,
         child: Column(
           children: <Widget>[
             DrawerHeader(
@@ -18,7 +18,7 @@ class ClientDrawer extends StatelessWidget {
                 'Company Name',
                 style: TextStyle(
                   fontSize: 30,
-                  color: TextColor,
+                  color: textColor,
                 ),
               )),
               decoration: BoxDecoration(
@@ -29,12 +29,12 @@ class ClientDrawer extends StatelessWidget {
               child: ListTile(
                 leading: Icon(
                   Icons.home,
-                  color: TextColor,
+                  color: textColor,
                 ),
                 title: Text(
                   'Home',
                   style: TextStyle(
-                    color: TextColor,
+                    color: textColor,
                     fontSize: 20,
                   ),
                 ),
@@ -52,12 +52,12 @@ class ClientDrawer extends StatelessWidget {
               child: ListTile(
                 leading: Icon(
                   Icons.account_circle_outlined,
-                  color: TextColor,
+                  color: textColor,
                 ),
                 title: Text(
                   'User Name',
                   style: TextStyle(
-                    color: TextColor,
+                    color: textColor,
                     fontSize: 20,
                   ),
                 ),
@@ -68,12 +68,12 @@ class ClientDrawer extends StatelessWidget {
               child: ListTile(
                 leading: Icon(
                   Icons.input_sharp,
-                  color: TextColor,
+                  color: textColor,
                 ),
                 title: Text(
                   'Log Out',
                   style: TextStyle(
-                    color: TextColor,
+                    color: textColor,
                     fontSize: 20,
                   ),
                 ),
