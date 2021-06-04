@@ -4,23 +4,27 @@ import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
 
 class ProductDesktop extends StatefulWidget {
-
   @override
   _ProductDesktopState createState() => _ProductDesktopState();
 }
 
+// products accounting page for the client's system
 class _ProductDesktopState extends State<ProductDesktop> {
+  // objects implementation
   final _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: primaryColor,
+      // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
         child: ClientAppBar(),
       ),
+      // implementing th body with scroll View and row widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
@@ -30,15 +34,17 @@ class _ProductDesktopState extends State<ProductDesktop> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // implementing a container to make the outline border design
               Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      50.0,
-                    ),
-                    border: Border.all(
-                      color: textColor,
-                      width: 2,
-                    )),
+                  borderRadius: BorderRadius.circular(
+                    50.0,
+                  ),
+                  border: Border.all(
+                    color: textColor,
+                    width: 2,
+                  ),
+                ),
                 width: width * 0.7,
                 height: 540,
                 child: Padding(
@@ -48,8 +54,10 @@ class _ProductDesktopState extends State<ProductDesktop> {
                     top: 30,
                     bottom: 30,
                   ),
+                  // implementing a column widget to align the rest of the widget
                   child: Column(
                     children: [
+                      // implementing a container to implement a search box
                       Container(
                         width: width,
                         height: 40.0,
@@ -95,6 +103,7 @@ class _ProductDesktopState extends State<ProductDesktop> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // implementing a column to call custom label widget with sizedBox between them
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -127,30 +136,37 @@ class _ProductDesktopState extends State<ProductDesktop> {
                           SizedBox(
                             width: width * 0.04,
                           ),
+                          // implementing a column to call custom text field with sizedBox between them.
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              textField(_textController, width * 0.46, 40.0, true),
+                              textField(
+                                  _textController, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_textController, width * 0.46, 40.0, true),
+                              textField(
+                                  _textController, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_textController, width * 0.46, 40.0, true),
+                              textField(
+                                  _textController, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_textController, width * 0.46, 40.0, true),
+                              textField(
+                                  _textController, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_textController, width * 0.46, 40.0, true),
+                              textField(
+                                  _textController, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_textController, width * 0.46, 40.0, true),
+                              textField(
+                                  _textController, width * 0.46, 40.0, true),
                             ],
                           ),
                         ],
@@ -158,6 +174,7 @@ class _ProductDesktopState extends State<ProductDesktop> {
                       SizedBox(
                         height: 40,
                       ),
+                      // implementing a row widget to call custom buttons and align them.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
