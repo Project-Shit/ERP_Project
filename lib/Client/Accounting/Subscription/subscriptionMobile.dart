@@ -16,18 +16,18 @@ class _SubscriptionMobileState extends State<SubscriptionMobile> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: PrimaryColor,
+      backgroundColor: primaryColor,
       appBar: PreferredSize(
         preferredSize: Size(width, 60),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: TextColor,
+            color: textColor,
           ),
-          backgroundColor: PrimaryColor,
+          backgroundColor: primaryColor,
           title: Text(
             'Company Name',
             style: TextStyle(
-              color: TextColor,
+              color: textColor,
               fontSize: 25,
             ),
           ),
@@ -45,7 +45,7 @@ class _SubscriptionMobileState extends State<SubscriptionMobile> {
                 50.0,
               ),
               border: Border.all(
-                color: TextColor,
+                color: textColor,
                 width: 2,
               ),
             ),
@@ -72,7 +72,7 @@ class _SubscriptionMobileState extends State<SubscriptionMobile> {
                           ),
                         ),
                         filled: true,
-                        fillColor: SecondaryColor,
+                        fillColor: secondaryColor,
                       ),
                       readOnly: true,
                       controller: _dateController,
@@ -96,7 +96,7 @@ class _SubscriptionMobileState extends State<SubscriptionMobile> {
                     height: 45,
                     child: TextFormField(
                       style: TextStyle(
-                        color: TextColor,
+                        color: textColor,
                       ),
                       decoration: InputDecoration(
                         suffixIcon: Padding(
@@ -108,7 +108,7 @@ class _SubscriptionMobileState extends State<SubscriptionMobile> {
                             onPressed: () {},
                           ),
                         ),
-                        fillColor: SecondaryColor,
+                        fillColor: secondaryColor,
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
