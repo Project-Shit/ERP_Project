@@ -8,14 +8,18 @@ class ProductMobile extends StatefulWidget {
   _ProductMobileState createState() => _ProductMobileState();
 }
 
+// viewing all products records page for the client's system by search
 class _ProductMobileState extends State<ProductMobile> {
+  // objects implementation
   final _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: primaryColor,
+      // implementing the client's AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 60),
         child: AppBar(
@@ -33,7 +37,9 @@ class _ProductMobileState extends State<ProductMobile> {
           centerTitle: true,
         ),
       ),
+      // calling the client's custom Drawer
       drawer: ClientDrawer(),
+      // implementing th body with scroll View and container widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),
@@ -55,6 +61,8 @@ class _ProductMobileState extends State<ProductMobile> {
                 left: 20,
                 right: 20,
               ),
+              // implementing a column widget to add custom widgets labels, text field,
+              // search box and sizedBox between them.
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
