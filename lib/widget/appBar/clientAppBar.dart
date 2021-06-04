@@ -3,6 +3,7 @@ import 'package:erp/Client/Application/application.dart';
 import 'package:flutter/material.dart';
 import 'package:erp/constants.dart';
 
+// Custom AppBar for the client's system
 class ClientAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,8 +12,6 @@ class ClientAppBar extends StatelessWidget {
         padding: EdgeInsets.only(
           left: 90,
           right: 90,
-          top: 0,
-          bottom: 0,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -21,7 +20,7 @@ class ClientAppBar extends StatelessWidget {
               'Company Name',
               style: TextStyle(
                 fontSize: 30,
-                color: TextColor,
+                color: textColor,
               ),
             ),
             Spacer(
