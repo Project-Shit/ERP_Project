@@ -9,18 +9,22 @@ class UsersDesktop extends StatefulWidget {
   _UsersDesktopState createState() => _UsersDesktopState();
 }
 
+// adding user page for the client's system
 class _UsersDesktopState extends State<UsersDesktop> {
+  // objects implementation
   List<String> _locations = [];
   String _selectedLocation;
   bool password = true;
   final _textController = TextEditingController();
 
+  // function to change password field text's visibility
   void hidePassword() {
     setState(() {
       password = !password;
     });
   }
 
+  // function to change the value in the drop down list to the selected value
   void setValue() {
     String value = '';
     setState(() {
@@ -30,12 +34,15 @@ class _UsersDesktopState extends State<UsersDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
         child: ClientAppBar(),
       ),
+      // implementing th body with scroll View and row widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
@@ -45,6 +52,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // implementing a container to make the outline border design
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
@@ -61,10 +69,12 @@ class _UsersDesktopState extends State<UsersDesktop> {
                     left: 70,
                     right: 70,
                   ),
+                  // implementing a column widget to align the rest of the widget
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // implementing a container to implement a search box
                       Container(
                         width: width,
                         height: 40,
@@ -110,6 +120,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          // implementing a column to call custom label widget with sizedBox between them
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -147,6 +158,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
                           SizedBox(
                             width: width * 0.04,
                           ),
+                          // implementing a column to call custom drop down list, text field and
+                          // password field widget with sizedBox between them.
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -194,6 +207,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                       SizedBox(
                         height: 40,
                       ),
+                      // implementing a row widget to call custom buttons and align them.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
