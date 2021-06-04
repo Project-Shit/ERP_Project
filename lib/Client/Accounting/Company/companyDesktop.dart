@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
@@ -7,18 +8,23 @@ class CompanyDesktop extends StatefulWidget {
   _CompanyDesktopState createState() => _CompanyDesktopState();
 }
 
+// company accounting page for the client's system
 class _CompanyDesktopState extends State<CompanyDesktop> {
+  // objects implementation
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
         child: ClientAppBar(),
       ),
+      // implementing th body with scroll View and row widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
@@ -28,6 +34,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // implementing a container to make the outline border design
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
@@ -44,10 +51,12 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                     left: 70,
                     right: 70,
                   ),
+                  // implementing a column widget to align the rest of the widget
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // implementing a container to implement a search box
                       Container(
                         width: width,
                         height: 40,
@@ -93,6 +102,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          // implementing a column to call custom label widget with sizedBox between them
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -122,6 +132,8 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                           SizedBox(
                             width: width * 0.04,
                           ),
+                          // implementing a column to call custom text field
+                          // and date picker with sizedBox between them.
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -184,6 +196,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                       SizedBox(
                         height: 40,
                       ),
+                      // implementing a row widget to call custom buttons and align them.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
