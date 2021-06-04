@@ -8,11 +8,14 @@ class SalaryMobile extends StatefulWidget {
   _SalaryMobileState createState() => _SalaryMobileState();
 }
 
+// viewing all salary records page for the client's system by search
 class _SalaryMobileState extends State<SalaryMobile> {
+  // objects implementation
   List<String> _locations = [];
   String _selectedLocation;
   final _textController = TextEditingController();
 
+  // function to change the value in the drop down list to the selected value
   void setValue() {
     String value = '';
     setState(() {
@@ -22,9 +25,11 @@ class _SalaryMobileState extends State<SalaryMobile> {
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: primaryColor,
+      // implementing the client's AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 60),
         child: AppBar(
@@ -42,7 +47,9 @@ class _SalaryMobileState extends State<SalaryMobile> {
           centerTitle: true,
         ),
       ),
+      // calling the client's custom Drawer
       drawer: ClientDrawer(),
+      // implementing th body with scroll View and container widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),
@@ -64,6 +71,8 @@ class _SalaryMobileState extends State<SalaryMobile> {
                 left: 20,
                 right: 20,
               ),
+              // implementing a column widget to add custom widgets labels, text field,
+              // drop down list and sizedBox between them.
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
