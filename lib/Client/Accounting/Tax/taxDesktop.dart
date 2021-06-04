@@ -8,12 +8,15 @@ class TaxDesktop extends StatefulWidget {
   _TaxDesktopState createState() => _TaxDesktopState();
 }
 
+// tax accounting page for the client's system
 class _TaxDesktopState extends State<TaxDesktop> {
+  // objects implementation
   List<String> _locations = [];
   String _selectedLocation;
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
 
+  // function to change the value in the drop down list to the selected value
   void setValue() {
     String value = '';
     setState(() {
@@ -23,12 +26,15 @@ class _TaxDesktopState extends State<TaxDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
         child: ClientAppBar(),
       ),
+      // implementing th body with scroll View and row widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
@@ -38,6 +44,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // implementing a container to make the outline border design
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
@@ -46,7 +53,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
                     border: Border.all(
                       color: textColor,
                       width: 2,
-                    )),
+                    ),),
                 width: width * 0.7,
                 height: 600,
                 child: Padding(
@@ -54,10 +61,12 @@ class _TaxDesktopState extends State<TaxDesktop> {
                     left: 70,
                     right: 70,
                   ),
+                  // implementing a column widget to align the rest of the widget
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // implementing a container to implement a search box
                       Container(
                         width: width,
                         height: 40,
@@ -103,6 +112,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          // implementing a column to call custom label widget with sizedBox between them
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -136,6 +146,8 @@ class _TaxDesktopState extends State<TaxDesktop> {
                           SizedBox(
                             width: width * 0.04,
                           ),
+                          // implementing a column to call custom drop down list, text field
+                          // and date picker with sizedBox between them.
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -203,6 +215,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
                       SizedBox(
                         height: 40,
                       ),
+                      // implementing a row widget to call custom buttons and align them.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
