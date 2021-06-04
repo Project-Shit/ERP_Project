@@ -24,18 +24,18 @@ class _SalaryMobileState extends State<SalaryMobile> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: PrimaryColor,
+      backgroundColor: primaryColor,
       appBar: PreferredSize(
         preferredSize: Size(width, 60),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: TextColor,
+            color: textColor,
           ),
-          backgroundColor: PrimaryColor,
+          backgroundColor: primaryColor,
           title: Text(
             'Company Name',
             style: TextStyle(
-              color: TextColor,
+              color: textColor,
               fontSize: 25,
             ),
           ),
@@ -53,7 +53,7 @@ class _SalaryMobileState extends State<SalaryMobile> {
                 50.0,
               ),
               border: Border.all(
-                color: TextColor,
+                color: textColor,
                 width: 2,
               ),
             ),
