@@ -1,7 +1,7 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 
-// Defining the main colors for the all system
+// implementing the main colors for the all system
 Color primaryColor = Colors.white;
 Color secondaryColor = Color(0xFF898989);
 Color textColor = Color(0xFF1D1D1D);
