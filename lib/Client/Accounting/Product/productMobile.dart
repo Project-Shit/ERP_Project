@@ -15,18 +15,18 @@ class _ProductMobileState extends State<ProductMobile> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: PrimaryColor,
+      backgroundColor: primaryColor,
       appBar: PreferredSize(
         preferredSize: Size(width, 60),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: TextColor,
+            color: textColor,
           ),
-          backgroundColor: PrimaryColor,
+          backgroundColor: primaryColor,
           title: Text(
             'Company Name',
             style: TextStyle(
-              color: TextColor,
+              color: textColor,
               fontSize: 25,
             ),
           ),
@@ -44,7 +44,7 @@ class _ProductMobileState extends State<ProductMobile> {
                 50.0,
               ),
               border: Border.all(
-                color: TextColor,
+                color: textColor,
                 width: 2,
               ),
             ),
@@ -65,7 +65,7 @@ class _ProductMobileState extends State<ProductMobile> {
                     height: 45.0,
                     child: TextFormField(
                       style: TextStyle(
-                        color: TextColor,
+                        color: textColor,
                       ),
                       decoration: InputDecoration(
                         suffixIcon: Padding(
@@ -77,7 +77,7 @@ class _ProductMobileState extends State<ProductMobile> {
                             onPressed: () {},
                           ),
                         ),
-                        fillColor: SecondaryColor,
+                        fillColor: secondaryColor,
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
