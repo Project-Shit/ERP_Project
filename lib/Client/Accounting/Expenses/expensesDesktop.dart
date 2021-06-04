@@ -35,7 +35,7 @@ class _ExpensesDesktopState extends State<ExpensesDesktop> {
                       50.0,
                     ),
                     border: Border.all(
-                      color: TextColor,
+                      color: textColor,
                       width: 2,
                     )),
                 width: width * 0.7,
@@ -54,7 +54,7 @@ class _ExpensesDesktopState extends State<ExpensesDesktop> {
                         height: 40,
                         child: TextFormField(
                           style: TextStyle(
-                            color: TextColor,
+                            color: textColor,
                           ),
                           decoration: InputDecoration(
                             suffixIcon: Padding(
@@ -66,7 +66,7 @@ class _ExpensesDesktopState extends State<ExpensesDesktop> {
                                 onPressed: () {},
                               ),
                             ),
-                            fillColor: SecondaryColor,
+                            fillColor: secondaryColor,
                             filled: true,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -137,7 +137,7 @@ class _ExpensesDesktopState extends State<ExpensesDesktop> {
                                       ),
                                     ),
                                     filled: true,
-                                    fillColor: SecondaryColor,
+                                    fillColor: secondaryColor,
                                   ),
                                   readOnly: true,
                                   controller: _dateController,
