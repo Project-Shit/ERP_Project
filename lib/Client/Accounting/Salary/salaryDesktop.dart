@@ -8,11 +8,14 @@ class SalaryDesktop extends StatefulWidget {
   _SalaryDesktopState createState() => _SalaryDesktopState();
 }
 
+// Salary accounting page for the client's system
 class _SalaryDesktopState extends State<SalaryDesktop> {
+  // objects implementation
   List<String> _locations = [];
   String _selectedLocation;
   final _textController = TextEditingController();
 
+  // function to change the value in the drop down list to the selected value
   void setValue() {
     String value = '';
     setState(() {
@@ -22,12 +25,15 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
         child: ClientAppBar(),
       ),
+      // implementing th body with scroll View and row widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
@@ -37,6 +43,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // implementing a container to make the outline border design
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
@@ -49,17 +56,15 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                 width: width * 0.7,
                 height: 700,
                 child: Padding(
-                  padding: EdgeInsets.only(
-                    left: 70,
-                    right: 70,
-                    top: 30,
-                    bottom: 30
-                  ),
+                  padding:
+                      EdgeInsets.only(left: 70, right: 70, top: 30, bottom: 30),
                   child: Column(
                     children: [
+                      // implementing a row widget to align the rest of the widget
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // implementing a column to call custom label widget with sizedBox between them
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -108,6 +113,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                           SizedBox(
                             width: width * 0.04,
                           ),
+                          // implementing a column to call custom drop down list, text field with sizedBox between them.
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -165,6 +171,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                       SizedBox(
                         height: 40,
                       ),
+                      // implementing a row widget to call custom buttons and align them.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
