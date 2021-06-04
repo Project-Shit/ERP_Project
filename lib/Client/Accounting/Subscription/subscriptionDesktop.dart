@@ -8,12 +8,15 @@ class SubscriptionDesktop extends StatefulWidget {
   _SubscriptionDesktopState createState() => _SubscriptionDesktopState();
 }
 
+// subscription accounting page for the client's system
 class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
+  // objects implementation
   List<String> _locations = [];
   String _selectedLocation;
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
 
+  // function to change the value in the drop down list to the selected value
   void setValue() {
     String value = '';
     setState(() {
@@ -23,12 +26,15 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
         child: ClientAppBar(),
       ),
+      // implementing th body with scroll View and row widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
@@ -38,6 +44,7 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // implementing a container to make the outline border design
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
@@ -54,12 +61,14 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                     left: 70,
                     right: 70,
                   ),
+                  // implementing a column widget to align the rest of the widget
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          // implementing a container to implement a search box
                           Container(
                             width: width * 0.365,
                             height: 40,
@@ -119,6 +128,7 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
+                                  // implementing a column to call custom label widget with sizedBox between them
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -145,6 +155,8 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                   SizedBox(
                                     width: width * 0.01,
                                   ),
+                                  // implementing a column to call custom drop down list, text field
+                                  // and date picker with sizedBox between them.
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -211,6 +223,7 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
+                                  // implementing a column to call custom label widget with sizedBox between them
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -237,6 +250,8 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                   SizedBox(
                                     width: width * 0.01,
                                   ),
+                                  // implementing a column to call custom drop down list, text field
+                                  // and date picker with sizedBox between them.
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -300,6 +315,7 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                       SizedBox(
                         height: 40,
                       ),
+                      // implementing a row widget to call custom buttons and align them inside two columns.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
