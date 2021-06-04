@@ -51,7 +51,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                       50.0,
                     ),
                     border: Border.all(
-                      color: TextColor,
+                      color: textColor,
                       width: 2,
                     )),
                 width: width * 0.7,
@@ -70,7 +70,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                         height: 40,
                         child: TextFormField(
                           style: TextStyle(
-                            color: TextColor,
+                            color: textColor,
                           ),
                           decoration: InputDecoration(
                             suffixIcon: Padding(
@@ -82,7 +82,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                                 onPressed: () {},
                               ),
                             ),
-                            fillColor: SecondaryColor,
+                            fillColor: secondaryColor,
                             filled: true,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
