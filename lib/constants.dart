@@ -1,14 +1,11 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 
-// Colors
-// ignore: non_constant_identifier_names
-Color PrimaryColor = Colors.white;
-// ignore: non_constant_identifier_names
-Color SecondaryColor = Color(0xFF898989);
-// ignore: non_constant_identifier_names
-Color TextColor = Color(0xFF1D1D1D);
-// ignore: non_constant_identifier_names
-Color HoverColor = Color(0xFF00B9FF);
+// Defining the main colors for the all system
+Color primaryColor = Colors.white;
+Color secondaryColor = Color(0xFF898989);
+Color textColor = Color(0xFF1D1D1D);
+Color hoverColor = Color(0xFF00B9FF);
 
 // Custom AppBar Buttons
 Widget appButton(String title, VoidCallback onTap) {
@@ -17,11 +14,11 @@ Widget appButton(String title, VoidCallback onTap) {
     child: Text(
       title,
       style: TextStyle(
-        color: TextColor,
+        color: textColor,
         fontSize: 20,
       ),
     ),
-    hoverColor: HoverColor,
+    hoverColor: hoverColor,
     onPressed: onTap,
     height: 100,
   );
@@ -34,13 +31,13 @@ Widget labelButton(String title, VoidCallback onTap) {
     child: Text(
       title,
       style: TextStyle(
-        color: TextColor,
+        color: textColor,
         fontSize: 15,
         fontWeight: FontWeight.w500,
       ),
     ),
     height: 50,
-    hoverColor: PrimaryColor,
+    hoverColor: primaryColor,
     onPressed: onTap,
   );
 }
@@ -68,7 +65,7 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
         title,
         style: TextStyle(
           fontSize: 22,
-          color: TextColor,
+          color: textColor,
         ),
       ),
       onPressed: onTap,
@@ -92,7 +89,7 @@ Widget textField(
           ),
         ),
         filled: true,
-        fillColor: SecondaryColor,
+        fillColor: secondaryColor,
       ),
     ),
   );
@@ -112,7 +109,7 @@ Widget dropList(List<String> list, String selected, double width, double height,
           ),
         ),
         filled: true,
-        fillColor: SecondaryColor,
+        fillColor: secondaryColor,
       ),
       value: selected,
       onChanged: (newValue) => change,
@@ -135,7 +132,7 @@ Widget passwordField(double width, double height, bool password, bool status,
     child: TextFormField(
       enabled: status,
       style: TextStyle(
-        color: TextColor,
+        color: textColor,
       ),
       decoration: InputDecoration(
         suffixIcon: Padding(
@@ -147,7 +144,7 @@ Widget passwordField(double width, double height, bool password, bool status,
             onPressed: onTap,
           ),
         ),
-        fillColor: SecondaryColor,
+        fillColor: secondaryColor,
         filled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
@@ -177,7 +174,7 @@ Widget labelText(String title) {
   return Text(
     title,
     style: TextStyle(
-      color: TextColor,
+      color: textColor,
       fontSize: 22,
     ),
   );
@@ -198,7 +195,7 @@ Widget applicationCard(
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(
           width: 3,
-          color: SecondaryColor,
+          color: secondaryColor,
         ),
       ),
       child: Text(
@@ -210,7 +207,7 @@ Widget applicationCard(
       ),
     ),
     onTap: onTap,
-    hoverColor: HoverColor,
+    hoverColor: hoverColor,
     borderRadius: BorderRadius.circular(10.0),
   );
 }
