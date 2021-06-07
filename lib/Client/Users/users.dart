@@ -1,6 +1,6 @@
 // @dart=2.9
-import 'package:erp/Client/Accounting/Users/usersDesktop.dart';
-import 'package:erp/Client/Accounting/Users/usersMobile.dart';
+import 'package:erp/Client/Users/usersDesktop.dart';
+import 'package:erp/Client/Users/usersMobile.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
