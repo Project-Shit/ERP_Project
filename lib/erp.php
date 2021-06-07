@@ -3,7 +3,7 @@
     $servername = "localhost";
     $username = "root";
     $passeword = "";
-    $dbname = "testdb";
+    $dbname = "erp";
     
 
     // create connection
