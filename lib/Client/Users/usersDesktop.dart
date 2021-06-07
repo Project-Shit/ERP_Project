@@ -3,6 +3,7 @@ import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class UsersDesktop extends StatefulWidget {
   @override
@@ -12,10 +13,51 @@ class UsersDesktop extends StatefulWidget {
 // adding user page for the client's system
 class _UsersDesktopState extends State<UsersDesktop> {
   // objects implementation
-  List<String> _locations = [];
-  String _selectedLocation;
   bool password = true;
-  final _textController = TextEditingController();
+  final _id = TextEditingController();
+  final _name = TextEditingController();
+  final _phone = TextEditingController();
+  final _email = TextEditingController();
+  final _pass = TextEditingController();
+  final _address = TextEditingController();
+  final _department = TextEditingController();
+  final _userType = TextEditingController();
+  GlobalKey<ScaffoldState> _scffoldKey = GlobalKey();
+  var url = 'http://192.168.1.104/ERP/erp.php';
+
+
+  _showSnackBar(context, message) {
+    // ignore: deprecated_member_use
+    _scffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
+
+  _updateUser() async {
+    var data, response;
+    try {
+      data = {
+        "command": "update users set name = '${_name.text}', phone = '${_phone.text}',"
+            " email = '${_email.text}' , pass = '${_pass.text}', address = '${_address.text}',"
+            "department = '${_department.text}', userType = '${_userType.text}' where id = ${_id.text}"
+      };
+      response = await http.post(Uri.parse(url), body: data);
+      if (200 == response.statusCode) {
+        return _showSnackBar(context, "User Updated Successfully");
+      } else {
+        return _showSnackBar(context, "Could not Update User");
+      }
+    } catch (e) {
+      return "Database Crash";
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   // function to change password field text's visibility
   void hidePassword() {
@@ -26,10 +68,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
 
   // function to change the value in the drop down list to the selected value
   void setValue() {
-    String value = '';
-    setState(() {
-      _selectedLocation = value;
-    });
+    setState(() {});
   }
 
   @override
@@ -163,43 +202,36 @@ class _UsersDesktopState extends State<UsersDesktop> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.49, 40.0, setValue),
+                              textField(_id, width * 0.49, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.49, 40.0, true),
+                              textField(_name, width * 0.49, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.49, 40.0, true),
+                              textField(_phone, width * 0.49, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.49, 40.0, true),
+                              textField(_email, width * 0.49, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              passwordField(width * 0.49, 40.0, password, true,
-                                  hidePassword),
+                              passwordField(_pass, width * 0.49, 40.0, password,
+                                  true, hidePassword),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.49, 40.0, true),
+                              textField(_address, width * 0.49, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.49, 40, setValue),
+                              textField(_department, width * 0.49, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.49, 40.0, setValue),
+                              textField(_userType, width * 0.49, 40.0, true),
                             ],
                           ),
                         ],
@@ -211,7 +243,32 @@ class _UsersDesktopState extends State<UsersDesktop> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          actionButtons('Apply', () {}, Colors.green),
+                          Container(
+                            width: 300,
+                            height: 50,
+                            // ignore: deprecated_member_use
+                            child: RaisedButton(
+                              color: Colors.green,
+                              padding: EdgeInsets.only(
+                                top: 20,
+                                bottom: 20,
+                                left: 35,
+                                right: 35,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(50),
+                                ),
+                              ),
+                              child: Text(
+                                "Apply",
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  color: textColor,
+                                ),
+                              ),
+                              onPressed: (){_updateUser();},
+                            ),),
                           SizedBox(
                             width: 80,
                           ),
