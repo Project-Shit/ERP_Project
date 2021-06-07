@@ -107,8 +107,7 @@ class _UsersMobileState extends State<UsersMobile> {
                     height: 20,
                   ),
                   labelText('Password'),
-                  passwordField(
-                      width * 0.9, 45.0, password, false, hidePassword),
+                  //passwordField(width * 0.9, 45.0, password, false, hidePassword),
                   SizedBox(
                     height: 20,
                   ),
