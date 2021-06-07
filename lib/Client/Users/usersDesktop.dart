@@ -1,5 +1,4 @@
 // @dart=2.9
-import 'package:erp/Client/Database/usersModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,13 +29,6 @@ class _UsersDesktopState extends State<UsersDesktop> {
   var url = 'http://192.168.1.104/ERP/erp.php';
   var url2 = 'http://192.168.1.104/ERP/call.php';
   var data, response;
-
-
-  Future<List<UserModel>> getUsers() async {
-    data = {"select * from users"};
-    final response = await http.get(Uri.parse(url2));
-    return userModelFromJson(response.body);
-  }
 
 
   // function to change values of a record
