@@ -1,4 +1,5 @@
 // @dart=2.9
+import 'package:erp/Client/Database/usersModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
   bool password = true;
   String message1 = 'Applied';
   String message2 = 'Deleted';
+  TextEditingController _search = TextEditingController();
   TextEditingController _id = TextEditingController();
   TextEditingController _name = TextEditingController();
   TextEditingController _phone = TextEditingController();
@@ -26,7 +28,16 @@ class _UsersDesktopState extends State<UsersDesktop> {
   TextEditingController _department = TextEditingController();
   TextEditingController _userType = TextEditingController();
   var url = 'http://192.168.1.104/ERP/erp.php';
+  var url2 = 'http://192.168.1.104/ERP/call.php';
   var data, response;
+
+
+  Future<List<UserModel>> getUsers() async {
+    data = {"select * from users"};
+    final response = await http.get(Uri.parse(url2));
+    return userModelFromJson(response.body);
+  }
+
 
   // function to change values of a record
   _applyUser() async {
@@ -135,6 +146,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                           width: width,
                           height: 40,
                           child: TextFormField(
+                            controller: _search,
                             style: TextStyle(
                               color: textColor,
                             ),
