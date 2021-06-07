@@ -115,7 +115,7 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                           SizedBox(
                             width: width * 0.07,
                           ),
-                          textField(_textController, width * 0.24, 40.0, true),
+                          textField(_textController, width * 0.24, 40.0, false),
                         ],
                       ),
                       SizedBox(
