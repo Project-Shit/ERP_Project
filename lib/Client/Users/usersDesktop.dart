@@ -1,4 +1,6 @@
 // @dart=2.9
+import 'package:dio/dio.dart';
+import 'package:erp/Client/Database/usersModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,6 +32,19 @@ class _UsersDesktopState extends State<UsersDesktop> {
   var url2 = 'http://192.168.1.104/ERP/call.php';
   var data, response;
 
+  UserModel user;
+
+
+  fetchData() async {
+    Response response = await Dio().get(url2);
+    print(response.data);
+
+    setState(() {
+      user = UserModel.fromJson(response.data);
+    });
+
+    print(user.id);
+  }
 
   // function to change values of a record
   _applyUser() async {
@@ -89,6 +104,13 @@ class _UsersDesktopState extends State<UsersDesktop> {
       _userType.text = '';
     });
   }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
 
   @override
   Widget build(BuildContext context) {
