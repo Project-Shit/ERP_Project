@@ -1,6 +1,4 @@
 // @dart=2.9
-import 'package:dio/dio.dart';
-import 'package:erp/Client/Database/usersModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,9 +15,8 @@ class UsersDesktop extends StatefulWidget {
 class _UsersDesktopState extends State<UsersDesktop> {
   // objects implementation
   bool password = true;
-  String message1 = 'Applied';
-  String message2 = 'Deleted';
-  TextEditingController _search = TextEditingController();
+  bool message1 = true;
+  bool message2 = true;
   TextEditingController _id = TextEditingController();
   TextEditingController _name = TextEditingController();
   TextEditingController _phone = TextEditingController();
@@ -29,58 +26,35 @@ class _UsersDesktopState extends State<UsersDesktop> {
   TextEditingController _department = TextEditingController();
   TextEditingController _userType = TextEditingController();
   var url = 'http://192.168.1.104/ERP/erp.php';
-  var url2 = 'http://192.168.1.104/ERP/call.php';
   var data, response;
-
-  UserModel user;
-
-
-  fetchData() async {
-    Response response = await Dio().get(url2);
-    print(response.data);
-
-    setState(() {
-      user = UserModel.fromJson(response.data);
-    });
-
-    print(user.id);
-  }
 
   // function to change values of a record
   _applyUser() async {
-    try {
-      data = {
-        "command": "update users set name = '${_name.text}', phone = '${_phone.text}',"
-            " email = '${_email.text}' , pass = '${_pass.text}', address = '${_address.text}',"
-            "department = '${_department.text}', userType = '${_userType.text}' where id = ${_id.text}"
-      };
-      response = await http.post(Uri.parse(url), body: data);
-      if (200 == response.statusCode) {
-        return message1 = 'Applied';
-      } else {
-        return message1 = 'Couldn\'t Apply';
-      }
-    } catch (e) {
-      return message1 = 'Applied';
+    data = {
+      "command": "update users set name = '${_name.text}', phone = '${_phone.text}',"
+          " email = '${_email.text}' , pass = '${_pass.text}', address = '${_address.text}',"
+          "department = '${_department.text}', userType = '${_userType.text}' where id = ${_id.text}"
+    };
+    response = await http.post(Uri.parse(url), body: data);
+    if (200 == response.statusCode) {
+      return message1;
+    } else {
+      return !message1;
     }
   }
 
   // function to set record to null values
   _delete() async {
-    try {
-      data = {
-        "command": "update users set name = '', phone = '',"
-            " email = '' , pass = '', address = '',"
-            "department = '', userType = '' where id = ${_id.text}"
-      };
-      response = await http.post(Uri.parse(url), body: data);
-      if (200 == response.statusCode) {
-        return message2 = 'Deleted';
-      } else {
-        return message2 = 'Couldn\'t Delete';
-      }
-    } catch (e) {
-      return message2 = 'Deleted';
+    data = {
+      "command": "update users set name = '', phone = '',"
+          " email = '' , pass = '', address = '',"
+          "department = '', userType = '' where id = ${_id.text}"
+    };
+    response = await http.post(Uri.parse(url), body: data);
+    if (200 == response.statusCode) {
+      return message2;
+    } else {
+      return !message2;
     }
   }
 
@@ -104,13 +78,6 @@ class _UsersDesktopState extends State<UsersDesktop> {
       _userType.text = '';
     });
   }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +127,6 @@ class _UsersDesktopState extends State<UsersDesktop> {
                           width: width,
                           height: 40,
                           child: TextFormField(
-                            controller: _search,
                             style: TextStyle(
                               color: textColor,
                             ),
@@ -261,8 +227,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
                                 SizedBox(
                                   height: 15,
                                 ),
-                                passwordField(_pass, width * 0.49, 40.0, password,
-                                    true, hidePassword),
+                                passwordField(_pass, width * 0.49, 40.0,
+                                    password, true, hidePassword),
                                 SizedBox(
                                   height: 15,
                                 ),
@@ -270,7 +236,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
                                 SizedBox(
                                   height: 15,
                                 ),
-                                textField(_department, width * 0.49, 40.0, true),
+                                textField(
+                                    _department, width * 0.49, 40.0, true),
                                 SizedBox(
                                   height: 15,
                                 ),
@@ -288,7 +255,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                           children: [
                             actionButtons('Apply', () {
                               _applyUser();
-                              showToast(message1,position: ToastPosition.top);
+                              showToast(message1? 'Applied':'Couldn\'t Apply', position: ToastPosition.top);
                               clear();
                             }, Colors.green),
                             SizedBox(
@@ -296,7 +263,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                             ),
                             actionButtons('Delete', () {
                               _delete();
-                              showToast(message2,position: ToastPosition.top);
+                              showToast(message2?'Deleted':'Couldn\'t Delete', position: ToastPosition.top);
                               clear();
                             }, Colors.red.shade900),
                           ],
