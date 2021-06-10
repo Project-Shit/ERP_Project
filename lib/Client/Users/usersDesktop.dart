@@ -88,9 +88,10 @@ class _UsersDesktopState extends State<UsersDesktop> {
 
   // function to fetch data from database
   Future<Null> fetchData() async {
-    try{
+    try {
       data = {
-        "command": "select * from users where id = '${_searchController.text}' or id = '${_selectedLocation.toString()}'"
+        "command":
+            "select * from users where id = '${_searchController.text}' or id = '${_selectedLocation.toString()}'"
       };
       return await http
           .post(Uri.parse(url2), body: data)
@@ -109,13 +110,13 @@ class _UsersDesktopState extends State<UsersDesktop> {
           });
         });
       });
-    }catch (e){
+    } catch (e) {
       showToast('Database Crash', position: ToastPosition.top);
     }
   }
 
   Future dropList() async {
-    try{
+    try {
       data = {"command": "select id from users"};
       http.post(Uri.parse(url2), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
@@ -125,8 +126,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
           });
         });
       });
-    } catch (e){
-        showToast('Database Crash', position: ToastPosition.top);
+    } catch (e) {
+      showToast('Database Crash', position: ToastPosition.top);
     }
   }
 
