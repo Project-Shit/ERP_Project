@@ -102,7 +102,7 @@ Widget passwordField(TextEditingController text, double width, double height, bo
     width: width,
     height: height,
     child: TextFormField(
-      enabled: status,
+      readOnly: status,
       controller: text,
       style: TextStyle(
         color: textColor,
