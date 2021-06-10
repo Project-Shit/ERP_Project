@@ -1,4 +1,5 @@
 // @dart=2.9
+import 'dart:convert';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
   bool password = true;
   bool message1 = true;
   bool message2 = true;
+  TextEditingController _searchController = TextEditingController();
   TextEditingController _id = TextEditingController();
   TextEditingController _name = TextEditingController();
   TextEditingController _phone = TextEditingController();
@@ -25,7 +27,11 @@ class _UsersDesktopState extends State<UsersDesktop> {
   TextEditingController _address = TextEditingController();
   TextEditingController _department = TextEditingController();
   TextEditingController _userType = TextEditingController();
-  var url = 'http://192.168.1.104/ERP/erp.php';
+  // ignore: deprecated_member_use
+  List _locations = List();
+  String _selectedLocation;
+  var url = 'http://192.168.1.104/ERP/setAPI.php';
+  var url2 = 'http://192.168.1.104/ERP/getAPI.php';
   var data, response;
 
   // function to change values of a record
@@ -59,14 +65,14 @@ class _UsersDesktopState extends State<UsersDesktop> {
   }
 
   // function to change password field text's visibility
-  void hidePassword() {
+  hidePassword() {
     setState(() {
       password = !password;
     });
   }
 
   // function to clear all text fields
-  void clear() {
+  clear() {
     setState(() {
       _id.text = '';
       _name.text = '';
@@ -77,6 +83,51 @@ class _UsersDesktopState extends State<UsersDesktop> {
       _department.text = '';
       _userType.text = '';
     });
+  }
+
+  setValue(){
+    String newValue;
+    setState(() {
+      _selectedLocation = newValue;
+      _searchController.text = newValue;
+    });
+  }
+
+  Future<Null> fetchData() async{
+    data = {"command": "select * from users where id = '${_searchController.text}'"};
+    return await http.post(Uri.parse(url2),body: data).then((http.Response response) {
+      final List fetchData = json.decode(response.body);
+      fetchData.forEach((user) {
+        setState(() {
+          _id.text = user['id'];
+          _name.text = user['name'];
+          _phone.text = user['phone'];
+          _email.text = user['email'];
+          _pass.text = user['pass'];
+          _address.text = user['address'];
+          _department.text = user['department'];
+          _userType.text = user['userType'];
+        });
+      });
+    });
+  }
+
+  /*Future dropList() async {
+    data = {"command": "select id from users"};
+    http.post(Uri.parse(url), body: data).then((http.Response response) {
+      var fetchDecode = jsonDecode(response.body);
+      fetchDecode.forEach((users) {
+        setState(() {
+          _locations.add(users['id']);
+        });
+        print(_locations);
+      });
+    });
+  }*/
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -127,6 +178,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                           width: width,
                           height: 40,
                           child: TextFormField(
+                            controller: _searchController,
                             style: TextStyle(
                               color: textColor,
                             ),
@@ -137,7 +189,9 @@ class _UsersDesktopState extends State<UsersDesktop> {
                                 ),
                                 child: IconButton(
                                   icon: Icon(Icons.search),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    fetchData();
+                                  },
                                 ),
                               ),
                               fillColor: secondaryColor,
