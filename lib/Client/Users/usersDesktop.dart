@@ -31,8 +31,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
   // ignore: deprecated_member_use
   List _locations = List();
   String _selectedLocation;
-  var url = 'http://192.168.1.104/ERP/setAPI.php';
-  var url2 = 'http://192.168.1.104/ERP/getAPI.php';
+  var setData = 'http://192.168.1.104/ERP/setAPI.php';
+  var getData = 'http://192.168.1.104/ERP/getAPI.php';
   var data, response;
 
   // function to change values of a record
@@ -42,7 +42,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
           " email = '${_email.text}' , pass = '${_pass.text}', address = '${_address.text}',"
           "department = '${_department.text}', userType = '${_userType.text}' where id = ${_id.text}"
     };
-    response = await http.post(Uri.parse(url), body: data);
+    response = await http.post(Uri.parse(setData), body: data);
     if (200 == response.statusCode) {
       return message1;
     } else {
@@ -57,7 +57,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
           " email = '' , pass = '', address = '',"
           "department = '', userType = '' where id = ${_id.text}"
     };
-    response = await http.post(Uri.parse(url), body: data);
+    response = await http.post(Uri.parse(setData), body: data);
     if (200 == response.statusCode) {
       return message2;
     } else {
@@ -94,7 +94,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
             "select * from users where id = '${_searchController.text}' or id = '${_selectedLocation.toString()}'"
       };
       return await http
-          .post(Uri.parse(url2), body: data)
+          .post(Uri.parse(getData), body: data)
           .then((http.Response response) {
         final List fetchData = json.decode(response.body);
         fetchData.forEach((user) {
@@ -115,10 +115,11 @@ class _UsersDesktopState extends State<UsersDesktop> {
     }
   }
 
+  // function to set data to drop list
   Future dropList() async {
     try {
       data = {"command": "select id from users"};
-      http.post(Uri.parse(url2), body: data).then((http.Response response) {
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
         fetchDecode.forEach((users) {
           setState(() {
