@@ -95,34 +95,6 @@ Widget textField(
   );
 }
 
-// Custom Drop Down List
-Widget dropList(List<String> list, String selected, double width, double height,
-    VoidCallback change) {
-  return Container(
-    width: width,
-    height: height,
-    child: DropdownButtonFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-        ),
-        filled: true,
-        fillColor: secondaryColor,
-      ),
-      value: selected,
-      onChanged: (newValue) => change,
-      items: list.map((location) {
-        return DropdownMenuItem(
-          child: new Text(location),
-          value: location,
-        );
-      }).toList(),
-    ),
-  );
-}
-
 // Custom Password Field
 Widget passwordField(TextEditingController text, double width, double height, bool password, bool status,
     VoidCallback onTap) {
