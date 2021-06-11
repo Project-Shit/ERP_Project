@@ -79,8 +79,8 @@ class _InsuranceMobileState extends State<InsuranceMobile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   labelText('Employee ID'),
-                  dropList(_locations, _selectedLocation, width * 0.9, 45.0,
-                      setValue),
+                  /*dropList(_locations, _selectedLocation, width * 0.9, 45.0,
+                      setValue),*/
                   SizedBox(
                     height: 20,
                   ),
