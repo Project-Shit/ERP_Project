@@ -79,8 +79,8 @@ class _TaxMobileState extends State<TaxMobile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   labelText('Tax Plan'),
-                  dropList(_locations, _selectedLocation, width * 0.9, 45.0,
-                      setValue),
+                  /*dropList(_locations, _selectedLocation, width * 0.9, 45.0,
+                      setValue),*/
                   SizedBox(
                     height: 20,
                   ),
