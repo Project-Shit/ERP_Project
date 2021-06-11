@@ -151,8 +151,8 @@ class _TaxDesktopState extends State<TaxDesktop> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.48, 40.0, setValue),
+                              /*dropList(_locations, _selectedLocation,
+                                  width * 0.48, 40.0, setValue),*/
                               SizedBox(
                                 height: 15,
                               ),
