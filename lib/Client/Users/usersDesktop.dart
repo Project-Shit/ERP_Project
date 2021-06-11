@@ -23,17 +23,18 @@ class _UsersDesktopState extends State<UsersDesktop> {
   TextEditingController _email = TextEditingController();
   TextEditingController _pass = TextEditingController();
   TextEditingController _address = TextEditingController();
-  TextEditingController _selectedDept = TextEditingController();
+  TextEditingController _dept = TextEditingController();
   TextEditingController _userType = TextEditingController();
 
   // ignore: deprecated_member_use
-  List _locations = List();
+  List _ids = List();
 
   // ignore: deprecated_member_use
   List _department = List();
+
   // ignore: deprecated_member_use
   List _user = List();
-  String _selectedLocation;
+  String _id;
   var setData = 'http://192.168.1.104/ERP/setAPI.php';
   var getData = 'http://192.168.1.104/ERP/getAPI.php';
   var data, response;
@@ -43,7 +44,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
     data = {
       "command": "update users set name = '${_name.text}', phone = '${_phone.text}',"
           " email = '${_email.text}' , pass = '${_pass.text}', address = '${_address.text}',"
-          "department = '${_selectedDept.text}', userType = '${_userType.text}' where id = ${_selectedLocation.toString()}"
+          "department = '${_dept.text}', userType = '${_userType.text}' where id = ${_id.toString()}"
     };
     response = await http.post(Uri.parse(setData), body: data);
     if (200 == response.statusCode) {
@@ -58,7 +59,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
     data = {
       "command": "update users set name = '', phone = '',"
           " email = '' , pass = '', address = '',"
-          "department = '', userType = '' where id = '${_selectedLocation.toString()}'"
+          "department = '', userType = '' where id = '${_id.toString()}'"
     };
     response = await http.post(Uri.parse(setData), body: data);
     if (200 == response.statusCode) {
@@ -68,6 +69,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
     }
   }
 
+  // function to set all text controller to ''
   clear() {
     setState(() {
       _name.text = '';
@@ -75,7 +77,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
       _email.text = '';
       _pass.text = '';
       _address.text = '';
-      _department = '' as List;
+      _dept.text = '';
       _userType.text = '';
     });
   }
@@ -89,64 +91,62 @@ class _UsersDesktopState extends State<UsersDesktop> {
 
   // function to fetch data from database
   Future<Null> fetchData() async {
-      data = {
-        "command":
-            "select * from users where id = '${_selectedLocation.toString()}'"
-      };
-      return await http
-          .post(Uri.parse(getData), body: data)
-          .then((http.Response response) {
-        final List fetchData = json.decode(response.body);
-        fetchData.forEach((user) {
-          setState(() {
-            _name.text = user['name'];
-            _phone.text = user['phone'];
-            _email.text = user['email'];
-            _pass.text = user['pass'];
-            _address.text = user['address'];
-            _selectedDept.text = user['department'];
-            _userType.text = user['userType'];
-          });
+    data = {"command": "select * from users where id = '${_id.toString()}'"};
+    return await http
+        .post(Uri.parse(getData), body: data)
+        .then((http.Response response) {
+      final List fetchData = json.decode(response.body);
+      fetchData.forEach((user) {
+        setState(() {
+          _name.text = user['name'];
+          _phone.text = user['phone'];
+          _email.text = user['email'];
+          _pass.text = user['pass'];
+          _address.text = user['address'];
+          _dept.text = user['department'];
+          _userType.text = user['userType'];
         });
       });
+    });
   }
 
-  // function to set data to drop list
+  // function to set id data to drop list
   Future idList() async {
-      data = {"command": "select id from users"};
-      http.post(Uri.parse(getData), body: data).then((http.Response response) {
-        var fetchDecode = jsonDecode(response.body);
-        fetchDecode.forEach((users) {
-          setState(() {
-            _locations.add(users['id']);
-          });
+    data = {"command": "select id from users"};
+    http.post(Uri.parse(getData), body: data).then((http.Response response) {
+      var fetchDecode = jsonDecode(response.body);
+      fetchDecode.forEach((users) {
+        setState(() {
+          _ids.add(users['id']);
         });
       });
+    });
   }
 
+  // function to set department data to drop list
   Future departmentList() async {
-      data = {"command": "select department from job"};
-      http.post(Uri.parse(getData), body: data).then((http.Response response) {
-        var fetchDecode = jsonDecode(response.body);
-        fetchDecode.forEach((dept) {
-          setState(() {
-            _department.add(dept['department']);
-          });
+    data = {"command": "select department from job"};
+    http.post(Uri.parse(getData), body: data).then((http.Response response) {
+      var fetchDecode = jsonDecode(response.body);
+      fetchDecode.forEach((dept) {
+        setState(() {
+          _department.add(dept['department']);
         });
       });
+    });
   }
 
+  // function to set user types data to drop list
   Future usersList() async {
-      data = {"command": "select userType from job where userType <> ''"};
-      http.post(Uri.parse(getData), body: data).then((http.Response response) {
-        var fetchDecode = jsonDecode(response.body);
-        fetchDecode.forEach((dept) {
-          setState(() {
-            _user.add(dept['userType']);
-          });
+    data = {"command": "select userType from job where userType <> ''"};
+    http.post(Uri.parse(getData), body: data).then((http.Response response) {
+      var fetchDecode = jsonDecode(response.body);
+      fetchDecode.forEach((dept) {
+        setState(() {
+          _user.add(dept['userType']);
         });
       });
-
+    });
   }
 
   @override
@@ -257,14 +257,14 @@ class _UsersDesktopState extends State<UsersDesktop> {
                                       filled: true,
                                       fillColor: secondaryColor,
                                     ),
-                                    value: _selectedLocation,
+                                    value: _id,
                                     onChanged: (newValue) {
                                       setState(() {
-                                        _selectedLocation = newValue;
+                                        _id = newValue;
                                         fetchData();
                                       });
                                     },
-                                    items: _locations.map((location) {
+                                    items: _ids.map((location) {
                                       return DropdownMenuItem(
                                         child: new Text(location),
                                         value: location,
@@ -303,27 +303,27 @@ class _UsersDesktopState extends State<UsersDesktop> {
                                     children: <Widget>[
                                       new Expanded(
                                           child: new TextField(
-                                        controller: _selectedDept,
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0),
-                                                ),
-                                              ),
-                                              filled: true,
-                                              fillColor: secondaryColor,
+                                        controller: _dept,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0),
                                             ),
+                                          ),
+                                          filled: true,
+                                          fillColor: secondaryColor,
+                                        ),
                                       )),
                                       new PopupMenuButton(
-                                        icon: const Icon(Icons.arrow_drop_down),
+                                        icon: Icon(Icons.arrow_drop_down),
                                         onSelected: (value) {
-                                          _selectedDept.text = value;
+                                          _dept.text = value;
                                         },
                                         itemBuilder: (BuildContext context) {
                                           return _department
                                               .map<PopupMenuItem>((value) {
                                             return PopupMenuItem(
-                                                child: new Text(value),
+                                                child: Text(value),
                                                 value: value);
                                           }).toList();
                                         },
@@ -341,26 +341,31 @@ class _UsersDesktopState extends State<UsersDesktop> {
                                     children: <Widget>[
                                       new Expanded(
                                           child: new TextField(
-                                            controller: _userType,
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0),
-                                                ),
-                                              ),
-                                              filled: true,
-                                              fillColor: secondaryColor,
+                                        controller: _userType,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0),
                                             ),
-                                          )),
+                                          ),
+                                          filled: true,
+                                          fillColor: secondaryColor,
+                                        ),
+                                      )),
                                       new PopupMenuButton(
                                         icon: const Icon(Icons.arrow_drop_down),
                                         onSelected: (value) {
                                           _userType.text = value;
                                         },
-                                        itemBuilder: (context) =>[
-
-                                        ],
-                                      ),
+                                        itemBuilder: (BuildContext context) {
+                                          return _user
+                                              .map<PopupMenuItem>((value) {
+                                            return PopupMenuItem(
+                                                child: new Text(value),
+                                                value: value);
+                                          }).toList();
+                                        },
+                                      )
                                     ],
                                   ),
                                 ),
