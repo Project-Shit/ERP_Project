@@ -123,8 +123,8 @@ class _InsuranceDesktopState extends State<InsuranceDesktop> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.45, 40.0, setValue),
+                              /*dropList(_locations, _selectedLocation,
+                                  width * 0.45, 40.0, setValue),*/
                               SizedBox(
                                 height: 15,
                               ),
@@ -158,13 +158,13 @@ class _InsuranceDesktopState extends State<InsuranceDesktop> {
                               SizedBox(
                                 height: 15,
                               ),
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.45, 40.0, setValue),
+                              /*dropList(_locations, _selectedLocation,
+                                  width * 0.45, 40.0, setValue),*/
                               SizedBox(
                                 height: 15,
                               ),
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.45, 40.0, setValue),
+                              /*dropList(_locations, _selectedLocation,
+                                  width * 0.45, 40.0, setValue),*/
                               SizedBox(
                                 height: 15,
                               ),
