@@ -171,13 +171,13 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      dropList(_locations, _selectedLocation,
-                                          width * 0.24, 40.0, setValue),
+                                      /*dropList(_locations, _selectedLocation,
+                                          width * 0.24, 40.0, setValue),*/
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      dropList(_locations, _selectedLocation,
-                                          width * 0.24, 40.0, setValue),
+                                      /*dropList(_locations, _selectedLocation,
+                                          width * 0.24, 40.0, setValue),*/
                                       SizedBox(
                                         height: 15,
                                       ),
@@ -271,8 +271,8 @@ class _SubscriptionDesktopState extends State<SubscriptionDesktop> {
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      dropList(_locations, _selectedLocation,
-                                          width * 0.24, 40.0, setValue),
+                                      /*dropList(_locations, _selectedLocation,
+                                          width * 0.24, 40.0, setValue),*/
                                       SizedBox(
                                         height: 15,
                                       ),
