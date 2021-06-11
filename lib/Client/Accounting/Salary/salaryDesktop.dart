@@ -2,6 +2,9 @@
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:oktoast/oktoast.dart';
+import 'dart:convert';
 
 class SalaryDesktop extends StatefulWidget {
   @override
@@ -11,16 +14,94 @@ class SalaryDesktop extends StatefulWidget {
 // Salary accounting page for the client's system
 class _SalaryDesktopState extends State<SalaryDesktop> {
   // objects implementation
-  List<String> _locations = [];
-  String _selectedLocation;
-  final _textController = TextEditingController();
+  bool password = true;
+  bool message1 = true;
+  bool message2 = true;
+  TextEditingController _name = TextEditingController();
+  TextEditingController _hours = TextEditingController();
+  TextEditingController _salary = TextEditingController();
+  TextEditingController _insurance = TextEditingController();
+  TextEditingController _tax = TextEditingController();
+  TextEditingController _deduction = TextEditingController();
+  TextEditingController _netS = TextEditingController();
+  TextEditingController _dept = TextEditingController();
 
-  // function to change the value in the drop down list to the selected value
-  void setValue() {
-    String value = '';
-    setState(() {
-      _selectedLocation = value;
+  // ignore: deprecated_member_use
+  List _ids = List();
+  // ignore: deprecated_member_use
+  List _pay = List();
+  String _id,_payment;
+  var setData = 'http://192.168.1.104/ERP/setAPI.php';
+  var getData = 'http://192.168.1.104/ERP/getAPI.php';
+  var data, response;
+
+
+  // function to change values of a record
+  apply() async {
+    data = {
+      "command": "update salary set employeeName = '${_name.text}', department = '${_dept.text}',"
+          " paymentType = '${_payment.toString()}' , workingHours = '${_hours.text}', salary = '${_salary.text}',"
+          "insurance = '${_insurance.text}', taxOnSalary = '${_tax.text}', deduction = '${_deduction.text}'"
+          ", netSalary = '${_netS.text}' where employeeID = ${_id.toString()}"
+    };
+    response = await http.post(Uri.parse(setData), body: data);
+    if (200 == response.statusCode) {
+      return message1;
+    } else {
+      return !message1;
+    }
+  }
+
+  // function to fetch data from database
+  Future<Null> fetchData() async {
+    data = {
+      "command":
+          "select id,name,department from users where id = '${_id.toString()}'"
+    };
+    return await http
+        .post(Uri.parse(getData), body: data)
+        .then((http.Response response) {
+      final List fetchData = json.decode(response.body);
+      fetchData.forEach((user) {
+        setState(() {
+          _name.text = user['name'];
+          _dept.text = user['department'];
+        });
+      });
     });
+  }
+
+  // function to set id data to drop list
+  Future idList() async {
+    data = {"command": "select id from users"};
+    http.post(Uri.parse(getData), body: data).then((http.Response response) {
+      var fetchDecode = jsonDecode(response.body);
+      fetchDecode.forEach((users) {
+        setState(() {
+          _ids.add(users['id']);
+        });
+      });
+    });
+  }
+
+  // function to set payment type data to drop list
+  Future payList() async {
+    data = {"command": "select paymentType from job"};
+    http.post(Uri.parse(getData), body: data).then((http.Response response) {
+      var fetchDecode = jsonDecode(response.body);
+      fetchDecode.forEach((type) {
+        setState(() {
+          _pay.add(type['paymentType']);
+        });
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    idList();
+    payList();
   }
 
   @override
@@ -73,11 +154,11 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                               ),
                               labelText('Employee ID'),
                               SizedBox(
-                                height: 25,
+                                height: 30,
                               ),
                               labelText('Employee Name'),
                               SizedBox(
-                                height: 25,
+                                height: 30,
                               ),
                               labelText('Department'),
                               SizedBox(
@@ -85,7 +166,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                               ),
                               labelText('Payment Type'),
                               SizedBox(
-                                height: 30,
+                                height: 32,
                               ),
                               labelText('Working Hours'),
                               SizedBox(
@@ -117,69 +198,112 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              /*dropList(_locations, _selectedLocation,
-                                  width * 0.46, 40.0, setValue),*/
+                              Container(
+                                width: width * 0.46,
+                                height: 50.0,
+                                child: DropdownButtonFormField(
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0),
+                                      ),
+                                    ),
+                                    filled: true,
+                                    fillColor: secondaryColor,
+                                  ),
+                                  value: _id,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _id = newValue;
+                                      fetchData();
+                                    });
+                                  },
+                                  items: _ids.map((location) {
+                                    return DropdownMenuItem(
+                                      child: new Text(location),
+                                      value: location,
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.46, 40.0, true),
+                              textField(_name, width * 0.46, 40.0, false),
                               SizedBox(
                                 height: 15,
                               ),
-                              /*dropList(_locations, _selectedLocation,
-                                  width * 0.46, 40.0, setValue),*/
+                              textField(_dept, width * 0.46, 40.0, false),
                               SizedBox(
                                 height: 15,
                               ),
-                              /*dropList(_locations, _selectedLocation,
-                                  width * 0.46, 40.0, setValue),*/
+                              Container(
+                                width: width * 0.46,
+                                height: 50.0,
+                                child: DropdownButtonFormField(
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0),
+                                      ),
+                                    ),
+                                    filled: true,
+                                    fillColor: secondaryColor,
+                                  ),
+                                  value: _payment,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _payment = newValue;
+                                    });
+                                  },
+                                  items: _pay.map((location) {
+                                    return DropdownMenuItem(
+                                      child: new Text(location),
+                                      value: location,
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.46, 40.0, true),
+                              textField(_hours, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.46, 40.0, true),
+                              textField(_salary, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.46, 40.0, true),
+                              textField(_insurance, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.46, 40.0, true),
+                              textField(_tax, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.46, 40.0, true),
+                              textField(_deduction, width * 0.46, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.46, 40.0, true),
+                              textField(_netS, width * 0.46, 40.0, true),
                             ],
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 30,
                       ),
                       // implementing a row widget to call custom buttons and align them.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          actionButtons('Print Report', () {}, Colors.blue),
+                          actionButtons('Apply', () {}, Colors.green),
                           SizedBox(
                             width: 80,
                           ),
-                          actionButtons('Apply', () {}, Colors.green),
+                          actionButtons('Print Report', () {}, Colors.blue),
                         ],
                       ),
                     ],
