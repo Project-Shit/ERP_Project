@@ -24,8 +24,8 @@ class _UsersMobileState extends State<UsersMobile> {
   TextEditingController _address = TextEditingController();
   TextEditingController _department = TextEditingController();
   TextEditingController _userType = TextEditingController();
-  var url = 'http://192.168.1.104/ERP/setAPI.php';
-  var url2 = 'http://192.168.1.104/ERP/getAPI.php';
+  var setDate = 'http://192.168.1.104/ERP/setAPI.php';
+  var getData = 'http://192.168.1.104/ERP/getAPI.php';
   var data, response;
 
   // function to change password field text's visibility
@@ -42,7 +42,7 @@ class _UsersMobileState extends State<UsersMobile> {
           "select * from users where id = '${_selectedLocation.toString()}'"
     };
     return await http
-        .post(Uri.parse(url2), body: data)
+        .post(Uri.parse(getData), body: data)
         .then((http.Response response) {
       final List fetchData = json.decode(response.body);
       fetchData.forEach((user) {
@@ -62,7 +62,7 @@ class _UsersMobileState extends State<UsersMobile> {
   // function to set data to drop list
   Future dropList() async {
     data = {"command": "select id from users"};
-    http.post(Uri.parse(url2), body: data).then((http.Response response) {
+    http.post(Uri.parse(getData), body: data).then((http.Response response) {
       var fetchDecode = jsonDecode(response.body);
       fetchDecode.forEach((users) {
         setState(() {
