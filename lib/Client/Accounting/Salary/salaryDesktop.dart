@@ -117,8 +117,8 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.46, 40.0, setValue),
+                              /*dropList(_locations, _selectedLocation,
+                                  width * 0.46, 40.0, setValue),*/
                               SizedBox(
                                 height: 15,
                               ),
@@ -127,13 +127,13 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                               SizedBox(
                                 height: 15,
                               ),
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.46, 40.0, setValue),
+                              /*dropList(_locations, _selectedLocation,
+                                  width * 0.46, 40.0, setValue),*/
                               SizedBox(
                                 height: 15,
                               ),
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.46, 40.0, setValue),
+                              /*dropList(_locations, _selectedLocation,
+                                  width * 0.46, 40.0, setValue),*/
                               SizedBox(
                                 height: 15,
                               ),
