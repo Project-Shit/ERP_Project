@@ -16,7 +16,6 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
   // objects implementation
   bool password = true;
   bool message1 = true;
-  bool message2 = true;
   TextEditingController _name = TextEditingController();
   TextEditingController _hours = TextEditingController();
   TextEditingController _salary = TextEditingController();
@@ -38,17 +37,19 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
 
   // function to change values of a record
   apply() async {
-    data = {
-      "command": "update salary set employeeName = '${_name.text}', department = '${_dept.text}',"
-          " paymentType = '${_payment.toString()}' , workingHours = '${_hours.text}', salary = '${_salary.text}',"
-          "insurance = '${_insurance.text}', taxOnSalary = '${_tax.text}', deduction = '${_deduction.text}'"
-          ", netSalary = '${_netS.text}' where employeeID = ${_id.toString()}"
-    };
-    response = await http.post(Uri.parse(setData), body: data);
-    if (200 == response.statusCode) {
+    try{
+      data = {
+        "command": "insert into salary values(${_id.toString()},'${_name.text}','${_dept.text}','${_payment.toString()}',"
+            "${_hours.text},${_salary.text},${_insurance.text},${_tax.text},${_deduction.text},${_netS.text})"
+      };
+      response = await http.post(Uri.parse(setData), body: data);
+      if (200 == response.statusCode) {
+        return message1;
+      } else {
+        return !message1;
+      }
+    }catch (e){
       return message1;
-    } else {
-      return !message1;
     }
   }
 
@@ -299,7 +300,12 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          actionButtons('Apply', () {}, Colors.green),
+                          actionButtons('Apply', () {
+                            apply();
+                            showToast(
+                                message1 ? 'Applied' : 'Couldn\'t Apply',
+                                position: ToastPosition.top);
+                            }, Colors.green),
                           SizedBox(
                             width: 80,
                           ),
