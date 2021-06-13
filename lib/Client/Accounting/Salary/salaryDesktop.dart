@@ -116,207 +116,209 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
         child: ClientAppBar(),
       ),
       // implementing th body with scroll View and row widget
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: 30,
-            bottom: 30,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // implementing a container to make the outline border design
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      50.0,
+      body: OKToast(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: 30,
+              bottom: 30,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // implementing a container to make the outline border design
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        50.0,
+                      ),
+                      border: Border.all(
+                        color: textColor,
+                        width: 2,
+                      )),
+                  width: width * 0.7,
+                  height: 700,
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(left: 70, right: 70, top: 30, bottom: 30),
+                    child: Column(
+                      children: [
+                        // implementing a row widget to align the rest of the widget
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // implementing a column to call custom label widget with sizedBox between them
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                labelText('Employee ID'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                labelText('Employee Name'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                labelText('Department'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                labelText('Payment Type'),
+                                SizedBox(
+                                  height: 32,
+                                ),
+                                labelText('Working Hours'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                labelText('Salary'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                labelText('Insurance'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                labelText('Tax on Salary'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                labelText('Deduction'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                labelText('Net Salary'),
+                              ],
+                            ),
+                            SizedBox(
+                              width: width * 0.04,
+                            ),
+                            // implementing a column to call custom drop down list, text field with sizedBox between them.
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: width * 0.46,
+                                  height: 50.0,
+                                  child: DropdownButtonFormField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0),
+                                        ),
+                                      ),
+                                      filled: true,
+                                      fillColor: secondaryColor,
+                                    ),
+                                    value: _id,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _id = newValue;
+                                        fetchData();
+                                      });
+                                    },
+                                    items: _ids.map((location) {
+                                      return DropdownMenuItem(
+                                        child: new Text(location),
+                                        value: location,
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                textField(_name, width * 0.46, 40.0, false),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                textField(_dept, width * 0.46, 40.0, false),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  width: width * 0.46,
+                                  height: 50.0,
+                                  child: DropdownButtonFormField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0),
+                                        ),
+                                      ),
+                                      filled: true,
+                                      fillColor: secondaryColor,
+                                    ),
+                                    value: _payment,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _payment = newValue;
+                                      });
+                                    },
+                                    items: _pay.map((location) {
+                                      return DropdownMenuItem(
+                                        child: new Text(location),
+                                        value: location,
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                textField(_hours, width * 0.46, 40.0, true),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                textField(_salary, width * 0.46, 40.0, true),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                textField(_insurance, width * 0.46, 40.0, true),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                textField(_tax, width * 0.46, 40.0, true),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                textField(_deduction, width * 0.46, 40.0, true),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                textField(_netS, width * 0.46, 40.0, true),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        // implementing a row widget to call custom buttons and align them.
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            actionButtons('Apply', () {
+                              apply();
+                              showToast(
+                                  message1 ? 'Applied' : 'Couldn\'t Apply',
+                                  position: ToastPosition.top);
+                              }, Colors.green),
+                            SizedBox(
+                              width: 80,
+                            ),
+                            actionButtons('Print Report', () {}, Colors.blue),
+                          ],
+                        ),
+                      ],
                     ),
-                    border: Border.all(
-                      color: textColor,
-                      width: 2,
-                    )),
-                width: width * 0.7,
-                height: 700,
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(left: 70, right: 70, top: 30, bottom: 30),
-                  child: Column(
-                    children: [
-                      // implementing a row widget to align the rest of the widget
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // implementing a column to call custom label widget with sizedBox between them
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 15,
-                              ),
-                              labelText('Employee ID'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Employee Name'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Department'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Payment Type'),
-                              SizedBox(
-                                height: 32,
-                              ),
-                              labelText('Working Hours'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Salary'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Insurance'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Tax on Salary'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Deduction'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Net Salary'),
-                            ],
-                          ),
-                          SizedBox(
-                            width: width * 0.04,
-                          ),
-                          // implementing a column to call custom drop down list, text field with sizedBox between them.
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: width * 0.46,
-                                height: 50.0,
-                                child: DropdownButtonFormField(
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                    ),
-                                    filled: true,
-                                    fillColor: secondaryColor,
-                                  ),
-                                  value: _id,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _id = newValue;
-                                      fetchData();
-                                    });
-                                  },
-                                  items: _ids.map((location) {
-                                    return DropdownMenuItem(
-                                      child: new Text(location),
-                                      value: location,
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_name, width * 0.46, 40.0, false),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_dept, width * 0.46, 40.0, false),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Container(
-                                width: width * 0.46,
-                                height: 50.0,
-                                child: DropdownButtonFormField(
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                    ),
-                                    filled: true,
-                                    fillColor: secondaryColor,
-                                  ),
-                                  value: _payment,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _payment = newValue;
-                                    });
-                                  },
-                                  items: _pay.map((location) {
-                                    return DropdownMenuItem(
-                                      child: new Text(location),
-                                      value: location,
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_hours, width * 0.46, 40.0, true),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_salary, width * 0.46, 40.0, true),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_insurance, width * 0.46, 40.0, true),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_tax, width * 0.46, 40.0, true),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_deduction, width * 0.46, 40.0, true),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_netS, width * 0.46, 40.0, true),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      // implementing a row widget to call custom buttons and align them.
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          actionButtons('Apply', () {
-                            apply();
-                            showToast(
-                                message1 ? 'Applied' : 'Couldn\'t Apply',
-                                position: ToastPosition.top);
-                            }, Colors.green),
-                          SizedBox(
-                            width: 80,
-                          ),
-                          actionButtons('Print Report', () {}, Colors.blue),
-                        ],
-                      ),
-                    ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
