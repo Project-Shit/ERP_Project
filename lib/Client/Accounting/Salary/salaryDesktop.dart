@@ -27,20 +27,21 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
 
   // ignore: deprecated_member_use
   List _ids = List();
+
   // ignore: deprecated_member_use
   List _pay = List();
-  String _id,_payment;
+  String _id, _payment;
   var setData = 'http://192.168.1.104/ERP/setAPI.php';
   var getData = 'http://192.168.1.104/ERP/getAPI.php';
   var data, response;
 
-
   // function to change values of a record
   apply() async {
-    try{
+    try {
       data = {
-        "command": "insert into salary values(${_id.toString()},'${_name.text}','${_dept.text}','${_payment.toString()}',"
-            "${_hours.text},${_salary.text},${_insurance.text},${_tax.text},${_deduction.text},${_netS.text})"
+        "command":
+            "insert into salary values(${_id.toString()},'${_name.text}','${_dept.text}','${_payment.toString()}',"
+                "${_hours.text},${_salary.text},${_insurance.text},${_tax.text},${_deduction.text},${_netS.text})"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -48,7 +49,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
       } else {
         return !message1;
       }
-    }catch (e){
+    } catch (e) {
       return message1;
     }
   }
@@ -139,8 +140,8 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                   width: width * 0.7,
                   height: 700,
                   child: Padding(
-                    padding:
-                        EdgeInsets.only(left: 70, right: 70, top: 30, bottom: 30),
+                    padding: EdgeInsets.only(
+                        left: 70, right: 70, top: 30, bottom: 30),
                     child: Column(
                       children: [
                         // implementing a row widget to align the rest of the widget
@@ -306,7 +307,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                               showToast(
                                   message1 ? 'Applied' : 'Couldn\'t Apply',
                                   position: ToastPosition.top);
-                              }, Colors.green),
+                            }, Colors.green),
                             SizedBox(
                               width: 80,
                             ),
