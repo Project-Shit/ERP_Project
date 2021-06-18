@@ -96,8 +96,8 @@ Widget textField(
 }
 
 // Custom Password Field
-Widget passwordField(TextEditingController text, double width, double height, bool password, bool status,
-    VoidCallback onTap) {
+Widget passwordField(TextEditingController text, double width, double height,
+    bool password, bool status, VoidCallback onTap) {
   return Container(
     width: width,
     height: height,
