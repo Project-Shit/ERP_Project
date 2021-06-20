@@ -4,7 +4,6 @@ import 'package:erp/Client/Accounting/Expenses/expenses.dart';
 import 'package:erp/Client/Accounting/Insurance/insurance.dart';
 import 'package:erp/Client/Accounting/Product/product.dart';
 import 'package:erp/Client/Accounting/Salary/salary.dart';
-import 'package:erp/Client/Accounting/Subscription/subscription.dart';
 import 'package:erp/Client/Accounting/Tax/tax.dart';
 import 'package:erp/Client/Users/users.dart';
 import 'package:erp/constants.dart';
@@ -137,22 +136,6 @@ class ApplicationDesktop extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => Salary(),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    width: width * 0.02,
-                  ),
-                  applicationCard(
-                    'Subscription',
-                    width * 0.18,
-                    100,
-                    () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Subscription(),
                         ),
                       );
                     },
