@@ -1,15 +1,13 @@
+import 'package:erp/Inventory/inventoryDesktop.dart';
+import 'package:erp/Inventory/inventoryMobile.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
-class inventory extends StatefulWidget {
-  @override
-  _inventoryState createState() => _inventoryState();
-}
-
-class _inventoryState extends State<inventory> {
+class Inventory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("hello"),
+    return ScreenTypeLayout(
+      desktop: InventoryDesktop(),
     );
   }
 }

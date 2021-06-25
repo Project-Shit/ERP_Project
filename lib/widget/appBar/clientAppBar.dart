@@ -32,6 +32,10 @@ class ClientAppBar extends StatelessWidget {
             SizedBox(
               width: 20,
             ),
+            appButton('Product',() {} ),
+            SizedBox(
+              width: 20,
+            ),
             appButton(
               'User Name',
               () {},
