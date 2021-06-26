@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'package:erp/Client/Application/application.dart';
+import 'package:erp/Client/LogIn/logIn.dart';
 import 'package:flutter/material.dart';
 import 'package:erp/constants.dart';
 
@@ -40,16 +41,20 @@ class ClientAppBar extends StatelessWidget {
             SizedBox(
               width: 20,
             ),
-            appButton(
-              'User Name',
-              () {},
-            ),
+            labelText('UserName'),
             SizedBox(
               width: 20,
             ),
             appButton(
               'Log Out',
-              () {},
+              () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LogIn(),
+                  ),
+                );
+              },
             ),
           ],
         ),
