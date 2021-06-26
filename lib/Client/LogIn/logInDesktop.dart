@@ -16,7 +16,6 @@ class _LogInDesktopState extends State<LogInDesktop> {
   final _mailController = TextEditingController();
   final _passController = TextEditingController();
   bool password = true;
-  bool status = true;
   String userName = '';
   var logInAPI = 'http://192.168.1.104/ERP/logIn.php';
   var data, response;
