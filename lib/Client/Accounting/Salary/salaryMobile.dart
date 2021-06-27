@@ -1,7 +1,9 @@
 // @dart=2.9
+import 'dart:convert';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/drawer/clientDrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SalaryMobile extends StatefulWidget {
   @override
@@ -11,16 +13,62 @@ class SalaryMobile extends StatefulWidget {
 // viewing all salary records page for the client's system by search
 class _SalaryMobileState extends State<SalaryMobile> {
   // objects implementation
-  List<String> _locations = [];
-  String _selectedLocation;
-  final _textController = TextEditingController();
+  TextEditingController _name = TextEditingController();
+  TextEditingController _dept = TextEditingController();
+  TextEditingController _salary = TextEditingController();
+  TextEditingController _insurance = TextEditingController();
+  TextEditingController _tax = TextEditingController();
+  TextEditingController _deduction = TextEditingController();
+  TextEditingController _netS = TextEditingController();
 
-  // function to change the value in the drop down list to the selected value
-  void setValue() {
-    String value = '';
-    setState(() {
-      _selectedLocation = value;
+  // ignore: deprecated_member_use
+  List _ids = List();
+  String _id;
+  var setData = 'http://192.168.1.104/ERP/setAPI.php';
+  var getData = 'http://192.168.1.104/ERP/getAPI.php';
+  var data, response;
+
+  // function to fetch data from database
+  Future<Null> fetchData() async {
+    data = {
+      "command": "select name,department,salary,insurance,(salary*14)/100 as tax,"
+          "deduction,(salary-insurance-tax-deduction) as netSalary from users where id = '${_id.toString()}'"
+    };
+    return await http
+        .post(Uri.parse(getData), body: data)
+        .then((http.Response response) {
+      final List fetchData = json.decode(response.body);
+      fetchData.forEach((user) {
+        setState(() {
+          _name.text = user['name'];
+          _dept.text = user['department'];
+          _salary.text = user['salary'];
+          _insurance.text = user['insurance'];
+          _tax.text = user['tax'];
+          _deduction.text = user['deduction'];
+          _netS.text = user['netSalary'];
+        });
+      });
     });
+  }
+
+  // function to set id data to drop list
+  Future idList() async {
+    data = {"command": "select id from users"};
+    http.post(Uri.parse(getData), body: data).then((http.Response response) {
+      var fetchDecode = jsonDecode(response.body);
+      fetchDecode.forEach((users) {
+        setState(() {
+          _ids.add(users['id']);
+        });
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    idList();
   }
 
   @override
@@ -78,53 +126,69 @@ class _SalaryMobileState extends State<SalaryMobile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   labelText('Employee ID'),
-                  /*dropList(_locations, _selectedLocation, width * 0.9, 45.0,
-                      setValue),*/
+                  Container(
+                    width: width,
+                    height: 55.0,
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.0),
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: secondaryColor,
+                      ),
+                      value: _id,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _id = newValue;
+                          fetchData();
+                        });
+                      },
+                      items: _ids.map((location) {
+                        return DropdownMenuItem(
+                          child: Text(location),
+                          value: location,
+                        );
+                      }).toList(),
+                    ),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Employee Name'),
-                  textField(_textController, width, 45.0, false),
+                  textField(_name, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Department'),
-                  textField(_textController, width, 45.0, false),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  labelText('Payment Type'),
-                  textField(_textController, width, 45.0, false),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  labelText('Working Hours'),
-                  textField(_textController, width, 45.0, false),
+                  textField(_dept, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Salary'),
-                  textField(_textController, width, 45.0, false),
+                  textField(_salary, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Insurance'),
-                  textField(_textController, width, 45.0, false),
+                  textField(_insurance, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Tax on Salary'),
-                  textField(_textController, width, 45.0, false),
+                  textField(_tax, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Deduction'),
-                  textField(_textController, width, 45.0, false),
+                  textField(_deduction, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
                   labelText('Net Salary'),
-                  textField(_textController, width, 45.0, false),
+                  textField(_netS, width, 45.0, false),
                 ],
               ),
             ),
