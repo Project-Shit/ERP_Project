@@ -1,7 +1,6 @@
 // @dart=2.9
 import 'package:erp/Client/Accounting/Company/company.dart';
 import 'package:erp/Client/Accounting/Expenses/expenses.dart';
-import 'package:erp/Client/Accounting/Product/product.dart';
 import 'package:erp/Client/Accounting/Salary/salary.dart';
 import 'package:erp/Client/Accounting/Tax/tax.dart';
 import 'package:erp/Client/Users/users.dart';
@@ -110,22 +109,6 @@ class ApplicationDesktop extends StatelessWidget {
               ),
               Row(
                 children: [
-                  applicationCard(
-                    'Product',
-                    width * 0.18,
-                    100,
-                    () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Product(),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    width: width * 0.02,
-                  ),
                   applicationCard(
                     'Salary',
                     width * 0.18,
