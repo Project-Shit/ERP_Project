@@ -19,6 +19,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
   bool message1 = true;
   bool message2 = true;
   TextEditingController _name = TextEditingController();
+  TextEditingController _ssin = TextEditingController();
+  TextEditingController _social = TextEditingController();
   TextEditingController _phone = TextEditingController();
   TextEditingController _email = TextEditingController();
   TextEditingController _pass = TextEditingController();
@@ -38,9 +40,10 @@ class _UsersDesktopState extends State<UsersDesktop> {
   applyUser() async {
     try {
       data = {
-        "command": "update users set name = '${_name.text}', phone = '${_phone.text}',"
-            " email = '${_email.text}' , password = '${_pass.text}', address = '${_address.text}',"
-            "department = '${_department.text}', userType = '${_userType.text}' where id = ${_id.toString()}"
+        "command": "update users set name = '${_name.text}',ssin = ${_ssin.text} "
+            ",socialNumber = ${_social.text} ,phone = '${_phone.text}',email = '${_email.text}' "
+            ",password = '${_pass.text}', address = '${_address.text}',department = '${_department.text}' "
+            ",userType = '${_userType.text}' where id = ${_id.toString()}"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -57,9 +60,9 @@ class _UsersDesktopState extends State<UsersDesktop> {
   delete() async {
     try {
       data = {
-        "command": "update users set name = '', phone = '',"
-            " email = '' , password = '', address = '',"
-            "department = '', userType = '' where id = '${_id.toString()}'"
+        "command": "update users set name = '' ,ssin = '' ,socialNumber = ''"
+            ",phone = '' ,email = '' , password = '', address = ''"
+            ",department = '', userType = '' where id = '${_id.toString()}'"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -76,6 +79,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
   clear() {
     setState(() {
       _name.text = '';
+      _ssin.text = '';
+      _social.text = '';
       _phone.text = '';
       _email.text = '';
       _pass.text = '';
@@ -97,7 +102,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
     try {
       data = {
         "command":
-            "select name,phone,email,password,address,department,userType from users where id = '${_id.toString()}'"
+            "select * from users where id = '${_id.toString()}'"
       };
       return await http
           .post(Uri.parse(getData), body: data)
@@ -106,6 +111,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
         fetchData.forEach((user) {
           setState(() {
             _name.text = user['name'];
+            _ssin.text = user['ssin'];
+            _social.text = user['socialNumber'];
             _phone.text = user['phone'];
             _email.text = user['email'];
             _pass.text = user['password'];
@@ -173,7 +180,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                         width: 2,
                       )),
                   width: width * 0.7,
-                  height: 620,
+                  height: 700,
                   child: Padding(
                     padding: EdgeInsets.only(
                       left: 70,
@@ -193,9 +200,17 @@ class _UsersDesktopState extends State<UsersDesktop> {
                               children: [
                                 labelText('ID'),
                                 SizedBox(
-                                  height: 30,
+                                  height: 35,
                                 ),
                                 labelText('Name'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                labelText('SSIN'),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                labelText('Social Number'),
                                 SizedBox(
                                   height: 30,
                                 ),
@@ -223,7 +238,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                               ],
                             ),
                             SizedBox(
-                              width: width * 0.04,
+                              width: 20,
                             ),
                             // implementing a column to call custom drop down list, text field and
                             // password field widget with sizedBox between them.
@@ -262,6 +277,14 @@ class _UsersDesktopState extends State<UsersDesktop> {
                                   height: 15,
                                 ),
                                 textField(_name, width * 0.49, 40.0, true),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                textField(_ssin, width * 0.49, 40.0, true),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                textField(_social, width * 0.49, 40.0, true),
                                 SizedBox(
                                   height: 15,
                                 ),
