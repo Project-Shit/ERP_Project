@@ -1,7 +1,6 @@
 // @dart=2.9
 import 'package:erp/Client/Accounting/Company/company.dart';
 import 'package:erp/Client/Accounting/Expenses/expenses.dart';
-import 'package:erp/Client/Accounting/Insurance/insurance.dart';
 import 'package:erp/Client/Accounting/Product/product.dart';
 import 'package:erp/Client/Accounting/Salary/salary.dart';
 import 'package:erp/Client/Accounting/Tax/tax.dart';
@@ -92,14 +91,14 @@ class ApplicationDesktop extends StatelessWidget {
                     width: width * 0.02,
                   ),
                   applicationCard(
-                    'Insurance',
+                    'Tax',
                     width * 0.18,
                     100,
-                    () {
+                        () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Insurance(),
+                          builder: (context) => Tax(),
                         ),
                       );
                     },
@@ -136,22 +135,6 @@ class ApplicationDesktop extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => Salary(),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    width: width * 0.02,
-                  ),
-                  applicationCard(
-                    'Tax',
-                    width * 0.18,
-                    100,
-                    () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Tax(),
                         ),
                       );
                     },
