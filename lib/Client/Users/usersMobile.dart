@@ -18,6 +18,8 @@ class _UsersMobileState extends State<UsersMobile> {
   String _selectedLocation;
   bool password = true;
   TextEditingController _name = TextEditingController();
+  TextEditingController _ssin = TextEditingController();
+  TextEditingController _social = TextEditingController();
   TextEditingController _phone = TextEditingController();
   TextEditingController _email = TextEditingController();
   TextEditingController _pass = TextEditingController();
@@ -49,6 +51,8 @@ class _UsersMobileState extends State<UsersMobile> {
         fetchData.forEach((user) {
           setState(() {
             _name.text = user['name'];
+            _ssin.text = user['ssin'];
+            _social.text = user['socialNumber'];
             _phone.text = user['phone'];
             _email.text = user['email'];
             _pass.text = user['password'];
@@ -174,6 +178,16 @@ class _UsersMobileState extends State<UsersMobile> {
                   ),
                   labelText('Name'),
                   textField(_name, width, 50.0, false),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  labelText('SSIN'),
+                  textField(_ssin, width, 50.0, false),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  labelText('Social Number'),
+                  textField(_social, width, 50.0, false),
                   SizedBox(
                     height: 20,
                   ),
