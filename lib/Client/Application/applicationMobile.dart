@@ -1,8 +1,6 @@
 // @dart=2.9
-import 'package:erp/Client/Accounting/Company/company.dart';
-import 'package:erp/Client/Accounting/Expenses/expenses.dart';
 import 'package:erp/Client/Accounting/Salary/salary.dart';
-import 'package:erp/Client/Accounting/Tax/tax.dart';
+import 'package:erp/Client/Accounting/Company/company.dart';
 import 'package:erp/Client/Users/users.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/drawer/clientDrawer.dart';
@@ -73,38 +71,6 @@ class ApplicationMobile extends StatelessWidget {
                   height: 20,
                 ),
                 applicationCard(
-                  'Company',
-                  width,
-                  100,
-                  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Company(),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                applicationCard(
-                  'Expenses',
-                  width,
-                  100,
-                  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Expenses(),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                applicationCard(
                   'Salary',
                   width,
                   100,
@@ -128,7 +94,7 @@ class ApplicationMobile extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Tax(),
+                        builder: (context) => Company(),
                       ),
                     );
                   },
