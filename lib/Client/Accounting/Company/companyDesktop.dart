@@ -1,18 +1,86 @@
 // @dart=2.9
+import 'dart:convert';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class CompanyDesktop extends StatefulWidget {
   @override
   _CompanyDesktopState createState() => _CompanyDesktopState();
 }
 
-// company accounting page for the client's system
+// tax accounting page for the client's system
 class _CompanyDesktopState extends State<CompanyDesktop> {
   // objects implementation
-  final _textController = TextEditingController();
-  final _dateController = TextEditingController();
+  bool message = true;
+  TextEditingController _profitController = TextEditingController();
+  TextEditingController _tProfitController = TextEditingController();
+  TextEditingController _salaryController = TextEditingController();
+  TextEditingController _tSalaryController = TextEditingController();
+  TextEditingController _totalController = TextEditingController();
+
+  // ignore: deprecated_member_use
+  List _monthly = [
+    'January','February',
+    'March','April',
+    'May','June',
+    'July','August',
+    'September','October',
+    'November','December',
+  ];
+  // ignore: deprecated_member_use
+  List _years = List();
+
+  String _month,_year;
+
+  var setData = 'http://192.168.1.104/ERP/setAPI.php';
+  var getData = 'http://192.168.1.104/ERP/getAPI.php';
+  var data, response;
+
+  apply() async {
+    try {
+      data = {
+        "command": "update "
+      };
+      response = await http.post(Uri.parse(setData), body: data);
+      if (200 == response.statusCode) {
+        return message;
+      } else {
+        return !message;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future fetchData() async {
+    try {
+      data = {
+        "command": "select sum(salary) as salary,sum(tax) as tax from users"
+      };
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
+        var fetchDecode = jsonDecode(response.body);
+        fetchDecode.forEach((users) {
+          setState(() {
+            _salaryController.text = users['salary'];
+            _tSalaryController.text = users['tax'];
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+    for(int i=2000;i<=2100;i++){
+      _years.add(i.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +105,16 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
               // implementing a container to make the outline border design
               Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      50.0,
-                    ),
-                    border: Border.all(
-                      color: textColor,
-                      width: 2,
-                    )),
+                  borderRadius: BorderRadius.circular(
+                    50.0,
+                  ),
+                  border: Border.all(
+                    color: textColor,
+                    width: 2,
+                  ),
+                ),
                 width: width * 0.7,
-                height: 520,
+                height: 500,
                 child: Padding(
                   padding: EdgeInsets.only(
                     left: 70,
@@ -56,49 +125,6 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // implementing a container to implement a search box
-                      Container(
-                        width: width,
-                        height: 40,
-                        child: TextFormField(
-                          style: TextStyle(
-                            color: textColor,
-                          ),
-                          decoration: InputDecoration(
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.only(
-                                right: 10,
-                              ),
-                              child: IconButton(
-                                icon: Icon(Icons.search),
-                                onPressed: () {},
-                              ),
-                            ),
-                            fillColor: secondaryColor,
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                new Radius.circular(
-                                  10.0,
-                                ),
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                new Radius.circular(
-                                  10.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -110,11 +136,11 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Total Balance'),
+                              labelText('Total Profit'),
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Total Expenses'),
+                              labelText('Tax on Profit'),
                               SizedBox(
                                 height: 30,
                               ),
@@ -122,7 +148,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Total Profit'),
+                              labelText('Tax on Salary'),
                               SizedBox(
                                 height: 30,
                               ),
@@ -132,63 +158,102 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                           SizedBox(
                             width: width * 0.04,
                           ),
-                          // implementing a column to call custom text field
+                          // implementing a column to call custom drop down list, text field
                           // and date picker with sizedBox between them.
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Container(
-                                width: width * 0.469,
-                                height: 40.0,
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: width * 0.2,
+                                    height: 50.0,
+                                    child: DropdownButtonFormField(
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0),
+                                          ),
+                                        ),
+                                        filled: true,
+                                        fillColor: secondaryColor,
                                       ),
+                                      value: _month,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          _month = newValue;
+                                          fetchData();
+                                        });
+                                      },
+                                      items: _monthly.map((location) {
+                                        return DropdownMenuItem(
+                                          child: new Text(location),
+                                          value: location,
+                                        );
+                                      }).toList(),
                                     ),
-                                    filled: true,
-                                    fillColor: secondaryColor,
                                   ),
-                                  readOnly: true,
-                                  controller: _dateController,
-                                  onTap: () async {
-                                    var date = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1900),
-                                      lastDate: DateTime(2100),
-                                    );
-                                    _dateController.text =
-                                        date.toString().substring(0, 10);
-                                  },
-                                ),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  Container(
+                                    width: width * 0.2,
+                                    height: 50.0,
+                                    child: DropdownButtonFormField(
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0),
+                                          ),
+                                        ),
+                                        filled: true,
+                                        fillColor: secondaryColor,
+                                      ),
+                                      value: _year,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          _year = newValue;
+                                          fetchData();
+                                        });
+                                      },
+                                      items: _years.map((location) {
+                                        return DropdownMenuItem(
+                                          child: new Text(location),
+                                          value: location,
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 50
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.469, 40.0, true),
+                                  _profitController, width * 0.48, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.469, 40.0, true),
+                                  _tProfitController, width * 0.48, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.469, 40.0, true),
+                                  _salaryController, width * 0.48, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.469, 40.0, true),
+                                  _tSalaryController, width * 0.48, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.469, 40.0, true),
+                                  _totalController, width * 0.48, 40.0, true),
                             ],
                           ),
                         ],
@@ -200,11 +265,11 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          actionButtons('Print Report', () {}, Colors.blue),
+                          actionButtons('Apply', () {}, Colors.green),
                           SizedBox(
                             width: 80,
                           ),
-                          actionButtons('Apply', () {}, Colors.green),
+                          actionButtons('Print Report', () {}, Colors.blue),
                         ],
                       ),
                     ],
