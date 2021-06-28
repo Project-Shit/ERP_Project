@@ -130,7 +130,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
   // function to set id data to drop list
   Future idList() async {
     try {
-      data = {"command": "select id from users"};
+      data = {"command": "select id from users order by id"};
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
         fetchDecode.forEach((users) {
