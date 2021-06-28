@@ -36,7 +36,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
       data = {
         "command":
             "update users set salary = ${_salary.text}, insurance = ${_insurance.text}, "
-                "tax = ${_tax.text}, deduction = ${_deduction.text}, netSalary = ${_netS.text} where id = ${_id.toString()}"
+                "tax = ${_tax.text}, deduction = ${_deduction.text}, netSalary = (salary-insurance-tax-deduction) where id = ${_id.toString()}"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -75,7 +75,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
 
   // function to set id data to drop list
   Future idList() async {
-    data = {"command": "select id from users"};
+    data = {"command": "select id from users order by id"};
     http.post(Uri.parse(getData), body: data).then((http.Response response) {
       var fetchDecode = jsonDecode(response.body);
       fetchDecode.forEach((users) {
@@ -250,14 +250,12 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                             Alert(
                               context: context,
                               title: message1 ? 'Applied' : 'Couldn\'t Apply',
-                              content: Column(
-                                children: <Widget>[],
-                              ),
                               buttons: [
                                 DialogButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                     fetchData();
+                                    apply();
                                   },
                                   child: Text(
                                     "OK",
