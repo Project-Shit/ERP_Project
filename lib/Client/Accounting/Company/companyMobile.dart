@@ -8,7 +8,7 @@ class CompanyMobile extends StatefulWidget {
   _CompanyMobileState createState() => _CompanyMobileState();
 }
 
-// viewing all company records page for the client's system by search
+// viewing all tax records page for the client's system by search
 class _CompanyMobileState extends State<CompanyMobile> {
   // objects implementation
   final _textController = TextEditingController();
@@ -62,12 +62,18 @@ class _CompanyMobileState extends State<CompanyMobile> {
                 left: 20,
                 right: 20,
               ),
-              // implementing a column widget to add custom widgets labels,
-              // text field, date picker and sizedBox between them.
+              // implementing a column widget to add custom widgets labels, text field,
+              // drop down list, date picker and sizedBox between them.
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  labelText('Tax Plan'),
+                  /*dropList(_locations, _selectedLocation, width * 0.9, 45.0,
+                      setValue),*/
+                  SizedBox(
+                    height: 20,
+                  ),
                   labelText('Date'),
                   Container(
                     width: width * 0.9,
@@ -98,12 +104,12 @@ class _CompanyMobileState extends State<CompanyMobile> {
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Total Balance'),
+                  labelText('Total Profit'),
                   textField(_textController, width, 45.0, false),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Total Expenses'),
+                  labelText('Tax on Profit'),
                   textField(_textController, width, 45.0, false),
                   SizedBox(
                     height: 20,
@@ -113,7 +119,7 @@ class _CompanyMobileState extends State<CompanyMobile> {
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Total Profit'),
+                  labelText('Tax on Salary'),
                   textField(_textController, width, 45.0, false),
                   SizedBox(
                     height: 20,
