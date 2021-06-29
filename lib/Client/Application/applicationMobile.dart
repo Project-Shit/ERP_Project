@@ -87,7 +87,7 @@ class ApplicationMobile extends StatelessWidget {
                   height: 20,
                 ),
                 applicationCard(
-                  'Tax',
+                  'Company',
                   width,
                   100,
                   () {
