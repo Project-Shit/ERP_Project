@@ -54,7 +54,7 @@ class _SalaryMobileState extends State<SalaryMobile> {
 
   // function to set id data to drop list
   Future idList() async {
-    data = {"command": "select id from users"};
+    data = {"command": "select id from users order by id"};
     http.post(Uri.parse(getData), body: data).then((http.Response response) {
       var fetchDecode = jsonDecode(response.body);
       fetchDecode.forEach((users) {
