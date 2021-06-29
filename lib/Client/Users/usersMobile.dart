@@ -26,7 +26,6 @@ class _UsersMobileState extends State<UsersMobile> {
   TextEditingController _address = TextEditingController();
   TextEditingController _department = TextEditingController();
   TextEditingController _userType = TextEditingController();
-  var setDate = 'http://192.168.1.104/ERP/setAPI.php';
   var getData = 'http://192.168.1.104/ERP/getAPI.php';
   var data, response;
 
@@ -70,7 +69,7 @@ class _UsersMobileState extends State<UsersMobile> {
   // function to set data to drop list
   Future idList() async {
     try {
-      data = {"command": "select id from users"};
+      data = {"command": "select id from users order by id"};
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
         fetchDecode.forEach((users) {
