@@ -1,11 +1,10 @@
 // @dart=2.9
 import 'dart:convert';
-
 import 'package:erp/Client/Application/application.dart';
 import 'package:erp/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:oktoast/oktoast.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class LogInMobile extends StatefulWidget {
   @override
@@ -40,7 +39,25 @@ class _LogInMobileState extends State<LogInMobile> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Application()));
       } else {
-        showToast('Incorrect Email or Password', position: ToastPosition.top);
+        Alert(
+          context: context,
+          title: 'Incorrect Email or Password',
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: 20,
+                ),
+              ),
+              color: hoverColor,
+            )
+          ],
+        ).show();
       }
     } catch (e) {
       print(e);
@@ -52,30 +69,32 @@ class _LogInMobileState extends State<LogInMobile> {
     // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    return OKToast(
-      child: Scaffold(
-        backgroundColor: primaryColor,
-        // implementing the client's AppBar
-        appBar: PreferredSize(
-          preferredSize: Size(width, 60),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            iconTheme: IconThemeData(
-              color: textColor,
-            ),
-            backgroundColor: primaryColor,
-            title: Text(
-              'Company Name',
-              style: TextStyle(
-                color: textColor,
-                fontSize: 25,
-              ),
-            ),
-            centerTitle: true,
+    return Scaffold(
+      backgroundColor: primaryColor,
+      // implementing the client's AppBar
+      appBar: PreferredSize(
+        preferredSize: Size(width, 60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          iconTheme: IconThemeData(
+            color: textColor,
           ),
+          backgroundColor: primaryColor,
+          title: Text(
+            'Company Name',
+            style: TextStyle(
+              color: textColor,
+              fontSize: 25,
+            ),
+          ),
+          centerTitle: true,
         ),
-        // implementing th body with scroll View and container widget
-        body: SingleChildScrollView(
+      ),
+      // implementing th body with scroll View and container widget
+      body: WillPopScope(
+        // ignore: missing_return
+        onWillPop: () {},
+        child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
               left: 20,
