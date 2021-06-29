@@ -5,7 +5,7 @@ import 'package:erp/Client/Application/application.dart';
 import 'package:erp/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:oktoast/oktoast.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class LogInDesktop extends StatefulWidget {
   @override
@@ -40,7 +40,25 @@ class _LogInDesktopState extends State<LogInDesktop> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Application()));
       } else {
-        showToast('Incorrect Email or Password', position: ToastPosition.top);
+        Alert(
+          context: context,
+          title: 'Incorrect Email or Password',
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: 20,
+                ),
+              ),
+              color: hoverColor,
+            )
+          ],
+        ).show();
       }
     } catch (e) {
       print(e);
@@ -50,28 +68,30 @@ class _LogInDesktopState extends State<LogInDesktop> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return OKToast(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(width, 60),
-          child: AppBar(
-            automaticallyImplyLeading: false,
-            elevation: 0,
-            iconTheme: IconThemeData(
-              color: textColor,
-            ),
-            backgroundColor: primaryColor,
-            title: Text(
-              'Company Name',
-              style: TextStyle(
-                color: textColor,
-                fontSize: 25,
-              ),
-            ),
-            centerTitle: true,
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(width, 60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: textColor,
           ),
+          backgroundColor: primaryColor,
+          title: Text(
+            'Company Name',
+            style: TextStyle(
+              color: textColor,
+              fontSize: 25,
+            ),
+          ),
+          centerTitle: true,
         ),
-        body: Row(
+      ),
+      body: WillPopScope(
+        // ignore: missing_return
+        onWillPop: () {},
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
