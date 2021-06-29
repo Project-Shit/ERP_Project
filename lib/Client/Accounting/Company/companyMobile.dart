@@ -68,12 +68,6 @@ class _CompanyMobileState extends State<CompanyMobile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  labelText('Tax Plan'),
-                  /*dropList(_locations, _selectedLocation, width * 0.9, 45.0,
-                      setValue),*/
-                  SizedBox(
-                    height: 20,
-                  ),
                   labelText('Date'),
                   Container(
                     width: width * 0.9,
