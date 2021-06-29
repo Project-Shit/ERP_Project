@@ -30,7 +30,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
   var getData = 'http://192.168.1.104/ERP/getAPI.php';
   var data, response;
 
-  // function to change values of a record
+  // function to change values of a record and calculate net salary
   apply() async {
     try {
       data = {
@@ -49,7 +49,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
     }
   }
 
-  // function to fetch data from database
+  // function to fetch data from database and calculate columns
   Future<Null> fetchData() async {
     data = {
       "command": "select name,department,salary,insurance,(salary*14)/100 as tax,"
