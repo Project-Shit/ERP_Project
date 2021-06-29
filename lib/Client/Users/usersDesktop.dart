@@ -5,7 +5,7 @@ import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:oktoast/oktoast.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class UsersDesktop extends StatefulWidget {
   @override
@@ -61,7 +61,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
     try {
       data = {
         "command": "update users set name = '' ,ssin = '' ,socialNumber = ''"
-            ",phone = '' ,email = '' , password = '', address = ''"
+            ",phone = '' ,email = null , password = '', address = ''"
             ",department = '', userType = '' where id = '${_id.toString()}'"
       };
       response = await http.post(Uri.parse(setData), body: data);
@@ -100,10 +100,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
   // function to fetch data from database
   Future<Null> fetchData() async {
     try {
-      data = {
-        "command":
-            "select * from users where id = '${_id.toString()}'"
-      };
+      data = {"command": "select * from users where id = '${_id.toString()}'"};
       return await http
           .post(Uri.parse(getData), body: data)
           .then((http.Response response) {
@@ -154,198 +151,228 @@ class _UsersDesktopState extends State<UsersDesktop> {
   Widget build(BuildContext context) {
     // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
-    return OKToast(
-      child: Scaffold(
-        // calling the client's custom AppBar
-        appBar: PreferredSize(
-          preferredSize: Size(width, 70),
-          child: ClientAppBar(),
-        ),
-        // implementing th body with scroll View and row widget
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: 30,
-              bottom: 30,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // implementing a container to make the outline border design
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50.0),
-                      border: Border.all(
-                        color: textColor,
-                        width: 2,
-                      )),
-                  width: width * 0.7,
-                  height: 700,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: 70,
-                      right: 70,
-                    ),
-                    // implementing a column widget to align the rest of the widget
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            // implementing a column to call custom label widget with sizedBox between them
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                labelText('ID'),
-                                SizedBox(
-                                  height: 35,
-                                ),
-                                labelText('Name'),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                labelText('SSIN'),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                labelText('Social Number'),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                labelText('Phone'),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                labelText('Email'),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                labelText('Password'),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                labelText('Address'),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                labelText('Department'),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                labelText('User Type'),
-                              ],
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            // implementing a column to call custom drop down list, text field and
-                            // password field widget with sizedBox between them.
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Container(
-                                  width: width * 0.49,
-                                  height: 50.0,
-                                  child: DropdownButtonFormField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0),
-                                        ),
+    return Scaffold(
+      // calling the client's custom AppBar
+      appBar: PreferredSize(
+        preferredSize: Size(width, 70),
+        child: ClientAppBar(),
+      ),
+      // implementing th body with scroll View and row widget
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 30,
+            bottom: 30,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // implementing a container to make the outline border design
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50.0),
+                    border: Border.all(
+                      color: textColor,
+                      width: 2,
+                    )),
+                width: width * 0.7,
+                height: 700,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: 70,
+                    right: 70,
+                  ),
+                  // implementing a column widget to align the rest of the widget
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          // implementing a column to call custom label widget with sizedBox between them
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              labelText('ID'),
+                              SizedBox(
+                                height: 35,
+                              ),
+                              labelText('Name'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('SSIN'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('Social Number'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('Phone'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('Email'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('Password'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('Address'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('Department'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('User Type'),
+                            ],
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          // implementing a column to call custom drop down list, text field and
+                          // password field widget with sizedBox between them.
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Container(
+                                width: width * 0.49,
+                                height: 50.0,
+                                child: DropdownButtonFormField(
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0),
                                       ),
-                                      filled: true,
-                                      fillColor: secondaryColor,
                                     ),
-                                    value: _id,
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        _id = newValue;
-                                        fetchData();
-                                      });
-                                    },
-                                    items: _ids.map((location) {
-                                      return DropdownMenuItem(
-                                        child: new Text(location),
-                                        value: location,
-                                      );
-                                    }).toList(),
+                                    filled: true,
+                                    fillColor: secondaryColor,
                                   ),
+                                  value: _id,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _id = newValue;
+                                      clear();
+                                      fetchData();
+                                    });
+                                  },
+                                  items: _ids.map((location) {
+                                    return DropdownMenuItem(
+                                      child: new Text(location),
+                                      value: location,
+                                    );
+                                  }).toList(),
                                 ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                textField(_name, width * 0.49, 40.0, true),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                textField(_ssin, width * 0.49, 40.0, true),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                textField(_social, width * 0.49, 40.0, true),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                textField(_phone, width * 0.49, 40.0, true),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                textField(_email, width * 0.49, 40.0, true),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                passwordField(_pass, width * 0.49, 40.0,
-                                    password, false, hidePassword),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                textField(_address, width * 0.49, 40.0, true),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                textField(
-                                    _department, width * 0.49, 40.0, true),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                textField(_userType, width * 0.49, 40.0, true),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(_name, width * 0.49, 40.0, true),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(_ssin, width * 0.49, 40.0, true),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(_social, width * 0.49, 40.0, true),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(_phone, width * 0.49, 40.0, true),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(_email, width * 0.49, 40.0, true),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              passwordField(_pass, width * 0.49, 40.0, password,
+                                  false, hidePassword),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(_address, width * 0.49, 40.0, true),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(_department, width * 0.49, 40.0, true),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(_userType, width * 0.49, 40.0, true),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      // implementing a row widget to call custom buttons and align them.
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          actionButtons('Apply', () {
+                            applyUser();
+                            Alert(
+                              context: context,
+                              title: message1 ? 'Applied' : 'Couldn\'t Apply',
+                              buttons: [
+                                DialogButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(
+                                      color: primaryColor,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  color: hoverColor,
+                                )
                               ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        // implementing a row widget to call custom buttons and align them.
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            actionButtons('Apply', () {
-                              applyUser();
-                              showToast(
-                                  message1 ? 'Applied' : 'Couldn\'t Apply',
-                                  position: ToastPosition.top);
-                            }, Colors.green),
-                            SizedBox(
-                              width: 80,
-                            ),
-                            actionButtons('Delete', () {
-                              delete();
-                              showToast(
-                                  message2 ? 'Deleted' : 'Couldn\'t Delete',
-                                  position: ToastPosition.top);
-                              clear();
-                            }, Colors.red.shade900),
-                          ],
-                        ),
-                      ],
-                    ),
+                            ).show();
+                          }, Colors.green),
+                          SizedBox(
+                            width: 80,
+                          ),
+                          actionButtons('Delete', () {
+                            delete();
+                            Alert(
+                              context: context,
+                              title: message2 ? 'Deleted' : 'Couldn\'t Delete',
+                              buttons: [
+                                DialogButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(
+                                      color: primaryColor,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  color: hoverColor,
+                                )
+                              ],
+                            ).show();
+                            clear();
+                          }, Colors.red.shade900),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
