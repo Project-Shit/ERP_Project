@@ -4,6 +4,7 @@ import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class CompanyDesktop extends StatefulWidget {
   @override
@@ -14,11 +15,12 @@ class CompanyDesktop extends StatefulWidget {
 class _CompanyDesktopState extends State<CompanyDesktop> {
   // objects implementation
   bool message = true;
-  TextEditingController _profitController = TextEditingController();
-  TextEditingController _tProfitController = TextEditingController();
+  TextEditingController _balanceController = TextEditingController();
+  TextEditingController _expensesController = TextEditingController();
   TextEditingController _salaryController = TextEditingController();
-  TextEditingController _tSalaryController = TextEditingController();
-  TextEditingController _totalController = TextEditingController();
+  TextEditingController _profitController = TextEditingController();
+  TextEditingController _taxController = TextEditingController();
+  TextEditingController _newController = TextEditingController();
 
   // ignore: deprecated_member_use
   List _monthly = [
@@ -41,7 +43,26 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
   apply() async {
     try {
       data = {
-        "command": "update "
+        "command": "insert into company(month,year,Balance,expenses,salary,profit,tax,newBalance)"
+            "values('${_month.toString()}','${_year.toString()}',${_balanceController.text},"
+            "${_expensesController.text},${_salaryController.text},${_profitController.text},"
+            "${_taxController.text},(Balance+profit-expenses-salary-tax))"
+      };
+      response = await http.post(Uri.parse(setData), body: data);
+      if (200 == response.statusCode) {
+        return message;
+      } else {
+        return !message;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  update() async {
+    try {
+      data = {
+        "command": "select "
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -64,7 +85,43 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
         fetchDecode.forEach((users) {
           setState(() {
             _salaryController.text = users['salary'];
-            _tSalaryController.text = users['tax'];
+            _taxController.text = users['tax'];
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future fetchBalance() async {
+    try {
+      data = {
+        "command": "SELECT newBalance FROM company ORDER BY ID DESC LIMIT 1"
+      };
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
+        var fetchDecode = jsonDecode(response.body);
+        fetchDecode.forEach((users) {
+          setState(() {
+            _balanceController.text = users['newBalance'];
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future fetchNew() async {
+    try {
+      data = {
+        "command": "SELECT newBalance FROM company ORDER BY ID DESC LIMIT 1"
+      };
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
+        var fetchDecode = jsonDecode(response.body);
+        fetchDecode.forEach((users) {
+          setState(() {
+            _newController.text = users['newBalance'];
           });
         });
       });
@@ -77,6 +134,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
   void initState() {
     super.initState();
     fetchData();
+    fetchBalance();
     for(int i=2000;i<=2100;i++){
       _years.add(i.toString());
     }
@@ -114,7 +172,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                   ),
                 ),
                 width: width * 0.7,
-                height: 500,
+                height: 520,
                 child: Padding(
                   padding: EdgeInsets.only(
                     left: 70,
@@ -132,27 +190,34 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SizedBox(
+                                height: 5,
+                              ),
                               labelText('Date'),
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Total Profit'),
+                              labelText('Balance'),
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Tax on Profit'),
+                              labelText('Expenses'),
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Total Salary'),
+                              labelText('Salary'),
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Tax on Salary'),
+                              labelText('Profit'),
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Total Tax'),
+                              labelText('Tax'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('New Balance'),
                             ],
                           ),
                           SizedBox(
@@ -166,9 +231,10 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                               Row(
                                 children: [
                                   Container(
-                                    width: width * 0.2,
+                                    width: width * 0.23,
                                     height: 50.0,
                                     child: DropdownButtonFormField(
+                                      hint: Text('Month'),
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
@@ -197,9 +263,10 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                     width: 30,
                                   ),
                                   Container(
-                                    width: width * 0.2,
+                                    width: width * 0.23,
                                     height: 50.0,
                                     child: DropdownButtonFormField(
+                                      hint: Text('Year'),
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
@@ -224,11 +291,23 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                       }).toList(),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 50
-                                  ),
                                 ],
                               ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(
+                                  _balanceController, width * 0.48, 40.0, false),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(
+                                  _expensesController, width * 0.48, 40.0, true),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(
+                                  _salaryController, width * 0.48, 40.0, false),
                               SizedBox(
                                 height: 15,
                               ),
@@ -238,22 +317,12 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                 height: 15,
                               ),
                               textField(
-                                  _tProfitController, width * 0.48, 40.0, true),
+                                  _taxController, width * 0.48, 40.0, false),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _salaryController, width * 0.48, 40.0, true),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(
-                                  _tSalaryController, width * 0.48, 40.0, true),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(
-                                  _totalController, width * 0.48, 40.0, true),
+                                  _newController, width * 0.48, 40.0, false),
                             ],
                           ),
                         ],
@@ -265,7 +334,29 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          actionButtons('Apply', () {}, Colors.green),
+                          actionButtons('Apply', () {
+                            apply();
+                            Alert(
+                              context: context,
+                              title: message ? 'Applied' : 'Couldn\'t Apply',
+                              buttons: [
+                                DialogButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    fetchNew();
+                                  },
+                                  child: Text(
+                                    "OK",
+                                    style: TextStyle(
+                                      color: primaryColor,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  color: hoverColor,
+                                )
+                              ],
+                            ).show();
+                          }, Colors.green),
                           SizedBox(
                             width: 80,
                           ),
