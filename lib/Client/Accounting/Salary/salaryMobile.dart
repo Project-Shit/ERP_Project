@@ -24,9 +24,6 @@ class _SalaryMobileState extends State<SalaryMobile> {
   // ignore: deprecated_member_use
   List _ids = List();
   String _id;
-  var setData = 'http://192.168.1.104/ERP/setAPI.php';
-  var getData = 'http://192.168.1.104/ERP/getAPI.php';
-  var data, response;
 
   // function to fetch data from database and calculate columns
   Future<Null> fetchData() async {
