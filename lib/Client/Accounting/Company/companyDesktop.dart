@@ -18,7 +18,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
   TextEditingController _balanceController = TextEditingController();
   TextEditingController _expensesController = TextEditingController();
   TextEditingController _salaryController = TextEditingController();
-  TextEditingController _profitController = TextEditingController();
+  TextEditingController _incomeController = TextEditingController();
   TextEditingController _taxController = TextEditingController();
   TextEditingController _newController = TextEditingController();
 
@@ -33,20 +33,15 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
   ];
   // ignore: deprecated_member_use
   List _years = List();
-
   String _month,_year;
-
-  var setData = 'http://192.168.1.104/ERP/setAPI.php';
-  var getData = 'http://192.168.1.104/ERP/getAPI.php';
-  var data, response;
 
   apply() async {
     try {
       data = {
-        "command": "insert into company(month,year,Balance,expenses,salary,profit,tax,newBalance)"
+        "command": "insert into company(month,year,Balance,expenses,salary,income,tax,newBalance)"
             "values('${_month.toString()}','${_year.toString()}',${_balanceController.text},"
-            "${_expensesController.text},${_salaryController.text},${_profitController.text},"
-            "${_taxController.text},(Balance+profit-expenses-salary-tax))"
+            "${_expensesController.text},${_salaryController.text},${_incomeController.text},"
+            "(((salary+income)*14)/100),(Balance+income-expenses-salary-tax))"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -59,33 +54,16 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
     }
   }
 
-  update() async {
+  Future fetchSalary() async {
     try {
       data = {
-        "command": "select "
-      };
-      response = await http.post(Uri.parse(setData), body: data);
-      if (200 == response.statusCode) {
-        return message;
-      } else {
-        return !message;
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future fetchData() async {
-    try {
-      data = {
-        "command": "select sum(salary) as salary,sum(tax) as tax from users"
+        "command": "select sum(salary) as salary from users"
       };
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
         fetchDecode.forEach((users) {
           setState(() {
             _salaryController.text = users['salary'];
-            _taxController.text = users['tax'];
           });
         });
       });
@@ -115,13 +93,14 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
   Future fetchNew() async {
     try {
       data = {
-        "command": "SELECT newBalance FROM company ORDER BY ID DESC LIMIT 1"
+        "command": "SELECT newBalance,tax FROM company ORDER BY ID DESC LIMIT 1"
       };
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
         fetchDecode.forEach((users) {
           setState(() {
             _newController.text = users['newBalance'];
+            _taxController.text = users['tax'];
           });
         });
       });
@@ -133,7 +112,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
   @override
   void initState() {
     super.initState();
-    fetchData();
+    fetchSalary();
     fetchBalance();
     for(int i=2000;i<=2100;i++){
       _years.add(i.toString());
@@ -209,7 +188,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Profit'),
+                              labelText('Income'),
                               SizedBox(
                                 height: 30,
                               ),
@@ -248,7 +227,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                       onChanged: (newValue) {
                                         setState(() {
                                           _month = newValue;
-                                          fetchData();
+                                          fetchSalary();
                                         });
                                       },
                                       items: _monthly.map((location) {
@@ -280,7 +259,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                       onChanged: (newValue) {
                                         setState(() {
                                           _year = newValue;
-                                          fetchData();
+                                          fetchSalary();
                                         });
                                       },
                                       items: _years.map((location) {
@@ -312,7 +291,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                 height: 15,
                               ),
                               textField(
-                                  _profitController, width * 0.48, 40.0, true),
+                                  _incomeController, width * 0.48, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
