@@ -26,8 +26,6 @@ class _UsersMobileState extends State<UsersMobile> {
   TextEditingController _address = TextEditingController();
   TextEditingController _department = TextEditingController();
   TextEditingController _userType = TextEditingController();
-  var getData = 'http://192.168.1.104/ERP/getAPI.php';
-  var data, response;
 
   // function to change password field text's visibility
   void hidePassword() {
