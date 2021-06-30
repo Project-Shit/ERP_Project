@@ -7,7 +7,7 @@ Color secondaryColor = Color(0xFF898989);
 Color textColor = Color(0xFF1D1D1D);
 Color hoverColor = Color(0xFF00B9FF);
 
-
+// initializing variables for backend
 var setData = 'http://192.168.1.104/ERP/setAPI.php';
 var getData = 'http://192.168.1.104/ERP/getAPI.php';
 var logInAPI = 'http://192.168.1.104/ERP/logIn.php';
