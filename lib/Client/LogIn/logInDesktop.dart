@@ -17,8 +17,6 @@ class _LogInDesktopState extends State<LogInDesktop> {
   final _passController = TextEditingController();
   bool password = true;
   String userName = '';
-  var logInAPI = 'http://192.168.1.104/ERP/logIn.php';
-  var data, response;
 
   // function to change password field text's visibility
   void hidePassword() {
