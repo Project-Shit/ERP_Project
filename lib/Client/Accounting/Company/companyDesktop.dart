@@ -24,16 +24,23 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
 
   // ignore: deprecated_member_use
   List _monthly = [
-    'January','February',
-    'March','April',
-    'May','June',
-    'July','August',
-    'September','October',
-    'November','December',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
+
   // ignore: deprecated_member_use
   List _years = List();
-  String _month,_year;
+  String _month, _year;
 
   apply() async {
     try {
@@ -56,9 +63,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
 
   Future fetchSalary() async {
     try {
-      data = {
-        "command": "select sum(salary) as salary from users"
-      };
+      data = {"command": "select sum(salary) as salary from users"};
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
         fetchDecode.forEach((users) {
@@ -114,7 +119,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
     super.initState();
     fetchSalary();
     fetchBalance();
-    for(int i=2000;i<=2100;i++){
+    for (int i = 2000; i <= 2100; i++) {
       _years.add(i.toString());
     }
   }
@@ -275,13 +280,13 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _balanceController, width * 0.48, 40.0, false),
+                              textField(_balanceController, width * 0.48, 40.0,
+                                  false),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _expensesController, width * 0.48, 40.0, true),
+                              textField(_expensesController, width * 0.48, 40.0,
+                                  true),
                               SizedBox(
                                 height: 15,
                               ),
