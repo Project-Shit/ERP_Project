@@ -28,10 +28,10 @@ class _LogInMobileState extends State<LogInMobile> {
   logIn() async {
     try {
       data = {
-        "mail": _mailController.text,
-        "pass": _passController.text,
+        "command":
+        "select * from users where email = '${_mailController.text}' and password = '${_passController.text}'"
       };
-      response = await http.post(Uri.parse(logInAPI), body: data);
+      response = await http.post(Uri.parse(conditionAPI), body: data);
       var user = json.decode(response.body);
       if (user == 'Success') {
         Navigator.push(
