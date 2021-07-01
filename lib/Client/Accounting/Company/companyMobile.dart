@@ -19,24 +19,33 @@ class _CompanyMobileState extends State<CompanyMobile> {
   TextEditingController _incomeController = TextEditingController();
   TextEditingController _taxController = TextEditingController();
   TextEditingController _newController = TextEditingController();
+  TextEditingController _profitController = TextEditingController();
 
   // ignore: deprecated_member_use
   List _monthly = [
-    'January','February',
-    'March','April',
-    'May','June',
-    'July','August',
-    'September','October',
-    'November','December',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
+
   // ignore: deprecated_member_use
   List _years = List();
-  String _month,_year;
+  String _month, _year;
 
   Future fetchData() async {
     try {
       data = {
-        "command": "select * from company where month = '${_month.toString()}' and year = '${_year.toString()}'"
+        "command":
+            "select * from company where month = '${_month.toString()}' and year = '${_year.toString()}'"
       };
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
@@ -48,6 +57,7 @@ class _CompanyMobileState extends State<CompanyMobile> {
             _incomeController.text = users['income'];
             _taxController.text = users['tax'];
             _newController.text = users['newBalance'];
+            _profitController.text = users['profit'];
           });
         });
       });
@@ -56,7 +66,7 @@ class _CompanyMobileState extends State<CompanyMobile> {
     }
   }
 
-  clear(){
+  clear() {
     setState(() {
       _balanceController.text = '';
       _expensesController.text = '';
@@ -64,13 +74,14 @@ class _CompanyMobileState extends State<CompanyMobile> {
       _incomeController.text = '';
       _taxController.text = '';
       _newController.text = '';
+      _profitController.text = '';
     });
   }
 
   @override
   void initState() {
     super.initState();
-    for(int i=2000;i<=2100;i++){
+    for (int i = 2000; i <= 2100; i++) {
       _years.add(i.toString());
     }
   }
@@ -227,6 +238,11 @@ class _CompanyMobileState extends State<CompanyMobile> {
                   ),
                   labelText('New Balance'),
                   textField(_newController, width, 45.0, false),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  labelText('Profit'),
+                  textField(_profitController, width, 45.0, false),
                 ],
               ),
             ),
