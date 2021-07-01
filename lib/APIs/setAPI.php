@@ -6,6 +6,11 @@
     $passeword = "";
     $dbname = "erp";
     
+    header('Conrent-Type: application/json');
+    header("Access-Control-Allow-Headers: Access-Control-Allow-Origin, Accept");
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: POST, OPTIONS");
+
     // create connection
     $conn = new mysqli($servername, $username, $passeword, $dbname);
 
@@ -18,7 +23,7 @@
         echo  "connection error";
     }
     else{
-        echo  "connection succesful ";
+        echo  "connection successful ";
     }
 
     // test query
