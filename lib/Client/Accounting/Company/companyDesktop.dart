@@ -11,16 +11,17 @@ class CompanyDesktop extends StatefulWidget {
   _CompanyDesktopState createState() => _CompanyDesktopState();
 }
 
-// tax accounting page for the client's system
 class _CompanyDesktopState extends State<CompanyDesktop> {
   // objects implementation
   bool message = true;
+  bool status = true;
   TextEditingController _balanceController = TextEditingController();
   TextEditingController _expensesController = TextEditingController();
   TextEditingController _salaryController = TextEditingController();
   TextEditingController _incomeController = TextEditingController();
   TextEditingController _taxController = TextEditingController();
   TextEditingController _newController = TextEditingController();
+  TextEditingController _profitController = TextEditingController();
 
   // ignore: deprecated_member_use
   List _monthly = [
@@ -45,10 +46,10 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
   apply() async {
     try {
       data = {
-        "command": "insert into company(month,year,Balance,expenses,salary,income,tax,newBalance)"
+        "command": "insert into company(month,year,Balance,expenses,salary,income,tax,newBalance,profit)"
             "values('${_month.toString()}','${_year.toString()}',${_balanceController.text},"
             "${_expensesController.text},${_salaryController.text},${_incomeController.text},"
-            "(((salary+income)*14)/100),(Balance+income-expenses-salary-tax))"
+            "(((salary+income)*14)/100),(Balance+income-expenses-salary-tax),((Balance+income-expenses-salary-tax)-Balance))"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -98,7 +99,8 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
   Future fetchNew() async {
     try {
       data = {
-        "command": "SELECT newBalance,tax FROM company ORDER BY ID DESC LIMIT 1"
+        "command":
+            "SELECT newBalance,tax,profit FROM company ORDER BY ID DESC LIMIT 1"
       };
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
@@ -106,9 +108,50 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
           setState(() {
             _newController.text = users['newBalance'];
             _taxController.text = users['tax'];
+            _profitController.text = users['profit'];
           });
         });
       });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  // function to check the date
+  check() async {
+    try {
+      data = {
+        "command":
+        "select * from company where month = '${_month.toString()}' and year = '${_year.toString()}'"
+      };
+      response = await http.post(Uri.parse(conditionAPI), body: data);
+      var date = json.decode(response.body);
+      if (date == 'Success') {
+        Alert(
+          context: context,
+          title: 'This Data Already Exist',
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: 20,
+                ),
+              ),
+              color: hoverColor,
+            )
+          ],
+        ).show();
+        setState(() {
+          status = false;
+        });
+      }else{
+        status = true;
+      }
     } catch (e) {
       print(e);
     }
@@ -156,7 +199,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                   ),
                 ),
                 width: width * 0.7,
-                height: 520,
+                height: 580,
                 child: Padding(
                   padding: EdgeInsets.only(
                     left: 70,
@@ -202,6 +245,10 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                 height: 30,
                               ),
                               labelText('New Balance'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('Profit'),
                             ],
                           ),
                           SizedBox(
@@ -232,7 +279,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                       onChanged: (newValue) {
                                         setState(() {
                                           _month = newValue;
-                                          fetchSalary();
+                                          check();
                                         });
                                       },
                                       items: _monthly.map((location) {
@@ -264,7 +311,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                       onChanged: (newValue) {
                                         setState(() {
                                           _year = newValue;
-                                          fetchSalary();
+                                          check();
                                         });
                                       },
                                       items: _years.map((location) {
@@ -307,6 +354,11 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                               ),
                               textField(
                                   _newController, width * 0.48, 40.0, false),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(
+                                  _profitController, width * 0.48, 40.0, false),
                             ],
                           ),
                         ],
@@ -319,27 +371,49 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           actionButtons('Apply', () {
-                            apply();
-                            Alert(
-                              context: context,
-                              title: message ? 'Applied' : 'Couldn\'t Apply',
-                              buttons: [
-                                DialogButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    fetchNew();
-                                  },
-                                  child: Text(
-                                    "OK",
-                                    style: TextStyle(
-                                      color: primaryColor,
-                                      fontSize: 20,
+                            if(status == true){
+                              apply();
+                              Alert(
+                                context: context,
+                                title: message ? 'Applied' : 'Couldn\'t Apply',
+                                buttons: [
+                                  DialogButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      fetchNew();
+                                    },
+                                    child: Text(
+                                      "OK",
+                                      style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 20,
+                                      ),
                                     ),
-                                  ),
-                                  color: hoverColor,
-                                )
-                              ],
-                            ).show();
+                                    color: hoverColor,
+                                  )
+                                ],
+                              ).show();
+                            }else{
+                              Alert(
+                                context: context,
+                                title: 'This Data Already Exist',
+                                buttons: [
+                                  DialogButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "OK",
+                                      style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    color: hoverColor,
+                                  )
+                                ],
+                              ).show();
+                            }
                           }, Colors.green),
                           SizedBox(
                             width: 80,
