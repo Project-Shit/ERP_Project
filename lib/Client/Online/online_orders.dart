@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,27 +11,35 @@ class dat extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-
-            backgroundColor: Color.fromRGBO(32, 32, 32, 1),
+             backgroundColor: Color.fromRGBO(32, 32, 32, 1),
             title: Text(
               "Online Orders",
               style: TextStyle
                 (
-                fontSize: 30,
+                fontSize: 40,
 
               )
 
               ,
             ),
           ),
-          body: Container(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("You Can Create order now"),
-              ],
-            ),
+          body: Row(
+             children: <Widget>
+              [
+               Text("Order Data",style:TextStyle(
+                 fontSize: 30,
+
+
+               )
+                 ,),
+               SizedBox(width: 120,),
+               Text("Order Number", style: TextStyle(
+                 fontSize: 30,
+
+               ),),
+
+
+              ]
           )),
     );
   }
