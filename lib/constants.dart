@@ -10,7 +10,7 @@ Color hoverColor = Color(0xFF00B9FF);
 // initializing variables for backend
 var setData = 'http://192.168.1.104/ERP/setAPI.php';
 var getData = 'http://192.168.1.104/ERP/getAPI.php';
-var logInAPI = 'http://192.168.1.104/ERP/logIn.php';
+var conditionAPI = 'http://192.168.1.104/ERP/condition.php';
 var data, response;
 
 // Custom AppBar Buttons
