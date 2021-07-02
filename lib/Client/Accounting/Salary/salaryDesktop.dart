@@ -1,4 +1,5 @@
 // @dart=2.9
+import 'package:erp/Client/Accounting/Salary/salaryDataTable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
 
   // function to fetch data from database and calculate columns
   Future<Null> fetchData() async {
-    try{
+    try {
       data = {
         "command": "select name,department,salary,insurance,(salary*14)/100 as tax,"
             "deduction,(salary-insurance-tax-deduction) as netSalary from users where id = '${_id.toString()}'"
@@ -69,9 +70,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
           });
         });
       });
-    }catch(e){
-
-    }
+    } catch (e) {}
   }
 
   // function to set id data to drop list
@@ -124,7 +123,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                       width: 2,
                     )),
                 width: width * 0.7,
-                height: 600,
+                height: 580,
                 child: Padding(
                   padding:
                       EdgeInsets.only(left: 70, right: 70, top: 30, bottom: 30),
@@ -271,9 +270,14 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                             ).show();
                           }, Colors.green),
                           SizedBox(
-                            width: 80,
+                            width: 60,
                           ),
-                          actionButtons('Print Report', () {}, Colors.blue),
+                          actionButtons('Data Table', () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SalaryDataTable()));
+                          }, Colors.blue.shade600),
                         ],
                       ),
                     ],
