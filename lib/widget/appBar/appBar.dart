@@ -30,7 +30,6 @@ class CustomAppBar extends StatelessWidget {
               ),
               child: Image.asset(
                 'assets/logo.png',
-
               ),
             ),
             Spacer(
