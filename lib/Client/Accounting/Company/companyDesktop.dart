@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:erp/Client/Accounting/Company/companyDataTable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +123,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
     try {
       data = {
         "command":
-        "select * from company where month = '${_month.toString()}' and year = '${_year.toString()}'"
+            "select * from company where month = '${_month.toString()}' and year = '${_year.toString()}'"
       };
       response = await http.post(Uri.parse(conditionAPI), body: data);
       var date = json.decode(response.body);
@@ -149,7 +150,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
         setState(() {
           status = false;
         });
-      }else{
+      } else {
         status = true;
       }
     } catch (e) {
@@ -199,7 +200,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                   ),
                 ),
                 width: width * 0.7,
-                height: 580,
+                height: 570,
                 child: Padding(
                   padding: EdgeInsets.only(
                     left: 70,
@@ -364,14 +365,14 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                         ],
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 30,
                       ),
                       // implementing a row widget to call custom buttons and align them.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           actionButtons('Apply', () {
-                            if(status == true){
+                            if (status == true) {
                               apply();
                               Alert(
                                 context: context,
@@ -393,7 +394,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                   )
                                 ],
                               ).show();
-                            }else{
+                            } else {
                               Alert(
                                 context: context,
                                 title: 'This Data Already Exist',
@@ -418,7 +419,12 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                           SizedBox(
                             width: 80,
                           ),
-                          actionButtons('Print Report', () {}, Colors.blue),
+                          actionButtons('Data Table', () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CompanyDataTable()));
+                          }, Colors.blue.shade600),
                         ],
                       ),
                     ],
