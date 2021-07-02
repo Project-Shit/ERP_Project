@@ -41,7 +41,13 @@ class dat extends StatelessWidget {
                ),),
                SizedBox(width: 120,),
 
-               OutlinedButton(onPressed: null , child: Text("Add Order")),
+               OutlinedButton(onPressed: null ,
+
+                   child: Text("Add Order",
+                     style: TextStyle(color: Color.fromRGBO(32, 32, 32, 1)
+                     ),
+                   )
+               ),
 
               ]
           )),
