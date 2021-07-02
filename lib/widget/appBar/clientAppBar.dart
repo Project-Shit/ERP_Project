@@ -17,12 +17,8 @@ class ClientAppBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              'Company Name',
-              style: TextStyle(
-                fontSize: 30,
-                color: textColor,
-              ),
+            Image.asset(
+              'assets/logo.png',
             ),
             Spacer(
               flex: 2,
