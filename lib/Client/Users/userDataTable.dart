@@ -67,66 +67,70 @@ class _UsersDataTableState extends State<UsersDataTable> {
           backgroundColor: primaryColor,
           title: Image.asset(
             'assets/logo.png',
-            height: 70,
+            height: 50,
           ),
           centerTitle: true,
         ),
       ),
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              DataTable(
-                columns: [
-                  DataColumn(label: Text('ID')),
-                  DataColumn(label: Text('Name')),
-                  DataColumn(label: Text('SSIN')),
-                  DataColumn(label: Text('Social Number')),
-                  DataColumn(label: Text('Phone')),
-                  DataColumn(label: Text('Email')),
-                  DataColumn(label: Text('Password')),
-                  DataColumn(label: Text('Address')),
-                  DataColumn(label: Text('Department')),
-                  DataColumn(label: Text('User Type')),
-                ],
-                rows: model
-                    .map((data) => DataRow(
-                          cells: [
-                            new DataCell(
-                              Text(data.id),
-                            ),
-                            new DataCell(
-                              Text(data.name),
-                            ),
-                            new DataCell(
-                              Text(data.ssin),
-                            ),
-                            new DataCell(
-                              Text(data.social),
-                            ),
-                            new DataCell(
-                              Text(data.phone),
-                            ),
-                            new DataCell(
-                              Text(data.email),
-                            ),
-                            new DataCell(
-                              Text(data.password),
-                            ),
-                            new DataCell(
-                              Text(data.address),
-                            ),
-                            new DataCell(
-                              Text(data.department),
-                            ),
-                            new DataCell(
-                              Text(data.type),
-                            ),
-                          ],
-                        ))
-                    .toList(),
-              ),
-            ],
+          scrollDirection: Axis.horizontal,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                DataTable(
+                  columns: [
+                    DataColumn(label: Text('ID')),
+                    DataColumn(label: Text('Name')),
+                    DataColumn(label: Text('SSIN')),
+                    DataColumn(label: Text('Social Number')),
+                    DataColumn(label: Text('Phone')),
+                    DataColumn(label: Text('Email')),
+                    DataColumn(label: Text('Password')),
+                    DataColumn(label: Text('Address')),
+                    DataColumn(label: Text('Department')),
+                    DataColumn(label: Text('User Type')),
+                  ],
+                  rows: model
+                      .map((data) => DataRow(
+                            cells: [
+                              new DataCell(
+                                Text(data.id),
+                              ),
+                              new DataCell(
+                                Text(data.name),
+                              ),
+                              new DataCell(
+                                Text(data.ssin),
+                              ),
+                              new DataCell(
+                                Text(data.social),
+                              ),
+                              new DataCell(
+                                Text(data.phone),
+                              ),
+                              new DataCell(
+                                Text(data.email),
+                              ),
+                              new DataCell(
+                                Text(data.password),
+                              ),
+                              new DataCell(
+                                Text(data.address),
+                              ),
+                              new DataCell(
+                                Text(data.department),
+                              ),
+                              new DataCell(
+                                Text(data.type),
+                              ),
+                            ],
+                          ))
+                      .toList(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
