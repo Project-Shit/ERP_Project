@@ -65,58 +65,62 @@ class _SalaryDataTableState extends State<SalaryDataTable> {
           backgroundColor: primaryColor,
           title: Image.asset(
             'assets/logo.png',
-            height: 70,
+            height: 50,
           ),
           centerTitle: true,
         ),
       ),
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              DataTable(
-                columns: [
-                  DataColumn(label: Text('ID')),
-                  DataColumn(label: Text('Name')),
-                  DataColumn(label: Text('Department')),
-                  DataColumn(label: Text('Salary')),
-                  DataColumn(label: Text('Insurance')),
-                  DataColumn(label: Text('Tax')),
-                  DataColumn(label: Text('Deduction')),
-                  DataColumn(label: Text('Net Salary')),
-                ],
-                rows: model
-                    .map((data) => DataRow(
-                          cells: [
-                            new DataCell(
-                              Text(data.id),
-                            ),
-                            new DataCell(
-                              Text(data.name),
-                            ),
-                            new DataCell(
-                              Text(data.department),
-                            ),
-                            new DataCell(
-                              Text(data.salary),
-                            ),
-                            new DataCell(
-                              Text(data.insurance),
-                            ),
-                            new DataCell(
-                              Text(data.tax),
-                            ),
-                            new DataCell(
-                              Text(data.deduction),
-                            ),
-                            new DataCell(
-                              Text(data.netSalary),
-                            ),
-                          ],
-                        ))
-                    .toList(),
-              ),
-            ],
+          scrollDirection: Axis.horizontal,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                DataTable(
+                  columns: [
+                    DataColumn(label: Text('ID')),
+                    DataColumn(label: Text('Name')),
+                    DataColumn(label: Text('Department')),
+                    DataColumn(label: Text('Salary')),
+                    DataColumn(label: Text('Insurance')),
+                    DataColumn(label: Text('Tax')),
+                    DataColumn(label: Text('Deduction')),
+                    DataColumn(label: Text('Net Salary')),
+                  ],
+                  rows: model
+                      .map((data) => DataRow(
+                            cells: [
+                              new DataCell(
+                                Text(data.id),
+                              ),
+                              new DataCell(
+                                Text(data.name),
+                              ),
+                              new DataCell(
+                                Text(data.department),
+                              ),
+                              new DataCell(
+                                Text(data.salary),
+                              ),
+                              new DataCell(
+                                Text(data.insurance),
+                              ),
+                              new DataCell(
+                                Text(data.tax),
+                              ),
+                              new DataCell(
+                                Text(data.deduction),
+                              ),
+                              new DataCell(
+                                Text(data.netSalary),
+                              ),
+                            ],
+                          ))
+                      .toList(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
