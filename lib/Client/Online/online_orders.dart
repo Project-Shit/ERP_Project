@@ -31,7 +31,7 @@ class dat extends StatelessWidget {
 
                       SizedBox(width: 120,),
 
-                      Text("Order Data",style:TextStyle(
+                      Text("Customer Info",style:TextStyle(
                         fontSize: 30,
 
 
@@ -45,7 +45,7 @@ class dat extends StatelessWidget {
                         child: TextField(
                           decoration: InputDecoration(
                             labelText: "Enter Customer Phone Number",
-
+                            icon: Icon(Icons.phone),
                           ),
 
 
@@ -56,7 +56,7 @@ class dat extends StatelessWidget {
                       ),
                       OutlinedButton(onPressed: null ,
 
-                          child: Text("Create Order",
+                          child: Text("Next",
                             style: TextStyle(color: Color.fromRGBO(32, 32, 32, 1)
                             ),
                           )
