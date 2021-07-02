@@ -23,34 +23,57 @@ class dat extends StatelessWidget {
               ,
             ),
           ),
-          body: Row(
-             children: <Widget>
-              [
-               SizedBox(width: 120,),
+          body: Container(
+            child: Column(
 
-               Text("Order Data",style:TextStyle(
-                 fontSize: 30,
+                    children: <Widget>
+                    [
+
+                      SizedBox(width: 120,),
+
+                      Text("Order Data",style:TextStyle(
+                        fontSize: 30,
 
 
-               )
-                 ,),
-               SizedBox(width: 120,),
-               Text("Order Number", style: TextStyle(
-                 fontSize: 30,
+                      )
+                        ,),
+                      SizedBox(width: 120,),
+                      SizedBox(width: 120,),
 
-               ),),
-               SizedBox(width: 120,),
 
-               OutlinedButton(onPressed: null ,
+                      Container(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            labelText: "Enter Customer Phone Number",
 
-                   child: Text("Add Order",
-                     style: TextStyle(color: Color.fromRGBO(32, 32, 32, 1)
-                     ),
-                   )
-               ),
+                          ),
 
-              ]
-          )),
+
+
+                        ),
+
+
+                      ),
+                      OutlinedButton(onPressed: null ,
+
+                          child: Text("Create Order",
+                            style: TextStyle(color: Color.fromRGBO(32, 32, 32, 1)
+                            ),
+                          )
+                      ),
+
+
+                    ]
+
+
+            ),
+
+
+          )
+
+
+
+      ),
     );
   }
 }
