@@ -51,7 +51,7 @@ Widget labelButton(String title, VoidCallback onTap) {
 // Custom Button for all pages to act on database
 Widget actionButtons(String title, VoidCallback onTap, Color color) {
   return Container(
-    width: 300,
+    width: 200,
     height: 50,
     // ignore: deprecated_member_use
     child: RaisedButton(
