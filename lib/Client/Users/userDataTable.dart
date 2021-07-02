@@ -2,7 +2,6 @@
 import 'dart:convert';
 import 'package:erp/Client/Users/usersModel.dart';
 import 'package:erp/constants.dart';
-import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -52,8 +51,26 @@ class _UsersDataTableState extends State<UsersDataTable> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(width, 70),
-        child: ClientAppBar(),
+        preferredSize: Size(width, 60),
+        child: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: textColor,
+          ),
+          backgroundColor: primaryColor,
+          title: Image.asset(
+            'assets/logo.png',
+            height: 70,
+          ),
+          centerTitle: true,
+        ),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -74,39 +91,39 @@ class _UsersDataTableState extends State<UsersDataTable> {
                 ],
                 rows: model
                     .map((data) => DataRow(
-                  cells: [
-                    new DataCell(
-                      Text(data.id),
-                    ),
-                    new DataCell(
-                      Text(data.name),
-                    ),
-                    new DataCell(
-                      Text(data.ssin),
-                    ),
-                    new DataCell(
-                      Text(data.social),
-                    ),
-                    new DataCell(
-                      Text(data.phone),
-                    ),
-                    new DataCell(
-                      Text(data.email),
-                    ),
-                    new DataCell(
-                      Text(data.password),
-                    ),
-                    new DataCell(
-                      Text(data.address),
-                    ),
-                    new DataCell(
-                      Text(data.department),
-                    ),
-                    new DataCell(
-                      Text(data.type),
-                    ),
-                  ],
-                ))
+                          cells: [
+                            new DataCell(
+                              Text(data.id),
+                            ),
+                            new DataCell(
+                              Text(data.name),
+                            ),
+                            new DataCell(
+                              Text(data.ssin),
+                            ),
+                            new DataCell(
+                              Text(data.social),
+                            ),
+                            new DataCell(
+                              Text(data.phone),
+                            ),
+                            new DataCell(
+                              Text(data.email),
+                            ),
+                            new DataCell(
+                              Text(data.password),
+                            ),
+                            new DataCell(
+                              Text(data.address),
+                            ),
+                            new DataCell(
+                              Text(data.department),
+                            ),
+                            new DataCell(
+                              Text(data.type),
+                            ),
+                          ],
+                        ))
                     .toList(),
               ),
             ],
