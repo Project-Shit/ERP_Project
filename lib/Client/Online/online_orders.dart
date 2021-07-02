@@ -26,6 +26,8 @@ class dat extends StatelessWidget {
           body: Row(
              children: <Widget>
               [
+               SizedBox(width: 120,),
+
                Text("Order Data",style:TextStyle(
                  fontSize: 30,
 
@@ -37,7 +39,9 @@ class dat extends StatelessWidget {
                  fontSize: 30,
 
                ),),
+               SizedBox(width: 120,),
 
+               OutlinedButton(onPressed: null , child: Text("Add Order")),
 
               ]
           )),
