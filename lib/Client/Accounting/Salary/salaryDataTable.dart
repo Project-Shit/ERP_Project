@@ -16,7 +16,7 @@ class _SalaryDataTableState extends State<SalaryDataTable> {
 
   Future fetchRecords() async {
     try {
-      data = {"command": "SELECT * FROM users ORDER BY ID"};
+      data = {"command": "SELECT * FROM users where name <> '' ORDER BY ID"};
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
         fetchDecode.forEach((salary) {

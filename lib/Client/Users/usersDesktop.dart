@@ -122,7 +122,6 @@ class _UsersDesktopState extends State<UsersDesktop> {
   }
 
   // function to set id data to drop list
-  //droplist
   Future idList() async {
     try {
       data = {"command": "select id from users order by id"};
