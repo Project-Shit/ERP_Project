@@ -87,6 +87,23 @@ class ApplicationDesktop extends StatelessWidget {
                         );
                       },
                     ),
+
+                    SizedBox(
+                      width: width * 0.02,
+                    ),
+                    applicationCard(
+                      'Online Order',
+                      width * 0.18,
+                      100,
+                          () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Company(),
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ],

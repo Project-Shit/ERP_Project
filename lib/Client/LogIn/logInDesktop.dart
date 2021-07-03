@@ -17,8 +17,6 @@ class _LogInDesktopState extends State<LogInDesktop> {
   final _passController = TextEditingController();
   bool password = true;
   String userName = '';
-  var logInAPI = 'http://192.168.1.104/ERP/logIn.php';
-  var data, response;
 
   // function to change password field text's visibility
   void hidePassword() {
@@ -31,10 +29,10 @@ class _LogInDesktopState extends State<LogInDesktop> {
   logIn() async {
     try {
       data = {
-        "mail": _mailController.text,
-        "pass": _passController.text,
+        "command":
+            "select * from users where email = '${_mailController.text}' and password = '${_passController.text}'"
       };
-      response = await http.post(Uri.parse(logInAPI), body: data);
+      response = await http.post(Uri.parse(conditionAPI), body: data);
       var user = json.decode(response.body);
       if (user == 'Success') {
         Navigator.push(

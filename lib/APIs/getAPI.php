@@ -16,7 +16,7 @@
     $sql = $_POST["command"];
     $queryResult = mysqli_query($conn,$sql);
 
-    // assigne the result to an array then return it
+    // assign the result to an array then return it
     $result = array();
     while($row = mysqli_fetch_assoc($queryResult)){
         array_push($result, $row);

@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:erp/Client/Users/userDataTable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,11 +31,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
 
   // ignore: deprecated_member_use
   List _ids = List();
-
   String _id;
-  var setData = 'http://192.168.1.104/ERP/setAPI.php';
-  var getData = 'http://192.168.1.104/ERP/getAPI.php';
-  var data, response;
 
   // function to change values of a record
   applyUser() async {
@@ -312,7 +309,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                         ],
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 30,
                       ),
                       // implementing a row widget to call custom buttons and align them.
                       Row(
@@ -341,20 +338,21 @@ class _UsersDesktopState extends State<UsersDesktop> {
                             ).show();
                           }, Colors.green),
                           SizedBox(
-                            width: 80,
+                            width: 60,
                           ),
                           actionButtons('Delete', () {
-                            delete();
                             Alert(
                               context: context,
-                              title: message2 ? 'Deleted' : 'Couldn\'t Delete',
+                              title:
+                                  'Are you sure you want to Delete this User',
                               buttons: [
                                 DialogButton(
                                   onPressed: () {
                                     Navigator.pop(context);
+                                    delete();
                                   },
                                   child: Text(
-                                    "OK",
+                                    "Yes",
                                     style: TextStyle(
                                       color: primaryColor,
                                       fontSize: 20,
@@ -366,6 +364,15 @@ class _UsersDesktopState extends State<UsersDesktop> {
                             ).show();
                             clear();
                           }, Colors.red.shade900),
+                          SizedBox(
+                            width: 60,
+                          ),
+                          actionButtons('Data Table', () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UsersDataTable()));
+                          }, Colors.blue.shade600),
                         ],
                       ),
                     ],

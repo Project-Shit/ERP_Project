@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:erp/Client/Accounting/Salary/salaryDataTable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/drawer/clientDrawer.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +25,6 @@ class _SalaryMobileState extends State<SalaryMobile> {
   // ignore: deprecated_member_use
   List _ids = List();
   String _id;
-  var setData = 'http://192.168.1.104/ERP/setAPI.php';
-  var getData = 'http://192.168.1.104/ERP/getAPI.php';
-  var data, response;
 
   // function to fetch data from database and calculate columns
   Future<Null> fetchData() async {
@@ -85,12 +83,9 @@ class _SalaryMobileState extends State<SalaryMobile> {
             color: textColor,
           ),
           backgroundColor: primaryColor,
-          title: Text(
-            'Company Name',
-            style: TextStyle(
-              color: textColor,
-              fontSize: 25,
-            ),
+          title: Image.asset(
+            'assets/logo.png',
+            height: 50,
           ),
           centerTitle: true,
         ),
@@ -114,8 +109,8 @@ class _SalaryMobileState extends State<SalaryMobile> {
             ),
             child: Padding(
               padding: EdgeInsets.only(
-                top: 50,
-                bottom: 50,
+                top: 30,
+                bottom: 30,
                 left: 20,
                 right: 20,
               ),
@@ -189,6 +184,40 @@ class _SalaryMobileState extends State<SalaryMobile> {
                   ),
                   labelText('Net Salary'),
                   textField(_netS, width, 45.0, false),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: width * 0.6,
+                        height: 60,
+                        // ignore: deprecated_member_use
+                        child: RaisedButton(
+                          color: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50),
+                            ),
+                          ),
+                          child: Text(
+                            'Data Table',
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: textColor,
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SalaryDataTable()));
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

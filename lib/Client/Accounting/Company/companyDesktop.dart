@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:erp/Client/Accounting/Company/companyDataTable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
@@ -11,42 +12,45 @@ class CompanyDesktop extends StatefulWidget {
   _CompanyDesktopState createState() => _CompanyDesktopState();
 }
 
-// tax accounting page for the client's system
 class _CompanyDesktopState extends State<CompanyDesktop> {
   // objects implementation
   bool message = true;
+  bool status = true;
   TextEditingController _balanceController = TextEditingController();
   TextEditingController _expensesController = TextEditingController();
   TextEditingController _salaryController = TextEditingController();
-  TextEditingController _profitController = TextEditingController();
+  TextEditingController _incomeController = TextEditingController();
   TextEditingController _taxController = TextEditingController();
   TextEditingController _newController = TextEditingController();
+  TextEditingController _profitController = TextEditingController();
 
   // ignore: deprecated_member_use
   List _monthly = [
-    'January','February',
-    'March','April',
-    'May','June',
-    'July','August',
-    'September','October',
-    'November','December',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
+
   // ignore: deprecated_member_use
   List _years = List();
-
-  String _month,_year;
-
-  var setData = 'http://192.168.1.104/ERP/setAPI.php';
-  var getData = 'http://192.168.1.104/ERP/getAPI.php';
-  var data, response;
+  String _month, _year;
 
   apply() async {
     try {
       data = {
-        "command": "insert into company(month,year,Balance,expenses,salary,profit,tax,newBalance)"
+        "command": "insert into company(month,year,Balance,expenses,salary,income,tax,newBalance,profit)"
             "values('${_month.toString()}','${_year.toString()}',${_balanceController.text},"
-            "${_expensesController.text},${_salaryController.text},${_profitController.text},"
-            "${_taxController.text},(Balance+profit-expenses-salary-tax))"
+            "${_expensesController.text},${_salaryController.text},${_incomeController.text},"
+            "(((salary+income)*14)/100),(Balance+income-expenses-salary-tax),((Balance+income-expenses-salary-tax)-Balance))"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -59,33 +63,14 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
     }
   }
 
-  update() async {
+  Future fetchSalary() async {
     try {
-      data = {
-        "command": "select "
-      };
-      response = await http.post(Uri.parse(setData), body: data);
-      if (200 == response.statusCode) {
-        return message;
-      } else {
-        return !message;
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future fetchData() async {
-    try {
-      data = {
-        "command": "select sum(salary) as salary,sum(tax) as tax from users"
-      };
+      data = {"command": "select sum(salary) as salary from users"};
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
         fetchDecode.forEach((users) {
           setState(() {
             _salaryController.text = users['salary'];
-            _taxController.text = users['tax'];
           });
         });
       });
@@ -115,13 +100,16 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
   Future fetchNew() async {
     try {
       data = {
-        "command": "SELECT newBalance FROM company ORDER BY ID DESC LIMIT 1"
+        "command":
+            "SELECT newBalance,tax,profit FROM company ORDER BY ID DESC LIMIT 1"
       };
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
         fetchDecode.forEach((users) {
           setState(() {
             _newController.text = users['newBalance'];
+            _taxController.text = users['tax'];
+            _profitController.text = users['profit'];
           });
         });
       });
@@ -130,12 +118,52 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
     }
   }
 
+  // function to check the date
+  check() async {
+    try {
+      data = {
+        "command":
+            "select * from company where month = '${_month.toString()}' and year = '${_year.toString()}'"
+      };
+      response = await http.post(Uri.parse(conditionAPI), body: data);
+      var date = json.decode(response.body);
+      if (date == 'Success') {
+        Alert(
+          context: context,
+          title: 'This Data Already Exist',
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: 20,
+                ),
+              ),
+              color: hoverColor,
+            )
+          ],
+        ).show();
+        setState(() {
+          status = false;
+        });
+      } else {
+        status = true;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    fetchData();
+    fetchSalary();
     fetchBalance();
-    for(int i=2000;i<=2100;i++){
+    for (int i = 2000; i <= 2100; i++) {
       _years.add(i.toString());
     }
   }
@@ -172,7 +200,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                   ),
                 ),
                 width: width * 0.7,
-                height: 520,
+                height: 570,
                 child: Padding(
                   padding: EdgeInsets.only(
                     left: 70,
@@ -209,7 +237,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Profit'),
+                              labelText('Income'),
                               SizedBox(
                                 height: 30,
                               ),
@@ -218,6 +246,10 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                 height: 30,
                               ),
                               labelText('New Balance'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('Profit'),
                             ],
                           ),
                           SizedBox(
@@ -248,7 +280,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                       onChanged: (newValue) {
                                         setState(() {
                                           _month = newValue;
-                                          fetchData();
+                                          check();
                                         });
                                       },
                                       items: _monthly.map((location) {
@@ -280,7 +312,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                       onChanged: (newValue) {
                                         setState(() {
                                           _year = newValue;
-                                          fetchData();
+                                          check();
                                         });
                                       },
                                       items: _years.map((location) {
@@ -296,13 +328,13 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _balanceController, width * 0.48, 40.0, false),
+                              textField(_balanceController, width * 0.48, 40.0,
+                                  false),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _expensesController, width * 0.48, 40.0, true),
+                              textField(_expensesController, width * 0.48, 40.0,
+                                  true),
                               SizedBox(
                                 height: 15,
                               ),
@@ -312,7 +344,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                 height: 15,
                               ),
                               textField(
-                                  _profitController, width * 0.48, 40.0, true),
+                                  _incomeController, width * 0.48, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
@@ -323,44 +355,76 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                               ),
                               textField(
                                   _newController, width * 0.48, 40.0, false),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(
+                                  _profitController, width * 0.48, 40.0, false),
                             ],
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 30,
                       ),
                       // implementing a row widget to call custom buttons and align them.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           actionButtons('Apply', () {
-                            apply();
-                            Alert(
-                              context: context,
-                              title: message ? 'Applied' : 'Couldn\'t Apply',
-                              buttons: [
-                                DialogButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    fetchNew();
-                                  },
-                                  child: Text(
-                                    "OK",
-                                    style: TextStyle(
-                                      color: primaryColor,
-                                      fontSize: 20,
+                            if (status == true) {
+                              apply();
+                              Alert(
+                                context: context,
+                                title: message ? 'Applied' : 'Couldn\'t Apply',
+                                buttons: [
+                                  DialogButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      fetchNew();
+                                    },
+                                    child: Text(
+                                      "OK",
+                                      style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 20,
+                                      ),
                                     ),
-                                  ),
-                                  color: hoverColor,
-                                )
-                              ],
-                            ).show();
+                                    color: hoverColor,
+                                  )
+                                ],
+                              ).show();
+                            } else {
+                              Alert(
+                                context: context,
+                                title: 'This Data Already Exist',
+                                buttons: [
+                                  DialogButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "OK",
+                                      style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    color: hoverColor,
+                                  )
+                                ],
+                              ).show();
+                            }
                           }, Colors.green),
                           SizedBox(
                             width: 80,
                           ),
-                          actionButtons('Print Report', () {}, Colors.blue),
+                          actionButtons('Data Table', () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CompanyDataTable()));
+                          }, Colors.blue.shade600),
                         ],
                       ),
                     ],

@@ -1,4 +1,5 @@
 // @dart=2.9
+import 'package:erp/Client/Accounting/Salary/salaryDataTable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +27,6 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
   // ignore: deprecated_member_use
   List _ids = List();
   String _id;
-  var setData = 'http://192.168.1.104/ERP/setAPI.php';
-  var getData = 'http://192.168.1.104/ERP/getAPI.php';
-  var data, response;
 
   // function to change values of a record and calculate net salary
   apply() async {
@@ -36,7 +34,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
       data = {
         "command":
             "update users set salary = ${_salary.text}, insurance = ${_insurance.text}, "
-                "tax = ${_tax.text}, deduction = ${_deduction.text}, netSalary = (salary-insurance-tax-deduction) where id = ${_id.toString()}"
+                "tax = (salary*14)/100, deduction = ${_deduction.text}, netSalary = (salary-insurance-tax-deduction) where id = ${_id.toString()}"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -51,26 +49,28 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
 
   // function to fetch data from database and calculate columns
   Future<Null> fetchData() async {
-    data = {
-      "command": "select name,department,salary,insurance,(salary*14)/100 as tax,"
-          "deduction,(salary-insurance-tax-deduction) as netSalary from users where id = '${_id.toString()}'"
-    };
-    return await http
-        .post(Uri.parse(getData), body: data)
-        .then((http.Response response) {
-      final List fetchData = json.decode(response.body);
-      fetchData.forEach((user) {
-        setState(() {
-          _name.text = user['name'];
-          _dept.text = user['department'];
-          _salary.text = user['salary'];
-          _insurance.text = user['insurance'];
-          _tax.text = user['tax'];
-          _deduction.text = user['deduction'];
-          _netS.text = user['netSalary'];
+    try {
+      data = {
+        "command": "select name,department,salary,insurance,(salary*14)/100 as tax,"
+            "deduction,(salary-insurance-tax-deduction) as netSalary from users where id = '${_id.toString()}'"
+      };
+      return await http
+          .post(Uri.parse(getData), body: data)
+          .then((http.Response response) {
+        final List fetchData = json.decode(response.body);
+        fetchData.forEach((user) {
+          setState(() {
+            _name.text = user['name'];
+            _dept.text = user['department'];
+            _salary.text = user['salary'];
+            _insurance.text = user['insurance'];
+            _tax.text = user['tax'];
+            _deduction.text = user['deduction'];
+            _netS.text = user['netSalary'];
+          });
         });
       });
-    });
+    } catch (e) {}
   }
 
   // function to set id data to drop list
@@ -123,7 +123,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                       width: 2,
                     )),
                 width: width * 0.7,
-                height: 600,
+                height: 580,
                 child: Padding(
                   padding:
                       EdgeInsets.only(left: 70, right: 70, top: 30, bottom: 30),
@@ -270,9 +270,14 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                             ).show();
                           }, Colors.green),
                           SizedBox(
-                            width: 80,
+                            width: 60,
                           ),
-                          actionButtons('Print Report', () {}, Colors.blue),
+                          actionButtons('Data Table', () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SalaryDataTable()));
+                          }, Colors.blue.shade600),
                         ],
                       ),
                     ],
