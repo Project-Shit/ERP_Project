@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:erp/Client/Users/users.dart';
 import 'package:erp/Client/Users/usersModel.dart';
 import 'package:erp/constants.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _UsersDataTableState extends State<UsersDataTable> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Users()));
             },
           ),
           automaticallyImplyLeading: false,
