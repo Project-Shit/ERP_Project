@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:erp/Client/Accounting/Company/company.dart';
 import 'package:erp/Client/Accounting/Company/companyModel.dart';
 import 'package:erp/constants.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class _CompanyDataTableState extends State<CompanyDataTable> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Company()));
             },
           ),
           automaticallyImplyLeading: false,
