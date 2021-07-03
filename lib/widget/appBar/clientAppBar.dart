@@ -10,15 +10,21 @@ class ClientAppBar extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(
-          left: 90,
-          right: 90,
+          left: 0,
+          right: 0,
         ),
-        child: Row(
+        child: Container(
+          color: Colors.white,
+        child:Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(
+              width: 20,
+            ),
             Text(
               'Company Name',
               style: TextStyle(
+
                 fontSize: 30,
                 color: textColor,
               ),
@@ -55,9 +61,13 @@ class ClientAppBar extends StatelessWidget {
               'Log Out',
               () {},
             ),
+            SizedBox(
+              width: 20,
+            ),
           ],
         ),
       ),
+    )
     );
   }
 }
