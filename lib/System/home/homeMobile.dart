@@ -1,12 +1,9 @@
+// @dart=2.9
 import 'package:erp/widget/drawer/drawer.dart';
 import 'package:erp/widget/footer/footer.dart';
 import 'package:flutter/material.dart';
 import 'package:erp/constants.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:footer/footer.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:footer/footer_view.dart';
 
 class HomeMobile extends StatelessWidget {
@@ -15,14 +12,14 @@ class HomeMobile extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: PrimaryColor,
+      backgroundColor: primaryColor,
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: TextColor,
+            color: textColor,
           ),
-          backgroundColor: PrimaryColor,
+          backgroundColor: primaryColor,
           actions: [
             Image.asset(
               'assets/logo.png',
@@ -41,7 +38,7 @@ class HomeMobile extends StatelessWidget {
           Container(
             width: width,
             height: height * 0.88,
-            color: PrimaryColor,
+            color: primaryColor,
             padding: EdgeInsets.only(
               top: 30,
               right: 10,
@@ -64,7 +61,7 @@ class HomeMobile extends StatelessWidget {
                       'Create your own System \nwith Web Hosting',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: TextColor,
+                        color: textColor,
                         fontSize: width * 0.075,
                         fontWeight: FontWeight.w400,
                       ),
@@ -81,7 +78,7 @@ class HomeMobile extends StatelessWidget {
                       'Go Serverless and Pay \nonly for what you use',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: TextColor,
+                        color: textColor,
                         fontSize: width * 0.065,
                         fontWeight: FontWeight.w300,
                       ),
@@ -112,7 +109,7 @@ class HomeMobile extends StatelessWidget {
               borderRadius: BorderRadius.only(
                 topLeft: Radius.elliptical(width, 130),
               ),
-              color: HoverColor,
+              color: hoverColor,
             ),
             width: width,
             height: height,
@@ -189,7 +186,7 @@ class HomeMobile extends StatelessWidget {
             ],
           ),
           Container(
-            color: PrimaryColor,
+            color: primaryColor,
             width: width,
             height: height * 0.8,
             padding: EdgeInsets.only(
@@ -204,7 +201,7 @@ class HomeMobile extends StatelessWidget {
                 Text(
                   'Get the Mobile App',
                   style: TextStyle(
-                    color: TextColor,
+                    color: textColor,
                     fontSize: width * 0.09,
                   ),
                 ),
@@ -213,7 +210,7 @@ class HomeMobile extends StatelessWidget {
                 ),
                 // ignore: deprecated_member_use
                 RaisedButton(
-                  color: SecondaryColor,
+                  color: secondaryColor,
                   padding: EdgeInsets.only(
                     top: 7,
                     bottom: 7,
@@ -239,7 +236,7 @@ class HomeMobile extends StatelessWidget {
                         'Download for Android',
                         style: TextStyle(
                           fontSize: width * 0.05,
-                          color: TextColor,
+                          color: textColor,
                         ),
                       )
                     ],
@@ -251,7 +248,7 @@ class HomeMobile extends StatelessWidget {
                 ),
                 // ignore: deprecated_member_use
                 RaisedButton(
-                  color: SecondaryColor,
+                  color: secondaryColor,
                   padding: EdgeInsets.only(
                     top: 7,
                     bottom: 7,
@@ -277,7 +274,7 @@ class HomeMobile extends StatelessWidget {
                         'Download for IOS',
                         style: TextStyle(
                           fontSize: width * 0.05,
-                          color: TextColor,
+                          color: textColor,
                         ),
                       ),
                     ],
@@ -295,7 +292,7 @@ class HomeMobile extends StatelessWidget {
                         Text(
                           'About us',
                           style: TextStyle(
-                            color: TextColor,
+                            color: textColor,
                             fontSize: width * 0.07,
                           ),
                         ),
@@ -332,7 +329,7 @@ class HomeMobile extends StatelessWidget {
                         Text(
                           'Services',
                           style: TextStyle(
-                            color: TextColor,
+                            color: textColor,
                             fontSize: width * 0.07,
                           ),
                         ),

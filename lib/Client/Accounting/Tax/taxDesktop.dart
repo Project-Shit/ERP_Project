@@ -8,12 +8,15 @@ class TaxDesktop extends StatefulWidget {
   _TaxDesktopState createState() => _TaxDesktopState();
 }
 
+// tax accounting page for the client's system
 class _TaxDesktopState extends State<TaxDesktop> {
+  // objects implementation
   List<String> _locations = [];
   String _selectedLocation;
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
 
+  // function to change the value in the drop down list to the selected value
   void setValue() {
     String value = '';
     setState(() {
@@ -23,46 +26,53 @@ class _TaxDesktopState extends State<TaxDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
         child: ClientAppBar(),
       ),
+      // implementing th body with scroll View and row widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-            top: 40,
-            bottom: 40,
+            top: 30,
+            bottom: 30,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // implementing a container to make the outline border design
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
                       50.0,
                     ),
                     border: Border.all(
-                      color: TextColor,
+                      color: textColor,
                       width: 2,
-                    )),
-                width: width * 0.65,
-                height: 900,
+                    ),),
+                width: width * 0.7,
+                height: 600,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: 100,
-                    right: 100,
+                    left: 70,
+                    right: 70,
                   ),
+                  // implementing a column widget to align the rest of the widget
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // implementing a container to implement a search box
                       Container(
-                        width: width * 0.5,
+                        width: width,
+                        height: 40,
                         child: TextFormField(
                           style: TextStyle(
-                            color: TextColor,
+                            color: textColor,
                           ),
                           decoration: InputDecoration(
                             suffixIcon: Padding(
@@ -74,7 +84,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
                                 onPressed: () {},
                               ),
                             ),
-                            fillColor: SecondaryColor,
+                            fillColor: secondaryColor,
                             filled: true,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
@@ -97,37 +107,38 @@ class _TaxDesktopState extends State<TaxDesktop> {
                         ),
                       ),
                       SizedBox(
-                        height: 60,
+                        height: 30,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          // implementing a column to call custom label widget with sizedBox between them
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               labelText('Tax Plane'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Date'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Total Profit'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Tax n Profit'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Total Salary'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Tax on Salary'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Total Tax'),
                             ],
@@ -135,17 +146,19 @@ class _TaxDesktopState extends State<TaxDesktop> {
                           SizedBox(
                             width: width * 0.04,
                           ),
+                          // implementing a column to call custom drop down list, text field
+                          // and date picker with sizedBox between them.
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.34, 60.0, setValue),
+                              /*dropList(_locations, _selectedLocation,
+                                  width * 0.48, 40.0, setValue),*/
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               Container(
-                                width: width * 0.34,
-                                height: 60.0,
+                                width: width * 0.48,
+                                height: 40.0,
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
@@ -154,7 +167,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
                                       ),
                                     ),
                                     filled: true,
-                                    fillColor: SecondaryColor,
+                                    fillColor: secondaryColor,
                                   ),
                                   readOnly: true,
                                   controller: _dateController,
@@ -171,30 +184,30 @@ class _TaxDesktopState extends State<TaxDesktop> {
                                 ),
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.34, 60.0, true),
+                                  _textController, width * 0.48, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.34, 60.0, true),
+                                  _textController, width * 0.48, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.34, 60.0, true),
+                                  _textController, width * 0.48, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.34, 60.0, true),
+                                  _textController, width * 0.48, 40.0, true),
                               SizedBox(
-                                height: 20,
+                                height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.34, 60.0, true),
+                                  _textController, width * 0.48, 40.0, true),
                             ],
                           ),
                         ],
@@ -202,6 +215,7 @@ class _TaxDesktopState extends State<TaxDesktop> {
                       SizedBox(
                         height: 40,
                       ),
+                      // implementing a row widget to call custom buttons and align them.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

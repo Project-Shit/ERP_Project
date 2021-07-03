@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:erp/constants.dart';
 import 'package:erp/widget/drawer/clientDrawer.dart';
 import 'package:flutter/material.dart';
@@ -7,33 +8,39 @@ class CompanyMobile extends StatefulWidget {
   _CompanyMobileState createState() => _CompanyMobileState();
 }
 
+// viewing all company records page for the client's system by search
 class _CompanyMobileState extends State<CompanyMobile> {
+  // objects implementation
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: PrimaryColor,
+      backgroundColor: primaryColor,
+      // implementing the client's AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 60),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: TextColor,
+            color: textColor,
           ),
-          backgroundColor: PrimaryColor,
+          backgroundColor: primaryColor,
           title: Text(
             'Company Name',
             style: TextStyle(
-              color: TextColor,
+              color: textColor,
               fontSize: 25,
             ),
           ),
           centerTitle: true,
         ),
       ),
+      // calling the client's custom Drawer
       drawer: ClientDrawer(),
+      // implementing th body with scroll View and container widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),
@@ -44,7 +51,7 @@ class _CompanyMobileState extends State<CompanyMobile> {
                 50.0,
               ),
               border: Border.all(
-                color: TextColor,
+                color: textColor,
                 width: 2,
               ),
             ),
@@ -55,6 +62,8 @@ class _CompanyMobileState extends State<CompanyMobile> {
                 left: 20,
                 right: 20,
               ),
+              // implementing a column widget to add custom widgets labels,
+              // text field, date picker and sizedBox between them.
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +80,7 @@ class _CompanyMobileState extends State<CompanyMobile> {
                           ),
                         ),
                         filled: true,
-                        fillColor: SecondaryColor,
+                        fillColor: secondaryColor,
                       ),
                       readOnly: true,
                       controller: _dateController,

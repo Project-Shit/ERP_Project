@@ -1,9 +1,10 @@
+// @dart=2.9
 import 'package:erp/System/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:erp/constants.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:page_transition/page_transition.dart';
 
+// Custom AppBar Widget for the main System
 class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

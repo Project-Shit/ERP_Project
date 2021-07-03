@@ -9,34 +9,39 @@ class ExpensesMobile extends StatefulWidget {
   _ExpensesMobileState createState() => _ExpensesMobileState();
 }
 
+// viewing all expenses records page for the client's system by search
 class _ExpensesMobileState extends State<ExpensesMobile> {
-
+  // objects implementation
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: PrimaryColor,
+      backgroundColor: primaryColor,
+      // implementing the client's AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 60),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: TextColor,
+            color: textColor,
           ),
-          backgroundColor: PrimaryColor,
+          backgroundColor: primaryColor,
           title: Text(
             'Company Name',
             style: TextStyle(
-              color: TextColor,
+              color: textColor,
               fontSize: 25,
             ),
           ),
           centerTitle: true,
         ),
       ),
+      // calling the client's custom Drawer
       drawer: ClientDrawer(),
+      // implementing th body with scroll View and container widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),
@@ -47,7 +52,7 @@ class _ExpensesMobileState extends State<ExpensesMobile> {
                 50.0,
               ),
               border: Border.all(
-                color: TextColor,
+                color: textColor,
                 width: 2,
               ),
             ),
@@ -58,6 +63,8 @@ class _ExpensesMobileState extends State<ExpensesMobile> {
                 left: 20,
                 right: 20,
               ),
+              // implementing a column widget to add custom widgets labels,
+              // text field, date picker and sizedBox between them.
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +81,7 @@ class _ExpensesMobileState extends State<ExpensesMobile> {
                           ),
                         ),
                         filled: true,
-                        fillColor: SecondaryColor,
+                        fillColor: secondaryColor,
                       ),
                       readOnly: true,
                       controller: _dateController,

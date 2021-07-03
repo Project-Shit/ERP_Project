@@ -1,53 +1,52 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 
-// Colors
-// ignore: non_constant_identifier_names
-Color PrimaryColor = Colors.white;
-// ignore: non_constant_identifier_names
-Color SecondaryColor = Color(0xFF898989);
-// ignore: non_constant_identifier_names
-Color TextColor = Color(0xFF1D1D1D);
-// ignore: non_constant_identifier_names
-Color HoverColor = Color(0xFF00B9FF);
+// implementing the main colors for the all system
+Color primaryColor = Colors.white;
+Color secondaryColor = Color(0xFF898989);
+Color textColor = Color(0xFF1D1D1D);
+Color hoverColor = Color(0xFF00B9FF);
 
-// Custom Button
+// Custom AppBar Buttons
 Widget appButton(String title, VoidCallback onTap) {
   // ignore: deprecated_member_use
   return FlatButton(
     child: Text(
       title,
       style: TextStyle(
-        color: TextColor,
+        color: textColor,
         fontSize: 20,
       ),
     ),
-    hoverColor: HoverColor,
+    hoverColor: hoverColor,
     onPressed: onTap,
     height: 100,
   );
 }
 
+// Custom Flat Button for Home Page
 Widget labelButton(String title, VoidCallback onTap) {
   // ignore: deprecated_member_use
   return FlatButton(
     child: Text(
       title,
       style: TextStyle(
-        color: TextColor,
+        color: textColor,
         fontSize: 15,
         fontWeight: FontWeight.w500,
       ),
     ),
     height: 50,
-    hoverColor: PrimaryColor,
+    hoverColor: primaryColor,
     onPressed: onTap,
   );
 }
 
+// Custom Button for all pages to act on database
 Widget actionButtons(String title, VoidCallback onTap, Color color) {
   return Container(
-    width: 400,
-    height: 70,
+    width: 300,
+    height: 50,
     // ignore: deprecated_member_use
     child: RaisedButton(
       color: color,
@@ -65,8 +64,8 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
       child: Text(
         title,
         style: TextStyle(
-          fontSize: 30,
-          color: TextColor,
+          fontSize: 22,
+          color: textColor,
         ),
       ),
       onPressed: onTap,
@@ -74,6 +73,7 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
   );
 }
 
+// Custom Text Field
 Widget textField(
     TextEditingController text, double width, double height, bool status) {
   return Container(
@@ -89,48 +89,23 @@ Widget textField(
           ),
         ),
         filled: true,
-        fillColor: SecondaryColor,
+        fillColor: secondaryColor,
       ),
     ),
   );
 }
 
-Widget dropList(List<String> list, String selected, double width, double height,
-    VoidCallback change) {
-  return Container(
-    width: width,
-    height: height,
-    child: DropdownButtonFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-        ),
-        filled: true,
-        fillColor: SecondaryColor,
-      ),
-      value: selected,
-      onChanged: (newValue) => change,
-      items: list.map((location) {
-        return DropdownMenuItem(
-          child: new Text(location),
-          value: location,
-        );
-      }).toList(),
-    ),
-  );
-}
-
-Widget passwordField(double width, double height, bool password, bool status,
-    VoidCallback onTap) {
+// Custom Password Field
+Widget passwordField(TextEditingController text, double width, double height,
+    bool password, bool status, VoidCallback onTap) {
   return Container(
     width: width,
     height: height,
     child: TextFormField(
-      enabled: status,
+      readOnly: status,
+      controller: text,
       style: TextStyle(
-        color: TextColor,
+        color: textColor,
       ),
       decoration: InputDecoration(
         suffixIcon: Padding(
@@ -142,7 +117,7 @@ Widget passwordField(double width, double height, bool password, bool status,
             onPressed: onTap,
           ),
         ),
-        fillColor: SecondaryColor,
+        fillColor: secondaryColor,
         filled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
@@ -167,12 +142,45 @@ Widget passwordField(double width, double height, bool password, bool status,
   );
 }
 
+// Custom Label with Text
 Widget labelText(String title) {
   return Text(
     title,
     style: TextStyle(
-      color: TextColor,
-      fontSize: 30,
+      color: textColor,
+      fontSize: 22,
     ),
+  );
+}
+
+// Custom Card for Home Page
+Widget applicationCard(
+    String title, double width, double height, VoidCallback onTap) {
+  return InkWell(
+    child: Container(
+      padding: EdgeInsets.only(
+        top: 30,
+        bottom: 30,
+      ),
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(
+          width: 3,
+          color: secondaryColor,
+        ),
+      ),
+      child: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 30,
+        ),
+      ),
+    ),
+    onTap: onTap,
+    hoverColor: hoverColor,
+    borderRadius: BorderRadius.circular(10.0),
   );
 }

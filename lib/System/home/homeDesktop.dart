@@ -1,12 +1,9 @@
+// @dart=2.9
 import 'package:erp/widget/appBar/appBar.dart';
 import 'package:erp/widget/footer/footer.dart';
 import 'package:flutter/material.dart';
 import 'package:erp/constants.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:footer/footer.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:footer/footer_view.dart';
 
 class HomeDesktop extends StatelessWidget {
@@ -15,7 +12,7 @@ class HomeDesktop extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: PrimaryColor,
+      backgroundColor: primaryColor,
       body: FooterView(
         flex: 8,
         children: [
@@ -24,7 +21,7 @@ class HomeDesktop extends StatelessWidget {
             height: 70,
           ),
           Container(
-            color: PrimaryColor,
+            color: primaryColor,
             width: width,
             height: height,
             child: Column(
@@ -50,7 +47,7 @@ class HomeDesktop extends StatelessWidget {
                     Text(
                       'Create your own System with Web Hosting',
                       style: TextStyle(
-                        color: TextColor,
+                        color: textColor,
                         fontSize: width * 0.026,
                       ),
                     ),
@@ -65,7 +62,7 @@ class HomeDesktop extends StatelessWidget {
                     Text(
                       'Go Serverless and Pay only for what you use',
                       style: TextStyle(
-                        color: TextColor,
+                        color: textColor,
                         fontSize: width * 0.016,
                       ),
                     ),
@@ -92,7 +89,7 @@ class HomeDesktop extends StatelessWidget {
               borderRadius: BorderRadius.only(
                 topLeft: Radius.elliptical(width, 200),
               ),
-              color: HoverColor,
+              color: hoverColor,
             ),
             width: width,
             height: height,
@@ -184,7 +181,7 @@ class HomeDesktop extends StatelessWidget {
             padding: EdgeInsets.only(top: 70),
             height: height * 0.75,
             width: width,
-            color: PrimaryColor,
+            color: primaryColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -197,7 +194,7 @@ class HomeDesktop extends StatelessWidget {
                     Text(
                       'About us',
                       style: TextStyle(
-                        color: TextColor,
+                        color: textColor,
                         fontSize: width * 0.022,
                       ),
                     ),
@@ -237,7 +234,7 @@ class HomeDesktop extends StatelessWidget {
                     Text(
                       'Services',
                       style: TextStyle(
-                        color: TextColor,
+                        color: textColor,
                         fontSize: width * 0.022,
                       ),
                     ),
@@ -273,7 +270,7 @@ class HomeDesktop extends StatelessWidget {
                     Text(
                       'Get the Mobile App',
                       style: TextStyle(
-                        color: TextColor,
+                        color: textColor,
                         fontSize: width * 0.03,
                       ),
                     ),
@@ -282,7 +279,7 @@ class HomeDesktop extends StatelessWidget {
                     ),
                     // ignore: deprecated_member_use
                     RaisedButton(
-                      color: SecondaryColor,
+                      color: secondaryColor,
                       padding: EdgeInsets.only(
                         top: 20,
                         bottom: 20,
@@ -308,7 +305,7 @@ class HomeDesktop extends StatelessWidget {
                             'Download for Android',
                             style: TextStyle(
                               fontSize: 30,
-                              color: TextColor,
+                              color: textColor,
                             ),
                           )
                         ],
@@ -320,7 +317,7 @@ class HomeDesktop extends StatelessWidget {
                     ),
                     // ignore: deprecated_member_use
                     RaisedButton(
-                      color: SecondaryColor,
+                      color: secondaryColor,
                       padding: EdgeInsets.only(
                         top: 15,
                         bottom: 15,
@@ -346,7 +343,7 @@ class HomeDesktop extends StatelessWidget {
                             'Download for IOS',
                             style: TextStyle(
                               fontSize: 30,
-                              color: TextColor,
+                              color: textColor,
                             ),
                           ),
                           SizedBox(

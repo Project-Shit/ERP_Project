@@ -9,12 +9,14 @@ class InsuranceDesktop extends StatefulWidget {
   _InsuranceDesktopState createState() => _InsuranceDesktopState();
 }
 
+// Insurance accounting page for the client's system
 class _InsuranceDesktopState extends State<InsuranceDesktop> {
-
+  // objects implementation
   List<String> _locations = [];
   String _selectedLocation;
   final _textController = TextEditingController();
 
+  // function to change the value in the drop down list to the selected value
   void setValue() {
     String value = '';
     setState(() {
@@ -24,142 +26,150 @@ class _InsuranceDesktopState extends State<InsuranceDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
         child: ClientAppBar(),
       ),
+      // implementing th body with scroll View and row widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-            top: 40,
-            bottom: 40,
+            top: 30,
+            bottom: 30,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // implementing a container to make the outline border design
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
                       50.0,
                     ),
                     border: Border.all(
-                      color: TextColor,
+                      color: textColor,
                       width: 2,
-                    )),
-                width: width * 0.75,
-                height: 1000,
+                    ),),
+                width: width * 0.7,
+                height: 690,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: 100,
-                    right: 100,
-                    top: 60,
-                    bottom: 60,
+                    left: 70,
+                    right: 70,
+                    top: 30,
+                    bottom: 30,
                   ),
+                  // implementing a column widget to align the rest of the widget
                   child: Column(
                     children: [
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // implementing a column to call custom label widget with sizedBox between them
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                height: 15,
+                                height: 5,
                               ),
                               labelText('Employee ID'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Employee Name'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('SSIN'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Social Number'),
                               SizedBox(
-                                height: 35,
+                                height: 30,
                               ),
                               labelText('Balance'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Monthly Payment'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Expenses'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Insurance Type'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Insurance Plane'),
                               SizedBox(
-                                height: 40,
+                                height: 30,
                               ),
                               labelText('Hospital Name'),
                             ],
                           ),
                           SizedBox(
-                            width: width * 0.03,
+                            width: width * 0.04,
                           ),
+                          // implementing a column to call custom drop down list,
+                          // text field with sizedBox between them.
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.4, 60.0, setValue),
+                              /*dropList(_locations, _selectedLocation,
+                                  width * 0.45, 40.0, setValue),*/
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.4, 60.0, setValue),
+                              /*dropList(_locations, _selectedLocation,
+                                  width * 0.45, 40.0, setValue),*/
                               SizedBox(
                                 height: 15,
                               ),
-                              dropList(_locations, _selectedLocation,
-                                  width * 0.4, 60.0, setValue),
+                              /*dropList(_locations, _selectedLocation,
+                                  width * 0.45, 40.0, setValue),*/
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.4, 60.0, true),
+                                  _textController, width * 0.45, 40.0, true),
                             ],
                           ),
                         ],
@@ -167,6 +177,7 @@ class _InsuranceDesktopState extends State<InsuranceDesktop> {
                       SizedBox(
                         height: 40,
                       ),
+                      // implementing a row widget to call custom buttons and align them.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

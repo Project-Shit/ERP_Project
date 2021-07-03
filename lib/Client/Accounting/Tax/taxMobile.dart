@@ -8,12 +8,15 @@ class TaxMobile extends StatefulWidget {
   _TaxMobileState createState() => _TaxMobileState();
 }
 
+// viewing all tax records page for the client's system by search
 class _TaxMobileState extends State<TaxMobile> {
+  // objects implementation
   List<String> _locations = [];
   String _selectedLocation;
   final _textController = TextEditingController();
   final _dateController = TextEditingController();
 
+  // function to change the value in the drop down list to the selected value
   void setValue() {
     String value = '';
     setState(() {
@@ -23,27 +26,31 @@ class _TaxMobileState extends State<TaxMobile> {
 
   @override
   Widget build(BuildContext context) {
+    // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: PrimaryColor,
+      backgroundColor: primaryColor,
+      // implementing the client's AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 60),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: TextColor,
+            color: textColor,
           ),
-          backgroundColor: PrimaryColor,
+          backgroundColor: primaryColor,
           title: Text(
             'Company Name',
             style: TextStyle(
-              color: TextColor,
+              color: textColor,
               fontSize: 25,
             ),
           ),
           centerTitle: true,
         ),
       ),
+      // calling the client's custom Drawer
       drawer: ClientDrawer(),
+      // implementing th body with scroll View and container widget
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),
@@ -54,7 +61,7 @@ class _TaxMobileState extends State<TaxMobile> {
                 50.0,
               ),
               border: Border.all(
-                color: TextColor,
+                color: textColor,
                 width: 2,
               ),
             ),
@@ -65,13 +72,15 @@ class _TaxMobileState extends State<TaxMobile> {
                 left: 20,
                 right: 20,
               ),
+              // implementing a column widget to add custom widgets labels, text field,
+              // drop down list, date picker and sizedBox between them.
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   labelText('Tax Plan'),
-                  dropList(_locations, _selectedLocation, width * 0.9, 45.0,
-                      setValue),
+                  /*dropList(_locations, _selectedLocation, width * 0.9, 45.0,
+                      setValue),*/
                   SizedBox(
                     height: 20,
                   ),
@@ -87,7 +96,7 @@ class _TaxMobileState extends State<TaxMobile> {
                           ),
                         ),
                         filled: true,
-                        fillColor: SecondaryColor,
+                        fillColor: secondaryColor,
                       ),
                       readOnly: true,
                       controller: _dateController,

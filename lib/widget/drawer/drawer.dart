@@ -1,13 +1,14 @@
+// @dart=2.9
 import 'package:erp/constants.dart';
 import 'package:flutter/material.dart';
 
-// Custom Drawer for main System
+// Custom Drawer Widget for the main System
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: PrimaryColor,
+        color: primaryColor,
         child: Column(
           children: <Widget>[
             DrawerHeader(
@@ -25,12 +26,12 @@ class CustomDrawer extends StatelessWidget {
               child: ListTile(
                 leading: Icon(
                   Icons.home,
-                  color: TextColor,
+                  color: textColor,
                 ),
                 title: Text(
                   'Home',
                   style: TextStyle(
-                    color: TextColor,
+                    color: textColor,
                     fontSize: 20,
                   ),
                 ),
@@ -41,12 +42,12 @@ class CustomDrawer extends StatelessWidget {
               child: ListTile(
                 leading: Icon(
                   Icons.widgets_outlined,
-                  color: TextColor,
+                  color: textColor,
                 ),
                 title: Text(
                   'Apps',
                   style: TextStyle(
-                    color: TextColor,
+                    color: textColor,
                     fontSize: 20,
                   ),
                 ),
@@ -57,12 +58,12 @@ class CustomDrawer extends StatelessWidget {
               child: ListTile(
                 leading: Icon(
                   Icons.attach_money,
-                  color: TextColor,
+                  color: textColor,
                 ),
                 title: Text(
                   'Pricing',
                   style: TextStyle(
-                    color: TextColor,
+                    color: textColor,
                     fontSize: 20,
                   ),
                 ),
@@ -73,12 +74,12 @@ class CustomDrawer extends StatelessWidget {
               child: ListTile(
                 leading: Icon(
                   Icons.support_agent,
-                  color: TextColor,
+                  color: textColor,
                 ),
                 title: Text(
                   'Support',
                   style: TextStyle(
-                    color: TextColor,
+                    color: textColor,
                     fontSize: 20,
                   ),
                 ),
@@ -89,12 +90,12 @@ class CustomDrawer extends StatelessWidget {
               child: ListTile(
                 leading: Icon(
                   Icons.input_sharp,
-                  color: TextColor,
+                  color: textColor,
                 ),
                 title: Text(
                   'Sign in',
                   style: TextStyle(
-                    color: TextColor,
+                    color: textColor,
                     fontSize: 20,
                   ),
                 ),

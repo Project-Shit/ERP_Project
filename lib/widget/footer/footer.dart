@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// Footer for main system
+// Footer Widget for main system
 class CustomFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
