@@ -40,7 +40,7 @@ class ClientAppBar extends StatelessWidget {
             ),
             appButton(
               'Home',
-              () {
+                  () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -69,7 +69,7 @@ class ClientAppBar extends StatelessWidget {
             ),
             appButton(
               'Log Out',
-              () {
+                  () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
