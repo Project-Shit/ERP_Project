@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:erp/Client/Users/userDataTable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/drawer/clientDrawer.dart';
 import 'package:flutter/material.dart';
@@ -18,15 +19,14 @@ class _UsersMobileState extends State<UsersMobile> {
   String _selectedLocation;
   bool password = true;
   TextEditingController _name = TextEditingController();
+  TextEditingController _ssin = TextEditingController();
+  TextEditingController _social = TextEditingController();
   TextEditingController _phone = TextEditingController();
   TextEditingController _email = TextEditingController();
   TextEditingController _pass = TextEditingController();
   TextEditingController _address = TextEditingController();
   TextEditingController _department = TextEditingController();
   TextEditingController _userType = TextEditingController();
-  var setDate = 'http://192.168.1.104/ERP/setAPI.php';
-  var getData = 'http://192.168.1.104/ERP/getAPI.php';
-  var data, response;
 
   // function to change password field text's visibility
   void hidePassword() {
@@ -37,45 +37,55 @@ class _UsersMobileState extends State<UsersMobile> {
 
   // function to fetch data from database
   Future<Null> fetchData() async {
-    data = {
-      "command":
-          "select * from users where id = '${_selectedLocation.toString()}'"
-    };
-    return await http
-        .post(Uri.parse(getData), body: data)
-        .then((http.Response response) {
-      final List fetchData = json.decode(response.body);
-      fetchData.forEach((user) {
-        setState(() {
-          _name.text = user['name'];
-          _phone.text = user['phone'];
-          _email.text = user['email'];
-          _pass.text = user['pass'];
-          _address.text = user['address'];
-          _department.text = user['department'];
-          _userType.text = user['userType'];
+    try {
+      data = {
+        "command":
+            "select * from users where id = '${_selectedLocation.toString()}'"
+      };
+      return await http
+          .post(Uri.parse(getData), body: data)
+          .then((http.Response response) {
+        final List fetchData = json.decode(response.body);
+        fetchData.forEach((user) {
+          setState(() {
+            _name.text = user['name'];
+            _ssin.text = user['ssin'];
+            _social.text = user['socialNumber'];
+            _phone.text = user['phone'];
+            _email.text = user['email'];
+            _pass.text = user['password'];
+            _address.text = user['address'];
+            _department.text = user['department'];
+            _userType.text = user['userType'];
+          });
         });
       });
-    });
+    } catch (e) {
+      print(e);
+    }
   }
 
   // function to set data to drop list
-  Future dropList() async {
-    data = {"command": "select id from users"};
-    http.post(Uri.parse(getData), body: data).then((http.Response response) {
-      var fetchDecode = jsonDecode(response.body);
-      fetchDecode.forEach((users) {
-        setState(() {
-          _locations.add(users['id']);
+  Future idList() async {
+    try {
+      data = {"command": "select id from users order by id"};
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
+        var fetchDecode = jsonDecode(response.body);
+        fetchDecode.forEach((users) {
+          setState(() {
+            _locations.add(users['id']);
+          });
         });
       });
-    });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    dropList();
+    idList();
   }
 
   @override
@@ -92,12 +102,9 @@ class _UsersMobileState extends State<UsersMobile> {
             color: textColor,
           ),
           backgroundColor: primaryColor,
-          title: Text(
-            'Company Name',
-            style: TextStyle(
-              color: textColor,
-              fontSize: 25,
-            ),
+          title: Image.asset(
+            'assets/logo.png',
+            height: 50,
           ),
           centerTitle: true,
         ),
@@ -121,8 +128,8 @@ class _UsersMobileState extends State<UsersMobile> {
             ),
             child: Padding(
               padding: EdgeInsets.only(
-                top: 50,
-                bottom: 50,
+                top: 30,
+                bottom: 30,
                 left: 20,
                 right: 20,
               ),
@@ -169,6 +176,16 @@ class _UsersMobileState extends State<UsersMobile> {
                   SizedBox(
                     height: 20,
                   ),
+                  labelText('SSIN'),
+                  textField(_ssin, width, 50.0, false),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  labelText('Social Number'),
+                  textField(_social, width, 50.0, false),
+                  SizedBox(
+                    height: 20,
+                  ),
                   labelText('Phone'),
                   textField(_phone, width, 50.0, false),
                   SizedBox(
@@ -180,7 +197,8 @@ class _UsersMobileState extends State<UsersMobile> {
                     height: 20,
                   ),
                   labelText('Password'),
-                  passwordField(_pass, width, 50.0, password, true, hidePassword),
+                  passwordField(
+                      _pass, width, 50.0, password, true, hidePassword),
                   SizedBox(
                     height: 20,
                   ),
@@ -196,6 +214,40 @@ class _UsersMobileState extends State<UsersMobile> {
                   ),
                   labelText('User Type'),
                   textField(_userType, width, 50.0, false),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: width * 0.6,
+                        height: 60,
+                        // ignore: deprecated_member_use
+                        child: RaisedButton(
+                          color: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50),
+                            ),
+                          ),
+                          child: Text(
+                            'Data Table',
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: textColor,
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UsersDataTable()));
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

@@ -1,10 +1,6 @@
 // @dart=2.9
-import 'package:erp/Client/Accounting/Company/company.dart';
-import 'package:erp/Client/Accounting/Expenses/expenses.dart';
-import 'package:erp/Client/Accounting/Insurance/insurance.dart';
-import 'package:erp/Client/Accounting/Product/product.dart';
 import 'package:erp/Client/Accounting/Salary/salary.dart';
-import 'package:erp/Client/Accounting/Tax/tax.dart';
+import 'package:erp/Client/Accounting/Company/company.dart';
 import 'package:erp/Client/Users/users.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/drawer/clientDrawer.dart';
@@ -39,132 +35,72 @@ class ApplicationMobile extends StatelessWidget {
       // calling the client's custom Drawer
       drawer: ClientDrawer(),
       // implementing th body with scroll View
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 30,
-            bottom: 30,
-            left: 40,
-            right: 40,
-          ),
+      body: WillPopScope(
+        // ignore: missing_return
+        onWillPop: () {},
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 30,
+              bottom: 30,
+              left: 40,
+              right: 40,
+            ),
 
-          /* implementing a column widget to contain all widget inside of it,
-          *  which include a custom card widget for each application in
-          *  the client's system, and passing the parameters for each
-          * card => title, width, height and the onTap action, with sizedBox
-          * between each widget to give it a good looking view. */
-          child: Column(
-            children: [
-              applicationCard(
-                'Users',
-                width,
-                100,
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Users(),
-                    ),
-                  );
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              applicationCard(
-                'Company',
-                width,
-                100,
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Company(),
-                    ),
-                  );
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              applicationCard(
-                'Expenses',
-                width,
-                100,
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Expenses(),
-                    ),
-                  );
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              applicationCard(
-                'Insurance',
-                width,
-                100,
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Insurance(),
-                    ),
-                  );
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              applicationCard(
-                'Product',
-                width,
-                100,
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Product(),
-                    ),
-                  );
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              applicationCard(
-                'Salary',
-                width,
-                100,
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Salary(),
-                    ),
-                  );
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              applicationCard(
-                'Tax',
-                width,
-                100,
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Tax(),
-                    ),
-                  );
-                },
-              ),
-            ],
+            /* implementing a column widget to contain all widget inside of it,
+              *  which include a custom card widget for each application in
+              *  the client's system, and passing the parameters for each
+              * card => title, width, height and the onTap action, with sizedBox
+              * between each widget to give it a good looking view. */
+            child: Column(
+              children: [
+                applicationCard(
+                  'Users',
+                  width,
+                  100,
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Users(),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                applicationCard(
+                  'Salary',
+                  width,
+                  100,
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Salary(),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                applicationCard(
+                  'Company',
+                  width,
+                  100,
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Company(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

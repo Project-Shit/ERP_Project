@@ -1,18 +1,172 @@
 // @dart=2.9
+import 'dart:convert';
+import 'package:erp/Client/Accounting/Company/companyDataTable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class CompanyDesktop extends StatefulWidget {
   @override
   _CompanyDesktopState createState() => _CompanyDesktopState();
 }
 
-// company accounting page for the client's system
 class _CompanyDesktopState extends State<CompanyDesktop> {
   // objects implementation
-  final _textController = TextEditingController();
-  final _dateController = TextEditingController();
+  bool message = true;
+  bool status = true;
+  TextEditingController _balanceController = TextEditingController();
+  TextEditingController _expensesController = TextEditingController();
+  TextEditingController _salaryController = TextEditingController();
+  TextEditingController _incomeController = TextEditingController();
+  TextEditingController _taxController = TextEditingController();
+  TextEditingController _newController = TextEditingController();
+  TextEditingController _profitController = TextEditingController();
+
+  // ignore: deprecated_member_use
+  List _monthly = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  // ignore: deprecated_member_use
+  List _years = List();
+  String _month, _year;
+
+  apply() async {
+    try {
+      data = {
+        "command": "insert into company(month,year,Balance,expenses,salary,income,tax,newBalance,profit)"
+            "values('${_month.toString()}','${_year.toString()}',${_balanceController.text},"
+            "${_expensesController.text},${_salaryController.text},${_incomeController.text},"
+            "(((salary+income)*14)/100),(Balance+income-expenses-salary-tax),((Balance+income-expenses-salary-tax)-Balance))"
+      };
+      response = await http.post(Uri.parse(setData), body: data);
+      if (200 == response.statusCode) {
+        return message;
+      } else {
+        return !message;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future fetchSalary() async {
+    try {
+      data = {"command": "select sum(salary) as salary from users"};
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
+        var fetchDecode = jsonDecode(response.body);
+        fetchDecode.forEach((users) {
+          setState(() {
+            _salaryController.text = users['salary'];
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future fetchBalance() async {
+    try {
+      data = {
+        "command": "SELECT newBalance FROM company ORDER BY ID DESC LIMIT 1"
+      };
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
+        var fetchDecode = jsonDecode(response.body);
+        fetchDecode.forEach((users) {
+          setState(() {
+            _balanceController.text = users['newBalance'];
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future fetchNew() async {
+    try {
+      data = {
+        "command":
+            "SELECT newBalance,tax,profit FROM company ORDER BY ID DESC LIMIT 1"
+      };
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
+        var fetchDecode = jsonDecode(response.body);
+        fetchDecode.forEach((users) {
+          setState(() {
+            _newController.text = users['newBalance'];
+            _taxController.text = users['tax'];
+            _profitController.text = users['profit'];
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  // function to check the date
+  check() async {
+    try {
+      data = {
+        "command":
+            "select * from company where month = '${_month.toString()}' and year = '${_year.toString()}'"
+      };
+      response = await http.post(Uri.parse(conditionAPI), body: data);
+      var date = json.decode(response.body);
+      if (date == 'Success') {
+        Alert(
+          context: context,
+          title: 'This Data Already Exist',
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: 20,
+                ),
+              ),
+              color: hoverColor,
+            )
+          ],
+        ).show();
+        setState(() {
+          status = false;
+        });
+      } else {
+        status = true;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSalary();
+    fetchBalance();
+    for (int i = 2000; i <= 2100; i++) {
+      _years.add(i.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +191,16 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
               // implementing a container to make the outline border design
               Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      50.0,
-                    ),
-                    border: Border.all(
-                      color: textColor,
-                      width: 2,
-                    )),
+                  borderRadius: BorderRadius.circular(
+                    50.0,
+                  ),
+                  border: Border.all(
+                    color: textColor,
+                    width: 2,
+                  ),
+                ),
                 width: width * 0.7,
-                height: 520,
+                height: 570,
                 child: Padding(
                   padding: EdgeInsets.only(
                     left: 70,
@@ -56,49 +211,6 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // implementing a container to implement a search box
-                      Container(
-                        width: width,
-                        height: 40,
-                        child: TextFormField(
-                          style: TextStyle(
-                            color: textColor,
-                          ),
-                          decoration: InputDecoration(
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.only(
-                                right: 10,
-                              ),
-                              child: IconButton(
-                                icon: Icon(Icons.search),
-                                onPressed: () {},
-                              ),
-                            ),
-                            fillColor: secondaryColor,
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                new Radius.circular(
-                                  10.0,
-                                ),
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                new Radius.circular(
-                                  10.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -106,105 +218,213 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SizedBox(
+                                height: 5,
+                              ),
                               labelText('Date'),
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Total Balance'),
+                              labelText('Balance'),
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Total Expenses'),
+                              labelText('Expenses'),
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Total Salary'),
+                              labelText('Salary'),
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Total Profit'),
+                              labelText('Income'),
                               SizedBox(
                                 height: 30,
                               ),
-                              labelText('Total Tax'),
+                              labelText('Tax'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('New Balance'),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              labelText('Profit'),
                             ],
                           ),
                           SizedBox(
                             width: width * 0.04,
                           ),
-                          // implementing a column to call custom text field
+                          // implementing a column to call custom drop down list, text field
                           // and date picker with sizedBox between them.
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Container(
-                                width: width * 0.469,
-                                height: 40.0,
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: width * 0.23,
+                                    height: 50.0,
+                                    child: DropdownButtonFormField(
+                                      hint: Text('Month'),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0),
+                                          ),
+                                        ),
+                                        filled: true,
+                                        fillColor: secondaryColor,
                                       ),
+                                      value: _month,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          _month = newValue;
+                                          check();
+                                        });
+                                      },
+                                      items: _monthly.map((location) {
+                                        return DropdownMenuItem(
+                                          child: new Text(location),
+                                          value: location,
+                                        );
+                                      }).toList(),
                                     ),
-                                    filled: true,
-                                    fillColor: secondaryColor,
                                   ),
-                                  readOnly: true,
-                                  controller: _dateController,
-                                  onTap: () async {
-                                    var date = await showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1900),
-                                      lastDate: DateTime(2100),
-                                    );
-                                    _dateController.text =
-                                        date.toString().substring(0, 10);
-                                  },
-                                ),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  Container(
+                                    width: width * 0.23,
+                                    height: 50.0,
+                                    child: DropdownButtonFormField(
+                                      hint: Text('Year'),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0),
+                                          ),
+                                        ),
+                                        filled: true,
+                                        fillColor: secondaryColor,
+                                      ),
+                                      value: _year,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          _year = newValue;
+                                          check();
+                                        });
+                                      },
+                                      items: _years.map((location) {
+                                        return DropdownMenuItem(
+                                          child: new Text(location),
+                                          value: location,
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _textController, width * 0.469, 40.0, true),
+                              textField(_balanceController, width * 0.48, 40.0,
+                                  false),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(_expensesController, width * 0.48, 40.0,
+                                  true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.469, 40.0, true),
+                                  _salaryController, width * 0.48, 40.0, false),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.469, 40.0, true),
+                                  _incomeController, width * 0.48, 40.0, true),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.469, 40.0, true),
+                                  _taxController, width * 0.48, 40.0, false),
                               SizedBox(
                                 height: 15,
                               ),
                               textField(
-                                  _textController, width * 0.469, 40.0, true),
+                                  _newController, width * 0.48, 40.0, false),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(
+                                  _profitController, width * 0.48, 40.0, false),
                             ],
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 30,
                       ),
                       // implementing a row widget to call custom buttons and align them.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          actionButtons('Print Report', () {}, Colors.blue),
+                          actionButtons('Apply', () {
+                            if (status == true) {
+                              apply();
+                              Alert(
+                                context: context,
+                                title: message ? 'Applied' : 'Couldn\'t Apply',
+                                buttons: [
+                                  DialogButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      fetchNew();
+                                    },
+                                    child: Text(
+                                      "OK",
+                                      style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    color: hoverColor,
+                                  )
+                                ],
+                              ).show();
+                            } else {
+                              Alert(
+                                context: context,
+                                title: 'This Data Already Exist',
+                                buttons: [
+                                  DialogButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "OK",
+                                      style: TextStyle(
+                                        color: primaryColor,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    color: hoverColor,
+                                  )
+                                ],
+                              ).show();
+                            }
+                          }, Colors.green),
                           SizedBox(
                             width: 80,
                           ),
-                          actionButtons('Apply', () {}, Colors.green),
+                          actionButtons('Data Table', () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CompanyDataTable()));
+                          }, Colors.blue.shade600),
                         ],
                       ),
                     ],

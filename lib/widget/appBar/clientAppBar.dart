@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'package:erp/Client/Application/application.dart';
+import 'package:erp/Client/LogIn/logIn.dart';
 import 'package:flutter/material.dart';
 import 'package:erp/constants.dart';
 
@@ -18,6 +19,7 @@ class ClientAppBar extends StatelessWidget {
         child:Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+<<<<<<< HEAD
             SizedBox(
               width: 20,
             ),
@@ -28,6 +30,10 @@ class ClientAppBar extends StatelessWidget {
                 fontSize: 30,
                 color: textColor,
               ),
+=======
+            Image.asset(
+              'assets/logo.png',
+>>>>>>> 39b4ebd0cbf4e0f615e9f88f7fe117b712887113
             ),
             Spacer(
               flex: 2,
@@ -46,6 +52,7 @@ class ClientAppBar extends StatelessWidget {
             SizedBox(
               width: 20,
             ),
+<<<<<<< HEAD
             appButton('Product',() {} ),
             SizedBox(
               width: 20,
@@ -54,12 +61,22 @@ class ClientAppBar extends StatelessWidget {
               'User Name',
               () {},
             ),
+=======
+            labelText('UserName'),
+>>>>>>> 39b4ebd0cbf4e0f615e9f88f7fe117b712887113
             SizedBox(
               width: 20,
             ),
             appButton(
               'Log Out',
-              () {},
+              () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LogIn(),
+                  ),
+                );
+              },
             ),
             SizedBox(
               width: 20,
