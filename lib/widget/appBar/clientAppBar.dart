@@ -11,29 +11,14 @@ class ClientAppBar extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(
-          left: 0,
-          right: 0,
+          left: 90,
+          right: 90,
         ),
-        child: Container(
-          color: Colors.white,
-        child:Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-<<<<<<< HEAD
-            SizedBox(
-              width: 20,
-            ),
-            Text(
-              'Company Name',
-              style: TextStyle(
-
-                fontSize: 30,
-                color: textColor,
-              ),
-=======
             Image.asset(
               'assets/logo.png',
->>>>>>> 39b4ebd0cbf4e0f615e9f88f7fe117b712887113
             ),
             Spacer(
               flex: 2,
@@ -52,18 +37,7 @@ class ClientAppBar extends StatelessWidget {
             SizedBox(
               width: 20,
             ),
-<<<<<<< HEAD
-            appButton('Product',() {} ),
-            SizedBox(
-              width: 20,
-            ),
-            appButton(
-              'User Name',
-              () {},
-            ),
-=======
             labelText('UserName'),
->>>>>>> 39b4ebd0cbf4e0f615e9f88f7fe117b712887113
             SizedBox(
               width: 20,
             ),
@@ -78,13 +52,9 @@ class ClientAppBar extends StatelessWidget {
                 );
               },
             ),
-            SizedBox(
-              width: 20,
-            ),
           ],
         ),
       ),
-    )
     );
   }
 }

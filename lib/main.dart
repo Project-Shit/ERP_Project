@@ -1,9 +1,5 @@
 // @dart=2.9
-import 'package:erp/Client/Accounting/Expenses/expenses.dart';
-import 'package:erp/Client/Accounting/Product/product.dart';
-import 'package:erp/Client/Users/users.dart';
-import 'package:erp/Inventory/Inventory.dart';
-import 'package:erp/Client/LogIn/logIn.dart';
+import 'package:erp/Client/Application/application.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Inventory(),
+      home: Application(),
     );
   }
 }

@@ -81,7 +81,7 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
 
 // Custom Text Field
 Widget textField(
-    TextEditingController text, double width, double height, bool status,[String hint]) {
+    TextEditingController text, double width, double height, bool status) {
   return Container(
     width: width,
     height: height,
@@ -89,13 +89,13 @@ Widget textField(
       enabled: status,
       controller: text,
       decoration: InputDecoration(
-        hintText: hint,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10.0),
           ),
         ),
         filled: true,
+        fillColor: secondaryColor,
       ),
     ),
   );
