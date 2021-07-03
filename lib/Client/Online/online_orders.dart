@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,7 @@ class dat extends StatelessWidget {
             ),
           ),
           body: Container(
+
             child: Column(
 
                     children: <Widget>
@@ -44,6 +46,10 @@ class dat extends StatelessWidget {
                       Container(
                         child: TextField(
                           decoration: InputDecoration(
+                            enabledBorder : OutlineInputBorder(
+                            borderSide: BorderSide(width: 2 , color: Color.fromRGBO(32, 32, 32, 1)),
+
+                            ),
                             labelText: "Enter Customer Phone Number",
                             icon: Icon(Icons.phone),
                           ),
