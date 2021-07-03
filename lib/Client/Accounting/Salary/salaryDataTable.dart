@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:erp/Client/Accounting/Salary/salary.dart';
 import 'package:erp/Client/Accounting/Salary/salaryModel.dart';
 import 'package:erp/constants.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class _SalaryDataTableState extends State<SalaryDataTable> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Salary()));
             },
           ),
           automaticallyImplyLeading: false,
