@@ -98,9 +98,9 @@ class _CompanyMobileState extends State<CompanyMobile> {
         preferredSize: Size(width, 60),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: textColor,
+            color: primaryColor,
           ),
-          backgroundColor: primaryColor,
+          backgroundColor: secondaryColor,
           title: Image.asset(
             'assets/logo.png',
             height: 50,
@@ -138,7 +138,6 @@ class _CompanyMobileState extends State<CompanyMobile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  labelText('Date'),
                   Row(
                     children: [
                       Container(
@@ -153,7 +152,7 @@ class _CompanyMobileState extends State<CompanyMobile> {
                               ),
                             ),
                             filled: true,
-                            fillColor: secondaryColor,
+                            fillColor: textFill,
                           ),
                           value: _month,
                           onChanged: (newValue) {
@@ -186,7 +185,7 @@ class _CompanyMobileState extends State<CompanyMobile> {
                               ),
                             ),
                             filled: true,
-                            fillColor: secondaryColor,
+                            fillColor: textFill,
                           ),
                           value: _year,
                           onChanged: (newValue) {
@@ -209,38 +208,31 @@ class _CompanyMobileState extends State<CompanyMobile> {
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Balance'),
-                  textField(_balanceController, width, 45.0, false),
+                  textField(_balanceController, width, 45.0, false,'Balance'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Expenses'),
-                  textField(_expensesController, width, 45.0, false),
+                  textField(_expensesController, width, 45.0, false,'Expenses'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Salary'),
-                  textField(_salaryController, width, 45.0, false),
+                  textField(_salaryController, width, 45.0, false,'Salary'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Income'),
-                  textField(_incomeController, width, 45.0, false),
+                  textField(_incomeController, width, 45.0, false,'Income'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Tax'),
-                  textField(_taxController, width, 45.0, false),
+                  textField(_taxController, width, 45.0, false,'Tax'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('New Balance'),
-                  textField(_newController, width, 45.0, false),
+                  textField(_newController, width, 45.0, false,'New Balance'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Profit'),
-                  textField(_profitController, width, 45.0, false),
+                  textField(_profitController, width, 45.0, false,'Profit'),
                   SizedBox(
                     height: 30,
                   ),
