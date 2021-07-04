@@ -9,50 +9,59 @@ class ClientAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.only(
-          left: 90,
-          right: 90,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Image.asset(
-              'assets/logo.png',
-            ),
-            Spacer(
-              flex: 2,
-            ),
-            appButton(
-              'Home',
-                  () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Application(),
-                  ),
-                );
-              },
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            labelText('UserName'),
-            SizedBox(
-              width: 20,
-            ),
-            appButton(
-              'Log Out',
-                  () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LogIn(),
-                  ),
-                );
-              },
-            ),
-          ],
+      child: Container(
+        color: secondaryColor,
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 90,
+            right: 90,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(
+                'assets/logo.png',
+              ),
+              Spacer(
+                flex: 2,
+              ),
+              appButton(
+                'Home',
+                    () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Application(),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Text(
+                'User Name',
+                style: TextStyle(
+                  color: textFill,
+                  fontSize: 22,
+                ),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              appButton(
+                'Log Out',
+                    () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LogIn(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
