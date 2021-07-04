@@ -113,10 +113,10 @@ class _UsersMobileState extends State<UsersMobile> {
       drawer: ClientDrawer(),
       // implementing th body with scroll View and container widget
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Padding(
           padding: EdgeInsets.all(20),
           child: Container(
-            width: width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(
                 50.0,
@@ -140,7 +140,6 @@ class _UsersMobileState extends State<UsersMobile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: width,
                     height: 55.0,
                     child: DropdownButtonFormField(
                       hint: Text('ID'),
