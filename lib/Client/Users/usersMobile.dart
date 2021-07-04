@@ -99,9 +99,9 @@ class _UsersMobileState extends State<UsersMobile> {
         preferredSize: Size(width, 60),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: textColor,
+            color: primaryColor,
           ),
-          backgroundColor: primaryColor,
+          backgroundColor: secondaryColor,
           title: Image.asset(
             'assets/logo.png',
             height: 50,
@@ -139,11 +139,11 @@ class _UsersMobileState extends State<UsersMobile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  labelText('ID'),
                   Container(
                     width: width,
                     height: 55.0,
                     child: DropdownButtonFormField(
+                      hint: Text('ID'),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
@@ -151,7 +151,7 @@ class _UsersMobileState extends State<UsersMobile> {
                           ),
                         ),
                         filled: true,
-                        fillColor: secondaryColor,
+                        fillColor: textFill,
                       ),
                       value: _selectedLocation,
                       onChanged: (newValue) {
@@ -171,49 +171,40 @@ class _UsersMobileState extends State<UsersMobile> {
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Name'),
-                  textField(_name, width, 50.0, false),
+                  textField(_name, width, 50.0, false,'Name'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('SSIN'),
-                  textField(_ssin, width, 50.0, false),
+                  textField(_ssin, width, 50.0, false,'SSIN'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Social Number'),
-                  textField(_social, width, 50.0, false),
+                  textField(_social, width, 50.0, false,'Social Number'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Phone'),
-                  textField(_phone, width, 50.0, false),
+                  textField(_phone, width, 50.0, false,'Phone Number'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Email'),
-                  textField(_email, width, 50.0, false),
+                  textField(_email, width, 50.0, false,'Email'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Password'),
                   passwordField(
                       _pass, width, 50.0, password, true, hidePassword),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Address'),
-                  textField(_address, width, 50.0, false),
+                  textField(_address, width, 50.0, false,'Address'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Department'),
-                  textField(_department, width, 50.0, false),
+                  textField(_department, width, 50.0, false,'Department'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('User Type'),
-                  textField(_userType, width, 50.0, false),
+                  textField(_userType, width, 50.0, false,'User Type'),
                   SizedBox(
                     height: 30,
                   ),
