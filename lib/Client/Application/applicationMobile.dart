@@ -36,6 +36,7 @@ class ApplicationMobile extends StatelessWidget {
         // ignore: missing_return
         onWillPop: () {},
         child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Padding(
             padding: const EdgeInsets.only(
               top: 30,
