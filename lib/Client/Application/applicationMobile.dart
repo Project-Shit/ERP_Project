@@ -19,15 +19,12 @@ class ApplicationMobile extends StatelessWidget {
         preferredSize: Size(width, 60),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: textColor,
+            color: primaryColor,
           ),
-          backgroundColor: primaryColor,
-          title: Text(
-            'Company Name',
-            style: TextStyle(
-              color: textColor,
-              fontSize: 25,
-            ),
+          backgroundColor: secondaryColor,
+          title: Image.asset(
+            'assets/logo.png',
+            height: 50,
           ),
           centerTitle: true,
         ),
