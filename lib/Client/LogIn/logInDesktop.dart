@@ -113,15 +113,13 @@ class _LogInDesktopState extends State<LogInDesktop> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        labelText('Email'),
                         SizedBox(
                           height: 15,
                         ),
-                        textField(_mailController, width, 45.0, true),
+                        textField(_mailController, width, 45.0, true,'Email'),
                         SizedBox(
                           height: 20,
                         ),
-                        labelText('Password'),
                         SizedBox(
                           height: 15,
                         ),
