@@ -94,10 +94,10 @@ class _SalaryMobileState extends State<SalaryMobile> {
       drawer: ClientDrawer(),
       // implementing th body with scroll View and container widget
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Padding(
           padding: EdgeInsets.all(20),
           child: Container(
-            width: width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(
                 50.0,
