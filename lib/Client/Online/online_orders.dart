@@ -1,10 +1,32 @@
 // @dart=2.9
+import 'package:erp/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class OnlineOrder extends StatelessWidget {
+
+
+
+
+void main(){
+runApp(OnlineOrder());
+
+}
+class OnlineOrder extends StatefulWidget{
   @override
+  State<StatefulWidget> createState() {
+    return OnlineOrderState();
+  }
+
+}
+
+class OnlineOrderState extends State<OnlineOrder>{
+  final _test = TextEditingController();
+
+
+
+
   Widget build(BuildContext context) {
+
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
@@ -17,6 +39,8 @@ class OnlineOrder extends StatelessWidget {
             ),
           ),
           body: Container(
+            width: double.infinity,
+            margin: EdgeInsets.all(40.0),
             child: Column(children: <Widget>[
               SizedBox(
                 width: 120,
@@ -44,7 +68,32 @@ class OnlineOrder extends StatelessWidget {
                     icon: Icon(Icons.phone),
                   ),
                 ),
+
+
               ),
+              Container(
+                child: TextField(
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          width: 2, color: Color.fromRGBO(32, 32, 32, 1)),
+                    ),
+                    labelText: "Name",
+                    icon: Icon(Icons.person),
+                  ),
+                ),
+
+
+
+
+
+              ),
+
+            textField(_test, 250, 60.0, true),
+
+
+
+
               OutlinedButton(
                   onPressed: null,
                   child: Text(

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 // implementing the main colors for the all system
 Color primaryColor = Colors.white;
-Color secondaryColor = Color(0xFF898989);
+Color secondaryColor = Color.fromRGBO(32, 32, 1, 1);
 Color textColor = Color(0xFF1D1D1D);
-Color hoverColor = Color(0xFF00B9FF);
+Color hoverColor = Color.fromRGBO(64, 64, 64, 1);
+Color textfill  = Colors.white;
 
 // initializing variables for backend
 var setData = 'http://192.168.1.104/ERP/setAPI.php';
@@ -30,6 +31,10 @@ Widget appButton(String title, VoidCallback onTap) {
   );
 }
 
+
+
+
+
 // Custom Flat Button for Home Page
 Widget labelButton(String title, VoidCallback onTap) {
   // ignore: deprecated_member_use
@@ -47,6 +52,12 @@ Widget labelButton(String title, VoidCallback onTap) {
     onPressed: onTap,
   );
 }
+
+
+
+
+
+
 
 // Custom Button for all pages to act on database
 Widget actionButtons(String title, VoidCallback onTap, Color color) {
@@ -79,6 +90,13 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
   );
 }
 
+
+
+
+
+
+
+
 // Custom Text Field
 Widget textField(
     TextEditingController text, double width, double height, bool status) {
@@ -90,16 +108,22 @@ Widget textField(
       controller: text,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
+          borderSide: BorderSide(
+          width: 5, color: Color.fromRGBO(32, 32, 32, 1)),
         ),
+        labelText: "Test need help",
         filled: true,
-        fillColor: secondaryColor,
+        fillColor: textfill,
       ),
     ),
   );
 }
+
+
+
+
+
+
 
 // Custom Password Field
 Widget passwordField(TextEditingController text, double width, double height,
