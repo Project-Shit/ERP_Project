@@ -74,14 +74,11 @@ class _LogInMobileState extends State<LogInMobile> {
         preferredSize: Size(width, 60),
         child: AppBar(
           automaticallyImplyLeading: false,
-          iconTheme: IconThemeData(
-            color: textColor,
-          ),
-          backgroundColor: primaryColor,
+          backgroundColor: secondaryColor,
           title: Text(
             'Company Name',
             style: TextStyle(
-              color: textColor,
+              color: textFill,
               fontSize: 25,
             ),
           ),
@@ -102,7 +99,7 @@ class _LogInMobileState extends State<LogInMobile> {
             ),
             child: Container(
               width: width,
-              height: 400,
+              height: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(
                   50.0,
@@ -114,8 +111,8 @@ class _LogInMobileState extends State<LogInMobile> {
               ),
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: 50,
-                  bottom: 50,
+                  top: 20,
+                  bottom: 20,
                   left: 20,
                   right: 20,
                 ),
@@ -123,22 +120,20 @@ class _LogInMobileState extends State<LogInMobile> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    labelText('Email'),
                     SizedBox(
                       height: 15,
                     ),
-                    textField(_mailController, width, 45.0, true),
+                    textField(_mailController, width, 45.0, true,'Email'),
                     SizedBox(
                       height: 20,
                     ),
-                    labelText('Password'),
                     SizedBox(
                       height: 15,
                     ),
                     passwordField(_passController, width, 45.0, password, false,
                         hidePassword),
                     SizedBox(
-                      height: 35,
+                      height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
