@@ -133,55 +133,15 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // implementing a column to call custom label widget with sizedBox between them
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 15,
-                              ),
-                              labelText('Employee ID'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Employee Name'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Department'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Salary'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Insurance'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Tax on Salary'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Deduction'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Net Salary'),
-                            ],
-                          ),
-                          SizedBox(
-                            width: width * 0.04,
-                          ),
                           // implementing a column to call custom drop down list, text field with sizedBox between them.
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: width * 0.46,
+                                width: width * 0.6,
                                 height: 50.0,
                                 child: DropdownButtonFormField(
+                                  hint: Text('ID'),
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
@@ -189,7 +149,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                                       ),
                                     ),
                                     filled: true,
-                                    fillColor: secondaryColor,
+                                    fillColor: textFill,
                                   ),
                                   value: _id,
                                   onChanged: (newValue) {
@@ -209,31 +169,31 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_name, width * 0.46, 40.0, false),
+                              textField(_name, width * 0.6, 40.0, false,'Name'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_dept, width * 0.46, 40.0, false),
+                              textField(_dept, width * 0.6, 40.0, false,'Department'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_salary, width * 0.46, 40.0, true),
+                              textField(_salary, width * 0.6, 40.0, true,'Salary'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_insurance, width * 0.46, 40.0, true),
+                              textField(_insurance, width * 0.6, 40.0, true,'Insurance'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_tax, width * 0.46, 40.0, false),
+                              textField(_tax, width * 0.6, 40.0, false,'Tax'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_deduction, width * 0.46, 40.0, true),
+                              textField(_deduction, width * 0.6, 40.0, true,'Deduction'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_netS, width * 0.46, 40.0, false),
+                              textField(_netS, width * 0.6, 40.0, false,'Net Salary'),
                             ],
                           ),
                         ],
