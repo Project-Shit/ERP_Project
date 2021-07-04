@@ -80,9 +80,9 @@ class _SalaryMobileState extends State<SalaryMobile> {
         preferredSize: Size(width, 60),
         child: AppBar(
           iconTheme: IconThemeData(
-            color: textColor,
+            color: primaryColor,
           ),
-          backgroundColor: primaryColor,
+          backgroundColor: secondaryColor,
           title: Image.asset(
             'assets/logo.png',
             height: 50,
@@ -120,11 +120,11 @@ class _SalaryMobileState extends State<SalaryMobile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  labelText('Employee ID'),
                   Container(
                     width: width,
                     height: 55.0,
                     child: DropdownButtonFormField(
+                      hint: Text('Employee ID'),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
@@ -132,7 +132,7 @@ class _SalaryMobileState extends State<SalaryMobile> {
                           ),
                         ),
                         filled: true,
-                        fillColor: secondaryColor,
+                        fillColor: textFill,
                       ),
                       value: _id,
                       onChanged: (newValue) {
@@ -152,38 +152,31 @@ class _SalaryMobileState extends State<SalaryMobile> {
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Employee Name'),
-                  textField(_name, width, 45.0, false),
+                  textField(_name, width, 45.0, false,'Employee Name'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Department'),
-                  textField(_dept, width, 45.0, false),
+                  textField(_dept, width, 45.0, false,'Department'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Salary'),
-                  textField(_salary, width, 45.0, false),
+                  textField(_salary, width, 45.0, false,'Salary'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Insurance'),
-                  textField(_insurance, width, 45.0, false),
+                  textField(_insurance, width, 45.0, false,'Insurance'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Tax on Salary'),
-                  textField(_tax, width, 45.0, false),
+                  textField(_tax, width, 45.0, false,'Tax on Salary'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Deduction'),
-                  textField(_deduction, width, 45.0, false),
+                  textField(_deduction, width, 45.0, false,'Deduction'),
                   SizedBox(
                     height: 20,
                   ),
-                  labelText('Net Salary'),
-                  textField(_netS, width, 45.0, false),
+                  textField(_netS, width, 45.0, false,'Net Salary'),
                   SizedBox(
                     height: 30,
                   ),
