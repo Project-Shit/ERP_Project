@@ -2,11 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(dat());
-}
 
-class dat extends StatelessWidget {
+class OnlineOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
