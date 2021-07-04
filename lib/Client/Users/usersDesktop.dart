@@ -187,61 +187,16 @@ class _UsersDesktopState extends State<UsersDesktop> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          // implementing a column to call custom label widget with sizedBox between them
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              labelText('ID'),
-                              SizedBox(
-                                height: 35,
-                              ),
-                              labelText('Name'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('SSIN'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Social Number'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Phone'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Email'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Password'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Address'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Department'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('User Type'),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
                           // implementing a column to call custom drop down list, text field and
                           // password field widget with sizedBox between them.
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Container(
-                                width: width * 0.49,
+                                width: width * 0.6,
                                 height: 50.0,
                                 child: DropdownButtonFormField(
+                                  hint: Text('ID'),
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
@@ -249,7 +204,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                                       ),
                                     ),
                                     filled: true,
-                                    fillColor: secondaryColor,
+                                    fillColor: textFill,
                                   ),
                                   value: _id,
                                   onChanged: (newValue) {
@@ -270,40 +225,40 @@ class _UsersDesktopState extends State<UsersDesktop> {
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_name, width * 0.49, 40.0, true),
+                              textField(_name, width * 0.6, 40.0, true,'Name'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_ssin, width * 0.49, 40.0, true),
+                              textField(_ssin, width * 0.6, 40.0, true,'SSIN'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_social, width * 0.49, 40.0, true),
+                              textField(_social, width * 0.6, 40.0, true,'Social Number'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_phone, width * 0.49, 40.0, true),
+                              textField(_phone, width * 0.6, 40.0, true,'Phone Number'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_email, width * 0.49, 40.0, true),
+                              textField(_email, width * 0.6, 40.0, true,'Email'),
                               SizedBox(
                                 height: 15,
                               ),
-                              passwordField(_pass, width * 0.49, 40.0, password,
+                              passwordField(_pass, width * 0.6, 40.0, password,
                                   false, hidePassword),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_address, width * 0.49, 40.0, true),
+                              textField(_address, width * 0.6, 40.0, true,'Address'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_department, width * 0.49, 40.0, true),
+                              textField(_department, width * 0.6, 40.0, true,'Department'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_userType, width * 0.49, 40.0, true),
+                              textField(_userType, width * 0.6, 40.0, true,'User Type'),
                             ],
                           ),
                         ],
