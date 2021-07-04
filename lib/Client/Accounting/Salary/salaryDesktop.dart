@@ -122,11 +122,9 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                       color: textColor,
                       width: 2,
                     )),
-                width: width * 0.7,
-                height: 580,
                 child: Padding(
                   padding:
-                      EdgeInsets.only(left: 70, right: 70, top: 30, bottom: 30),
+                      EdgeInsets.only(left: 50, right: 50, top: 30, bottom: 30),
                   child: Column(
                     children: [
                       // implementing a row widget to align the rest of the widget
