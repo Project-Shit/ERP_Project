@@ -90,16 +90,15 @@ class _LogInMobileState extends State<LogInMobile> {
         // ignore: missing_return
         onWillPop: () {},
         child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Padding(
             padding: EdgeInsets.only(
               left: 20,
               right: 20,
-              top: height * 0.1,
+              top: height * 0.2,
               bottom: 20,
             ),
             child: Container(
-              width: width,
-              height: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(
                   50.0,
@@ -111,8 +110,8 @@ class _LogInMobileState extends State<LogInMobile> {
               ),
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: 20,
-                  bottom: 20,
+                  top: 30,
+                  bottom: 30,
                   left: 20,
                   right: 20,
                 ),
