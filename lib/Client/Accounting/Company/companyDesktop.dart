@@ -199,17 +199,16 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                     width: 2,
                   ),
                 ),
-                width: width * 0.7,
-                height: 570,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: 70,
-                    right: 70,
+                    left: 50,
+                    right: 50,
+                    top: 30,
+                    bottom: 30,
                   ),
                   // implementing a column widget to align the rest of the widget
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
