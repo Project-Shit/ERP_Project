@@ -63,9 +63,9 @@ class _UsersDataTableState extends State<UsersDataTable> {
           automaticallyImplyLeading: false,
           elevation: 0,
           iconTheme: IconThemeData(
-            color: textColor,
+            color: textFill,
           ),
-          backgroundColor: primaryColor,
+          backgroundColor: secondaryColor,
           title: Image.asset(
             'assets/logo.png',
             height: 50,
