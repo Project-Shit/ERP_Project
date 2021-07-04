@@ -172,17 +172,16 @@ class _UsersDesktopState extends State<UsersDesktop> {
                       color: textColor,
                       width: 2,
                     )),
-                width: width * 0.7,
-                height: 700,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: 70,
-                    right: 70,
+                    top: 30,
+                    bottom: 30,
+                    left: 50,
+                    right: 50,
                   ),
                   // implementing a column widget to align the rest of the widget
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
