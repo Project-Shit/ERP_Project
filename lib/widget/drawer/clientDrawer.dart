@@ -15,15 +15,12 @@ class ClientDrawer extends StatelessWidget {
           children: <Widget>[
             DrawerHeader(
               child: Center(
-                  child: Text(
-                'Company Name',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: textColor,
+                child: Image.asset(
+                  'assets/logo.png',
                 ),
-              )),
+              ),
               decoration: BoxDecoration(
-                color: Colors.grey.shade300,
+                color: secondaryColor,
               ),
             ),
             ListTileTheme(
