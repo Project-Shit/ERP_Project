@@ -6,7 +6,7 @@ Color primaryColor = Colors.white;
 Color secondaryColor = Color.fromRGBO(32, 32, 1, 1);
 Color textColor = Color(0xFF1D1D1D);
 Color hoverColor = Color.fromRGBO(64, 64, 64, 1);
-Color textfill  = Colors.white;
+Color textFill  = Colors.white;
 
 // initializing variables for backend
 var setData = 'http://192.168.1.104/ERP/setAPI.php';
@@ -21,7 +21,7 @@ Widget appButton(String title, VoidCallback onTap) {
     child: Text(
       title,
       style: TextStyle(
-        color: textColor,
+        color: textFill,
         fontSize: 20,
       ),
     ),
@@ -99,7 +99,7 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
 
 // Custom Text Field
 Widget textField(
-    TextEditingController text, double width, double height, bool status) {
+    TextEditingController text, double width, double height, bool status,String hint) {
   return Container(
     width: width,
     height: height,
@@ -111,9 +111,9 @@ Widget textField(
           borderSide: BorderSide(
           width: 5, color: Color.fromRGBO(32, 32, 32, 1)),
         ),
-        labelText: "Test need help",
+        labelText: hint,
         filled: true,
-        fillColor: textfill,
+        fillColor: textFill,
       ),
     ),
   );
@@ -138,6 +138,7 @@ Widget passwordField(TextEditingController text, double width, double height,
         color: textColor,
       ),
       decoration: InputDecoration(
+        labelText: 'Password',
         suffixIcon: Padding(
           padding: const EdgeInsets.only(
             right: 10,
@@ -147,7 +148,7 @@ Widget passwordField(TextEditingController text, double width, double height,
             onPressed: onTap,
           ),
         ),
-        fillColor: secondaryColor,
+        fillColor: textFill,
         filled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
@@ -172,16 +173,6 @@ Widget passwordField(TextEditingController text, double width, double height,
   );
 }
 
-// Custom Label with Text
-Widget labelText(String title) {
-  return Text(
-    title,
-    style: TextStyle(
-      color: textColor,
-      fontSize: 22,
-    ),
-  );
-}
 
 // Custom Card for Home Page
 Widget applicationCard(
