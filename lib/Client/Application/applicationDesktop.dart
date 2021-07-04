@@ -1,6 +1,7 @@
 // @dart=2.9
 import 'package:erp/Client/Accounting/Salary/salary.dart';
 import 'package:erp/Client/Accounting/Company/company.dart';
+import 'package:erp/Client/Online/online_orders.dart';
 import 'package:erp/Client/Users/users.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
@@ -62,7 +63,7 @@ class ApplicationDesktop extends StatelessWidget {
                       'Salary',
                       width * 0.18,
                       100,
-                          () {
+                      () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -78,7 +79,7 @@ class ApplicationDesktop extends StatelessWidget {
                       'Company',
                       width * 0.18,
                       100,
-                          () {
+                      () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -87,7 +88,6 @@ class ApplicationDesktop extends StatelessWidget {
                         );
                       },
                     ),
-
                     SizedBox(
                       width: width * 0.02,
                     ),
@@ -95,11 +95,11 @@ class ApplicationDesktop extends StatelessWidget {
                       'Online Order',
                       width * 0.18,
                       100,
-                          () {
+                      () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Company(),
+                            builder: (context) => OnlineOrder(),
                           ),
                         );
                       },
