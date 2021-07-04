@@ -214,47 +214,6 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          // implementing a column to call custom label widget with sizedBox between them
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 5,
-                              ),
-                              labelText('Date'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Balance'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Expenses'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Salary'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Income'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Tax'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('New Balance'),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              labelText('Profit'),
-                            ],
-                          ),
-                          SizedBox(
-                            width: width * 0.04,
-                          ),
                           // implementing a column to call custom drop down list, text field
                           // and date picker with sizedBox between them.
                           Column(
@@ -263,7 +222,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                               Row(
                                 children: [
                                   Container(
-                                    width: width * 0.23,
+                                    width: width * 0.29,
                                     height: 50.0,
                                     child: DropdownButtonFormField(
                                       hint: Text('Month'),
@@ -274,7 +233,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                           ),
                                         ),
                                         filled: true,
-                                        fillColor: secondaryColor,
+                                        fillColor: textFill,
                                       ),
                                       value: _month,
                                       onChanged: (newValue) {
@@ -295,7 +254,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                     width: 30,
                                   ),
                                   Container(
-                                    width: width * 0.23,
+                                    width: width * 0.29,
                                     height: 50.0,
                                     child: DropdownButtonFormField(
                                       hint: Text('Year'),
@@ -306,7 +265,7 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                                           ),
                                         ),
                                         filled: true,
-                                        fillColor: secondaryColor,
+                                        fillColor: textFill,
                                       ),
                                       value: _year,
                                       onChanged: (newValue) {
@@ -328,38 +287,31 @@ class _CompanyDesktopState extends State<CompanyDesktop> {
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_balanceController, width * 0.48, 40.0,
-                                  false),
+                              textField(_balanceController, width * 0.6, 40.0, false,'Balance'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_expensesController, width * 0.48, 40.0,
-                                  true),
+                              textField(_expensesController, width * 0.6, 40.0, true,'Expenses'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _salaryController, width * 0.48, 40.0, false),
+                              textField(_salaryController, width * 0.6, 40.0, false,'Salary'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _incomeController, width * 0.48, 40.0, true),
+                              textField(_incomeController, width * 0.6, 40.0, true,'Income'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _taxController, width * 0.48, 40.0, false),
+                              textField(_taxController, width * 0.6, 40.0, false,'Tax'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _newController, width * 0.48, 40.0, false),
+                              textField(_newController, width * 0.6, 40.0, false,'New Balance'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(
-                                  _profitController, width * 0.48, 40.0, false),
+                              textField(_profitController, width * 0.6, 40.0, false,'Profit'),
                             ],
                           ),
                         ],
