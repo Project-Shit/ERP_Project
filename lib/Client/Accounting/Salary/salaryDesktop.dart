@@ -2,6 +2,7 @@
 import 'package:erp/Client/Accounting/Salary/salaryDataTable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
+import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -246,6 +247,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
           ),
         ),
       ),
+      floatingActionButton: ChatButton(),
     );
   }
 }

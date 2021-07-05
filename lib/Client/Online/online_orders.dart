@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'package:erp/constants.dart';
+import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -101,7 +102,9 @@ class OnlineOrderState extends State<OnlineOrder>{
                     style: TextStyle(color: Color.fromRGBO(32, 32, 32, 1)),
                   )),
             ]),
-          )),
+          ),
+        floatingActionButton: ChatButton(),
+      ),
     );
   }
 }

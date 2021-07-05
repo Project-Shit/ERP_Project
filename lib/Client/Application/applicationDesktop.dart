@@ -5,7 +5,7 @@ import 'package:erp/Client/Online/online_orders.dart';
 import 'package:erp/Client/Users/users.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
-import 'package:erp/widget/chatButton/chatButton.dart';
+import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 
 // home page for the client's system

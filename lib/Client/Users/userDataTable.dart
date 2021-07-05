@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:erp/Client/Users/users.dart';
 import 'package:erp/Client/Users/usersModel.dart';
 import 'package:erp/constants.dart';
+import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -135,6 +136,7 @@ class _UsersDataTableState extends State<UsersDataTable> {
           ),
         ),
       ),
+      floatingActionButton: ChatButton(),
     );
   }
 }
