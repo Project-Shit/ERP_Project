@@ -13,8 +13,10 @@
     $conn = mysqli_connect($servername, $username, $passeword, $dbname);
 
     // get sql command and fire sql query
-    $sql = $_POST["command"];
-    $queryResult = mysqli_query($conn,$sql);
+
+     $sql = $_POST["command"];
+
+     $queryResult = mysqli_query($conn,$sql);
 
     // assign the result to an array then return it
     $result = array();

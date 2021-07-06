@@ -9,9 +9,9 @@ Color hoverColor = Color.fromRGBO(64, 64, 64, 1);
 Color textFill = Colors.white;
 
 // initializing variables for backend
-var setData = 'http://192.168.1.104/ERP/setAPI.php';
-var getData = 'http://192.168.1.104/ERP/getAPI.php';
-var conditionAPI = 'http://192.168.1.104/ERP/condition.php';
+var setData = 'http://localhost/ERP/setAPI.php';
+var getData = 'http://localhost/ERP/getAPI.php';
+var conditionAPI = 'http://localhost/ERP/condition.php';
 var data, response;
 
 // Custom AppBar Buttons

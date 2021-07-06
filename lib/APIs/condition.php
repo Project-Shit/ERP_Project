@@ -14,7 +14,7 @@ header("Access-Control-Allow-Methods: POST, OPTIONS");
 // create connection
 $conn = new mysqli($servername, $username, $passeword, $dbname);
 
-$sql = $_POST["command"];
+$sql = "$_POST["command"]";
 
 $result = mysqli_query($conn,$sql);
 $count = mysqli_num_rows($result);
