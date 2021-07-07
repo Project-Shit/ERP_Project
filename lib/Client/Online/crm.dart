@@ -153,6 +153,7 @@ class _crmDataState extends State<crmData> {
 
                      apply();
                      fetchRecords();
+                     
 
                  }, Colors.blue.shade600),
                 SizedBox(
