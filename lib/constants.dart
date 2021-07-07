@@ -38,7 +38,7 @@ Widget labelButton(String title, VoidCallback onTap) {
     child: Text(
       title,
       style: TextStyle(
-        color: textColor,
+        color: Colors.blue.shade900,
         fontSize: 15,
         fontWeight: FontWeight.w500,
       ),
@@ -109,6 +109,7 @@ Widget passwordField(TextEditingController text, double width, double height,
     width: width,
     height: height,
     child: TextFormField(
+      maxLength: 20,
       readOnly: status,
       controller: text,
       style: TextStyle(
