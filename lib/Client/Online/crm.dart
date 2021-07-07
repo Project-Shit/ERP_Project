@@ -1,36 +1,29 @@
 // @dart=2.9
 import 'dart:convert';
- import 'package:erp/Client/Online/crmModel.dart';
+import 'package:erp/Client/Online/crmModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-
-
 class crmData extends StatefulWidget {
   @override
   _crmDataState createState() => _crmDataState();
-
-
 }
 
 class _crmDataState extends State<crmData> {
   List<crmModel> model = [];
   TextEditingController _name = TextEditingController();
-   TextEditingController _phone = TextEditingController();
-   TextEditingController _address = TextEditingController();
-
+  TextEditingController _phone = TextEditingController();
+  TextEditingController _address = TextEditingController();
 
   apply() async {
     try {
       data = {
         "command": "insert into crm(name,phone,address)"
-            "values('${_name.text }','${_phone.text }','${_address .text}' )"
-
-       };
+            "values('${_name.text}','${_phone.text}','${_address.text}' )"
+      };
       response = await http.post(Uri.parse(setData), body: data);
-
     } catch (e) {
       print(e);
     }
@@ -38,18 +31,12 @@ class _crmDataState extends State<crmData> {
 
   delete() async {
     try {
-      data = {
-        "command": " DELETE FROM crm where phone = '${_phone.text }'"
-      };
+      data = {"command": " DELETE FROM crm where phone = '${_phone.text}'"};
       response = await http.post(Uri.parse(setData), body: data);
-
     } catch (e) {
       print(e);
     }
   }
-
-
-
 
   Future fetchRecords() async {
     try {
@@ -61,9 +48,9 @@ class _crmDataState extends State<crmData> {
             model.add(new crmModel(
               id: crm['id'],
               name: crm['name'],
-               phone: crm['phone'],
-               address: crm['address'],
-             ));
+              phone: crm['phone'],
+              address: crm['address'],
+            ));
           });
         });
       });
@@ -71,9 +58,6 @@ class _crmDataState extends State<crmData> {
       print(e);
     }
   }
-
-
-
 
   @override
   void initState() {
@@ -88,7 +72,6 @@ class _crmDataState extends State<crmData> {
       appBar: PreferredSize(
         preferredSize: Size(width, 60),
         child: AppBar(
-
           automaticallyImplyLeading: false,
           elevation: 0,
           iconTheme: IconThemeData(
@@ -113,59 +96,57 @@ class _crmDataState extends State<crmData> {
                   columns: [
                     DataColumn(label: Text('ID')),
                     DataColumn(label: Text('Name')),
-                     DataColumn(label: Text('Phone')),
-                     DataColumn(label: Text('Address')),
-                   ],
+                    DataColumn(label: Text('Phone')),
+                    DataColumn(label: Text('Address')),
+                  ],
                   rows: model
                       .map((data) => DataRow(
-                    cells: [
-                      new DataCell(
-                        Text(data.id),
-                      ),
-                      new DataCell(
-                        Text(data.name),
-                      ),
-                      new DataCell(
-                        Text(data.phone),
-                      ),
-                      new DataCell(
-                        Text(data.address),
-                      ),
-
-
-                    ],
-
-                  ))
+                            cells: [
+                              new DataCell(
+                                Text(data.id),
+                              ),
+                              new DataCell(
+                                Text(data.name),
+                              ),
+                              new DataCell(
+                                Text(data.phone),
+                              ),
+                              new DataCell(
+                                Text(data.address),
+                              ),
+                            ],
+                          ))
                       .toList(),
                 ),
-    textField(_name, width * 0.6, 40.0, true,'Name'),
-    SizedBox(
-    height: 15,
-    ),
-    textField(_phone, width * 0.6, 40.0, true,'Phone'),
-    SizedBox(
-    height: 15,
-    ),
-    textField(_address, width * 0.6, 40.0, true,'Address'),
-    SizedBox(
-    height: 15,),
+                textField(_name, width * 0.6, 40.0, true, 'Name'),
+                SizedBox(
+                  height: 15,
+                ),
+                textField(_phone, width * 0.6, 40.0, true, 'Phone'),
+                SizedBox(
+                  height: 15,
+                ),
+                textField(_address, width * 0.6, 40.0, true, 'Address'),
+                SizedBox(
+                  height: 15,
+                ),
                 actionButtons('Add', () {
-
-                     apply();
-                     fetchRecords();
-                     
-
-                 }, Colors.blue.shade600),
+                  setState(() {
+                    model = [];
+                  });
+                  apply();
+                  fetchRecords();
+                }, Colors.blue.shade600),
                 SizedBox(
                   height: 15,
                 ),
                 actionButtons('Delete', () {
-
+                  setState(() {
+                    model = [];
+                  });
                   delete();
                   fetchRecords();
-
                 }, Colors.red.shade600),
-
               ],
             ),
           ),
