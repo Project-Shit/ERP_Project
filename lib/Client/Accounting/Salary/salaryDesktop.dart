@@ -23,6 +23,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
   TextEditingController _insurance = TextEditingController();
   TextEditingController _tax = TextEditingController();
   TextEditingController _deduction = TextEditingController();
+  TextEditingController _note = TextEditingController();
   TextEditingController _netS = TextEditingController();
 
   // ignore: deprecated_member_use
@@ -35,7 +36,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
       data = {
         "command":
             "update users set salary = ${_salary.text}, insurance = ${_insurance.text}, "
-                "tax = (salary*14)/100, deduction = ${_deduction.text}, netSalary = (salary-insurance-tax-deduction) where id = ${_id.toString()}"
+                "tax = (salary*14)/100, deduction = ${_deduction.text},note = '${_note.text}' ,netSalary = (salary-insurance-tax-deduction) where id = ${_id.toString()}"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -53,7 +54,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
     try {
       data = {
         "command": "select name,department,salary,insurance,(salary*14)/100 as tax,"
-            "deduction,(salary-insurance-tax-deduction) as netSalary from users where id = '${_id.toString()}'"
+            "deduction,note,(salary-insurance-tax-deduction) as netSalary from users where concat('User ',id) = '${_id.toString()}'"
       };
       return await http
           .post(Uri.parse(getData), body: data)
@@ -67,6 +68,7 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
             _insurance.text = user['insurance'];
             _tax.text = user['tax'];
             _deduction.text = user['deduction'];
+            _note.text = user['note'];
             _netS.text = user['netSalary'];
           });
         });
@@ -76,12 +78,12 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
 
   // function to set id data to drop list
   Future idList() async {
-    data = {"command": "select id from users order by id"};
+    data = {"command": "select concat('User ',id) as userid from users order by id"};
     http.post(Uri.parse(getData), body: data).then((http.Response response) {
       var fetchDecode = jsonDecode(response.body);
       fetchDecode.forEach((users) {
         setState(() {
-          _ids.add(users['id']);
+          _ids.add(users['userid']);
         });
       });
     });
@@ -189,6 +191,10 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
                                 height: 15,
                               ),
                               textField(_deduction, width * 0.6, 40.0, true,'Deduction'),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(_note, width * 0.6, 40.0, true,'Note'),
                               SizedBox(
                                 height: 15,
                               ),
