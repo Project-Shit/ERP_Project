@@ -1,6 +1,7 @@
 // @dart=2.9
 import 'package:erp/Client/Accounting/Salary/salary.dart';
 import 'package:erp/Client/Accounting/Company/company.dart';
+import 'package:erp/Client/Crm/crm.dart';
 import 'package:erp/Client/Online/online_orders.dart';
 import 'package:erp/Client/Users/users.dart';
 import 'package:erp/constants.dart';
@@ -111,6 +112,26 @@ class ApplicationDesktop extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => OnlineOrder(),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20,),
+                    Row(
+                      children: [
+                        Container(
+                          child: applicationCard(
+                            'CRM',
+                            width * 0.18,
+                            100,
+                                () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CRM(),
                                 ),
                               );
                             },
