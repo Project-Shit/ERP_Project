@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:csc_picker/csc_picker.dart';
 import 'package:erp/Client/Users/userDataTable.dart';
+import 'package:erp/Client/Users/usersModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
@@ -40,11 +41,41 @@ class _UsersDesktopState extends State<UsersDesktop> {
 
   // ignore: deprecated_member_use
   List _type = [
+    'Not Defined',
     'Admin',
     'Manager',
     'Employee',
   ];
   String _id, _user;
+
+  List<UsersModel> model = [];
+
+  Future fetchRecords() async {
+    try {
+      data = {"command": "SELECT * FROM users where name <> '' order by id"};
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
+        var fetchDecode = jsonDecode(response.body);
+        fetchDecode.forEach((user) {
+          setState(() {
+            model.add(new UsersModel(
+              id: user['id'],
+              name: user['name'],
+              ssin: user['ssin'],
+              social: user['socialNumber'],
+              phone: user['phone'],
+              email: user['email'],
+              password: user['password'],
+              address: user['address'],
+              department: user['department'],
+              type: user['userType'],
+            ));
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   // function to change values of a record
   applyUser() async {
@@ -73,7 +104,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
       data = {
         "command": "update users set name = '' ,ssin = '' ,socialNumber = ''"
             ",phone = '' ,email = null , password = '', address = '',"
-            "department = '', userType = '' where concat('User ',id) = '${_id.toString()}'"
+            "department = '', userType = 'Not Defined' where concat('User ',id) = '${_id.toString()}'"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -98,7 +129,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
       _address.text = "";
       _street.text = '';
       _department.text = '';
-      _user = '';
+      _userType.text = '';
     });
   }
 
@@ -130,7 +161,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
             _pass.text = user['password'];
             _address.text = user['address'];
             _department.text = user['department'];
-            _userType.text = user['userType'];
+            _street.text = '';
+            _user = user['userType'];
           });
         });
       });
@@ -160,6 +192,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
 
   @override
   void initState() {
+    fetchRecords();
     super.initState();
     idList();
   }
@@ -176,247 +209,354 @@ class _UsersDesktopState extends State<UsersDesktop> {
       ),
       // implementing th body with scroll View and row widget
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Padding(
           padding: EdgeInsets.only(
             top: 30,
             bottom: 30,
           ),
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // implementing a container to make the outline border design
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50.0),
-                  border: Border.all(
-                    color: textColor,
-                    width: 2,
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: 30,
-                    bottom: 30,
-                    left: 50,
-                    right: 50,
-                  ),
-                  // implementing a column widget to align the rest of the widget
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50.0),
+                      border: Border.all(
+                        color: textColor,
+                        width: 2,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: 30,
+                        bottom: 30,
+                        left: 50,
+                        right: 50,
+                      ),
+                      // implementing a column widget to align the rest of the widget
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // implementing a column to call custom drop down list, text field and
-                          // password field widget with sizedBox between them.
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                width: width * 0.6,
-                                height: 50.0,
-                                child: DropdownButtonFormField(
-                                  hint: Text('ID'),
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
+                              // implementing a column to call custom drop down list, text field and
+                              // password field widget with sizedBox between them.
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    width: width * 0.6,
+                                    height: 50.0,
+                                    child: DropdownButtonFormField(
+                                      hint: Text('ID'),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0),
+                                          ),
+                                        ),
+                                        filled: true,
+                                        fillColor: textFill,
                                       ),
+                                      value: _id,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          _id = newValue;
+                                          clear();
+                                          fetchData();
+                                        });
+                                      },
+                                      items: _ids.map((location) {
+                                        return DropdownMenuItem(
+                                          child: new Text(location),
+                                          value: location,
+                                        );
+                                      }).toList(),
                                     ),
-                                    filled: true,
-                                    fillColor: textFill,
                                   ),
-                                  value: _id,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _id = newValue;
-                                      clear();
-                                      fetchData();
-                                    });
-                                  },
-                                  items: _ids.map((location) {
-                                    return DropdownMenuItem(
-                                      child: new Text(location),
-                                      value: location,
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_name, width * 0.6, 40.0, true, 'Name'),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_ssin, width * 0.6, 40.0, true, 'SSIN'),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_social, width * 0.6, 40.0, true,
-                                  'Social Number'),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_phone, width * 0.6, 40.0, true,
-                                  'Phone Number'),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(
-                                  _email, width * 0.6, 40.0, true, 'Email'),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              passwordField(_pass, width * 0.6, 60.0, password,
-                                  false, hidePassword),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Container(
-                                width: width * 0.6,
-                                child: CSCPicker(
-                                  showStates: true,
-                                  showCities: true,
-                                  flagState: CountryFlag.DISABLE,
-                                  dropdownDecoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    color: Colors.white,
-                                    border: Border.all(
-                                        color: Colors.grey.shade300, width: 1),
+                                  SizedBox(
+                                    height: 15,
                                   ),
-                                  disabledDropdownDecoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                    color: Colors.grey.shade300,
-                                    border: Border.all(
-                                        color: Colors.grey.shade300, width: 1),
+                                  textField(
+                                      _name, width * 0.6, 40.0, false, 'Name'),
+                                  SizedBox(
+                                    height: 15,
                                   ),
-                                  defaultCountry: DefaultCountry.Egypt,
-                                  selectedItemStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                                  textField(_ssin, width * 0.6, 60.0, false,
+                                      'SSIN', 14),
+                                  SizedBox(
+                                    height: 15,
                                   ),
-                                  dropdownHeadingStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
-                                  dropdownItemStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                                  textField(_social, width * 0.6, 40.0, false,
+                                      'Social Number'),
+                                  SizedBox(
+                                    height: 15,
                                   ),
-                                  dropdownDialogRadius: 10.0,
-                                  searchBarRadius: 10.0,
-                                  onCountryChanged: (value) {
-                                    setState(() {
-                                      _countryValue = value;
-                                    });
-                                  },
-                                  onStateChanged: (value) {
-                                    setState(() {
-                                      _stateValue = value;
-                                    });
-                                  },
-                                  onCityChanged: (value) {
-                                    setState(() {
-                                      _cityValue = value;
-                                    });
-                                  },
-                                ),
+                                  textField(_phone, width * 0.6, 60.0, false,
+                                      'Phone Number', 11),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  textField(_email, width * 0.6, 40.0, false,
+                                      'Email'),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  passwordField(_pass, width * 0.6, 60.0,
+                                      password, false, hidePassword),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Container(
+                                    width: width * 0.6,
+                                    child: CSCPicker(
+                                      showStates: true,
+                                      showCities: true,
+                                      flagState: CountryFlag.DISABLE,
+                                      dropdownDecoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            color: Colors.grey.shade300,
+                                            width: 1),
+                                      ),
+                                      disabledDropdownDecoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        color: Colors.grey.shade300,
+                                        border: Border.all(
+                                            color: Colors.grey.shade300,
+                                            width: 1),
+                                      ),
+                                      defaultCountry: DefaultCountry.Egypt,
+                                      selectedItemStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                      ),
+                                      dropdownHeadingStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold),
+                                      dropdownItemStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                      ),
+                                      dropdownDialogRadius: 10.0,
+                                      searchBarRadius: 10.0,
+                                      onCountryChanged: (value) {
+                                        setState(() {
+                                          _countryValue = value;
+                                        });
+                                      },
+                                      onStateChanged: (value) {
+                                        setState(() {
+                                          _stateValue = value;
+                                        });
+                                      },
+                                      onCityChanged: (value) {
+                                        setState(() {
+                                          _cityValue = value;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  textField(_street, width * 0.6, 40.0, false,
+                                      'Street'),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  textField(_address, width * 0.6, 40.0, true,
+                                      'Address'),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  textField(_department, width * 0.6, 40.0,
+                                      false, 'Department'),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Container(
+                                    width: width * 0.6,
+                                    height: 50.0,
+                                    child: DropdownButtonFormField(
+                                      hint: Text('User Type'),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0),
+                                          ),
+                                        ),
+                                        filled: true,
+                                        fillColor: textFill,
+                                      ),
+                                      value: _user,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          _user = newValue;
+                                          _userType.text = _user;
+                                        });
+                                      },
+                                      items: _type.map((location) {
+                                        return DropdownMenuItem(
+                                          child: new Text(location),
+                                          value: location,
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ],
                               ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          // implementing a row widget to call custom buttons and align them.
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              actionButtons('Apply', () {
+                                applyUser();
+                                Alert(
+                                  context: context,
+                                  title:
+                                      message1 ? 'Applied' : 'Couldn\'t Apply',
+                                  buttons: [
+                                    DialogButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        fetchData();
+                                      },
+                                      child: Text(
+                                        "OK",
+                                        style: TextStyle(
+                                          color: primaryColor,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      color: hoverColor,
+                                    )
+                                  ],
+                                ).show();
+                              }, Colors.green),
                               SizedBox(
-                                height: 15,
+                                width: 60,
                               ),
-                              textField(
-                                  _street, width * 0.6, 40.0, true, 'Street'),
+                              actionButtons('Delete', () {
+                                Alert(
+                                  context: context,
+                                  title:
+                                      'Are you sure you want to Delete this User',
+                                  buttons: [
+                                    DialogButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        delete();
+                                      },
+                                      child: Text(
+                                        "Yes",
+                                        style: TextStyle(
+                                          color: primaryColor,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      color: hoverColor,
+                                    )
+                                  ],
+                                ).show();
+                                clear();
+                              }, Colors.red.shade900),
                               SizedBox(
-                                height: 15,
+                                width: 60,
                               ),
-                              textField(
-                                  _address, width * 0.6, 40.0, true, 'Address'),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_department, width * 0.6, 40.0, true,
-                                  'Department'),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              textField(_userType, width * 0.6, 40.0, true,'User Type'),
+                              actionButtons('Data Table', () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            UsersDataTable()));
+                              }, Colors.blue.shade600),
                             ],
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      // implementing a row widget to call custom buttons and align them.
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          actionButtons('Apply', () {
-                            applyUser();
-                            Alert(
-                              context: context,
-                              title: message1 ? 'Applied' : 'Couldn\'t Apply',
-                              buttons: [
-                                DialogButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    "OK",
-                                    style: TextStyle(
-                                      color: primaryColor,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  color: hoverColor,
-                                )
-                              ],
-                            ).show();
-                            fetchData();
-                          }, Colors.green),
-                          SizedBox(
-                            width: 60,
-                          ),
-                          actionButtons('Delete', () {
-                            Alert(
-                              context: context,
-                              title:
-                                  'Are you sure you want to Delete this User',
-                              buttons: [
-                                DialogButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    delete();
-                                  },
-                                  child: Text(
-                                    "Yes",
-                                    style: TextStyle(
-                                      color: primaryColor,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  color: hoverColor,
-                                )
-                              ],
-                            ).show();
-                            clear();
-                          }, Colors.red.shade900),
-                          SizedBox(
-                            width: 60,
-                          ),
-                          actionButtons('Data Table', () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => UsersDataTable()));
-                          }, Colors.blue.shade600),
-                        ],
-                      ),
-                    ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 50,
+              ),
+
+              Container(
+                width: width * 0.7,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        DataTable(
+                          columns: [
+                            DataColumn(label: Text('ID')),
+                            DataColumn(label: Text('Name')),
+                            DataColumn(label: Text('SSIN')),
+                            DataColumn(label: Text('Social Number')),
+                            DataColumn(label: Text('Phone')),
+                            DataColumn(label: Text('Email')),
+                            DataColumn(label: Text('Password')),
+                            DataColumn(label: Text('Address')),
+                            DataColumn(label: Text('Department')),
+                            DataColumn(label: Text('User Type')),
+                          ],
+                          rows: model
+                              .map((data) => DataRow(
+                                    cells: [
+                                      new DataCell(
+                                        Text(data.id),
+                                      ),
+                                      new DataCell(
+                                        Text(data.name),
+                                      ),
+                                      new DataCell(
+                                        Text(data.ssin),
+                                      ),
+                                      new DataCell(
+                                        Text(data.social),
+                                      ),
+                                      new DataCell(
+                                        Text(data.phone),
+                                      ),
+                                      new DataCell(
+                                        Text(data.email),
+                                      ),
+                                      new DataCell(
+                                        Text(data.password),
+                                      ),
+                                      new DataCell(
+                                        Text(data.address),
+                                      ),
+                                      new DataCell(
+                                        Text(data.department),
+                                      ),
+                                      new DataCell(
+                                        Text(data.type),
+                                      ),
+                                    ],
+                                  ))
+                              .toList(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
