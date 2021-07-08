@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // implementing the main colors for the all system
 Color primaryColor = Colors.white;
-Color secondaryColor = Color.fromRGBO(32, 32, 1, 1);
+Color secondaryColor = Color.fromRGBO(32, 32, 32, 1);
 Color textColor = Color(0xFF1D1D1D);
 Color hoverColor = Color.fromRGBO(64, 64, 64, 1);
 Color textFill = Colors.white;
@@ -52,8 +52,8 @@ Widget labelButton(String title, VoidCallback onTap) {
 // Custom Button for all pages to act on database
 Widget actionButtons(String title, VoidCallback onTap, Color color) {
   return Container(
-    width: 200,
-    height: 50,
+    width: 150,
+    height: 40,
     // ignore: deprecated_member_use
     child: RaisedButton(
       color: color,
@@ -71,7 +71,7 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
       child: Text(
         title,
         style: TextStyle(
-          fontSize: 22,
+          fontSize: 15,
           color: textColor,
         ),
       ),

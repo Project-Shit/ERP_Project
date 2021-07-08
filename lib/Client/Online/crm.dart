@@ -118,17 +118,17 @@ class _crmDataState extends State<crmData> {
                           ))
                       .toList(),
                 ),
-                textField(_name, width * 0.6, 40.0, true, 'Name'),
+                textField(_name, width * 0.6, 40.0, false, 'Name'),
                 SizedBox(
-                  height: 15,
+                  height: 30,
                 ),
-                textField(_phone, width * 0.6, 40.0, true, 'Phone'),
+                textField(_phone, width * 0.6, 40.0, false, 'Phone'),
                 SizedBox(
-                  height: 15,
+                  height: 30,
                 ),
-                textField(_address, width * 0.6, 40.0, true, 'Address'),
+                textField(_address, width * 0.6, 40.0, false, 'Address'),
                 SizedBox(
-                  height: 15,
+                  height: 30,
                 ),
                 actionButtons('Add', () {
                   setState(() {
