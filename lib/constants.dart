@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 
 // implementing the main colors for the all system
-Color primaryColor = Colors.white;
+Color primaryColor = Color.fromRGBO(16, 16, 16, 1);
 Color secondaryColor = Color.fromRGBO(32, 32, 32, 1);
 Color textColor = Color(0xFF1D1D1D);
-Color hoverColor = Color.fromRGBO(251, 251, 251, 1);
+Color hoverColor = Color.fromRGBO(128, 128, 128, 1);
 Color textFill = Colors.white;
 
 // initializing variables for backend
@@ -158,19 +158,19 @@ Widget applicationCard(
   return InkWell(
     child: Container(
       padding: EdgeInsets.only(
-        top: 30,
-        bottom:30,
+        top: 10,
+        bottom:10,
       ),
-      width: 400,
-      height: 400,
+      width: 300,
+      height: 300,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(0.0),
         border: Border.all(
-          width: 3,
+          width: 1,
           color: secondaryColor,
         ),
       ),
-      child:  Image.asset(title,height: 200,width: 200,)
+      child:  Image.asset(title,height: 500,width: 500,color: Color.fromRGBO(64, 64, 64, 1),)
     ),
     onTap: onTap,
     hoverColor: hoverColor,

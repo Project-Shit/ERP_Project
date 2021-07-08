@@ -51,7 +51,7 @@ class ApplicationDesktop extends StatelessWidget {
                       children: [
                         Container(
                           child: applicationCard(
-                            'assets/android.png',
+                            'assets/us.png',
                             width * 0.18,
                             100,
                             () {
@@ -69,7 +69,7 @@ class ApplicationDesktop extends StatelessWidget {
                         ),
                         Container(
                           child: applicationCard(
-                            'Salary',
+                            'assets/salary .png',
                             width * 0.18,
                             100,
                             () {
@@ -87,7 +87,7 @@ class ApplicationDesktop extends StatelessWidget {
                         ),
                         Container(
                           child: applicationCard(
-                            'Company',
+                            'assets/com.png',
                             width * 0.18,
                             100,
                             () {
@@ -105,7 +105,7 @@ class ApplicationDesktop extends StatelessWidget {
                         ),
                         Container(
                           child: applicationCard(
-                            'Online Order',
+                            'assets/on.png',
                             width * 0.18,
                             100,
                             () {
@@ -125,7 +125,8 @@ class ApplicationDesktop extends StatelessWidget {
                       children: [
                         Container(
                           child: applicationCard(
-                            'CRM',
+                            'assets/crmmm.png',
+
                             width * 0.18,
                             100,
                                 () {
