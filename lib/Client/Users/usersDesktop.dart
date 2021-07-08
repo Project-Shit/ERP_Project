@@ -21,6 +21,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
   bool password = true;
   bool message1 = true;
   bool message2 = true;
+  TextEditingController _search = TextEditingController();
   TextEditingController _name = TextEditingController();
   TextEditingController _ssin = TextEditingController();
   TextEditingController _social = TextEditingController();
@@ -170,6 +171,40 @@ class _UsersDesktopState extends State<UsersDesktop> {
     }
   }
 
+  // function to search about data from database
+  Future<Null> search() async {
+    try {
+      data = {
+        "command":
+        "select concat('User ',id) as userid,name,ssin,socialNumber,phone,email,"
+            "password,address,department,userType from users "
+            "where name like '%${_search.text}%' or email = '${_search.text}' or phone = '${_search.text}'"
+      };
+      return await http
+          .post(Uri.parse(getData), body: data)
+          .then((http.Response response) {
+        final List fetchData = json.decode(response.body);
+        fetchData.forEach((user) {
+          setState(() {
+            _id = user['userid'];
+            _name.text = user['name'];
+            _ssin.text = user['ssin'];
+            _social.text = user['socialNumber'];
+            _phone.text = user['phone'];
+            _email.text = user['email'];
+            _pass.text = user['password'];
+            _address.text = user['address'];
+            _department.text = user['department'];
+            _street.text = '';
+            _user = user['userType'];
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   // function to set id data to drop list
   Future idList() async {
     try {
@@ -240,6 +275,57 @@ class _UsersDesktopState extends State<UsersDesktop> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: width * 0.6,
+                                height: 50.0,
+                                child: TextFormField(
+                                  controller: _search,
+                                  style: TextStyle(
+                                    color: textColor,
+                                  ),
+                                  decoration: InputDecoration(
+                                    labelText: 'Search by Email or Name or Phone Number',
+                                    suffixIcon: Padding(
+                                      padding: const EdgeInsets.only(
+                                        right: 10,
+                                      ),
+                                      child: IconButton(
+                                        icon: Icon(Icons.search),
+                                        onPressed: () {
+                                          search();
+                                        },
+                                      ),
+                                    ),
+                                    fillColor: textFill,
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        new Radius.circular(
+                                          10.0,
+                                        ),
+                                      ),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        new Radius.circular(
+                                          10.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
