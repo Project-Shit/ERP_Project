@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:erp/Client/Users/userDataTable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
@@ -27,12 +28,22 @@ class _UsersDesktopState extends State<UsersDesktop> {
   TextEditingController _email = TextEditingController();
   TextEditingController _pass = TextEditingController();
   TextEditingController _address = TextEditingController();
+  TextEditingController _street = TextEditingController();
   TextEditingController _department = TextEditingController();
-  TextEditingController _userType = TextEditingController();
+  String _countryValue = "";
+  String _stateValue = "";
+  String _cityValue = "";
 
   // ignore: deprecated_member_use
   List _ids = List();
-  String _id;
+
+  // ignore: deprecated_member_use
+  List _type = [
+    'Admin',
+    'Manager',
+    'Employee',
+  ];
+  String _id, _user;
 
   // function to change values of a record
   applyUser() async {
@@ -40,8 +51,9 @@ class _UsersDesktopState extends State<UsersDesktop> {
       data = {
         "command": "update users set name = '${_name.text}',ssin = ${_ssin.text} "
             ",socialNumber = ${_social.text} ,phone = '${_phone.text}',email = '${_email.text}' "
-            ",password = '${_pass.text}', address = '${_address.text}',department = '${_department.text}' "
-            ",userType = '${_userType.text}' where id = ${_id.toString()}"
+            ",password = '${_pass.text}', "
+            "address = '${_street.text+', '+ _cityValue.toString() +', '+ _stateValue.toString() +', '+ _countryValue.toString()}'"
+            ",department = '${_department.text}',userType = '${_user.toString()}' where concat('User ',id) = '${_id.toString()}'"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -59,8 +71,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
     try {
       data = {
         "command": "update users set name = '' ,ssin = '' ,socialNumber = ''"
-            ",phone = '' ,email = null , password = '', address = ''"
-            ",department = '', userType = '' where id = '${_id.toString()}'"
+            ",phone = '' ,email = null , password = '', address = '',"
+            "department = '', userType = ''where concat('User ',id) = '${_id.toString()}'"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -82,9 +94,10 @@ class _UsersDesktopState extends State<UsersDesktop> {
       _phone.text = '';
       _email.text = '';
       _pass.text = '';
-      _address.text = '';
+      _address.text = "";
+      _street.text = '';
       _department.text = '';
-      _userType.text = '';
+      _user = '';
     });
   }
 
@@ -98,7 +111,10 @@ class _UsersDesktopState extends State<UsersDesktop> {
   // function to fetch data from database
   Future<Null> fetchData() async {
     try {
-      data = {"command": "select * from users where id = '${_id.toString()}'"};
+      data = {
+        "command":
+            "select * from users where concat('User ',id) = '${_id.toString()}'"
+      };
       return await http
           .post(Uri.parse(getData), body: data)
           .then((http.Response response) {
@@ -113,7 +129,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
             _pass.text = user['password'];
             _address.text = user['address'];
             _department.text = user['department'];
-            _userType.text = user['userType'];
+            _user = user['userType'];
           });
         });
       });
@@ -125,12 +141,14 @@ class _UsersDesktopState extends State<UsersDesktop> {
   // function to set id data to drop list
   Future idList() async {
     try {
-      data = {"command": "select id from users order by id"};
+      data = {
+        "command": "select concat('User ',id) as userid from users order by id"
+      };
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
         fetchDecode.forEach((users) {
           setState(() {
-            _ids.add(users['id']);
+            _ids.add(users['userid']);
           });
         });
       });
@@ -168,11 +186,12 @@ class _UsersDesktopState extends State<UsersDesktop> {
               // implementing a container to make the outline border design
               Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50.0),
-                    border: Border.all(
-                      color: textColor,
-                      width: 2,
-                    )),
+                  borderRadius: BorderRadius.circular(50.0),
+                  border: Border.all(
+                    color: textColor,
+                    width: 2,
+                  ),
+                ),
                 child: Padding(
                   padding: EdgeInsets.only(
                     top: 30,
@@ -225,40 +244,132 @@ class _UsersDesktopState extends State<UsersDesktop> {
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_name, width * 0.6, 40.0, true,'Name'),
+                              textField(_name, width * 0.6, 40.0, true, 'Name'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_ssin, width * 0.6, 40.0, true,'SSIN'),
+                              textField(_ssin, width * 0.6, 40.0, true, 'SSIN'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_social, width * 0.6, 40.0, true,'Social Number'),
+                              textField(_social, width * 0.6, 40.0, true,
+                                  'Social Number'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_phone, width * 0.6, 40.0, true,'Phone Number'),
+                              textField(_phone, width * 0.6, 40.0, true,
+                                  'Phone Number'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_email, width * 0.6, 40.0, true,'Email'),
+                              textField(
+                                  _email, width * 0.6, 40.0, true, 'Email'),
                               SizedBox(
                                 height: 15,
                               ),
-                              passwordField(_pass, width * 0.6, 40.0, password,
+                              passwordField(_pass, width * 0.6, 60.0, password,
                                   false, hidePassword),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_address, width * 0.6, 40.0, true,'Address'),
+                              Container(
+                                width: width * 0.6,
+                                child: CSCPicker(
+                                  showStates: true,
+                                  showCities: true,
+                                  flagState: CountryFlag.DISABLE,
+                                  dropdownDecoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Colors.grey.shade300, width: 1),
+                                  ),
+                                  disabledDropdownDecoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    color: Colors.grey.shade300,
+                                    border: Border.all(
+                                        color: Colors.grey.shade300, width: 1),
+                                  ),
+                                  defaultCountry: DefaultCountry.Egypt,
+                                  selectedItemStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                  dropdownHeadingStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold),
+                                  dropdownItemStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                  dropdownDialogRadius: 10.0,
+                                  searchBarRadius: 10.0,
+                                  onCountryChanged: (value) {
+                                    setState(() {
+                                      _countryValue = value;
+                                    });
+                                  },
+                                  onStateChanged: (value) {
+                                    setState(() {
+                                      _stateValue = value;
+                                    });
+                                  },
+                                  onCityChanged: (value) {
+                                    setState(() {
+                                      _cityValue = value;
+                                    });
+                                  },
+                                ),
+                              ),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_department, width * 0.6, 40.0, true,'Department'),
+                              textField(
+                                  _street, width * 0.6, 40.0, true, 'Street'),
                               SizedBox(
                                 height: 15,
                               ),
-                              textField(_userType, width * 0.6, 40.0, true,'User Type'),
+                              textField(
+                                  _address, width * 0.6, 40.0, true, 'Address'),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              textField(_department, width * 0.6, 40.0, true,
+                                  'Department'),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              /*Container(
+                                width: width * 0.6,
+                                height: 50.0,
+                                child: DropdownButtonFormField(
+                                  hint: Text('User Type'),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0),
+                                      ),
+                                    ),
+                                    filled: true,
+                                    fillColor: textFill,
+                                  ),
+                                  value: _user,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _user = newValue;
+                                    });
+                                  },
+                                  items: _type.map((location) {
+                                    return DropdownMenuItem(
+                                      child: new Text(location),
+                                      value: location,
+                                    );
+                                  }).toList(),
+                                ),
+                              ),*/
                             ],
                           ),
                         ],
@@ -291,6 +402,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                                 )
                               ],
                             ).show();
+                            fetchData();
                           }, Colors.green),
                           SizedBox(
                             width: 60,
