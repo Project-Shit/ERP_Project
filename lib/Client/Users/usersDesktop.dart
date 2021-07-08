@@ -1,7 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
 import 'package:csc_picker/csc_picker.dart';
-import 'package:erp/Client/Users/usersModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
@@ -47,35 +46,6 @@ class _UsersDesktopState extends State<UsersDesktop> {
     'Employee',
   ];
   String _id, _user;
-
-  List<UsersModel> model = [];
-
-  Future fetchRecords() async {
-    try {
-      data = {"command": "SELECT * FROM users where name <> '' order by id"};
-      http.post(Uri.parse(getData), body: data).then((http.Response response) {
-        var fetchDecode = jsonDecode(response.body);
-        fetchDecode.forEach((user) {
-          setState(() {
-            model.add(new UsersModel(
-              id: user['id'],
-              name: user['name'],
-              ssin: user['ssin'],
-              social: user['socialNumber'],
-              phone: user['phone'],
-              email: user['email'],
-              password: user['password'],
-              address: user['address'],
-              department: user['department'],
-              type: user['userType'],
-            ));
-          });
-        });
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
 
   // function to change values of a record
   applyUser() async {
@@ -226,7 +196,6 @@ class _UsersDesktopState extends State<UsersDesktop> {
 
   @override
   void initState() {
-    fetchRecords();
     super.initState();
     idList();
   }
@@ -567,73 +536,6 @@ class _UsersDesktopState extends State<UsersDesktop> {
                     ),
                   ),
                 ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-
-              Container(
-                width: width * 0.7,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        DataTable(
-                          columns: [
-                            DataColumn(label: Text('ID')),
-                            DataColumn(label: Text('Name')),
-                            DataColumn(label: Text('SSIN')),
-                            DataColumn(label: Text('Social Number')),
-                            DataColumn(label: Text('Phone')),
-                            DataColumn(label: Text('Email')),
-                            DataColumn(label: Text('Password')),
-                            DataColumn(label: Text('Address')),
-                            DataColumn(label: Text('Department')),
-                            DataColumn(label: Text('User Type')),
-                          ],
-                          rows: model
-                              .map((data) => DataRow(
-                                    cells: [
-                                      new DataCell(
-                                        Text(data.id),
-                                      ),
-                                      new DataCell(
-                                        Text(data.name),
-                                      ),
-                                      new DataCell(
-                                        Text(data.ssin),
-                                      ),
-                                      new DataCell(
-                                        Text(data.social),
-                                      ),
-                                      new DataCell(
-                                        Text(data.phone),
-                                      ),
-                                      new DataCell(
-                                        Text(data.email),
-                                      ),
-                                      new DataCell(
-                                        Text(data.password),
-                                      ),
-                                      new DataCell(
-                                        Text(data.address),
-                                      ),
-                                      new DataCell(
-                                        Text(data.department),
-                                      ),
-                                      new DataCell(
-                                        Text(data.type),
-                                      ),
-                                    ],
-                                  ))
-                              .toList(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
               ),
             ],
           ),
