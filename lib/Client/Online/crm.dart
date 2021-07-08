@@ -27,6 +27,7 @@ class _crmDataState extends State<crmData> {
     } catch (e) {
       print(e);
     }
+    fetchRecords();
   }
 
   delete() async {
@@ -36,9 +37,13 @@ class _crmDataState extends State<crmData> {
     } catch (e) {
       print(e);
     }
+    fetchRecords();
   }
 
   Future fetchRecords() async {
+    setState(() {
+      model= [];
+    });
     try {
       data = {"command": "SELECT * FROM  crm"};
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
@@ -70,7 +75,7 @@ class _crmDataState extends State<crmData> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(width, 60),
+        preferredSize: Size(width, 70),
         child: AppBar(
           automaticallyImplyLeading: false,
           elevation: 0,
@@ -80,7 +85,7 @@ class _crmDataState extends State<crmData> {
           backgroundColor: secondaryColor,
           title: Image.asset(
             'assets/logo.png',
-            height: 50,
+            height: 60,
           ),
           centerTitle: true,
         ),
@@ -118,6 +123,9 @@ class _crmDataState extends State<crmData> {
                           ))
                       .toList(),
                 ),
+                SizedBox(
+                  height: 50,
+                ),
                 textField(_name, width * 0.6, 40.0, false, 'Name'),
                 SizedBox(
                   height: 30,
@@ -129,24 +137,27 @@ class _crmDataState extends State<crmData> {
                 textField(_address, width * 0.6, 40.0, false, 'Address'),
                 SizedBox(
                   height: 30,
+
                 ),
-                actionButtons('Add', () {
-                  setState(() {
-                    model = [];
-                  });
+                 Row(
+                   children:[
+                 actionButtons('Add', () {
                   apply();
+
                   fetchRecords();
-                }, Colors.blue.shade600),
+
+                }, Colors.green.shade600),
                 SizedBox(
-                  height: 15,
+                  width: 15,
                 ),
                 actionButtons('Delete', () {
-                  setState(() {
-                    model = [];
-                  });
                   delete();
+
+
                   fetchRecords();
                 }, Colors.red.shade600),
+  ]
+                 )
               ],
             ),
           ),

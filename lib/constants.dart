@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 Color primaryColor = Colors.white;
 Color secondaryColor = Color.fromRGBO(32, 32, 32, 1);
 Color textColor = Color(0xFF1D1D1D);
-Color hoverColor = Color.fromRGBO(64, 64, 64, 1);
+Color hoverColor = Color.fromRGBO(251, 251, 251, 1);
 Color textFill = Colors.white;
 
 // initializing variables for backend
 var setData = 'http://localhost/ERP/setAPI.php';
-var getData = 'http://192.168.1.103/ERP/getAPI.php';
+var getData = 'http://localhost/ERP/getAPI.php';
 var conditionAPI = 'http://localhost/ERP/condition.php';
 var data, response;
 
@@ -159,10 +159,10 @@ Widget applicationCard(
     child: Container(
       padding: EdgeInsets.only(
         top: 30,
-        bottom: 30,
+        bottom:30,
       ),
-      width: width,
-      height: height,
+      width: 400,
+      height: 400,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(
@@ -170,13 +170,7 @@ Widget applicationCard(
           color: secondaryColor,
         ),
       ),
-      child: Text(
-        title,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 30,
-        ),
-      ),
+      child:  Image.asset(title,height: 200,width: 200,)
     ),
     onTap: onTap,
     hoverColor: hoverColor,

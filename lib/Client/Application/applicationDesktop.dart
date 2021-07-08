@@ -2,6 +2,7 @@
 import 'package:erp/Client/Accounting/Salary/salary.dart';
 import 'package:erp/Client/Accounting/Company/company.dart';
 import 'package:erp/Client/Crm/crmmarian.dart';
+import 'package:erp/Client/Online/crm.dart';
 import 'package:erp/Client/Online/online_orders.dart';
 import 'package:erp/Client/Users/users.dart';
 import 'package:erp/constants.dart';
@@ -50,7 +51,7 @@ class ApplicationDesktop extends StatelessWidget {
                       children: [
                         Container(
                           child: applicationCard(
-                            'Users',
+                            'assets/android.png',
                             width * 0.18,
                             100,
                             () {
@@ -131,7 +132,7 @@ class ApplicationDesktop extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CRM(),
+                                  builder: (context) => crmData(),
                                 ),
                               );
                             },
