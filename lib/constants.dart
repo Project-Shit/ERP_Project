@@ -10,7 +10,7 @@ Color textFill = Colors.white;
 
 // initializing variables for backend
 var setData = 'http://localhost/ERP/setAPI.php';
-var getData = 'http://localhost/ERP/getAPI.php';
+var getData = 'http://192.168.1.103/ERP/getAPI.php';
 var conditionAPI = 'http://localhost/ERP/condition.php';
 var data, response;
 
@@ -82,13 +82,14 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
 
 // Custom Text Field
 Widget textField(TextEditingController text, double width, double height,
-    bool status, String hint) {
+    bool status, String hint,[int limit]) {
   return Container(
     width: width,
     height: height,
     child: TextFormField(
-      enabled: status,
+      readOnly: status,
       controller: text,
+      maxLength: limit,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderSide:
