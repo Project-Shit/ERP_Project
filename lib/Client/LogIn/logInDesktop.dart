@@ -16,7 +16,6 @@ class _LogInDesktopState extends State<LogInDesktop> {
   final _mailController = TextEditingController();
   final _passController = TextEditingController();
   bool password = true;
-  String userName = '';
 
   // function to change password field text's visibility
   void hidePassword() {
@@ -62,6 +61,38 @@ class _LogInDesktopState extends State<LogInDesktop> {
       print(e);
     }
   }
+
+  forgetPassword(){
+    Alert(
+      context: context,
+      title: 'Enter Your Email to Send Verification Code',
+      content: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 20,
+          ),
+          textField(_mailController, 400, 35.0, true,'Email'),
+        ],
+      ),
+      buttons: [
+        DialogButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text(
+            "Send",
+            style: TextStyle(
+              color: primaryColor,
+              fontSize: 20,
+            ),
+          ),
+          color: hoverColor,
+        )
+      ],
+    ).show();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -117,11 +148,12 @@ class _LogInDesktopState extends State<LogInDesktop> {
                         SizedBox(
                           height: 15,
                         ),
-                        passwordField(_passController, width * 0.3, 45.0, password,
+                        passwordField(_passController, width * 0.3, 60.0, password,
                             false, hidePassword),
-                        SizedBox(
-                          height: 35,
-                        ),
+
+                        labelButton('Forget Password',(){
+                          forgetPassword();
+                        }),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
