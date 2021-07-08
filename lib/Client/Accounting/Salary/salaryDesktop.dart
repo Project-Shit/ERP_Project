@@ -32,32 +32,6 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
 
   List<SalaryModel> model = [];
 
-  Future fetchRecords() async {
-    try {
-      data = {"command": "SELECT * FROM users where name <> '' ORDER BY ID"};
-      http.post(Uri.parse(getData), body: data).then((http.Response response) {
-        var fetchDecode = jsonDecode(response.body);
-        fetchDecode.forEach((salary) {
-          setState(() {
-            model.add(new SalaryModel(
-              id: salary['id'],
-              name: salary['name'],
-              department: salary['department'],
-              salary: salary['salary'],
-              insurance: salary['insurance'],
-              tax: salary['tax'],
-              deduction: salary['deduction'],
-              note: salary['note'],
-              netSalary: salary['netSalary'],
-            ));
-          });
-        });
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
   // function to change values of a record and calculate net salary
   apply() async {
     try {
@@ -117,6 +91,32 @@ class _SalaryDesktopState extends State<SalaryDesktop> {
         });
       });
     });
+  }
+
+  Future fetchRecords() async {
+    try {
+      data = {"command": "SELECT * FROM users where name <> '' ORDER BY ID"};
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
+        var fetchDecode = jsonDecode(response.body);
+        fetchDecode.forEach((salary) {
+          setState(() {
+            model.add(new SalaryModel(
+              id: salary['id'],
+              name: salary['name'],
+              department: salary['department'],
+              salary: salary['salary'],
+              insurance: salary['insurance'],
+              tax: salary['tax'],
+              deduction: salary['deduction'],
+              note: salary['note'],
+              netSalary: salary['netSalary'],
+            ));
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
