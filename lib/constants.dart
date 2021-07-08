@@ -14,6 +14,8 @@ var getData = 'http://localhost/ERP/getAPI.php';
 var conditionAPI = 'http://localhost/ERP/condition.php';
 var data, response;
 
+
+
 // Custom AppBar Buttons
 Widget appButton(String title, VoidCallback onTap) {
   // ignore: deprecated_member_use
@@ -30,6 +32,8 @@ Widget appButton(String title, VoidCallback onTap) {
     height: 100,
   );
 }
+
+
 
 // Custom Flat Button for Home Page
 Widget labelButton(String title, VoidCallback onTap) {
@@ -170,7 +174,7 @@ Widget applicationCard(
           color: secondaryColor,
         ),
       ),
-      child:  Image.asset(title,height: 500,width: 500,color: Color.fromRGBO(64, 64, 64, 1),)
+      child:  Image.asset(title,height: 500,width: 500,color: Color.fromRGBO(50, 20, 200, 1),)
     ),
     onTap: onTap,
     hoverColor: hoverColor,

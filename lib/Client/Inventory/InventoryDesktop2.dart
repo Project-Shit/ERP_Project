@@ -329,7 +329,7 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
                               SizedBox(
                                 width: 30,
                               ),
-                          textField(SKU, width * 0.20, 40.0, true,"Search For SKU"),
+                          textField(SKU, width * 0.20, 40.0, false,"Search For SKU"),
                               SizedBox(
                                 width: 10,
                               ),

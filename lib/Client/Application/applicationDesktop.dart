@@ -2,6 +2,8 @@
 import 'package:erp/Client/Accounting/Salary/salary.dart';
 import 'package:erp/Client/Accounting/Company/company.dart';
 import 'package:erp/Client/Crm/crmmarian.dart';
+import 'package:erp/Client/Inventory/InventoryDesktop2.dart';
+import 'package:erp/Client/Inventory/inventoryDesktop.dart';
 import 'package:erp/Client/Online/crm.dart';
 import 'package:erp/Client/Online/online_orders.dart';
 import 'package:erp/Client/Users/users.dart';
@@ -134,6 +136,41 @@ class ApplicationDesktop extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => crmData(),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+
+
+
+                        Container(
+                          child: applicationCard(
+                            'assets/inv.png',
+                            width * 0.18,
+                            100,
+                                () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => InventoryDesktop(),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+
+
+                        Container(
+                          child: applicationCard(
+                            'assets/inv.png',
+                            width * 0.18,
+                            100,
+                                () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => InventoryDesktop2(),
                                 ),
                               );
                             },
