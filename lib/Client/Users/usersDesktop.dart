@@ -1,7 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
 import 'package:csc_picker/csc_picker.dart';
-import 'package:erp/Client/Users/userDataTable.dart';
 import 'package:erp/Client/Users/usersModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
@@ -475,16 +474,6 @@ class _UsersDesktopState extends State<UsersDesktop> {
                                 ).show();
                                 clear();
                               }, Colors.red.shade900),
-                              SizedBox(
-                                width: 60,
-                              ),
-                              actionButtons('Data Table', () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            UsersDataTable()));
-                              }, Colors.blue.shade600),
                             ],
                           ),
                         ],

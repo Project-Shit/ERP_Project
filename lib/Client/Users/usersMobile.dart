@@ -1,6 +1,5 @@
 // @dart=2.9
 import 'dart:convert';
-import 'package:erp/Client/Users/userDataTable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/drawer/clientDrawer.dart';
 import 'package:flutter/material.dart';
@@ -204,40 +203,7 @@ class _UsersMobileState extends State<UsersMobile> {
                     height: 20,
                   ),
                   textField(_userType, width, 50.0, false,'User Type'),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: width * 0.6,
-                        height: 60,
-                        // ignore: deprecated_member_use
-                        child: RaisedButton(
-                          color: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(50),
-                            ),
-                          ),
-                          child: Text(
-                            'Data Table',
-                            style: TextStyle(
-                              fontSize: 30,
-                              color: textColor,
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => UsersDataTable()));
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+
                 ],
               ),
             ),
