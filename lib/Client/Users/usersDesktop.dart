@@ -30,6 +30,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
   TextEditingController _address = TextEditingController();
   TextEditingController _street = TextEditingController();
   TextEditingController _department = TextEditingController();
+  TextEditingController _userType = TextEditingController();
   String _countryValue = "";
   String _stateValue = "";
   String _cityValue = "";
@@ -52,8 +53,8 @@ class _UsersDesktopState extends State<UsersDesktop> {
         "command": "update users set name = '${_name.text}',ssin = ${_ssin.text} "
             ",socialNumber = ${_social.text} ,phone = '${_phone.text}',email = '${_email.text}' "
             ",password = '${_pass.text}', "
-            "address = '${_street.text+', '+ _cityValue.toString() +', '+ _stateValue.toString() +', '+ _countryValue.toString()}'"
-            ",department = '${_department.text}',userType = '${_user.toString()}' where concat('User ',id) = '${_id.toString()}'"
+            "address = '${_street.text + ', ' + _cityValue.toString() + ', ' + _stateValue.toString() + ', ' + _countryValue.toString()}'"
+            ",department = '${_department.text}',userType = '${_userType.text}' where concat('User ',id) = '${_id.toString()}'"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -72,7 +73,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
       data = {
         "command": "update users set name = '' ,ssin = '' ,socialNumber = ''"
             ",phone = '' ,email = null , password = '', address = '',"
-            "department = '', userType = ''where concat('User ',id) = '${_id.toString()}'"
+            "department = '', userType = '' where concat('User ',id) = '${_id.toString()}'"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -129,7 +130,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
             _pass.text = user['password'];
             _address.text = user['address'];
             _department.text = user['department'];
-            _user = user['userType'];
+            _userType.text = user['userType'];
           });
         });
       });
@@ -342,34 +343,7 @@ class _UsersDesktopState extends State<UsersDesktop> {
                               SizedBox(
                                 height: 15,
                               ),
-                              /*Container(
-                                width: width * 0.6,
-                                height: 50.0,
-                                child: DropdownButtonFormField(
-                                  hint: Text('User Type'),
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                    ),
-                                    filled: true,
-                                    fillColor: textFill,
-                                  ),
-                                  value: _user,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _user = newValue;
-                                    });
-                                  },
-                                  items: _type.map((location) {
-                                    return DropdownMenuItem(
-                                      child: new Text(location),
-                                      value: location,
-                                    );
-                                  }).toList(),
-                                ),
-                              ),*/
+                              textField(_userType, width * 0.6, 40.0, true,'User Type'),
                             ],
                           ),
                         ],
