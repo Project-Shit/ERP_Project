@@ -39,16 +39,6 @@ class ClientAppBar extends StatelessWidget {
               SizedBox(
                 width: 20,
               ),
-              Text(
-                'User Name',
-                style: TextStyle(
-                  color: textFill,
-                  fontSize: 22,
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
               appButton(
                 'Log Out',
                     () {
