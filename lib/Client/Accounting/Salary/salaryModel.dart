@@ -7,6 +7,7 @@ class SalaryModel {
   String insurance;
   String tax;
   String deduction;
+  String note;
   String netSalary;
 
   SalaryModel({
@@ -17,6 +18,7 @@ class SalaryModel {
     this.insurance,
     this.tax,
     this.deduction,
+    this.note,
     this.netSalary,
   });
 }
