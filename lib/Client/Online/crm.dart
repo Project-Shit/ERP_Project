@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:erp/Client/Online/crmModel.dart';
 import 'package:erp/constants.dart';
+import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -76,20 +77,11 @@ class _crmDataState extends State<crmData> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          iconTheme: IconThemeData(
-            color: textFill,
-          ),
-          backgroundColor: secondaryColor,
-          title: Image.asset(
-            'assets/logo.png',
-            height: 60,
-          ),
-          centerTitle: true,
-        ),
+        child: ClientAppBar(),
+
       ),
+
+
       body: Center(
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,

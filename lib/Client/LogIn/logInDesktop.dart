@@ -16,7 +16,7 @@ class _LogInDesktopState extends State<LogInDesktop> {
   final _mailController = TextEditingController();
   final _passController = TextEditingController();
   bool password = true;
-
+ 
   // function to change password field text's visibility
   void hidePassword() {
     setState(() {
