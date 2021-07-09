@@ -143,12 +143,12 @@ class _crmDataState extends State<crmData> {
                 SizedBox(
                   width: 15,
                 ),
-                actionButtons('Delete', () {
+                actionButtons('Edit', () {
                   delete();
 
 
                   fetchRecords();
-                }, Colors.red.shade600),
+                }, Colors.blue.shade600),
   ]
                  )
               ],
