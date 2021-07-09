@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 
 // implementing the main colors for the all system
-Color primaryColor = Color.fromRGBO(16, 16, 16, 1);
-Color secondaryColor = Color.fromRGBO(32, 32, 32, 1);
+Color primaryColor = Color.fromRGBO(255, 255, 255, 1);
+Color secondaryColor = Color.fromRGBO(64, 64, 64, 1);
 Color textColor = Color(0xFF1D1D1D);
-Color hoverColor = Color.fromRGBO(128, 128, 128, 1);
+Color hoverColor = Color.fromRGBO(41, 182, 230, 1);
 Color textFill = Colors.white;
 
 // initializing variables for backend
@@ -171,11 +171,13 @@ Widget applicationCard(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
         border: Border.all(
-          width: 1,
+          width: 2,
           color: secondaryColor,
         ),
+
       ),
-      child:  Image.asset(title,height: 500,width: 500,color: Color.fromRGBO(50, 20, 200, 1),)
+      child:  Image.asset(title,height: 500,width: 500  )
+
     ),
     onTap: onTap,
     hoverColor: hoverColor,

@@ -13,14 +13,14 @@ class ClientAppBar extends StatelessWidget {
         color: secondaryColor,
         child: Padding(
           padding: EdgeInsets.only(
-            left: 90,
-            right: 90,
+            left: 120,
+            right: 120,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Image.asset(
-                'assets/logo.png',
+                'assets/c.png',
               ),
               Spacer(
                 flex: 2,

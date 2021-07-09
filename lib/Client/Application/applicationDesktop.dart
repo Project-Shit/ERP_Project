@@ -21,7 +21,7 @@ class ApplicationDesktop extends StatelessWidget {
     return Scaffold(
       // calling the client's custom AppBar
       appBar: PreferredSize(
-        preferredSize: Size(width, 70),
+        preferredSize: Size(width, 130 ),
         child: ClientAppBar(),
       ),
       // implementing th body with scroll View
@@ -48,12 +48,17 @@ class ApplicationDesktop extends StatelessWidget {
                 *  height and the onTap action, with sizedBox between each widget
                 *  to give it a good looking view. */
                 child: Column(
+
+
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
                       children: [
                         Container(
+
                           child: applicationCard(
-                            'assets/us.png',
+                             'assets/team.png',
                             width * 0.18,
                             100,
                             () {
@@ -69,9 +74,10 @@ class ApplicationDesktop extends StatelessWidget {
                         SizedBox(
                           width: width * 0.02,
                         ),
+
                         Container(
                           child: applicationCard(
-                            'assets/salary .png',
+                            'assets/HR.png',
                             width * 0.18,
                             100,
                             () {
@@ -87,9 +93,10 @@ class ApplicationDesktop extends StatelessWidget {
                         SizedBox(
                           width: width * 0.02,
                         ),
+
                         Container(
                           child: applicationCard(
-                            'assets/com.png',
+                            'assets/fin.png',
                             width * 0.18,
                             100,
                             () {
@@ -105,9 +112,10 @@ class ApplicationDesktop extends StatelessWidget {
                         SizedBox(
                           width: width * 0.02,
                         ),
+
                         Container(
                           child: applicationCard(
-                            'assets/on.png',
+                            'assets/online.png',
                             width * 0.18,
                             100,
                             () {
@@ -127,7 +135,7 @@ class ApplicationDesktop extends StatelessWidget {
                       children: [
                         Container(
                           child: applicationCard(
-                            'assets/crmmm.png',
+                            'assets/crm.png',
 
                             width * 0.18,
                             100,
@@ -141,7 +149,9 @@ class ApplicationDesktop extends StatelessWidget {
                             },
                           ),
                         ),
-
+                        SizedBox(
+                          width: width * 0.02,
+                        ),
 
 
                         Container(
@@ -159,11 +169,13 @@ class ApplicationDesktop extends StatelessWidget {
                             },
                           ),
                         ),
-
+                        SizedBox(
+                          width: width * 0.02,
+                        ),
 
                         Container(
                           child: applicationCard(
-                            'assets/inv.png',
+                            'assets/pos.png',
                             width * 0.18,
                             100,
                                 () {
