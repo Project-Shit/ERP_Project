@@ -48,7 +48,7 @@ Widget labelButton(String title, VoidCallback onTap) {
       ),
     ),
     height: 50,
-    hoverColor: primaryColor,
+    hoverColor: hoverColor,
     onPressed: onTap,
   );
 }
