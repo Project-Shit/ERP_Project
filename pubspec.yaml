@@ -36,9 +36,7 @@ dependencies:
   csc_picker: ^0.2.5
   intl: ^0.17.0
   dio: ^4.0.0
-  path_provider: ^2.0.2
   syncfusion_flutter_pdf: ^19.2.46-beta
-  flutter_full_pdf_viewer: ^1.0.6
 
 
   # The following adds the Cupertino Icons font to your application.
