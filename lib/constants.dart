@@ -12,6 +12,7 @@ Color textFill = Colors.white;
 var setData = 'http://localhost/ERP/setAPI.php';
 var getData = 'http://localhost/ERP/getAPI.php';
 var conditionAPI = 'http://localhost/ERP/condition.php';
+var mail = 'http://localhost/PHPMailer/index.php';
 var data, response;
 
 
@@ -48,7 +49,7 @@ Widget labelButton(String title, VoidCallback onTap) {
       ),
     ),
     height: 50,
-    hoverColor: primaryColor,
+    hoverColor: hoverColor,
     onPressed: onTap,
   );
 }
