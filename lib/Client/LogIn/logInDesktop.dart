@@ -83,7 +83,7 @@ class _LogInDesktopState extends State<LogInDesktop> {
           child: Text(
             "Send",
             style: TextStyle(
-              color: primaryColor,
+              color: textFill,
               fontSize: 20,
             ),
           ),
@@ -141,7 +141,7 @@ class _LogInDesktopState extends State<LogInDesktop> {
                         SizedBox(
                           height: 15,
                         ),
-                        textField(_mailController, width * 0.3, 45.0, true,'Email'),
+                        textField(_mailController, width * 0.3, 45.0, false,'Email'),
                         SizedBox(
                           height: 20,
                         ),
