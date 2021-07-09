@@ -7,12 +7,11 @@ class ChatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: ExpandableFab(
+    return ExpandableFab(
         distance: 112.0,
         children: [
           ActionButton(
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => task())),
+            onPressed: () => Scaffold.of(context).openDrawer(),
             icon: const Icon(Icons.task),
           ),
           ActionButton(
@@ -20,7 +19,7 @@ class ChatButton extends StatelessWidget {
             icon: const Icon(Icons.message),
           ),
         ],
-      ),
+
     );
   }
 }
