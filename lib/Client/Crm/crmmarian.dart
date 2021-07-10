@@ -14,7 +14,6 @@ class CRMData extends StatefulWidget {
 
 class _CRMDataState extends State<CRMData> {
   List<crmModel> model = [];
-  TextEditingController _id = TextEditingController();
   TextEditingController _name = TextEditingController();
   TextEditingController _category = TextEditingController();
   TextEditingController _email = TextEditingController();
@@ -24,8 +23,8 @@ class _CRMDataState extends State<CRMData> {
   apply() async {
     try {
       data = {
-        "command": "insert into client(id,name,category,email,phone,address)"
-            "values('${_id.text}','${_name.text}','${_category.text}',${_email.text}','${_phone.text}','${_address.text}' )"
+        "command": "insert into client(name,category,email,phone,address)"
+            "values('${_name.text}','${_category.text}','${_email.text}','${_phone.text}','${_address.text}')"
       };
       response = await http.post(Uri.parse(setData), body: data);
     } catch (e) {
@@ -36,7 +35,7 @@ class _CRMDataState extends State<CRMData> {
 
   delete() async {
     try {
-      data = {"command": " DELETE FROM client where phone = '${_name.text}'"};
+      data = {"command": " DELETE FROM client where phone = '${_phone.text}'"};
       response = await http.post(Uri.parse(setData), body: data);
     } catch (e) {
       print(e);
@@ -128,35 +127,41 @@ class _CRMDataState extends State<CRMData> {
                 SizedBox(
                   height: 50,
                 ),
-                textField(_id, width * 0.6, 40.0, false, 'Name'),
+                textField(_name, width * 0.6, 40.0, false, 'Name'),
                 SizedBox(
                   height: 30,
                 ),
-                textField(_id, width * 0.6, 40.0, false, 'category'),
+                textField(_category, width * 0.6, 40.0, false, 'Category'),
                 SizedBox(
                   height: 30,
                 ),
-                textField(_id, width * 0.6, 40.0, false, 'email'),
+                textField(_email, width * 0.6, 40.0, false, 'Email'),
                 SizedBox(
                   height: 30,
                 ),
-                textField(_name, width * 0.6, 40.0, false, 'Phone'),
+                textField(_phone, width * 0.6, 40.0, false, 'Phone'),
                 SizedBox(
                   height: 30,
                 ),
-                textField(_category, width * 0.6, 40.0, false, 'Address'),
+                textField(_address, width * 0.6, 40.0, false, 'Address'),
                 SizedBox(
                   height: 30,
                 ),
                 Row(children: [
                   actionButtons('Add', () {
+                    setState(() {
+                      model = [];
+                    });
                     apply();
                     fetchRecords();
                   }, Colors.green.shade600),
                   SizedBox(
                     width: 15,
                   ),
-                  actionButtons('Edit', () {
+                  actionButtons('Delete', () {
+                    setState(() {
+                      model = [];
+                    });
                     delete();
                     fetchRecords();
                   }, Colors.blue.shade600),
