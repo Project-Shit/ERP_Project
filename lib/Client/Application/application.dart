@@ -151,7 +151,7 @@ class _ApplicationState extends State<Application> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => CRM(),
+                                    builder: (context) => CRMData(),
                                   ),
                                 );
                               },
