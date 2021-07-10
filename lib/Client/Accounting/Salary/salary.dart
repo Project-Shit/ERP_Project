@@ -139,228 +139,231 @@ class _SalaryState extends State<Salary> {
         child: ClientAppBar(),
       ),
       // implementing th body with scroll View and row widget
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: 30,
-            bottom: 30,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // implementing a container to make the outline border design
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          50.0,
-                        ),
-                        border: Border.all(
-                          color: textColor,
-                          width: 2,
-                        )),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          left: 50, right: 50, top: 30, bottom: 30),
-                      child: Column(
-                        children: [
-                          // implementing a row widget to align the rest of the widget
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // implementing a column to call custom drop down list, text field with sizedBox between them.
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: width * 0.6,
-                                    height: 50.0,
-                                    child: DropdownButtonFormField(
-                                      hint: Text('ID'),
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10.0),
+      body: Container(
+        color: darkBlue,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: 30,
+              bottom: 30,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // implementing a container to make the outline border design
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            50.0,
+                          ),
+                          border: Border.all(
+                            color: textColor,
+                            width: 2,
+                          )),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: 50, right: 50, top: 30, bottom: 30),
+                        child: Column(
+                          children: [
+                            // implementing a row widget to align the rest of the widget
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // implementing a column to call custom drop down list, text field with sizedBox between them.
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: width * 0.6,
+                                      height: 50.0,
+                                      child: DropdownButtonFormField(
+                                        hint: Text('ID'),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          fillColor: textFill,
+                                        ),
+                                        value: _id,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            _id = newValue;
+                                            fetchData();
+                                          });
+                                        },
+                                        items: _ids.map((location) {
+                                          return DropdownMenuItem(
+                                            child: new Text(location),
+                                            value: location,
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(
+                                        _name, width * 0.6, 40.0, true, 'Name'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_dept, width * 0.6, 40.0, true,
+                                        'Department'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_salary, width * 0.6, 40.0, false,
+                                        'Salary'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_insurance, width * 0.6, 40.0, false,
+                                        'Insurance'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(
+                                        _tax, width * 0.6, 40.0, true, 'Tax'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_deduction, width * 0.6, 40.0, false,
+                                        'Deduction'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(
+                                        _note, width * 0.6, 60.0, false, 'Note',30),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_netS, width * 0.6, 40.0, true,
+                                        'Net Salary'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            // implementing a row widget to call custom buttons and align them.
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                actionButtons('Apply', () {
+                                  apply();
+                                  Alert(
+                                    context: context,
+                                    title:
+                                        message1 ? 'Applied' : 'Couldn\'t Apply',
+                                    buttons: [
+                                      DialogButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          fetchData();
+                                          apply();
+                                          setState(() {
+                                            model = [];
+                                          });
+                                          fetchRecords();
+                                        },
+                                        child: Text(
+                                          "OK",
+                                          style: TextStyle(
+                                            color: primaryColor,
+                                            fontSize: 20,
                                           ),
                                         ),
-                                        filled: true,
-                                        fillColor: textFill,
-                                      ),
-                                      value: _id,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          _id = newValue;
-                                          fetchData();
-                                        });
-                                      },
-                                      items: _ids.map((location) {
-                                        return DropdownMenuItem(
-                                          child: new Text(location),
-                                          value: location,
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(
-                                      _name, width * 0.6, 40.0, true, 'Name'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_dept, width * 0.6, 40.0, true,
-                                      'Department'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_salary, width * 0.6, 40.0, false,
-                                      'Salary'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_insurance, width * 0.6, 40.0, false,
-                                      'Insurance'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(
-                                      _tax, width * 0.6, 40.0, true, 'Tax'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_deduction, width * 0.6, 40.0, false,
-                                      'Deduction'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(
-                                      _note, width * 0.6, 60.0, false, 'Note',30),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_netS, width * 0.6, 40.0, true,
-                                      'Net Salary'),
-                                ],
-                              ),
+                                        color: hoverColor,
+                                      )
+                                    ],
+                                  ).show();
+                                }, Colors.green),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                actionButtons('Report', () {
+                                  launch('http://localhost/ERP/salaryPDF.php');
+                                }, Colors.blue.shade600),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  width: width * 0.7,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: [
+                          DataTable(
+                            columns: [
+                              DataColumn(label: Text('ID')),
+                              DataColumn(label: Text('Name')),
+                              DataColumn(label: Text('Department')),
+                              DataColumn(label: Text('Salary')),
+                              DataColumn(label: Text('Insurance')),
+                              DataColumn(label: Text('Tax')),
+                              DataColumn(label: Text('Deduction')),
+                              DataColumn(label: Text('Note')),
+                              DataColumn(label: Text('Net Salary')),
                             ],
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          // implementing a row widget to call custom buttons and align them.
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              actionButtons('Apply', () {
-                                apply();
-                                Alert(
-                                  context: context,
-                                  title:
-                                      message1 ? 'Applied' : 'Couldn\'t Apply',
-                                  buttons: [
-                                    DialogButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        fetchData();
-                                        apply();
-                                        setState(() {
-                                          model = [];
-                                        });
-                                        fetchRecords();
-                                      },
-                                      child: Text(
-                                        "OK",
-                                        style: TextStyle(
-                                          color: primaryColor,
-                                          fontSize: 20,
+                            rows: model
+                                .map((data) => DataRow(
+                                      cells: [
+                                        new DataCell(
+                                          Text(data.id),
                                         ),
-                                      ),
-                                      color: hoverColor,
-                                    )
-                                  ],
-                                ).show();
-                              }, Colors.green),
-                              SizedBox(
-                                width: 30,
-                              ),
-                              actionButtons('Report', () {
-                                launch('http://localhost/ERP/salaryPDF.php');
-                              }, Colors.blue.shade600),
-                            ],
+                                        new DataCell(
+                                          Text(data.name),
+                                        ),
+                                        new DataCell(
+                                          Text(data.department),
+                                        ),
+                                        new DataCell(
+                                          Text(data.salary),
+                                        ),
+                                        new DataCell(
+                                          Text(data.insurance),
+                                        ),
+                                        new DataCell(
+                                          Text(data.tax),
+                                        ),
+                                        new DataCell(
+                                          Text(data.deduction),
+                                        ),
+                                        new DataCell(
+                                          Text(data.note),
+                                        ),
+                                        new DataCell(
+                                          Text(data.netSalary),
+                                        ),
+                                      ],
+                                    ))
+                                .toList(),
                           ),
                         ],
                       ),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                width: width * 0.7,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        DataTable(
-                          columns: [
-                            DataColumn(label: Text('ID')),
-                            DataColumn(label: Text('Name')),
-                            DataColumn(label: Text('Department')),
-                            DataColumn(label: Text('Salary')),
-                            DataColumn(label: Text('Insurance')),
-                            DataColumn(label: Text('Tax')),
-                            DataColumn(label: Text('Deduction')),
-                            DataColumn(label: Text('Note')),
-                            DataColumn(label: Text('Net Salary')),
-                          ],
-                          rows: model
-                              .map((data) => DataRow(
-                                    cells: [
-                                      new DataCell(
-                                        Text(data.id),
-                                      ),
-                                      new DataCell(
-                                        Text(data.name),
-                                      ),
-                                      new DataCell(
-                                        Text(data.department),
-                                      ),
-                                      new DataCell(
-                                        Text(data.salary),
-                                      ),
-                                      new DataCell(
-                                        Text(data.insurance),
-                                      ),
-                                      new DataCell(
-                                        Text(data.tax),
-                                      ),
-                                      new DataCell(
-                                        Text(data.deduction),
-                                      ),
-                                      new DataCell(
-                                        Text(data.note),
-                                      ),
-                                      new DataCell(
-                                        Text(data.netSalary),
-                                      ),
-                                    ],
-                                  ))
-                              .toList(),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
