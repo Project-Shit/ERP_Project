@@ -1,6 +1,5 @@
 // @dart=2.9
-import 'package:erp/Client/Application/applicationDesktop.dart';
-import 'package:erp/Client/LogIn/logIn.dart';
+import 'package:erp/Client/Application/application.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:ApplicationDesktop(),
+      home:Application(),
     );
   }
 }
