@@ -7,6 +7,7 @@ Color secondaryColor = Color.fromRGBO(64, 64, 64, 1);
 Color textColor = Color(0xFF1D1D1D);
 Color hoverColor = Color.fromRGBO(41, 182, 230, 1);
 Color textFill = Colors.white;
+Color darkBlue = Color(0xff336faf);
 
 // initializing variables for backend
 var setData = 'http://localhost/ERP/setAPI.php';
@@ -43,13 +44,12 @@ Widget labelButton(String title, VoidCallback onTap) {
     child: Text(
       title,
       style: TextStyle(
-        color: Colors.blue.shade900,
+        color: textFill,
         fontSize: 15,
         fontWeight: FontWeight.w500,
       ),
     ),
     height: 50,
-    hoverColor: hoverColor,
     onPressed: onTap,
   );
 }
@@ -136,20 +136,13 @@ Widget passwordField(TextEditingController text, double width, double height,
         ),
         fillColor: textFill,
         filled: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            new Radius.circular(
-              10.0,
-            ),
-          ),
-        ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1,
           ),
           borderRadius: BorderRadius.all(
             new Radius.circular(
-              10.0,
+              0.0,
             ),
           ),
         ),
