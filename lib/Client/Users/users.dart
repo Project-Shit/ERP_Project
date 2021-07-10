@@ -220,333 +220,336 @@ class _UsersState extends State<Users> {
         child: ClientAppBar(),
       ),
       // implementing th body with scroll View and row widget
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: 30,
-            bottom: 30,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // implementing a container to make the outline border design
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50.0),
-                      border: Border.all(
-                        color: textColor,
-                        width: 2,
+      body: Container(
+        color: darkBlue,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: 30,
+              bottom: 30,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // implementing a container to make the outline border design
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50.0),
+                        border: Border.all(
+                          color: textColor,
+                          width: 2,
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: 30,
-                        bottom: 30,
-                        left: 50,
-                        right: 50,
-                      ),
-                      // implementing a column widget to align the rest of the widget
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: width * 0.6,
-                                height: 50.0,
-                                child: TextFormField(
-                                  controller: _search,
-                                  style: TextStyle(
-                                    color: textColor,
-                                  ),
-                                  decoration: InputDecoration(
-                                    labelText: 'Search by Email or Name or Phone Number',
-                                    suffixIcon: Padding(
-                                      padding: const EdgeInsets.only(
-                                        right: 10,
-                                      ),
-                                      child: IconButton(
-                                        icon: Icon(Icons.search),
-                                        onPressed: () {
-                                          search();
-                                        },
-                                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: 30,
+                          bottom: 30,
+                          left: 50,
+                          right: 50,
+                        ),
+                        // implementing a column widget to align the rest of the widget
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: width * 0.6,
+                                  height: 50.0,
+                                  child: TextFormField(
+                                    controller: _search,
+                                    style: TextStyle(
+                                      color: textColor,
                                     ),
-                                    fillColor: textFill,
-                                    filled: true,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        new Radius.circular(
-                                          10.0,
+                                    decoration: InputDecoration(
+                                      labelText: 'Search by Email or Name or Phone Number',
+                                      suffixIcon: Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 10,
+                                        ),
+                                        child: IconButton(
+                                          icon: Icon(Icons.search),
+                                          onPressed: () {
+                                            search();
+                                          },
                                         ),
                                       ),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
+                                      fillColor: textFill,
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          new Radius.circular(
+                                            10.0,
+                                          ),
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.all(
-                                        new Radius.circular(
-                                          10.0,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          new Radius.circular(
+                                            10.0,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              // implementing a column to call custom drop down list, text field and
-                              // password field widget with sizedBox between them.
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Container(
-                                    width: width * 0.6,
-                                    height: 50.0,
-                                    child: DropdownButtonFormField(
-                                      hint: Text('ID'),
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10.0),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                // implementing a column to call custom drop down list, text field and
+                                // password field widget with sizedBox between them.
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      width: width * 0.6,
+                                      height: 50.0,
+                                      child: DropdownButtonFormField(
+                                        hint: Text('ID'),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0),
+                                            ),
                                           ),
+                                          filled: true,
+                                          fillColor: textFill,
                                         ),
-                                        filled: true,
-                                        fillColor: textFill,
+                                        value: _id,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            _id = newValue;
+                                            clear();
+                                            fetchData();
+                                          });
+                                        },
+                                        items: _ids.map((location) {
+                                          return DropdownMenuItem(
+                                            child: new Text(location),
+                                            value: location,
+                                          );
+                                        }).toList(),
                                       ),
-                                      value: _id,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          _id = newValue;
-                                          clear();
-                                          fetchData();
-                                        });
-                                      },
-                                      items: _ids.map((location) {
-                                        return DropdownMenuItem(
-                                          child: new Text(location),
-                                          value: location,
-                                        );
-                                      }).toList(),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(
-                                      _name, width * 0.6, 40.0, false, 'Name'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_ssin, width * 0.6, 60.0, false,
-                                      'SSIN', 14),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_social, width * 0.6, 40.0, false,
-                                      'Social Number'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_phone, width * 0.6, 60.0, false,
-                                      'Phone Number', 11),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_email, width * 0.6, 40.0, false,
-                                      'Email'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  passwordField(_pass, width * 0.6, 60.0,
-                                      password, false, hidePassword),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Container(
-                                    width: width * 0.6,
-                                    child: CSCPicker(
-                                      showStates: true,
-                                      showCities: true,
-                                      flagState: CountryFlag.DISABLE,
-                                      dropdownDecoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                        color: Colors.white,
-                                        border: Border.all(
-                                            color: Colors.grey.shade300,
-                                            width: 1),
-                                      ),
-                                      disabledDropdownDecoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                        color: Colors.grey.shade300,
-                                        border: Border.all(
-                                            color: Colors.grey.shade300,
-                                            width: 1),
-                                      ),
-                                      defaultCountry: DefaultCountry.Egypt,
-                                      selectedItemStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                      ),
-                                      dropdownHeadingStyle: TextStyle(
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(
+                                        _name, width * 0.6, 40.0, false, 'Name'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_ssin, width * 0.6, 60.0, false,
+                                        'SSIN', 14),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_social, width * 0.6, 40.0, false,
+                                        'Social Number'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_phone, width * 0.6, 60.0, false,
+                                        'Phone Number', 11),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_email, width * 0.6, 40.0, false,
+                                        'Email'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    passwordField(_pass, width * 0.6, 60.0,
+                                        password, false, hidePassword),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Container(
+                                      width: width * 0.6,
+                                      child: CSCPicker(
+                                        showStates: true,
+                                        showCities: true,
+                                        flagState: CountryFlag.DISABLE,
+                                        dropdownDecoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: Colors.grey.shade300,
+                                              width: 1),
+                                        ),
+                                        disabledDropdownDecoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                          color: Colors.grey.shade300,
+                                          border: Border.all(
+                                              color: Colors.grey.shade300,
+                                              width: 1),
+                                        ),
+                                        defaultCountry: DefaultCountry.Egypt,
+                                        selectedItemStyle: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold),
-                                      dropdownItemStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
+                                          fontSize: 14,
+                                        ),
+                                        dropdownHeadingStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold),
+                                        dropdownItemStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                        ),
+                                        dropdownDialogRadius: 10.0,
+                                        searchBarRadius: 10.0,
+                                        onCountryChanged: (value) {
+                                          setState(() {
+                                            _countryValue = value;
+                                          });
+                                        },
+                                        onStateChanged: (value) {
+                                          setState(() {
+                                            _stateValue = value;
+                                          });
+                                        },
+                                        onCityChanged: (value) {
+                                          setState(() {
+                                            _cityValue = value;
+                                          });
+                                        },
                                       ),
-                                      dropdownDialogRadius: 10.0,
-                                      searchBarRadius: 10.0,
-                                      onCountryChanged: (value) {
-                                        setState(() {
-                                          _countryValue = value;
-                                        });
-                                      },
-                                      onStateChanged: (value) {
-                                        setState(() {
-                                          _stateValue = value;
-                                        });
-                                      },
-                                      onCityChanged: (value) {
-                                        setState(() {
-                                          _cityValue = value;
-                                        });
-                                      },
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_street, width * 0.6, 40.0, false,
-                                      'Street'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_address, width * 0.6, 40.0, true,
-                                      'Address'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_department, width * 0.6, 40.0,
-                                      false, 'Department'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Container(
-                                    width: width * 0.6,
-                                    height: 50.0,
-                                    child: DropdownButtonFormField(
-                                      hint: Text('User Type'),
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10.0),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_street, width * 0.6, 40.0, false,
+                                        'Street'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_address, width * 0.6, 40.0, true,
+                                        'Address'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_department, width * 0.6, 40.0,
+                                        false, 'Department'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Container(
+                                      width: width * 0.6,
+                                      height: 50.0,
+                                      child: DropdownButtonFormField(
+                                        hint: Text('User Type'),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          fillColor: textFill,
+                                        ),
+                                        value: _user,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            _user = newValue;
+                                            _userType.text = _user;
+                                          });
+                                        },
+                                        items: _type.map((location) {
+                                          return DropdownMenuItem(
+                                            child: new Text(location),
+                                            value: location,
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            // implementing a row widget to call custom buttons and align them.
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                actionButtons('Apply', () {
+                                  applyUser();
+                                  Alert(
+                                    context: context,
+                                    title:
+                                        message1 ? 'Applied' : 'Couldn\'t Apply',
+                                    buttons: [
+                                      DialogButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          fetchData();
+                                        },
+                                        child: Text(
+                                          "OK",
+                                          style: TextStyle(
+                                            color: primaryColor,
+                                            fontSize: 20,
                                           ),
                                         ),
-                                        filled: true,
-                                        fillColor: textFill,
-                                      ),
-                                      value: _user,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          _user = newValue;
-                                          _userType.text = _user;
-                                        });
-                                      },
-                                      items: _type.map((location) {
-                                        return DropdownMenuItem(
-                                          child: new Text(location),
-                                          value: location,
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          // implementing a row widget to call custom buttons and align them.
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              actionButtons('Apply', () {
-                                applyUser();
-                                Alert(
-                                  context: context,
-                                  title:
-                                      message1 ? 'Applied' : 'Couldn\'t Apply',
-                                  buttons: [
-                                    DialogButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        fetchData();
-                                      },
-                                      child: Text(
-                                        "OK",
-                                        style: TextStyle(
-                                          color: primaryColor,
-                                          fontSize: 20,
+                                        color: hoverColor,
+                                      )
+                                    ],
+                                  ).show();
+                                }, Colors.green),
+                                SizedBox(
+                                  width: 60,
+                                ),
+                                actionButtons('Delete', () {
+                                  Alert(
+                                    context: context,
+                                    title:
+                                        'Are you sure you want to Delete this User',
+                                    buttons: [
+                                      DialogButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          delete();
+                                        },
+                                        child: Text(
+                                          "Yes",
+                                          style: TextStyle(
+                                            color: primaryColor,
+                                            fontSize: 20,
+                                          ),
                                         ),
-                                      ),
-                                      color: hoverColor,
-                                    )
-                                  ],
-                                ).show();
-                              }, Colors.green),
-                              SizedBox(
-                                width: 60,
-                              ),
-                              actionButtons('Delete', () {
-                                Alert(
-                                  context: context,
-                                  title:
-                                      'Are you sure you want to Delete this User',
-                                  buttons: [
-                                    DialogButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        delete();
-                                      },
-                                      child: Text(
-                                        "Yes",
-                                        style: TextStyle(
-                                          color: primaryColor,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      color: hoverColor,
-                                    )
-                                  ],
-                                ).show();
-                                clear();
-                              }, Colors.red.shade900),
-                            ],
-                          ),
-                        ],
+                                        color: hoverColor,
+                                      )
+                                    ],
+                                  ).show();
+                                  clear();
+                                }, Colors.red.shade900),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
