@@ -210,277 +210,289 @@ class _CompanyState extends State<Company> {
         child: ClientAppBar(),
       ),
       // implementing th body with scroll View and row widget
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: 30,
-            bottom: 30,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // implementing a container to make the outline border design
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        50.0,
+      body: Container(
+        color: darkBlue,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: 30,
+              bottom: 30,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // implementing a container to make the outline border design
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          50.0,
+                        ),
+                        border: Border.all(
+                          color: textColor,
+                          width: 2,
+                        ),
                       ),
-                      border: Border.all(
-                        color: textColor,
-                        width: 2,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: 50,
+                          right: 50,
+                          top: 30,
+                          bottom: 30,
+                        ),
+                        // implementing a column widget to align the rest of the widget
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                // implementing a column to call custom drop down list, text field
+                                // and date picker with sizedBox between them.
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: width * 0.29,
+                                          height: 50.0,
+                                          child: DropdownButtonFormField(
+                                            hint: Text('Month'),
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0),
+                                                ),
+                                              ),
+                                              filled: true,
+                                              fillColor: textFill,
+                                            ),
+                                            value: _month,
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                _month = newValue;
+                                                check();
+                                              });
+                                            },
+                                            items: _monthly.map((location) {
+                                              return DropdownMenuItem(
+                                                child: new Text(location),
+                                                value: location,
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 30,
+                                        ),
+                                        Container(
+                                          width: width * 0.29,
+                                          height: 50.0,
+                                          child: DropdownButtonFormField(
+                                            hint: Text('Year'),
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0),
+                                                ),
+                                              ),
+                                              filled: true,
+                                              fillColor: textFill,
+                                            ),
+                                            value: _year,
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                _year = newValue;
+                                                check();
+                                              });
+                                            },
+                                            items: _years.map((location) {
+                                              return DropdownMenuItem(
+                                                child: new Text(location),
+                                                value: location,
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_balanceController, width * 0.6,
+                                        40.0, false, 'Balance'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_expensesController, width * 0.6,
+                                        40.0, true, 'Expenses'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_salaryController, width * 0.6,
+                                        40.0, false, 'Salary'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_incomeController, width * 0.6,
+                                        40.0, true, 'Income'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_taxController, width * 0.6, 40.0,
+                                        false, 'Tax'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_newController, width * 0.6, 40.0,
+                                        false, 'New Balance'),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    textField(_profitController, width * 0.6,
+                                        40.0, false, 'Profit'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            // implementing a row widget to call custom buttons and align them.
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                actionButtons('Apply', () {
+                                  if (status == true) {
+                                    apply();
+                                    Alert(
+                                      context: context,
+                                      title: message
+                                          ? 'Applied'
+                                          : 'Couldn\'t Apply',
+                                      buttons: [
+                                        DialogButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            fetchNew();
+                                          },
+                                          child: Text(
+                                            "OK",
+                                            style: TextStyle(
+                                              color: primaryColor,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                          color: hoverColor,
+                                        )
+                                      ],
+                                    ).show();
+                                  } else {
+                                    Alert(
+                                      context: context,
+                                      title: 'This Data Already Exist',
+                                      buttons: [
+                                        DialogButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text(
+                                            "OK",
+                                            style: TextStyle(
+                                              color: primaryColor,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                          color: hoverColor,
+                                        )
+                                      ],
+                                    ).show();
+                                    setState(() {
+                                      model = [];
+                                    });
+                                    fetchRecords();
+                                  }
+                                }, Colors.green),
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                actionButtons('Report', () {
+                                  launch('http://localhost/ERP/companyPDF.php');
+                                }, Colors.blue.shade600),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        left: 50,
-                        right: 50,
-                        top: 30,
-                        bottom: 30,
-                      ),
-                      // implementing a column widget to align the rest of the widget
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              // implementing a column to call custom drop down list, text field
-                              // and date picker with sizedBox between them.
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: width * 0.29,
-                                        height: 50.0,
-                                        child: DropdownButtonFormField(
-                                          hint: Text('Month'),
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(10.0),
-                                              ),
-                                            ),
-                                            filled: true,
-                                            fillColor: textFill,
-                                          ),
-                                          value: _month,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              _month = newValue;
-                                              check();
-                                            });
-                                          },
-                                          items: _monthly.map((location) {
-                                            return DropdownMenuItem(
-                                              child: new Text(location),
-                                              value: location,
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 30,
-                                      ),
-                                      Container(
-                                        width: width * 0.29,
-                                        height: 50.0,
-                                        child: DropdownButtonFormField(
-                                          hint: Text('Year'),
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(10.0),
-                                              ),
-                                            ),
-                                            filled: true,
-                                            fillColor: textFill,
-                                          ),
-                                          value: _year,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              _year = newValue;
-                                              check();
-                                            });
-                                          },
-                                          items: _years.map((location) {
-                                            return DropdownMenuItem(
-                                              child: new Text(location),
-                                              value: location,
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_balanceController, width * 0.6, 40.0, false,'Balance'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_expensesController, width * 0.6, 40.0, true,'Expenses'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_salaryController, width * 0.6, 40.0, false,'Salary'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_incomeController, width * 0.6, 40.0, true,'Income'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_taxController, width * 0.6, 40.0, false,'Tax'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_newController, width * 0.6, 40.0, false,'New Balance'),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  textField(_profitController, width * 0.6, 40.0, false,'Profit'),
-                                ],
-                              ),
+                          DataTable(
+                            columns: [
+                              DataColumn(label: Text('Month')),
+                              DataColumn(label: Text('Year')),
+                              DataColumn(label: Text('Balance')),
+                              DataColumn(label: Text('Expenses')),
+                              DataColumn(label: Text('Salary')),
+                              DataColumn(label: Text('Income')),
+                              DataColumn(label: Text('Tax')),
+                              DataColumn(label: Text('New Balance')),
+                              DataColumn(label: Text('Profit')),
                             ],
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          // implementing a row widget to call custom buttons and align them.
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              actionButtons('Apply', () {
-                                if (status == true) {
-                                  apply();
-                                  Alert(
-                                    context: context,
-                                    title: message ? 'Applied' : 'Couldn\'t Apply',
-                                    buttons: [
-                                      DialogButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          fetchNew();
-                                        },
-                                        child: Text(
-                                          "OK",
-                                          style: TextStyle(
-                                            color: primaryColor,
-                                            fontSize: 20,
-                                          ),
+                            rows: model
+                                .map((data) => DataRow(
+                                      cells: [
+                                        new DataCell(
+                                          Text(data.month),
                                         ),
-                                        color: hoverColor,
-                                      )
-                                    ],
-                                  ).show();
-                                } else {
-                                  Alert(
-                                    context: context,
-                                    title: 'This Data Already Exist',
-                                    buttons: [
-                                      DialogButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text(
-                                          "OK",
-                                          style: TextStyle(
-                                            color: primaryColor,
-                                            fontSize: 20,
-                                          ),
+                                        new DataCell(
+                                          Text(data.year),
                                         ),
-                                        color: hoverColor,
-                                      )
-                                    ],
-                                  ).show();
-                                  setState(() {
-                                    model = [];
-                                  });
-                                  fetchRecords();
-                                }
-                              }, Colors.green),
-                              SizedBox(
-                                width: 30,
-                              ),
-                              actionButtons('Report', () {
-                                launch('http://localhost/ERP/companyPDF.php');
-                              }, Colors.blue.shade600),
-                            ],
+                                        new DataCell(
+                                          Text(data.balance),
+                                        ),
+                                        new DataCell(
+                                          Text(data.expenses),
+                                        ),
+                                        new DataCell(
+                                          Text(data.salary),
+                                        ),
+                                        new DataCell(
+                                          Text(data.income),
+                                        ),
+                                        new DataCell(
+                                          Text(data.tax),
+                                        ),
+                                        new DataCell(
+                                          Text(data.newBalance),
+                                        ),
+                                        new DataCell(
+                                          Text(data.profit),
+                                        ),
+                                      ],
+                                    ))
+                                .toList(),
                           ),
                         ],
                       ),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        DataTable(
-                          columns: [
-                            DataColumn(label: Text('Month')),
-                            DataColumn(label: Text('Year')),
-                            DataColumn(label: Text('Balance')),
-                            DataColumn(label: Text('Expenses')),
-                            DataColumn(label: Text('Salary')),
-                            DataColumn(label: Text('Income')),
-                            DataColumn(label: Text('Tax')),
-                            DataColumn(label: Text('New Balance')),
-                            DataColumn(label: Text('Profit')),
-                          ],
-                          rows: model
-                              .map((data) => DataRow(
-                            cells: [
-                              new DataCell(
-                                Text(data.month),
-                              ),
-                              new DataCell(
-                                Text(data.year),
-                              ),
-                              new DataCell(
-                                Text(data.balance),
-                              ),
-                              new DataCell(
-                                Text(data.expenses),
-                              ),
-                              new DataCell(
-                                Text(data.salary),
-                              ),
-                              new DataCell(
-                                Text(data.income),
-                              ),
-                              new DataCell(
-                                Text(data.tax),
-                              ),
-                              new DataCell(
-                                Text(data.newBalance),
-                              ),
-                              new DataCell(
-                                Text(data.profit),
-                              ),
-                            ],
-                          ))
-                              .toList(),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
