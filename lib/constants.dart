@@ -94,16 +94,29 @@ Widget textField(TextEditingController text, double width, double height,
     child: TextFormField(
       readOnly: status,
       controller: text,
-      maxLength: limit,
+      style: TextStyle(
+        color: textColor,
+      ),
       decoration: InputDecoration(
         counterText: '',
-        border: OutlineInputBorder(
-          borderSide:
-              BorderSide(width: 5, color: Color.fromRGBO(32, 32, 32, 1)),
-        ),
         labelText: hint,
-        filled: true,
+        suffixIcon: Padding(
+          padding: const EdgeInsets.only(
+            right: 10,
+          ),
+        ),
         fillColor: textFill,
+        filled: true,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 1,
+          ),
+          borderRadius: BorderRadius.all(
+            new Radius.circular(
+              0.0,
+            ),
+          ),
+        ),
       ),
     ),
   );
