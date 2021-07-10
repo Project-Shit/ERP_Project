@@ -25,7 +25,7 @@ Widget appButton(String title, VoidCallback onTap) {
     child: Text(
       title,
       style: TextStyle(
-        color: textFill,
+        color: textColor,
         fontSize: 20,
       ),
     ),
@@ -176,14 +176,14 @@ Widget applicationCard(
       ),
       width: 300,
       height: 300,
-      decoration: BoxDecoration(
+      /*decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
         border: Border.all(
           width: 2,
           color: secondaryColor,
         ),
 
-      ),
+      ),*/
       child:  Image.asset(title,height: 500,width: 500  )
 
     ),
