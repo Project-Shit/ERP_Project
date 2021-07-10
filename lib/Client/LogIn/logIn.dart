@@ -67,7 +67,7 @@ class _LogInState extends State<LogIn> {
     try {
       data = {
         "command":
-        "select * from users where email = '${_mail.text}' and phone = '${_phone.text}'"
+            "select * from users where email = '${_mail.text}' and phone = '${_phone.text}'"
       };
       return await http
           .post(Uri.parse(getData), body: data)
@@ -85,7 +85,6 @@ class _LogInState extends State<LogIn> {
     }
   }
 
-
   restore() async {
     try {
       data = {
@@ -100,7 +99,7 @@ class _LogInState extends State<LogIn> {
     }
   }
 
-  forgetPassword(){
+  forgetPassword() {
     Alert(
       context: context,
       title: 'Enter Your Email to Send Verification Code',
@@ -110,11 +109,11 @@ class _LogInState extends State<LogIn> {
           SizedBox(
             height: 20,
           ),
-          textField(_mail, 400, 35.0, false,'Email'),
+          textField(_mail, 400, 35.0, false, 'Email'),
           SizedBox(
             height: 20,
           ),
-          textField(_phone, 400, 35.0, false,'Phone Number'),
+          textField(_phone, 400, 35.0, false, 'Phone Number'),
         ],
       ),
       buttons: [
@@ -135,102 +134,81 @@ class _LogInState extends State<LogIn> {
     ).show();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(width, 120),
-        child: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          iconTheme: IconThemeData(
-            color: textColor,
+      body: Container(
+        width: width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('log.jpg'),
+            fit: BoxFit.cover,
           ),
-          backgroundColor: secondaryColor,
-          title: Image.asset(
-            'assets/logo.png',
-            height: 50,
-          ),
-          centerTitle: true,
         ),
-      ),
-      body: WillPopScope(
-        // ignore: missing_return
-        onWillPop: () {},
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      50.0,
-                    ),
-                    border: Border.all(
-                      color: textColor,
-                      width: 2,
+        child: WillPopScope(
+          // ignore: missing_return
+          onWillPop: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(width: 120,),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100.0),
+                    child: Image.asset(
+                      'assets/logo.png',
+                      fit: BoxFit.fill,
+                      height: 170,
                     ),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.all(30),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 15,
+                  SizedBox(
+                    height: 100,
+                  ),
+                  textField(_mail, width * 0.3, 45.0, false, 'Email'),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  passwordField(
+                      _pass, width * 0.3, 45.0, password, false, hidePassword),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    width: width * 0.3,
+                    height: 60,
+                    // ignore: deprecated_member_use
+                    child: RaisedButton(
+                      color: darkBlue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(6),
                         ),
-                        textField(_mail, width * 0.3, 45.0, false,'Email'),
-                        SizedBox(
-                          height: 20,
+                      ),
+                      child: Text(
+                        'Log In',
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: textFill,
                         ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        passwordField(_pass, width * 0.3, 60.0, password,
-                            false, hidePassword),
-
-                        labelButton('Forget Password',(){
-                          forgetPassword();
-                        }),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: width * 0.2,
-                              height: 60,
-                              // ignore: deprecated_member_use
-                              child: RaisedButton(
-                                color: Colors.blue,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(30),
-                                  ),
-                                ),
-                                child: Text(
-                                  'Log In',
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    color: textColor,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  logIn();
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
+                      onPressed: () {
+                        logIn();
+                      },
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  SizedBox(
+                    height: 10,
+                  ),
+                  labelButton('Forget Password', () {
+                    forgetPassword();
+                  }),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
