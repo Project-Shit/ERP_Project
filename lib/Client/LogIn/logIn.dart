@@ -102,7 +102,7 @@ class _LogInState extends State<LogIn> {
   forgetPassword() {
     Alert(
       context: context,
-      title: 'Enter Your Email to Send Verification Code',
+      title: 'Enter your Email and Phone Number\nto Restore your Password',
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -128,7 +128,7 @@ class _LogInState extends State<LogIn> {
               fontSize: 20,
             ),
           ),
-          color: hoverColor,
+          color: darkBlue,
         )
       ],
     ).show();
