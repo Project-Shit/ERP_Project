@@ -2,13 +2,17 @@
 class crmModel {
   String id;
   String name;
-   String phone;
-   String address;
+  String category;
+  String email;
+  String phone;
+  String address;
 
   crmModel({
     this.id,
     this.name,
-     this.phone,
-     this.address,
+    this.category,
+    this.email,
+    this.phone,
+    this.address,
    });
 }
