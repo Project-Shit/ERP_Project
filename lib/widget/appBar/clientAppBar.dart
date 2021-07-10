@@ -10,7 +10,7 @@ class ClientAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color: secondaryColor,
+        color: darkBlue.withOpacity(0.3),
         child: Padding(
           padding: EdgeInsets.only(
             left: 120,
@@ -19,8 +19,13 @@ class ClientAppBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Image.asset(
-                'assets/c.png',
+              ClipRRect(
+                borderRadius: BorderRadius.circular(100.0),
+                child: Image.asset(
+                  'assets/logo.png',
+                  fit: BoxFit.fill,
+                  height: 140,
+                ),
               ),
               Spacer(
                 flex: 2,
