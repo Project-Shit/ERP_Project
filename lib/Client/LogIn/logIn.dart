@@ -141,7 +141,7 @@ class _LogInState extends State<LogIn> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(width, 60),
+        preferredSize: Size(width, 120),
         child: AppBar(
           automaticallyImplyLeading: false,
           elevation: 0,
@@ -207,7 +207,7 @@ class _LogInState extends State<LogIn> {
                                 color: Colors.blue,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
-                                    Radius.circular(50),
+                                    Radius.circular(30),
                                   ),
                                 ),
                                 child: Text(
