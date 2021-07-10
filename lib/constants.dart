@@ -96,6 +96,7 @@ Widget textField(TextEditingController text, double width, double height,
       controller: text,
       maxLength: limit,
       decoration: InputDecoration(
+        counterText: '',
         border: OutlineInputBorder(
           borderSide:
               BorderSide(width: 5, color: Color.fromRGBO(32, 32, 32, 1)),
@@ -122,6 +123,7 @@ Widget passwordField(TextEditingController text, double width, double height,
         color: textColor,
       ),
       decoration: InputDecoration(
+        counterText: '',
         labelText: 'Password',
         suffixIcon: Padding(
           padding: const EdgeInsets.only(
