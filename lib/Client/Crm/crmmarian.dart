@@ -1,31 +1,60 @@
 // @dart=2.9
 import 'dart:convert';
-import 'package:erp/Client/Crm/clientModel.dart';
+import 'package:erp/Client/Online/crmModel.dart';
 import 'package:erp/constants.dart';
+import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:erp/Client/Application/application.dart';
 
-class CRM extends StatefulWidget {
-  const CRM({Key key}) : super(key: key);
-
+class CRMData extends StatefulWidget {
   @override
-  _CRMState createState() => _CRMState();
+  _CRMDataState createState() => _CRMDataState();
 }
 
-class _CRMState extends State<CRM> {
+class _CRMDataState extends State<CRMData> {
+  List<crmModel> model = [];
+  TextEditingController _id = TextEditingController();
+  TextEditingController _name = TextEditingController();
+  TextEditingController _category = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _phone = TextEditingController();
+  TextEditingController _address = TextEditingController();
 
-  List<CrmModel> model = [];
+  apply() async {
+    try {
+      data = {
+        "command": "insert into client(id,name,category,email,phone,address)"
+            "values('${_id.text}','${_name.text}','${_category.text}',${_email.text}','${_phone.text}','${_address.text}' )"
+      };
+      response = await http.post(Uri.parse(setData), body: data);
+    } catch (e) {
+      print(e);
+    }
+    fetchRecords();
+  }
+
+  delete() async {
+    try {
+      data = {"command": " DELETE FROM client where phone = '${_name.text}'"};
+      response = await http.post(Uri.parse(setData), body: data);
+    } catch (e) {
+      print(e);
+    }
+    fetchRecords();
+  }
 
   Future fetchRecords() async {
+    setState(() {
+      model = [];
+    });
     try {
-      data = {"command": "SELECT * FROM clients ORDER BY ID"};
+      data = {"command": "SELECT * FROM  client"};
       http.post(Uri.parse(getData), body: data).then((http.Response response) {
         var fetchDecode = jsonDecode(response.body);
         fetchDecode.forEach((client) {
           setState(() {
-            model.add(new CrmModel(
+            model.add(new crmModel(
               id: client['id'],
               name: client['name'],
               category: client['category'],
@@ -52,26 +81,8 @@ class _CRMState extends State<CRM> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(width, 60),
-        child: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Application()));
-            },
-          ),
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          iconTheme: IconThemeData(
-            color: textFill,
-          ),
-          backgroundColor: secondaryColor,
-          title: Image.asset(
-            'assets/logo.png',
-            height: 50,
-          ),
-          centerTitle: true,
-        ),
+        preferredSize: Size(width, 70),
+        child: ClientAppBar(),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -84,36 +95,72 @@ class _CRMState extends State<CRM> {
                   columns: [
                     DataColumn(label: Text('ID')),
                     DataColumn(label: Text('Name')),
-                    DataColumn(label: Text('Category')),
-                    DataColumn(label: Text('Email')),
+                    DataColumn(label: Text('category')),
+                    DataColumn(label: Text('email')),
                     DataColumn(label: Text('Phone')),
                     DataColumn(label: Text('Address')),
                   ],
                   rows: model
                       .map((data) => DataRow(
-                    cells: [
-                      new DataCell(
-                        Text(data.id),
-                      ),
-                      new DataCell(
-                        Text(data.name),
-                      ),
-                      new DataCell(
-                        Text(data.category),
-                      ),
-                      new DataCell(
-                        Text(data.email),
-                      ),
-                      new DataCell(
-                        Text(data.phone),
-                      ),
-                      new DataCell(
-                        Text(data.address),
-                      ),
-                    ],
-                  ))
+                            cells: [
+                              new DataCell(
+                                Text(data.id),
+                              ),
+                              new DataCell(
+                                Text(data.name),
+                              ),
+                              new DataCell(
+                                Text(data.category),
+                              ),
+                              new DataCell(
+                                Text(data.email),
+                              ),
+                              new DataCell(
+                                Text(data.phone),
+                              ),
+                              new DataCell(
+                                Text(data.address),
+                              ),
+                            ],
+                          ))
                       .toList(),
                 ),
+                SizedBox(
+                  height: 50,
+                ),
+                textField(_id, width * 0.6, 40.0, false, 'Name'),
+                SizedBox(
+                  height: 30,
+                ),
+                textField(_id, width * 0.6, 40.0, false, 'category'),
+                SizedBox(
+                  height: 30,
+                ),
+                textField(_id, width * 0.6, 40.0, false, 'email'),
+                SizedBox(
+                  height: 30,
+                ),
+                textField(_name, width * 0.6, 40.0, false, 'Phone'),
+                SizedBox(
+                  height: 30,
+                ),
+                textField(_category, width * 0.6, 40.0, false, 'Address'),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(children: [
+                  actionButtons('Add', () {
+                    apply();
+                    fetchRecords();
+                  }, Colors.green.shade600),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  actionButtons('Edit', () {
+                    delete();
+                    fetchRecords();
+                  }, Colors.blue.shade600),
+                ])
               ],
             ),
           ),
