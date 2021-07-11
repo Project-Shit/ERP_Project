@@ -36,7 +36,7 @@ class _LogInState extends State<LogIn> {
       var user = json.decode(response.body);
       if (user == 'Success') {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Application()));
+            context, MaterialPageRoute(builder: (context) => Application(title: _mail.text,)));
       } else {
         Alert(
           context: context,
