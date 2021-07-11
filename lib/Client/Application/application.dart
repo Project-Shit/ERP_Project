@@ -11,17 +11,52 @@ import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 
-// home page for the client's system
 class Application extends StatefulWidget {
-  final String title;
+  final String title, type;
 
-  Application({this.title});
+  Application({this.title, this.type});
 
   @override
   State<Application> createState() => _ApplicationState();
 }
 
 class _ApplicationState extends State<Application> {
+  bool admin = false;
+  bool seller = false;
+  bool accountant = false;
+  bool inventory = false;
+  bool online = false;
+
+  check() {
+    if (widget.type == 'Admin') {
+      setState(() {
+        admin = true;
+      });
+    } else if (widget.type == 'Seller') {
+      setState(() {
+        seller = true;
+      });
+    } else if (widget.type == 'Accountant') {
+      setState(() {
+        accountant = true;
+      });
+    } else if (widget.type == 'Inventory') {
+      setState(() {
+        inventory = true;
+      });
+    } else if (widget.type == 'Online Sale') {
+      setState(() {
+        online = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    check();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // Media Query object for responsive layout
@@ -31,9 +66,11 @@ class _ApplicationState extends State<Application> {
       // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(userName: widget.title.toString(),),
+        child: ClientAppBar(
+          userName: widget.title,
+          type: widget.type,
+        ),
       ),
-      // implementing th body with scroll View
       body: Container(
         width: width,
         height: height,
@@ -53,149 +90,406 @@ class _ApplicationState extends State<Application> {
                     top: 80,
                     bottom: 30,
                   ),
-
-                  /* implementing a column widget to contain all widget inside of it,
-                  *  which include a custom card widget for each application in
-                  *  the client's system, each 4 card widget are set together inside
-                  *  a row, and passing the parameters for each card => title, width,
-                  *  height and the onTap action, with sizedBox between each widget
-                  *  to give it a good looking view. */
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: applicationCard(
-                              'assets/team.png',
-                              width * 0.18,
-                              100,
-                              () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Users(userName: widget.title,),
+                  child: admin
+                      ? Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: applicationCard(
+                                    'assets/team.png',
+                                    width * 0.18,
+                                    100,
+                                    () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Users(
+                                            userName: widget.title,
+                                            type: widget.type,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.05,
-                          ),
-                          Container(
-                            child: applicationCard(
-                              'assets/HR.png',
-                              width * 0.18,
-                              100,
-                              () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Salary(userName: widget.title,),
+                                ),
+                                SizedBox(
+                                  width: width * 0.05,
+                                ),
+                                Container(
+                                  child: applicationCard(
+                                    'assets/HR.png',
+                                    width * 0.18,
+                                    100,
+                                    () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Salary(
+                                            userName: widget.title,
+                                            type: widget.type,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.05,
-                          ),
-                          Container(
-                            child: applicationCard(
-                              'assets/fin.png',
-                              width * 0.18,
-                              100,
-                              () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Company(userName: widget.title,),
+                                ),
+                                SizedBox(
+                                  width: width * 0.05,
+                                ),
+                                Container(
+                                  child: applicationCard(
+                                    'assets/fin.png',
+                                    width * 0.18,
+                                    100,
+                                    () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Company(
+                                            userName: widget.title,
+                                            type: widget.type,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.05,
-                          ),
-                          Container(
-                            child: applicationCard(
-                              'assets/online.png',
-                              width * 0.18,
-                              100,
-                              () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => OnlineOrder(),
+                                ),
+                                SizedBox(
+                                  width: width * 0.05,
+                                ),
+                                Container(
+                                  child: applicationCard(
+                                    'assets/online.png',
+                                    width * 0.18,
+                                    100,
+                                    () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => OnlineOrder(
+                                            userName: widget.title,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            child: applicationCard(
-                              'assets/crm.png',
-                              width * 0.18,
-                              100,
-                              () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CRMData(userName: widget.title,),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  child: applicationCard(
+                                    'assets/crm.png',
+                                    width * 0.18,
+                                    100,
+                                    () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => CRMData(
+                                            userName: widget.title,
+                                            type: widget.type,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.05,
-                          ),
-                          Container(
-                            child: applicationCard(
-                              'assets/inv.png',
-                              width * 0.18,
-                              100,
-                              () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => InventoryDesktop(),
+                                ),
+                                SizedBox(
+                                  width: width * 0.05,
+                                ),
+                                Container(
+                                  child: applicationCard(
+                                    'assets/inv.png',
+                                    width * 0.18,
+                                    100,
+                                    () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              InventoryDesktop(
+                                            userName: widget.title,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.05,
-                          ),
-                          Container(
-                            child: applicationCard(
-                              'assets/pos.png',
-                              width * 0.18,
-                              100,
-                              () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => InventoryDesktop2(),
+                                ),
+                                SizedBox(
+                                  width: width * 0.05,
+                                ),
+                                Container(
+                                  child: applicationCard(
+                                    'assets/pos.png',
+                                    width * 0.18,
+                                    100,
+                                    () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              InventoryDesktop2(
+                                            userName: widget.title,
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                          ],
+                        )
+                      : seller
+                          ? Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      child: applicationCard(
+                                        'assets/online.png',
+                                        width * 0.18,
+                                        100,
+                                        () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => OnlineOrder(
+                                                userName: widget.title,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: width * 0.05,
+                                    ),
+                                    Container(
+                                      child: applicationCard(
+                                        'assets/crm.png',
+                                        width * 0.18,
+                                        100,
+                                        () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => CRMData(
+                                                userName: widget.title,
+                                                type: widget.type,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: width * 0.05,
+                                    ),
+                                    Container(
+                                      child: applicationCard(
+                                        'assets/inv.png',
+                                        width * 0.18,
+                                        100,
+                                        () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  InventoryDesktop(
+                                                userName: widget.title,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          : accountant
+                              ? Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          child: applicationCard(
+                                            'assets/HR.png',
+                                            width * 0.18,
+                                            100,
+                                            () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => Salary(
+                                                    userName: widget.title,
+                                                    type: widget.type,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: width * 0.05,
+                                        ),
+                                        Container(
+                                          child: applicationCard(
+                                            'assets/fin.png',
+                                            width * 0.18,
+                                            100,
+                                            () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => Company(
+                                                    userName: widget.title,
+                                                    type: widget.type,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: width * 0.05,
+                                        ),
+                                        Container(
+                                          child: applicationCard(
+                                            'assets/inv.png',
+                                            width * 0.18,
+                                            100,
+                                            () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      InventoryDesktop(
+                                                    userName: widget.title,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              : inventory
+                                  ? Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              child: applicationCard(
+                                                'assets/crm.png',
+                                                width * 0.18,
+                                                100,
+                                                () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CRMData(
+                                                        userName: widget.title,
+                                                        type: widget.type,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: width * 0.05,
+                                            ),
+                                            Container(
+                                              child: applicationCard(
+                                                'assets/inv.png',
+                                                width * 0.18,
+                                                100,
+                                                () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          InventoryDesktop(
+                                                        userName: widget.title,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  : online
+                                      ? Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  child: applicationCard(
+                                                    'assets/online.png',
+                                                    width * 0.18,
+                                                    100,
+                                                    () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              OnlineOrder(
+                                                            userName:
+                                                                widget.title,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: width * 0.05,
+                                                ),
+                                                Container(
+                                                  child: applicationCard(
+                                                    'assets/crm.png',
+                                                    width * 0.18,
+                                                    100,
+                                                    () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              CRMData(
+                                                            userName:
+                                                                widget.title,
+                                                            type: widget.type,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      : Column(),
                 ),
               ),
             ),
