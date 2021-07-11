@@ -13,17 +13,20 @@ import 'package:flutter/material.dart';
 
 // home page for the client's system
 class Application extends StatefulWidget {
+  String title;
+
+  Application({this.title});
+
   @override
   State<Application> createState() => _ApplicationState();
 }
 
 class _ApplicationState extends State<Application> {
-
-
   @override
   Widget build(BuildContext context) {
     // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       // calling the client's custom AppBar
       appBar: PreferredSize(
@@ -32,6 +35,8 @@ class _ApplicationState extends State<Application> {
       ),
       // implementing th body with scroll View
       body: Container(
+        width: width,
+        height: height,
         color: darkBlue,
         child: WillPopScope(
           // ignore: missing_return
@@ -43,7 +48,7 @@ class _ApplicationState extends State<Application> {
               child: Container(
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: 150,
+                    left: 170,
                     right: 150,
                     top: 80,
                     bottom: 30,
@@ -56,17 +61,14 @@ class _ApplicationState extends State<Application> {
                   *  height and the onTap action, with sizedBox between each widget
                   *  to give it a good looking view. */
                   child: Column(
-
-
                     children: [
+                      //Text(widget.title),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-
                         children: [
                           Container(
-
                             child: applicationCard(
-                               'assets/team.png',
+                              'assets/team.png',
                               width * 0.18,
                               100,
                               () {
@@ -80,12 +82,11 @@ class _ApplicationState extends State<Application> {
                             ),
                           ),
                           SizedBox(
-                            width: width * 0.02,
+                            width: width * 0.05,
                           ),
-
                           Container(
                             child: applicationCard(
-                              'assets/tt.png',
+                              'assets/HR.png',
                               width * 0.18,
                               100,
                               () {
@@ -99,9 +100,8 @@ class _ApplicationState extends State<Application> {
                             ),
                           ),
                           SizedBox(
-                            width: width * 0.02,
+                            width: width * 0.05,
                           ),
-
                           Container(
                             child: applicationCard(
                               'assets/fin.png',
@@ -118,9 +118,8 @@ class _ApplicationState extends State<Application> {
                             ),
                           ),
                           SizedBox(
-                            width: width * 0.02,
+                            width: width * 0.05,
                           ),
-
                           Container(
                             child: applicationCard(
                               'assets/online.png',
@@ -138,16 +137,17 @@ class _ApplicationState extends State<Application> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 50,
+                      ),
                       Row(
                         children: [
                           Container(
                             child: applicationCard(
-                              'assets/00.png',
-
+                              'assets/crm.png',
                               width * 0.18,
                               100,
-                                  () {
+                              () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -158,16 +158,14 @@ class _ApplicationState extends State<Application> {
                             ),
                           ),
                           SizedBox(
-                            width: width * 0.02,
+                            width: width * 0.05,
                           ),
-
-
                           Container(
                             child: applicationCard(
                               'assets/inv.png',
                               width * 0.18,
                               100,
-                                  () {
+                              () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -178,15 +176,14 @@ class _ApplicationState extends State<Application> {
                             ),
                           ),
                           SizedBox(
-                            width: width * 0.02,
+                            width: width * 0.05,
                           ),
-
                           Container(
                             child: applicationCard(
                               'assets/pos.png',
                               width * 0.18,
                               100,
-                                  () {
+                              () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
