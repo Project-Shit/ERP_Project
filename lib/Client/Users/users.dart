@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Users extends StatefulWidget {
+  final String userName;
+  Users({this.userName});
   @override
   _UsersState createState() => _UsersState();
 }
@@ -218,7 +220,7 @@ class _UsersState extends State<Users> {
       // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(),
+        child: ClientAppBar(userName: widget.userName,),
       ),
       // implementing th body with scroll View and row widget
       body: Container(
