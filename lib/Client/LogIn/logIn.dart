@@ -16,6 +16,7 @@ class _LogInState extends State<LogIn> {
   final _pass = TextEditingController();
   final _phone = TextEditingController();
   final _restore = TextEditingController();
+  final userName = TextEditingController();
   bool password = true;
 
   // function to change password field text's visibility
@@ -36,7 +37,7 @@ class _LogInState extends State<LogIn> {
       var user = json.decode(response.body);
       if (user == 'Success') {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Application(title: _mail.text,)));
+            context, MaterialPageRoute(builder: (context) => Application(title: userName.text,)));
       } else {
         Alert(
           context: context,
@@ -58,6 +59,27 @@ class _LogInState extends State<LogIn> {
           ],
         ).show();
       }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<Null> checkType() async {
+    try {
+      data = {
+        "command":
+        "select * from users where email = '${_mail.text}'"
+      };
+      return await http
+          .post(Uri.parse(getData), body: data)
+          .then((http.Response response) {
+        final List fetchData = json.decode(response.body);
+        fetchData.forEach((user) {
+          setState(() {
+            userName.text = user['name'];
+          });
+        });
+      });
     } catch (e) {
       print(e);
     }
@@ -195,6 +217,7 @@ class _LogInState extends State<LogIn> {
                         ),
                       ),
                       onPressed: () {
+                        checkType();
                         logIn();
                       },
                     ),
