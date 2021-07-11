@@ -6,9 +6,9 @@ import 'package:erp/constants.dart';
 
 // Custom AppBar for the client's system
 class ClientAppBar extends StatefulWidget {
-  final String userName;
+  final String userName,type;
 
-  ClientAppBar({this.userName});
+  ClientAppBar({this.userName,this.type});
 
   @override
   State<ClientAppBar> createState() => _ClientAppBarState();
@@ -47,6 +47,7 @@ class _ClientAppBarState extends State<ClientAppBar> {
                     MaterialPageRoute(
                       builder: (context) => Application(
                         title: widget.userName,
+                        type: widget.type,
                       ),
                     ),
                   );
