@@ -5,7 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:erp/constants.dart';
 
 // Custom AppBar for the client's system
-class ClientAppBar extends StatelessWidget {
+class ClientAppBar extends StatefulWidget {
+  final String userName;
+
+  ClientAppBar({this.userName});
+
+  @override
+  State<ClientAppBar> createState() => _ClientAppBarState();
+}
+
+class _ClientAppBarState extends State<ClientAppBar> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,11 +41,13 @@ class ClientAppBar extends StatelessWidget {
               ),
               appButton(
                 'Home',
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Application(),
+                      builder: (context) => Application(
+                        title: widget.userName,
+                      ),
                     ),
                   );
                 },
@@ -44,9 +55,16 @@ class ClientAppBar extends StatelessWidget {
               SizedBox(
                 width: 20,
               ),
+              Text(
+                widget.userName,
+                style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(
+                width: 20,
+              ),
               appButton(
                 'Log Out',
-                    () {
+                () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
