@@ -10,6 +10,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Salary extends StatefulWidget {
+  final String userName;
+  Salary({this.userName});
   @override
   _SalaryState createState() => _SalaryState();
 }
@@ -136,7 +138,7 @@ class _SalaryState extends State<Salary> {
       // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(),
+        child: ClientAppBar(userName: widget.userName,),
       ),
       // implementing th body with scroll View and row widget
       body: Container(
