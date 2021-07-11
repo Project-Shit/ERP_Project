@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class CRMData extends StatefulWidget {
+  final String userName;
+  CRMData({this.userName});
   @override
   _CRMDataState createState() => _CRMDataState();
 }
@@ -81,7 +83,7 @@ class _CRMDataState extends State<CRMData> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(),
+        child: ClientAppBar(userName: widget.userName,),
       ),
       body: Container(
         color: darkBlue,
