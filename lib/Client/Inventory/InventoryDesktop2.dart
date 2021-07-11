@@ -8,16 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class InventoryDesktop2 extends StatefulWidget {
+  final String userName;
+
+  InventoryDesktop2({this.userName});
+
   @override
   _InventoryDesktop2State createState() => _InventoryDesktop2State();
 }
 
 class _InventoryDesktop2State extends State<InventoryDesktop2> {
-
   // this list will hold the filtered inventory
   List listName = [];
   List listSKU = [];
-  List listQR_code= [];
+  List listQR_code = [];
   List listQuantity = [];
   List listImage_of_product = [];
   List listCost_price = [];
@@ -50,7 +53,6 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
   // ignore: non_constant_identifier_names
   TextEditingController Compared_at_price = TextEditingController();
 
-
   bool message1 = true;
   bool message2 = true;
 
@@ -58,19 +60,15 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
   var getData = "http://localhost:8080/ERP project/getAPI.php";
   var data, response;
   List fetchData = [];
+
   @override
   void initState() {
     super.initState();
     SelectAllData();
-
   }
 
-
-
   DeleteData(String SKU) async {
-    data = {
-      "command": "DELETE FROM `product` WHERE SKU ='$SKU'"
-    };
+    data = {"command": "DELETE FROM `product` WHERE SKU ='$SKU'"};
 
     response = await http.post(Uri.parse(setData), body: data);
     if (200 == response.statusCode) {
@@ -102,7 +100,6 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
       });
     });
   }
-
 
   SelectAllData() async {
     data = {"command": "select * from product"};
@@ -141,27 +138,26 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
 
   showValues(int i) {
     print(listName);
-     return DataRow(cells: <DataCell>[
-        DataCell(Text(listName[i])),
-        DataCell(Text(listSKU[i])),
-        DataCell(Text(listQR_code[i])),
-        DataCell(Text(listQuantity[i])),
-        DataCell(Text(listImage_of_product[i])),
-        DataCell(Text(listCost_price[i])),
-        DataCell(Text(listVariant[i])),
-        DataCell(Text(listSelling_price[i])),
-        DataCell(Text(listCompared_at_price[i])),
-        DataCell(IconButton(
-          icon: Icon(Icons.delete),
-          onPressed: () {
-            DeleteData(listSKU[i]);
-            clearValues();
-            SelectAllData();
-            showValues(i);
-            Scaffold();
-          },
-        )
-        )
+    return DataRow(cells: <DataCell>[
+      DataCell(Text(listName[i])),
+      DataCell(Text(listSKU[i])),
+      DataCell(Text(listQR_code[i])),
+      DataCell(Text(listQuantity[i])),
+      DataCell(Text(listImage_of_product[i])),
+      DataCell(Text(listCost_price[i])),
+      DataCell(Text(listVariant[i])),
+      DataCell(Text(listSelling_price[i])),
+      DataCell(Text(listCompared_at_price[i])),
+      DataCell(IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: () {
+          DeleteData(listSKU[i]);
+          clearValues();
+          SelectAllData();
+          showValues(i);
+          Scaffold();
+        },
+      ))
     ]);
   }
 
@@ -207,9 +203,9 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
       cells: data
           .map<DataCell>(
             (cell) => DataCell(
-          Text(cell),
-        ),
-      )
+              Text(cell),
+            ),
+          )
           .toList(),
     );
   }
@@ -283,18 +279,16 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
   //   });
   // }
 
-
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: Color(0xFFE8E8E8),
         appBar: PreferredSize(
           preferredSize: Size(30, 70),
-          child: ClientAppBar(),
+          child: ClientAppBar(
+            userName: widget.userName,
+          ),
         ),
         body: SingleChildScrollView(
             child: Padding(
@@ -302,106 +296,102 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
                   top: 30,
                   bottom: 30,
                 ),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                        children:[
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.white),
-                    width: width * 1,
-                    height: 1000,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        left: 0,
-                        right: 0,
-                      ),
-                      child: Column(
-                        children:[
-                          SizedBox(
-                              height:20
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              color: Colors.white),
+                          width: width * 1,
+                          height: 1000,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: 0,
+                              right: 0,
+                            ),
+                            child: Column(children: [
+                              SizedBox(height: 20),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 30,
+                                    ),
+                                    textField(SKU, width * 0.20, 40.0, false,
+                                        "Search For SKU"),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          clearValues();
+                                          SelectData();
+                                          Scaffold();
+                                        },
+                                        icon: Icon(Icons.search)),
+                                    SizedBox(
+                                      width: 0,
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          clearValues();
+                                          SelectAllData();
+                                          Scaffold();
+                                        },
+                                        icon: Icon(Icons.clear)),
+                                  ]),
+                              SizedBox(height: 20),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    DataTable(columns: [
+                                      DataColumn(
+                                        label: Text('Name'),
+                                      ),
+                                      DataColumn(
+                                        label: Text('SKU'),
+                                      ),
+                                      DataColumn(
+                                        label: Text('QR_code'),
+                                      ),
+                                      DataColumn(
+                                        label: Text('Quantity'),
+                                      ),
+                                      DataColumn(
+                                        label: Text('Image_of_product'),
+                                      ),
+                                      DataColumn(
+                                        label: Text('Cost_price'),
+                                      ),
+                                      DataColumn(
+                                        label: Text('Variant'),
+                                      ),
+                                      DataColumn(
+                                        label: Text('Selling_price'),
+                                      ),
+                                      DataColumn(
+                                        label: Text('Compared_at_price'),
+                                      ),
+                                      // Lets add one more column to show a delete button
+                                      DataColumn(
+                                        label: Text('DELETE'),
+                                      )
+                                    ],
+                                        // the list should show the filtered list now
+                                        rows: <DataRow>[
+                                          for (int i = 0;
+                                              i < listSKU.length;
+                                              i++)
+                                            showValues(i)
+                                        ])
+                                  ])
+                            ]),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children:[
-                              SizedBox(
-                                width: 30,
-                              ),
-                          textField(SKU, width * 0.20, 40.0, false,"Search For SKU"),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              IconButton(onPressed: (){
-                                clearValues();
-                                SelectData();
-                                Scaffold();
-                              }, icon: Icon(Icons.search)),
-                              SizedBox(
-                                  width: 0,
-                              ),
-                              IconButton(onPressed: (){
-                                clearValues();
-                                SelectAllData();
-                                Scaffold();
-                              }, icon: Icon(Icons.clear)),
-                      ]
-                          ),
-                          SizedBox(
-                              height:20
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                          DataTable(
-                        columns: [
-                          DataColumn(
-                            label: Text('Name'),
-                          ),
-                          DataColumn(
-                            label: Text('SKU'),
-                          ),
-                          DataColumn(
-                            label: Text('QR_code'),
-                          ),
-                          DataColumn(
-                            label: Text('Quantity'),
-                          ),
-                          DataColumn(
-                            label: Text('Image_of_product'),
-                          ),
-                          DataColumn(
-                            label: Text('Cost_price'),
-                          ),
-                          DataColumn(
-                            label: Text('Variant'),
-                          ),
-                          DataColumn(
-                            label: Text('Selling_price'),
-                          ),
-                          DataColumn(
-                            label: Text('Compared_at_price'),
-                          ),
-                          // Lets add one more column to show a delete button
-                          DataColumn(
-                            label: Text('DELETE'),
-                          )
-                       ],
-                       // the list should show the filtered list now
-                        rows:  <DataRow>[
-                          for(int i = 0;i<listSKU.length;i++)
-                                showValues(i)
-                          ]
-                          )])]),
-                    ),
-                  )
-  ])
-                ]
-                )
-            )
-        )
-    );
+                        )
+                      ])
+                ]))));
   }
-
 }

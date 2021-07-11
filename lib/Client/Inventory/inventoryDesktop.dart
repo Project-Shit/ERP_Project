@@ -10,6 +10,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class InventoryDesktop extends StatefulWidget {
+  final String userName;
+
+  InventoryDesktop({this.userName});
+
   @override
   _InventoryDesktopState createState() => _InventoryDesktopState();
 }
@@ -22,7 +26,7 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
   bool message2 = true;
   var setData = "http://localhost:8080/ERP project/setAPI.php";
   var getData = "http://localhost:8080/ERP project/getAPI.php";
-  var setImageData= "http://localhost:8080/ERP project/SetImageAPI.php";
+  var setImageData = "http://localhost:8080/ERP project/SetImageAPI.php";
   var data, response;
   TextEditingController Name = TextEditingController();
 
@@ -94,17 +98,18 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
   // ignore: non_constant_identifier_names
   AddData() async {
     print(Image_of_product.text);
-    var request =http.MultipartRequest('POST',Uri.parse(setImageData));
-    request.fields['Name']=Name.text;
-    request.fields['SKU']=SKU.text;
-    request.fields['QR code']=QR_code.text;
-    request.fields['Image of product']=Image_of_product.text;
-    request.fields['Quantity']=Quantity.text;
-    request.fields['Cost price']=Cost_price.text;
-    request.fields['Variant']=Variant.text;
-    request.fields['Selling_price']=Selling_price.text;
-    request.fields['Compared_at_price']=Compared_at_price.text;
-    var pic = await http.MultipartFile.fromPath('Image of product',Image_of_product.text);
+    var request = http.MultipartRequest('POST', Uri.parse(setImageData));
+    request.fields['Name'] = Name.text;
+    request.fields['SKU'] = SKU.text;
+    request.fields['QR code'] = QR_code.text;
+    request.fields['Image of product'] = Image_of_product.text;
+    request.fields['Quantity'] = Quantity.text;
+    request.fields['Cost price'] = Cost_price.text;
+    request.fields['Variant'] = Variant.text;
+    request.fields['Selling_price'] = Selling_price.text;
+    request.fields['Compared_at_price'] = Compared_at_price.text;
+    var pic = await http.MultipartFile.fromPath(
+        'Image of product', Image_of_product.text);
     request.files.add(pic);
     var response = await request.send();
     if (200 == response.statusCode) {
@@ -166,13 +171,7 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
     });
   }
 
-
-  Future uploadImage() async{
-
-
-
-  }
-
+  Future uploadImage() async {}
 
   // Widget decideImageView() {
   //   if (image == null)
@@ -193,19 +192,21 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
         backgroundColor: Color(0xFFE8E8E8),
         appBar: PreferredSize(
           preferredSize: Size(30, 70),
-          child: ClientAppBar(),
+          child: ClientAppBar(
+            userName: widget.userName,
+          ),
         ),
         body: SingleChildScrollView(
           child: ChangeNotifierProvider<MyProvider>(
               create: (context) => MyProvider(),
               child: Consumer<MyProvider>(builder: (context, provider, child) {
                 return Padding(
-                    padding: EdgeInsets.only(
+                  padding: EdgeInsets.only(
                     top: 30,
                     bottom: 30,
-                    ),
+                  ),
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                           decoration: BoxDecoration(
@@ -219,167 +220,195 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
                               right: 70,
                             ),
                             child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    // implementing a column to call custom label widget with sizedBox between them
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
+                                        // implementing a column to call custom label widget with sizedBox between them
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            textField(Name, width * 0.20, 40.0,
+                                                false, 'Name'),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            textField(SKU, width * 0.20, 40.0,
+                                                false, 'SKU'),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            textField(QR_code, width * 0.20,
+                                                40.0, false, 'QR Code'),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            textField(Quantity, width * 0.20,
+                                                40.0, false, 'Quantity'),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            Row(children: [
+                                              textField(
+                                                  Image_of_product,
+                                                  width * 0.20,
+                                                  40.0,
+                                                  false,
+                                                  'Image of product'),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              IconButton(
+                                                  onPressed: () async {
+                                                    var image =
+                                                        await ImagePicker()
+                                                            .getImage(
+                                                                source:
+                                                                    ImageSource
+                                                                        .gallery);
+                                                    provider.setImage(image);
+                                                    setState(() {
+                                                      Image_of_product.text =
+                                                          provider.image.path;
+                                                      // Image_of_product.text=base64Encode(file.readAsBytesSync());
+                                                      print(Image_of_product
+                                                          .text);
+                                                      // try{
+                                                      //   NAME_Image_of_product.text=provider.image.path.split('/').last;
+                                                      //   Image_of_product.text= provider.image.path;
+                                                      //   AddData();
+                                                      // }catch(e){
+                                                      //   print(e);
+                                                      // }
+                                                    });
+                                                  },
+                                                  icon: Icon(Icons
+                                                      .camera_alt_outlined))
+                                            ]),
+                                            if (provider.image != null)
+                                              Image.network(
+                                                provider.image.path,
+                                                height: 120,
+                                              ),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            textField(Cost_price, width * 0.20,
+                                                40.0, false, 'Cost price'),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            textField(Variant, width * 0.20,
+                                                40.0, false, 'Variant'),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            textField(
+                                                Selling_price,
+                                                width * 0.20,
+                                                40.0,
+                                                false,
+                                                'Selling price'),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
+                                            textField(
+                                                Compared_at_price,
+                                                width * 0.20,
+                                                40.0,
+                                                false,
+                                                'Compared at price'),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: width * 0.04,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            SizedBox(
+                                              width: width * 0.3,
+                                            ),
+                                            SizedBox(
+                                              height: 801,
+                                            ),
+                                            actionButtons("ADD", AddData,
+                                                Color(0xFF00B9FF))
+                                          ],
+                                        )
 
-                                        textField(Name, width * 0.20, 40.0, false,'Name'),
-                                        SizedBox(
-                                          height: 30,
-                                        ),
-                                        textField(SKU, width * 0.20, 40.0, false,'SKU'),
-                                        SizedBox(
-                                          height: 30,
-                                        ),
-                                        textField(QR_code, width * 0.20, 40.0, false,'QR Code'),
-                                        SizedBox(
-                                          height: 30,
-                                        ),
-                                        textField(Quantity, width * 0.20, 40.0, false,'Quantity'),
-                                        SizedBox(
-                                          height: 30,
-                                        ),
-                                        Row(children: [
-                                          textField(Image_of_product, width * 0.20,
-                                              40.0, false,'Image of product'),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          IconButton(
-                                              onPressed: () async{
-                                                  var image = await ImagePicker()
-                                                      .getImage(
-                                                      source: ImageSource.gallery);
-                                                  provider.setImage(image);
-                                                  setState(() {
-                                                    Image_of_product.text =provider.image.path;
-                                                    // Image_of_product.text=base64Encode(file.readAsBytesSync());
-                                                    print(Image_of_product.text);
-                                                   // try{
-                                                   //   NAME_Image_of_product.text=provider.image.path.split('/').last;
-                                                   //   Image_of_product.text= provider.image.path;
-                                                   //   AddData();
-                                                   // }catch(e){
-                                                   //   print(e);
-                                                   // }
-
-                                                  });
-                                              },
-                                              icon: Icon(Icons.camera_alt_outlined))
-                                        ]),
-                                        if (provider.image != null)
-                                          Image.network(
-                                            provider.image.path,
-                                            height: 120,
-                                          ),
-                                        SizedBox(
-                                          height: 30,
-                                        ),
-                                        textField(Cost_price, width * 0.20, 40.0, false,'Cost price'),
-                                        SizedBox(
-                                          height: 30,
-                                        ),
-                                        textField(Variant, width * 0.20, 40.0, false,'Variant'),
-                                        SizedBox(
-                                          height: 30,
-                                        ),
-                                        textField(
-                                            Selling_price, width * 0.20, 40.0, false,'Selling price'),
-                                        SizedBox(
-                                          height: 30,
-                                        ),
-                                        textField(
-                                            Compared_at_price, width * 0.20, 40.0, false,'Compared at price'),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: width * 0.04,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        SizedBox(
-                                          width: width * 0.3,
-                                        ),
-                                        SizedBox(
-                                          height: 801,
-                                        ),
-                                        actionButtons(
-                                            "ADD", AddData, Color(0xFF00B9FF))
-                                      ],
-                                    )
-
-                                    // implementing a column to call custom drop down list, text field and
-                                    // password field widget with sizedBox between them.
-                                    // Column(
-                                    //     crossAxisAlignment:
-                                    //         CrossAxisAlignment.end,
-                                    //
-                                    //     children: [
-                                    //       Container(
-                                    //         alignment: Alignment.centerLeft,
-                                    //         width: width * 0.40,
-                                    //         height: 0.0,
-                                    //       ),
-                                    //       SizedBox(
-                                    //         height: 15,
-                                    //       ),
-                                    //       textField(
-                                    //           name, width * 0.20, 40.0, true),
-                                    //       SizedBox(
-                                    //         height: 15,
-                                    //       ),
-                                    //       textField(
-                                    //           SKU, width * 0.20, 40.0, true),
-                                    //       SizedBox(
-                                    //         height: 15,
-                                    //       ),
-                                    //       textField(QR_code, width * 0.20,
-                                    //           40.0, true),
-                                    //       SizedBox(
-                                    //         height: 15,
-                                    //       ),
-                                    //       textField(Quantity, width * 0.20,
-                                    //           40.0, true),
-                                    //       SizedBox(
-                                    //         height: 15,
-                                    //       ),
-                                    //       textField(Image_of_product,
-                                    //           width * 0.20, 40.0, true),
-                                    //       SizedBox(
-                                    //         height: 15,
-                                    //       ),
-                                    //       textField(Cost_price, width * 0.20,
-                                    //           40.0, true),
-                                    //       SizedBox(
-                                    //         height: 15,
-                                    //       ),
-                                    //       textField(Variant, width * 0.20,
-                                    //           40.0, true),
-                                    //       SizedBox(
-                                    //         height: 15,
-                                    //       ),
-                                    //       textField(Selling_price,
-                                    //           width * 0.20, 40.0, true),
-                                    //       SizedBox(
-                                    //         height: 15,
-                                    //       ),
-                                    //       textField(Compared_at_price,
-                                    //           width * 0.20, 40.0, true),
-                                    //       SizedBox(
-                                    //         height: 15,
-                                    //       )
-                                    //     ])
-                                  ])
-                            ]),
+                                        // implementing a column to call custom drop down list, text field and
+                                        // password field widget with sizedBox between them.
+                                        // Column(
+                                        //     crossAxisAlignment:
+                                        //         CrossAxisAlignment.end,
+                                        //
+                                        //     children: [
+                                        //       Container(
+                                        //         alignment: Alignment.centerLeft,
+                                        //         width: width * 0.40,
+                                        //         height: 0.0,
+                                        //       ),
+                                        //       SizedBox(
+                                        //         height: 15,
+                                        //       ),
+                                        //       textField(
+                                        //           name, width * 0.20, 40.0, true),
+                                        //       SizedBox(
+                                        //         height: 15,
+                                        //       ),
+                                        //       textField(
+                                        //           SKU, width * 0.20, 40.0, true),
+                                        //       SizedBox(
+                                        //         height: 15,
+                                        //       ),
+                                        //       textField(QR_code, width * 0.20,
+                                        //           40.0, true),
+                                        //       SizedBox(
+                                        //         height: 15,
+                                        //       ),
+                                        //       textField(Quantity, width * 0.20,
+                                        //           40.0, true),
+                                        //       SizedBox(
+                                        //         height: 15,
+                                        //       ),
+                                        //       textField(Image_of_product,
+                                        //           width * 0.20, 40.0, true),
+                                        //       SizedBox(
+                                        //         height: 15,
+                                        //       ),
+                                        //       textField(Cost_price, width * 0.20,
+                                        //           40.0, true),
+                                        //       SizedBox(
+                                        //         height: 15,
+                                        //       ),
+                                        //       textField(Variant, width * 0.20,
+                                        //           40.0, true),
+                                        //       SizedBox(
+                                        //         height: 15,
+                                        //       ),
+                                        //       textField(Selling_price,
+                                        //           width * 0.20, 40.0, true),
+                                        //       SizedBox(
+                                        //         height: 15,
+                                        //       ),
+                                        //       textField(Compared_at_price,
+                                        //           width * 0.20, 40.0, true),
+                                        //       SizedBox(
+                                        //         height: 15,
+                                        //       )
+                                        //     ])
+                                      ])
+                                ]),
                           )),
                     ],
                   ),
