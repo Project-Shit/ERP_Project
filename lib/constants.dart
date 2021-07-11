@@ -174,8 +174,8 @@ Widget applicationCard(
         top: 10,
         bottom:10,
       ),
-      width: 300,
-      height: 300,
+      width: 240,
+      height: 240,
       /*decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
         border: Border.all(
