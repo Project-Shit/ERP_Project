@@ -83,90 +83,97 @@ class _CRMDataState extends State<CRMData> {
         preferredSize: Size(width, 70),
         child: ClientAppBar(),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
+      body: Container(
+        color: darkBlue,
+        child: Center(
           child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                DataTable(
-                  columns: [
-                    DataColumn(label: Text('ID')),
-                    DataColumn(label: Text('Name')),
-                    DataColumn(label: Text('category')),
-                    DataColumn(label: Text('email')),
-                    DataColumn(label: Text('Phone')),
-                    DataColumn(label: Text('Address')),
-                  ],
-                  rows: model
-                      .map((data) => DataRow(
-                            cells: [
-                              new DataCell(
-                                Text(data.id),
-                              ),
-                              new DataCell(
-                                Text(data.name),
-                              ),
-                              new DataCell(
-                                Text(data.category),
-                              ),
-                              new DataCell(
-                                Text(data.email),
-                              ),
-                              new DataCell(
-                                Text(data.phone),
-                              ),
-                              new DataCell(
-                                Text(data.address),
-                              ),
-                            ],
-                          ))
-                      .toList(),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                textField(_name, width * 0.6, 40.0, false, 'Name'),
-                SizedBox(
-                  height: 30,
-                ),
-                textField(_category, width * 0.6, 40.0, false, 'Category'),
-                SizedBox(
-                  height: 30,
-                ),
-                textField(_email, width * 0.6, 40.0, false, 'Email'),
-                SizedBox(
-                  height: 30,
-                ),
-                textField(_phone, width * 0.6, 40.0, false, 'Phone'),
-                SizedBox(
-                  height: 30,
-                ),
-                textField(_address, width * 0.6, 40.0, false, 'Address'),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(children: [
-                  actionButtons('Add', () {
-                    setState(() {
-                      model = [];
-                    });
-                    apply();
-                    fetchRecords();
-                  }, Colors.green.shade600),
-                  SizedBox(
-                    width: 15,
+            scrollDirection: Axis.horizontal,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DataTable(
+                    columns: [
+                      DataColumn(label: Text('ID')),
+                      DataColumn(label: Text('Name')),
+                      DataColumn(label: Text('category')),
+                      DataColumn(label: Text('email')),
+                      DataColumn(label: Text('Phone')),
+                      DataColumn(label: Text('Address')),
+                    ],
+                    rows: model
+                        .map((data) => DataRow(
+                              cells: [
+                                new DataCell(
+                                  Text(data.id),
+                                ),
+                                new DataCell(
+                                  Text(data.name),
+                                ),
+                                new DataCell(
+                                  Text(data.category),
+                                ),
+                                new DataCell(
+                                  Text(data.email),
+                                ),
+                                new DataCell(
+                                  Text(data.phone),
+                                ),
+                                new DataCell(
+                                  Text(data.address),
+                                ),
+                              ],
+                            ))
+                        .toList(),
                   ),
-                  actionButtons('Delete', () {
-                    setState(() {
-                      model = [];
-                    });
-                    delete();
-                    fetchRecords();
-                  }, Colors.blue.shade600),
-                ])
-              ],
+                  SizedBox(
+                    height: 50,
+                  ),
+                  textField(_name, width * 0.6, 40.0, false, 'Name'),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  textField(_category, width * 0.6, 40.0, false, 'Category'),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  textField(_email, width * 0.6, 40.0, false, 'Email'),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  textField(_phone, width * 0.6, 40.0, false, 'Phone'),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  textField(_address, width * 0.6, 40.0, false, 'Address'),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      actionButtons('Add', () {
+                        setState(() {
+                          model = [];
+                        });
+                        apply();
+                        fetchRecords();
+                      }, Colors.green.shade600),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      actionButtons('Delete', () {
+                        setState(() {
+                          model = [];
+                        });
+                        delete();
+                        fetchRecords();
+                      }, Colors.blue.shade600),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

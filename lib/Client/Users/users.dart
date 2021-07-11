@@ -213,6 +213,7 @@ class _UsersState extends State<Users> {
   Widget build(BuildContext context) {
     // Media Query object for responsive layout
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       // calling the client's custom AppBar
       appBar: PreferredSize(
@@ -222,6 +223,8 @@ class _UsersState extends State<Users> {
       // implementing th body with scroll View and row widget
       body: Container(
         color: darkBlue,
+        width: width,
+        height: height,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
