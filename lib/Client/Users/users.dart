@@ -10,8 +10,10 @@ import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Users extends StatefulWidget {
-  final String userName;
-  Users({this.userName});
+  final String userName, type;
+
+  Users({this.userName, this.type});
+
   @override
   _UsersState createState() => _UsersState();
 }
@@ -31,7 +33,6 @@ class _UsersState extends State<Users> {
   TextEditingController _pass = TextEditingController();
   TextEditingController _address = TextEditingController();
   TextEditingController _street = TextEditingController();
-  TextEditingController _department = TextEditingController();
   TextEditingController _userType = TextEditingController();
   String _countryValue = "";
   String _stateValue = "";
@@ -44,28 +45,31 @@ class _UsersState extends State<Users> {
   List _type = [
     'Not Defined',
     'Admin',
-    'Manager',
-    'Employee',
+    'Seller',
+    'Accountant',
+    'Inventory',
+    'Online Sale'
   ];
+
   String _id, _user;
 
   // function to change values of a record
   applyUser() async {
     try {
-      if(_cityValue == null){
+      if (_cityValue == null) {
         data = {
           "command": "update users set name = '${_name.text}',ssin = ${_ssin.text} "
               ",socialNumber = ${_social.text} ,phone = '${_phone.text}',email = '${_email.text}' "
               ",password = '${_pass.text}',"
-              "department = '${_department.text}',userType = '${_user.toString()}' where concat('User ',id) = '${_id.toString()}'"
+              "userType = '${_user.toString()}' where concat('User ',id) = '${_id.toString()}'"
         };
-      }else{
+      } else {
         data = {
           "command": "update users set name = '${_name.text}',ssin = ${_ssin.text} "
               ",socialNumber = ${_social.text} ,phone = '${_phone.text}',email = '${_email.text}' "
               ",password = '${_pass.text}', "
               "address = '${_street.text + ', ' + _cityValue.toString() + ', ' + _stateValue.toString() + ', ' + _countryValue.toString()}'"
-              ",department = '${_department.text}',userType = '${_user.toString()}' where concat('User ',id) = '${_id.toString()}'"
+              ",userType = '${_user.toString()}' where concat('User ',id) = '${_id.toString()}'"
         };
       }
       response = await http.post(Uri.parse(setData), body: data);
@@ -85,7 +89,7 @@ class _UsersState extends State<Users> {
       data = {
         "command": "update users set name = '' ,ssin = '' ,socialNumber = ''"
             ",phone = '' ,email = null , password = '', address = '',"
-            "department = '', userType = 'Not Defined' where concat('User ',id) = '${_id.toString()}'"
+            "userType = 'Not Defined' where concat('User ',id) = '${_id.toString()}'"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -109,7 +113,6 @@ class _UsersState extends State<Users> {
       _pass.text = '';
       _address.text = "";
       _street.text = '';
-      _department.text = '';
       _userType.text = '';
     });
   }
@@ -141,7 +144,6 @@ class _UsersState extends State<Users> {
             _email.text = user['email'];
             _pass.text = user['password'];
             _address.text = user['address'];
-            _department.text = user['department'];
             _street.text = '';
             _user = user['userType'];
           });
@@ -157,9 +159,9 @@ class _UsersState extends State<Users> {
     try {
       data = {
         "command":
-        "select concat('User ',id) as userid,name,ssin,socialNumber,phone,email,"
-            "password,address,department,userType from users "
-            "where name like '%${_search.text}%' or email = '${_search.text}' or phone = '${_search.text}'"
+            "select concat('User ',id) as userid,name,ssin,socialNumber,phone,email,"
+                "password,address,department,userType from users "
+                "where name like '%${_search.text}%' or email = '${_search.text}' or phone = '${_search.text}'"
       };
       return await http
           .post(Uri.parse(getData), body: data)
@@ -175,7 +177,6 @@ class _UsersState extends State<Users> {
             _email.text = user['email'];
             _pass.text = user['password'];
             _address.text = user['address'];
-            _department.text = user['department'];
             _street.text = '';
             _user = user['userType'];
           });
@@ -220,11 +221,14 @@ class _UsersState extends State<Users> {
       // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(userName: widget.userName,),
+        child: ClientAppBar(
+          userName: widget.userName,
+          type: widget.type,
+        ),
       ),
       // implementing th body with scroll View and row widget
       body: Container(
-        color: darkBlue,
+        color: Colors.grey.withOpacity(0.3),
         width: width,
         height: height,
         child: SingleChildScrollView(
@@ -272,7 +276,8 @@ class _UsersState extends State<Users> {
                                       color: textColor,
                                     ),
                                     decoration: InputDecoration(
-                                      labelText: 'Search by Email or Name or Phone Number',
+                                      labelText:
+                                          'Search by Email or Name or Phone Number',
                                       suffixIcon: Padding(
                                         padding: const EdgeInsets.only(
                                           right: 10,
@@ -352,12 +357,12 @@ class _UsersState extends State<Users> {
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    textField(
-                                        _name, width * 0.6, 40.0, false, 'Name'),
+                                    textField(_name, width * 0.6, 40.0, false,
+                                        'Name'),
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    textField(_ssin, width * 0.6, 60.0, false,
+                                    textField(_ssin, width * 0.6, 40.0, false,
                                         'SSIN', 14),
                                     SizedBox(
                                       height: 15,
@@ -367,7 +372,7 @@ class _UsersState extends State<Users> {
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    textField(_phone, width * 0.6, 60.0, false,
+                                    textField(_phone, width * 0.6, 40.0, false,
                                         'Phone Number', 11),
                                     SizedBox(
                                       height: 15,
@@ -377,7 +382,7 @@ class _UsersState extends State<Users> {
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    passwordField(_pass, width * 0.6, 60.0,
+                                    passwordField(_pass, width * 0.6, 40.0,
                                         password, false, hidePassword),
                                     SizedBox(
                                       height: 15,
@@ -396,7 +401,8 @@ class _UsersState extends State<Users> {
                                               color: Colors.grey.shade300,
                                               width: 1),
                                         ),
-                                        disabledDropdownDecoration: BoxDecoration(
+                                        disabledDropdownDecoration:
+                                            BoxDecoration(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10)),
                                           color: Colors.grey.shade300,
@@ -449,11 +455,6 @@ class _UsersState extends State<Users> {
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    textField(_department, width * 0.6, 40.0,
-                                        false, 'Department'),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
                                     Container(
                                       width: width * 0.6,
                                       height: 50.0,
@@ -498,8 +499,9 @@ class _UsersState extends State<Users> {
                                   applyUser();
                                   Alert(
                                     context: context,
-                                    title:
-                                        message1 ? 'Applied' : 'Couldn\'t Apply',
+                                    title: message1
+                                        ? 'Applied'
+                                        : 'Couldn\'t Apply',
                                     buttons: [
                                       DialogButton(
                                         onPressed: () {
