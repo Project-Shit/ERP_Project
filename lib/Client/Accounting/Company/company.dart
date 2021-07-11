@@ -10,8 +10,10 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Company extends StatefulWidget {
-  final String userName;
-  Company({this.userName});
+  final String userName, type;
+
+  Company({this.userName, this.type});
+
   @override
   _CompanyState createState() => _CompanyState();
 }
@@ -20,6 +22,8 @@ class _CompanyState extends State<Company> {
   // objects implementation
   bool message = true;
   bool status = true;
+  bool admin = false;
+  bool accountant = false;
   TextEditingController _balanceController = TextEditingController();
   TextEditingController _expensesController = TextEditingController();
   TextEditingController _salaryController = TextEditingController();
@@ -47,8 +51,19 @@ class _CompanyState extends State<Company> {
   // ignore: deprecated_member_use
   List _years = List();
   String _month, _year;
-
   List<CompanyModel> model = [];
+
+  checkType() {
+    if (widget.type == 'Admin') {
+      setState(() {
+        admin = true;
+      });
+    } else if (widget.type == 'Accountant') {
+      setState(() {
+        accountant = true;
+      });
+    }
+  }
 
   Future fetchRecords() async {
     try {
@@ -192,6 +207,7 @@ class _CompanyState extends State<Company> {
 
   @override
   void initState() {
+    checkType();
     fetchRecords();
     super.initState();
     fetchSalary();
@@ -209,11 +225,14 @@ class _CompanyState extends State<Company> {
       // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(userName: widget.userName,),
+        child: ClientAppBar(
+          userName: widget.userName,
+          type: widget.type,
+        ),
       ),
       // implementing th body with scroll View and row widget
       body: Container(
-        color: darkBlue,
+        color: Colors.grey.withOpacity(0.3),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
@@ -364,68 +383,83 @@ class _CompanyState extends State<Company> {
                               height: 30,
                             ),
                             // implementing a row widget to call custom buttons and align them.
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                actionButtons('Apply', () {
-                                  if (status == true) {
-                                    apply();
-                                    Alert(
-                                      context: context,
-                                      title: message
-                                          ? 'Applied'
-                                          : 'Couldn\'t Apply',
-                                      buttons: [
-                                        DialogButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            fetchNew();
-                                          },
-                                          child: Text(
-                                            "OK",
-                                            style: TextStyle(
-                                              color: primaryColor,
-                                              fontSize: 20,
-                                            ),
+                            admin
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      actionButtons('Report', () {
+                                        launch(
+                                            'http://localhost/ERP/companyPDF.php');
+                                      }, Colors.blue.shade600),
+                                    ],
+                                  )
+                                : accountant
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          actionButtons('Apply', () {
+                                            if (status == true) {
+                                              apply();
+                                              Alert(
+                                                context: context,
+                                                title: message
+                                                    ? 'Applied'
+                                                    : 'Couldn\'t Apply',
+                                                buttons: [
+                                                  DialogButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      fetchNew();
+                                                    },
+                                                    child: Text(
+                                                      "OK",
+                                                      style: TextStyle(
+                                                        color: primaryColor,
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                    color: hoverColor,
+                                                  )
+                                                ],
+                                              ).show();
+                                            } else {
+                                              Alert(
+                                                context: context,
+                                                title:
+                                                    'This Data Already Exist',
+                                                buttons: [
+                                                  DialogButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text(
+                                                      "OK",
+                                                      style: TextStyle(
+                                                        color: primaryColor,
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                    color: hoverColor,
+                                                  )
+                                                ],
+                                              ).show();
+                                              setState(() {
+                                                model = [];
+                                              });
+                                              fetchRecords();
+                                            }
+                                          }, Colors.green),
+                                          SizedBox(
+                                            width: 30,
                                           ),
-                                          color: hoverColor,
-                                        )
-                                      ],
-                                    ).show();
-                                  } else {
-                                    Alert(
-                                      context: context,
-                                      title: 'This Data Already Exist',
-                                      buttons: [
-                                        DialogButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text(
-                                            "OK",
-                                            style: TextStyle(
-                                              color: primaryColor,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                          color: hoverColor,
-                                        )
-                                      ],
-                                    ).show();
-                                    setState(() {
-                                      model = [];
-                                    });
-                                    fetchRecords();
-                                  }
-                                }, Colors.green),
-                                SizedBox(
-                                  width: 30,
-                                ),
-                                actionButtons('Report', () {
-                                  launch('http://localhost/ERP/companyPDF.php');
-                                }, Colors.blue.shade600),
-                              ],
-                            ),
+                                          actionButtons('Report', () {
+                                            launch(
+                                                'http://localhost/ERP/companyPDF.php');
+                                          }, Colors.blue.shade600),
+                                        ],
+                                      )
+                                    : Row(),
                           ],
                         ),
                       ),
