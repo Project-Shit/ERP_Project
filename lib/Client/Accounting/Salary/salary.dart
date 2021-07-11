@@ -10,8 +10,10 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Salary extends StatefulWidget {
-  final String userName;
-  Salary({this.userName});
+  final String userName, type;
+
+  Salary({this.userName, this.type});
+
   @override
   _SalaryState createState() => _SalaryState();
 }
@@ -20,8 +22,9 @@ class Salary extends StatefulWidget {
 class _SalaryState extends State<Salary> {
   // objects implementation
   bool message1 = true;
+  bool admin = false;
+  bool accountant = false;
   TextEditingController _name = TextEditingController();
-  TextEditingController _dept = TextEditingController();
   TextEditingController _salary = TextEditingController();
   TextEditingController _insurance = TextEditingController();
   TextEditingController _tax = TextEditingController();
@@ -32,17 +35,27 @@ class _SalaryState extends State<Salary> {
   // ignore: deprecated_member_use
   List _ids = List();
   String _id;
-
   List<SalaryModel> model = [];
+
+  checkType() {
+    if (widget.type == 'Admin') {
+      setState(() {
+        admin = true;
+      });
+    } else if (widget.type == 'Accountant') {
+      setState(() {
+        accountant = true;
+      });
+    }
+  }
 
   // function to change values of a record and calculate net salary
   apply() async {
     try {
       data = {
-        "command":
-            "update users set salary = ${_salary.text}, insurance = ${_insurance.text}, "
-                "tax = (salary*14)/100, deduction = ${_deduction.text},note = '${_note.text}'"
-                " ,netSalary = (salary-insurance-tax-deduction) where concat('User ',id) = '${_id.toString()}'"
+        "command": "update users set salary = ${_salary.text}, insurance = ${_insurance.text}, "
+            "tax = (salary*14)/100, deduction = ${_deduction.text},note = '${_note.text}'"
+            " ,netSalary = (salary-insurance-tax-deduction) where concat('User ',id) = '${_id.toString()}'"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -59,7 +72,7 @@ class _SalaryState extends State<Salary> {
   Future<Null> fetchData() async {
     try {
       data = {
-        "command": "select name,department,salary,insurance,(salary*14)/100 as tax,"
+        "command": "select name,salary,insurance,(salary*14)/100 as tax,"
             "deduction,note,(salary-insurance-tax-deduction) as netSalary from users where concat('User ',id) = '${_id.toString()}'"
       };
       return await http
@@ -69,7 +82,6 @@ class _SalaryState extends State<Salary> {
         fetchData.forEach((user) {
           setState(() {
             _name.text = user['name'];
-            _dept.text = user['department'];
             _salary.text = user['salary'];
             _insurance.text = user['insurance'];
             _tax.text = user['tax'];
@@ -107,7 +119,6 @@ class _SalaryState extends State<Salary> {
             model.add(new SalaryModel(
               id: salary['id'],
               name: salary['name'],
-              department: salary['department'],
               salary: salary['salary'],
               insurance: salary['insurance'],
               tax: salary['tax'],
@@ -125,6 +136,7 @@ class _SalaryState extends State<Salary> {
 
   @override
   void initState() {
+    checkType();
     fetchRecords();
     super.initState();
     idList();
@@ -138,11 +150,14 @@ class _SalaryState extends State<Salary> {
       // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(userName: widget.userName,),
+        child: ClientAppBar(
+          userName: widget.userName,
+          type: widget.type,
+        ),
       ),
       // implementing th body with scroll View and row widget
       body: Container(
-        color: darkBlue,
+        color: Colors.grey.withOpacity(0.3),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
@@ -216,18 +231,13 @@ class _SalaryState extends State<Salary> {
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    textField(_dept, width * 0.6, 40.0, true,
-                                        'Department'),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
                                     textField(_salary, width * 0.6, 40.0, false,
                                         'Salary'),
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    textField(_insurance, width * 0.6, 40.0, false,
-                                        'Insurance'),
+                                    textField(_insurance, width * 0.6, 40.0,
+                                        false, 'Insurance'),
                                     SizedBox(
                                       height: 15,
                                     ),
@@ -236,13 +246,13 @@ class _SalaryState extends State<Salary> {
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    textField(_deduction, width * 0.6, 40.0, false,
-                                        'Deduction'),
+                                    textField(_deduction, width * 0.6, 40.0,
+                                        false, 'Deduction'),
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    textField(
-                                        _note, width * 0.6, 60.0, false, 'Note',30),
+                                    textField(_note, width * 0.6, 60.0, false,
+                                        'Note', 30),
                                     SizedBox(
                                       height: 15,
                                     ),
@@ -256,46 +266,61 @@ class _SalaryState extends State<Salary> {
                               height: 30,
                             ),
                             // implementing a row widget to call custom buttons and align them.
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                actionButtons('Apply', () {
-                                  apply();
-                                  Alert(
-                                    context: context,
-                                    title:
-                                        message1 ? 'Applied' : 'Couldn\'t Apply',
-                                    buttons: [
-                                      DialogButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          fetchData();
-                                          apply();
-                                          setState(() {
-                                            model = [];
-                                          });
-                                          fetchRecords();
-                                        },
-                                        child: Text(
-                                          "OK",
-                                          style: TextStyle(
-                                            color: primaryColor,
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                        color: hoverColor,
-                                      )
+                            admin
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      actionButtons('Report', () {
+                                        launch(
+                                            'http://localhost/ERP/salaryPDF.php');
+                                      }, Colors.blue.shade600),
                                     ],
-                                  ).show();
-                                }, Colors.green),
-                                SizedBox(
-                                  width: 30,
-                                ),
-                                actionButtons('Report', () {
-                                  launch('http://localhost/ERP/salaryPDF.php');
-                                }, Colors.blue.shade600),
-                              ],
-                            ),
+                                  )
+                                : accountant
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          actionButtons('Apply', () {
+                                            apply();
+                                            Alert(
+                                              context: context,
+                                              title: message1
+                                                  ? 'Applied'
+                                                  : 'Couldn\'t Apply',
+                                              buttons: [
+                                                DialogButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    fetchData();
+                                                    apply();
+                                                    setState(() {
+                                                      model = [];
+                                                    });
+                                                    fetchRecords();
+                                                  },
+                                                  child: Text(
+                                                    "OK",
+                                                    style: TextStyle(
+                                                      color: primaryColor,
+                                                      fontSize: 20,
+                                                    ),
+                                                  ),
+                                                  color: hoverColor,
+                                                )
+                                              ],
+                                            ).show();
+                                          }, Colors.green),
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          actionButtons('Report', () {
+                                            launch(
+                                                'http://localhost/ERP/salaryPDF.php');
+                                          }, Colors.blue.shade600),
+                                        ],
+                                      )
+                                    : Row(),
                           ],
                         ),
                       ),
@@ -317,7 +342,6 @@ class _SalaryState extends State<Salary> {
                             columns: [
                               DataColumn(label: Text('ID')),
                               DataColumn(label: Text('Name')),
-                              DataColumn(label: Text('Department')),
                               DataColumn(label: Text('Salary')),
                               DataColumn(label: Text('Insurance')),
                               DataColumn(label: Text('Tax')),
@@ -333,9 +357,6 @@ class _SalaryState extends State<Salary> {
                                         ),
                                         new DataCell(
                                           Text(data.name),
-                                        ),
-                                        new DataCell(
-                                          Text(data.department),
                                         ),
                                         new DataCell(
                                           Text(data.salary),
