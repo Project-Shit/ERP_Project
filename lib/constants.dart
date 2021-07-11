@@ -89,6 +89,7 @@ Widget textField(TextEditingController text, double width, double height,
     width: width,
     height: height,
     child: TextFormField(
+      maxLength: limit,
       readOnly: status,
       controller: text,
       style: TextStyle(
