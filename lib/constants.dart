@@ -16,8 +16,6 @@ var conditionAPI = 'http://localhost/ERP/condition.php';
 var mail = 'http://localhost/PHPMailer/index.php';
 var data, response;
 
-
-
 // Custom AppBar Buttons
 Widget appButton(String title, VoidCallback onTap) {
   // ignore: deprecated_member_use
@@ -34,8 +32,6 @@ Widget appButton(String title, VoidCallback onTap) {
     height: 100,
   );
 }
-
-
 
 // Custom Flat Button for Home Page
 Widget labelButton(String title, VoidCallback onTap) {
@@ -87,7 +83,8 @@ Widget actionButtons(String title, VoidCallback onTap, Color color) {
 
 // Custom Text Field
 Widget textField(TextEditingController text, double width, double height,
-    bool status, String hint,[int limit]) {
+    bool status, String hint,
+    [int limit]) {
   return Container(
     width: width,
     height: height,
@@ -170,13 +167,13 @@ Widget applicationCard(
     String title, double width, double height, VoidCallback onTap) {
   return InkWell(
     child: Container(
-      padding: EdgeInsets.only(
-        top: 10,
-        bottom:10,
-      ),
-      width: 240,
-      height: 240,
-      /*decoration: BoxDecoration(
+        padding: EdgeInsets.only(
+          top: 10,
+          bottom: 10,
+        ),
+        width: 240,
+        height: 240,
+        /*decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(0.0),
         border: Border.all(
           width: 2,
@@ -184,9 +181,7 @@ Widget applicationCard(
         ),
 
       ),*/
-      child:  Image.asset(title,height: 500,width: 500  )
-
-    ),
+        child: Image.asset(title, height: 500, width: 500)),
     onTap: onTap,
     hoverColor: hoverColor,
     borderRadius: BorderRadius.circular(10.0),
