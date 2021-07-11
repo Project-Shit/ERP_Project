@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class CRMData extends StatefulWidget {
-  final String userName;
-  CRMData({this.userName});
+  final String userName, type;
+
+  CRMData({this.userName, this.type});
+
   @override
   _CRMDataState createState() => _CRMDataState();
 }
@@ -21,6 +23,30 @@ class _CRMDataState extends State<CRMData> {
   TextEditingController _email = TextEditingController();
   TextEditingController _phone = TextEditingController();
   TextEditingController _address = TextEditingController();
+  bool admin = false;
+  bool seller = false;
+  bool online = false;
+  bool inventory = false;
+
+  checkType() {
+    if (widget.type == 'Admin') {
+      setState(() {
+        admin = true;
+      });
+    } else if (widget.type == 'Seller') {
+      setState(() {
+        seller = true;
+      });
+    } else if (widget.type == 'Online Sale') {
+      setState(() {
+        online = true;
+      });
+    } else if (widget.type == 'Inventory') {
+      setState(() {
+        inventory = true;
+      });
+    }
+  }
 
   apply() async {
     try {
@@ -83,10 +109,13 @@ class _CRMDataState extends State<CRMData> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(userName: widget.userName,),
+        child: ClientAppBar(
+          userName: widget.userName,
+          type: widget.type,
+        ),
       ),
       body: Container(
-        color: darkBlue,
+        color: Colors.grey.withOpacity(0.3),
         child: Center(
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -152,28 +181,36 @@ class _CRMDataState extends State<CRMData> {
                   SizedBox(
                     height: 30,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      actionButtons('Add', () {
-                        setState(() {
-                          model = [];
-                        });
-                        apply();
-                        fetchRecords();
-                      }, Colors.green.shade600),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      actionButtons('Delete', () {
-                        setState(() {
-                          model = [];
-                        });
-                        delete();
-                        fetchRecords();
-                      }, Colors.blue.shade600),
-                    ],
-                  ),
+                  admin
+                      ? Row()
+                      : seller
+                          ? Row()
+                          : online
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    actionButtons('Add', () {
+                                      setState(() {
+                                        model = [];
+                                      });
+                                      apply();
+                                      fetchRecords();
+                                    }, Colors.green.shade600),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    actionButtons('Delete', () {
+                                      setState(() {
+                                        model = [];
+                                      });
+                                      delete();
+                                      fetchRecords();
+                                    }, Colors.blue.shade600),
+                                  ],
+                                )
+                              : inventory
+                                  ? Row()
+                                  : Row(),
                 ],
               ),
             ),
