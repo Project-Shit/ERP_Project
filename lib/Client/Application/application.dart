@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 
 // home page for the client's system
 class Application extends StatefulWidget {
-  String title;
+  final String title;
 
   Application({this.title});
 
@@ -31,7 +31,7 @@ class _ApplicationState extends State<Application> {
       // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(),
+        child: ClientAppBar(userName: widget.title.toString(),),
       ),
       // implementing th body with scroll View
       body: Container(
@@ -62,7 +62,6 @@ class _ApplicationState extends State<Application> {
                   *  to give it a good looking view. */
                   child: Column(
                     children: [
-                      //Text(widget.title),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -75,7 +74,7 @@ class _ApplicationState extends State<Application> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Users(),
+                                    builder: (context) => Users(userName: widget.title,),
                                   ),
                                 );
                               },
@@ -93,7 +92,7 @@ class _ApplicationState extends State<Application> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Salary(),
+                                    builder: (context) => Salary(userName: widget.title,),
                                   ),
                                 );
                               },
@@ -111,7 +110,7 @@ class _ApplicationState extends State<Application> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Company(),
+                                    builder: (context) => Company(userName: widget.title,),
                                   ),
                                 );
                               },
@@ -151,7 +150,7 @@ class _ApplicationState extends State<Application> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => CRMData(),
+                                    builder: (context) => CRMData(userName: widget.title,),
                                   ),
                                 );
                               },
