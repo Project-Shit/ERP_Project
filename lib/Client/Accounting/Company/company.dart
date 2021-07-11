@@ -10,6 +10,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Company extends StatefulWidget {
+  final String userName;
+  Company({this.userName});
   @override
   _CompanyState createState() => _CompanyState();
 }
@@ -207,7 +209,7 @@ class _CompanyState extends State<Company> {
       // calling the client's custom AppBar
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(),
+        child: ClientAppBar(userName: widget.userName,),
       ),
       // implementing th body with scroll View and row widget
       body: Container(
