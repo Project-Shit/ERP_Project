@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'dart:math';
 import 'package:erp/Client/Application/application.dart';
 import 'package:erp/constants.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,14 @@ class _LogInState extends State<LogIn> {
   final _pass = TextEditingController();
   final _phone = TextEditingController();
   final _restore = TextEditingController();
+  final _code = TextEditingController();
+  final _newPass = TextEditingController();
   final userName = TextEditingController();
+  final type = TextEditingController();
   bool password = true;
+
+  Random _random = new Random();
+  int refactor;
 
   // function to change password field text's visibility
   void hidePassword() {
@@ -37,7 +44,14 @@ class _LogInState extends State<LogIn> {
       var user = json.decode(response.body);
       if (user == 'Success') {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Application(title: userName.text,)));
+          context,
+          MaterialPageRoute(
+            builder: (context) => Application(
+              title: userName.text,
+              type: type.text,
+            ),
+          ),
+        );
       } else {
         Alert(
           context: context,
@@ -66,10 +80,7 @@ class _LogInState extends State<LogIn> {
 
   Future<Null> checkType() async {
     try {
-      data = {
-        "command":
-        "select * from users where email = '${_mail.text}'"
-      };
+      data = {"command": "select * from users where email = '${_mail.text}'"};
       return await http
           .post(Uri.parse(getData), body: data)
           .then((http.Response response) {
@@ -77,6 +88,7 @@ class _LogInState extends State<LogIn> {
         fetchData.forEach((user) {
           setState(() {
             userName.text = user['name'];
+            type.text = user['userType'];
           });
         });
       });
@@ -91,19 +103,83 @@ class _LogInState extends State<LogIn> {
         "command":
             "select * from users where email = '${_mail.text}' and phone = '${_phone.text}'"
       };
-      return await http
-          .post(Uri.parse(getData), body: data)
-          .then((http.Response response) {
-        final List fetchData = json.decode(response.body);
-        fetchData.forEach((user) {
-          setState(() {
-            _restore.text = user['password'];
-          });
+      response = await http.post(Uri.parse(conditionAPI), body: data);
+      var user = json.decode(response.body);
+      if (user == 'Success') {
+        setState(() {
+          _restore.text = refactor.toString();
         });
         restore();
-      });
+      } else {
+        Alert(
+          context: context,
+          title: 'Incorrect Email or Phone',
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "OK",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: 20,
+                ),
+              ),
+              color: hoverColor,
+            )
+          ],
+        ).show();
+      }
     } catch (e) {
       print(e);
+    }
+  }
+
+  setNew() async {
+    try {
+      data = {
+        "command":
+            "update users set password = '${_newPass.text}' where email = '${_mail.text}'"
+      };
+      response = await http.post(Uri.parse(setData), body: data);
+    } catch (e) {
+      print(e);
+    }
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));
+  }
+
+  checkCode() {
+    if (refactor.toString() == _code.text) {
+      Alert(
+        context: context,
+        title: 'Entre your New Password',
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            textField(_newPass, 400, 35.0, false, 'New Password'),
+          ],
+        ),
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              setNew();
+              _mail.text = '';
+            },
+            child: Text(
+              "Send",
+              style: TextStyle(
+                color: textFill,
+                fontSize: 20,
+              ),
+            ),
+            color: darkBlue,
+          )
+        ],
+      ).show();
     }
   }
 
@@ -114,14 +190,41 @@ class _LogInState extends State<LogIn> {
         "restore": _restore.text,
       };
       response = await http.post(Uri.parse(mail), body: data);
-      Navigator.pop(context);
-      _mail.text = '';
+      Alert(
+        context: context,
+        title: 'Enter your Refactor Code',
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            textField(_code, 400, 35.0, false, 'Code'),
+          ],
+        ),
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              checkCode();
+            },
+            child: Text(
+              "Send",
+              style: TextStyle(
+                color: textFill,
+                fontSize: 20,
+              ),
+            ),
+            color: darkBlue,
+          )
+        ],
+      ).show();
     } catch (e) {
       print(e);
     }
   }
 
   forgetPassword() {
+    refactor = _random.nextInt(9000) + 1000;
     Alert(
       context: context,
       title: 'Enter your Email and Phone Number\nto Restore your Password',
@@ -174,7 +277,9 @@ class _LogInState extends State<LogIn> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(width: 120,),
+              SizedBox(
+                width: 120,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
