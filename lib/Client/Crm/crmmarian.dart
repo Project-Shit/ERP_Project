@@ -100,6 +100,7 @@ class _CRMDataState extends State<CRMData> {
   @override
   void initState() {
     fetchRecords();
+    checkType();
     super.initState();
   }
 
