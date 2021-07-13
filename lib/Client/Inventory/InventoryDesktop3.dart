@@ -9,10 +9,12 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
+import 'InventoryClass.dart';
+
 class InventoryDesktop3 extends StatefulWidget {
   final String Name;
-
-  InventoryDesktop3({this.Name});
+  InventoryClass data;
+  InventoryDesktop3({this.Name,this.data});
 
   @override
   _InventoryDesktop3State createState() => _InventoryDesktop3State();
@@ -36,6 +38,8 @@ class _InventoryDesktop3State extends State<InventoryDesktop3> {
   // ignore: non_constant_identifier_names
   TextEditingController Quantity = TextEditingController();
 
+  TextEditingController Stock = TextEditingController();
+
   // ignore: non_constant_identifier_names
   TextEditingController Cost_price = TextEditingController();
 
@@ -49,6 +53,17 @@ class _InventoryDesktop3State extends State<InventoryDesktop3> {
   TextEditingController Compared_at_price = TextEditingController();
 
   // ignore: non_constant_identifier_names
+
+  @override
+  void initState() {
+    Name.text=widget.data.Name.toString();
+    Quantity.text=widget.data.Quantity.toString();
+    Cost_price.text=widget.data.Cost_price.toString();
+    Variant.text=widget.data.Variant.toString();
+    Selling_price.text=widget.data.Selling_price.toString();
+    Compared_at_price.text=widget.data.Compared_at_price.toString();
+    super.initState();
+  }
 
   // Future choosePhoto() async {
   //   var pickedImage = await picker.getImage(source: ImageSource.gallery);
@@ -125,7 +140,7 @@ class _InventoryDesktop3State extends State<InventoryDesktop3> {
       "command": "UPDATE `product` SET `Name`='${Name.text}'"
           ",`Quantity`='${Quantity.text}',`Cost price`='${Cost_price.text}'"
           ",`Variant`='${Variant.text}',`Selling price`='${Selling_price.text}',`Compared at price`='${Compared_at_price.text}'"
-          "where SKU = '${SKU.text}'"
+          "where SKU = '${widget.data.SKU}'"
     };
     response = await http.post(Uri.parse(setData), body: data);
     if (200 == response.statusCode) {
@@ -168,6 +183,14 @@ class _InventoryDesktop3State extends State<InventoryDesktop3> {
   //       height: 200,
   //     );
   // }
+
+  processPrice(){
+    Compared_at_price.text=(int.parse(Selling_price.text) - int.parse(Cost_price.text)).toString();
+  }
+
+  processStock(){
+    Quantity.text=(int.parse(Stock.text) + int.parse(Quantity.text)).toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +250,7 @@ class _InventoryDesktop3State extends State<InventoryDesktop3> {
                                               mainAxisAlignment:
                                               MainAxisAlignment.center,
                                               children: [
-                                                textField(Name, width * 0.20,
+                                                textField(Name, width * 0.40,
                                                     40.0, false, 'Name'),
                                                 SizedBox(
                                                   height: 30,
@@ -237,15 +260,9 @@ class _InventoryDesktop3State extends State<InventoryDesktop3> {
                                                 // SizedBox(
                                                 //   height: 30,
                                                 // ),
-                                                textField(
-                                                    Quantity,
-                                                    width * 0.20,
-                                                    40.0,
-                                                    false,
-                                                    'Quantity'),
-                                                SizedBox(
-                                                  height: 30,
-                                                ),
+                                                textField(Variant, width * 0.40,
+                                                    40.0, false, 'Variant'),
+
                                                 // Row(children: [
                                                 //   textField(
                                                 //       Image_of_product,
@@ -294,34 +311,71 @@ class _InventoryDesktop3State extends State<InventoryDesktop3> {
                                                   height: 30,
                                                 ),
                                                 textField(
-                                                    Cost_price,
-                                                    width * 0.20,
+                                                    Quantity,
+                                                    width * 0.40,
                                                     40.0,
-                                                    false,
-                                                    'Cost price'),
+                                                    true,
+                                                    'Quantity'),
                                                 SizedBox(
                                                   height: 30,
                                                 ),
-                                                textField(Variant, width * 0.20,
-                                                    40.0, false, 'Variant'),
+                                                Row(
+                                                  children: [
+                                                    textField(
+                                                        Stock,
+                                                        width * 0.20,
+                                                        40.0,
+                                                        false,
+                                                        'Stock'),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    actionButtons('Process', processStock, Color(0xFF00B9FF))
+                                                  ],
+                                                ),
                                                 SizedBox(
                                                   height: 30,
                                                 ),
-                                                textField(
-                                                    Selling_price,
-                                                    width * 0.20,
-                                                    40.0,
-                                                    false,
-                                                    'Selling price'),
+                                                Row(
+                                                  children: [
+                                                    textField(
+                                                        Cost_price,
+                                                        width * 0.20,
+                                                        40.0,
+                                                        false,
+                                                        'Cost price'),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    textField(
+                                                        Selling_price,
+                                                        width * 0.20,
+                                                        40.0,
+                                                        false,
+                                                        'Selling price'),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                  ],
+                                                ),
                                                 SizedBox(
                                                   height: 30,
                                                 ),
-                                                textField(
-                                                    Compared_at_price,
-                                                    width * 0.20,
-                                                    40.0,
-                                                    false,
-                                                    'Compared at price'),
+                                                Row(
+                                                  children: [
+                                                    textField(
+                                                        Compared_at_price,
+                                                        width * 0.20,
+                                                        40.0,
+                                                        true,
+                                                        'Compared at price'),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    actionButtons('Process', processPrice, Color(0xFF00B9FF))
+                                                  ],
+                                                ),
+
                                               ],
                                             ),
                                             SizedBox(
