@@ -12,20 +12,20 @@ import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatefulWidget {
-  final String title, type;
+  final String title = "zee", type="admin";
 
-  Application({this.title, this.type});
+  Application({title, type});
 
   @override
   State<Application> createState() => _ApplicationState();
 }
 
 class _ApplicationState extends State<Application> {
-  bool admin = false;
-  bool seller = false;
-  bool accountant = false;
-  bool inventory = false;
-  bool online = false;
+  bool admin = true;
+  bool seller = true;
+  bool accountant = true;
+  bool inventory = true;
+  bool online = true;
 
   check() {
     if (widget.type == 'Admin') {
@@ -65,7 +65,7 @@ class _ApplicationState extends State<Application> {
     return Scaffold(
       // calling the client's custom AppBar
       appBar: PreferredSize(
-        preferredSize: Size(width, 70),
+        preferredSize: Size(width, 80),
         child: ClientAppBar(
           userName: widget.title,
           type: widget.type,
@@ -98,7 +98,7 @@ class _ApplicationState extends State<Application> {
                               children: [
                                 Container(
                                   child: applicationCard(
-                                    'assets/team.png',
+                                    'assets/admin.png',
                                     width * 0.18,
                                     100,
                                     () {
@@ -119,7 +119,7 @@ class _ApplicationState extends State<Application> {
                                 ),
                                 Container(
                                   child: applicationCard(
-                                    'assets/HR.png',
+                                    'assets/hr.png',
                                     width * 0.18,
                                     100,
                                     () {
@@ -161,7 +161,7 @@ class _ApplicationState extends State<Application> {
                                 ),
                                 Container(
                                   child: applicationCard(
-                                    'assets/online.png',
+                                    'assets/onlineorders.png',
                                     width * 0.18,
                                     100,
                                     () {

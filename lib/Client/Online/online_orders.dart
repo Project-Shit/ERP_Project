@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 class OnlineOrder extends StatefulWidget {
-  final String userName;
+   final String userName;
 
-  OnlineOrder({this.userName});
+   OnlineOrder({this.userName});
 
   @override
   _OnlineOrderState createState() => _OnlineOrderState();

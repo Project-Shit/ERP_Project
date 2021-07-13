@@ -203,18 +203,27 @@ class _createState extends State<create> {
                   ))
                       .toList(),
                 ),
-
+                SizedBox(
+                 height: 30,
+                ),
                 actionButtons('Search', () {
                   search();
 
 
                 }, Colors.blue.shade600),
+                SizedBox(
+                  height: 30,
+                ),
                 actionButtons('Add', () {
 
                fetchRecords();
 
 
                 }, Colors.green.shade600),
+
+                SizedBox(
+                  height: 30,
+                ),
                 actionButtons('Create', () {
                    fetchRecords2();
                    applytoorder();

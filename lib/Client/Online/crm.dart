@@ -161,6 +161,10 @@ class _crmDataState extends State<crmData> {
                 SizedBox(
                   height: 50,
                 ),
+                textField(_search, width * 0.6, 40.0, false, 'Search'),
+                SizedBox(
+                  height: 50,
+                ),
                 textField(_name, width * 0.6, 40.0, false, 'Name'),
                 SizedBox(
                   height: 30,
@@ -173,7 +177,7 @@ class _crmDataState extends State<crmData> {
                 SizedBox(
                   height: 30,
                  ),
-                textField(_search, width * 0.6, 40.0, false, 'Search'),
+
                  Row(
                    children:[
                  actionButtons('Add', () {
@@ -219,7 +223,9 @@ class _crmDataState extends State<crmData> {
 
 
                      }, Colors.blue.shade600),
-
+                     SizedBox(
+                       width: 15,
+                     ),
                      actionButtons('Search', () {
                         search();
                         fetchRecords();
