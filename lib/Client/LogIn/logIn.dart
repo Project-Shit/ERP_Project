@@ -170,7 +170,7 @@ class _LogInState extends State<LogIn> {
               _mail.text = '';
             },
             child: Text(
-              "Send",
+              "Refactor",
               style: TextStyle(
                 color: textFill,
                 fontSize: 20,

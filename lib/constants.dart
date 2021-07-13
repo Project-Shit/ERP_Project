@@ -16,6 +16,7 @@ var setData = 'http://localhost/ERP/setAPI.php';
 var getData = 'http://localhost/ERP/getAPI.php';
 var conditionAPI = 'http://localhost/ERP/condition.php';
 var mail = 'http://localhost/PHPMailer/index.php';
+var taskMail = 'http://localhost/PHPMailer/taskmail.php';
 var data, response;
 
 // Custom AppBar Buttons
@@ -99,7 +100,7 @@ Widget textField(TextEditingController text, double width, double height,
       ),
       decoration: InputDecoration(
         counterText: '',
-        labelText: hint,
+        hintText: hint,
         suffixIcon: Padding(
           padding: const EdgeInsets.only(
             right: 10,
@@ -137,7 +138,7 @@ Widget passwordField(TextEditingController text, double width, double height,
       ),
       decoration: InputDecoration(
         counterText: '',
-        labelText: 'Password',
+        hintText: 'Password',
         suffixIcon: Padding(
           padding: const EdgeInsets.only(
             right: 10,

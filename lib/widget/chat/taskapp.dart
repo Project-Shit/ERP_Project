@@ -1,176 +1,197 @@
 // @dart=2.9
-
+import 'dart:convert';
 import 'package:erp/constants.dart';
-import 'package:erp/widget/appBar/clientAppBar.dart';
-import 'package:erp/widget/chat/chatButton.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+Future<Album> createAlbum(String title) async {
+  final response = await http.post(
+    Uri.parse('https://jsonplaceholder.typicode.com/albums'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'title': title,
+    }),
+  );
 
-
-
-// ignore: camel_case_types
-
-class ImageTest extends StatefulWidget {
-
-  @override
-  _ImageTestState createState() => _ImageTestState();
+  if (response.statusCode == 201) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+    return Album.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to create album.');
+  }
 }
 
-class _ImageTestState extends State<ImageTest> {
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(width, 70),
-        child: ClientAppBar(),
-      ),
-      drawer: Drawer(
+class Album {
+  final int id;
+  final String title;
 
-        child: ChangeNotifierProvider<MyProvider>(
-          create: (context) => MyProvider(),
-          child: Consumer<MyProvider>(
-            builder: (context,provider,child){
-              return Container(
-                width: 500,
-                height: 600,
-                child: Column(
-                  children: [
-                    if(provider.image!=null)
-                      Image.network(provider.image.path,height: 300,),
-                    IconButton(
-                      icon: Icon(
-                        Icons.attach_file,
-                      ),
-                      onPressed: () async{
-                        var image = await ImagePicker().getImage(source: ImageSource.gallery);
-                        provider.setImage(image);
-                      },
+  Album({ this.id,  this.title});
 
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-
+  factory Album.fromJson(Map<String, dynamic> json) {
+    return Album(
+      id: json['id'],
+      title: json['title'],
     );
   }
 }
 
-class MyProvider extends ChangeNotifier{
-  var image;
 
-  Future setImage(img) async{
-    this.image = img;
-    this.notifyListeners();
-  }
-}
-class task extends StatelessWidget {
+class Task extends StatefulWidget {
+  Task({this.title});
 
+
+  final String title;
 
   @override
-
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        drawer: Drawer(
-
-          child: Container(
-            width: double.infinity,
-            margin: EdgeInsets.all(40.0),
-            child: Column(children: <Widget>[
-              SizedBox(
-                width: 130,
-              ),
-              Text(
-                "Create new task",
-                style: TextStyle(
-                  fontSize: 30,
-                ),
-              ),
-              SizedBox(
-                width: 120,
-              ),
-              SizedBox(
-                width: 120,
-              ),
-              Container(
-                child: TextField(
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          width: 2, color: Colors.black26),
-                    ),
-                    labelText: "Enter task name",
-                    icon: Icon(Icons.add_task_outlined),
-                  ),
-                ),
-              ),
-
-              Container(
-                child: IconButton(
-                  color: Colors.black,
-                  onPressed: () {
-
-                  },
-
-                  icon: Icon(
-                    Icons.attach_file,
-                    color: Colors.blue,
-                  ),
-                ),),
-
-
-              Container(
-                child: TextField(
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          width: 2, color: Colors.black26),
-                    ),
-                    labelText: "assign to",
-                    icon: Icon(Icons.alternate_email),
-                  ),
-
-                ),
-
-              ),
-              Container(
-                width: 200,
-                height: 400,
-                child: AlertDialog(
-
-
-                ),
-
-              ),
-
-
-
-
-
-              OutlinedButton(
-                  onPressed: null,
-                  child: Text(
-                    "Send",
-                    style: TextStyle(color: Colors.black26),
-                  )),
-
-
-            ]),
-          ),
-        ),
-        floatingActionButton: ChatButton(),
-
-      ),
-    )
-    ;
-  }
-
-
+  _TaskState createState() => _TaskState();
 }
 
+class _TaskState extends State<Task> {
+  String dropdownValue = 'Assign To';
+  var data, response;
+  TextEditingController _mail=TextEditingController();
+  TextEditingController _task=TextEditingController();
+  TextEditingController _description=TextEditingController();
+// ignore: deprecated_member_use
+  List _emails = List();
+  String _email;
+
+
+  send()async{
+    try{
+      data={
+        "email":_mail.text,
+        "task":_task.text,
+        "description": _description.text,
+      };
+      response=await
+      http.post(Uri.parse(taskMail),body:data);
+    }
+    catch(e){
+      print(e);
+    }
+  }
+
+  Future emailList() async {
+    try {
+      data = {
+        "command": "select email from users where name <> '' order by id"
+      };
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
+        var fetchDecode = jsonDecode(response.body);
+        fetchDecode.forEach((users) {
+          setState(() {
+            _emails.add(users['email']);
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    emailList();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 40),
+              Container(
+                child: TextField(
+                  controller: _task,
+                  decoration: InputDecoration(
+                      labelText: "Enter Your Task Name",
+                      labelStyle: TextStyle(fontSize: 30),
+                      hintText: "Task Name"
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              /*DropdownButton<String>(
+                value: dropdownValue,
+                icon: const Icon(Icons.arrow_downward),
+                iconSize: 24,
+                elevation: 16,
+                style: const TextStyle(color: Colors.deepPurple),
+                underline: Container(
+                  height: 2,
+                  color: Colors.deepPurpleAccent,
+                ),
+                onChanged: (String newValue) {
+                  setState(() {
+                    dropdownValue = newValue;
+                  });
+                },
+                items: <String>['Assign To', 'Two', 'three', 'Four']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),*/
+              Container(
+                width: 400,
+                height: 50.0,
+                child: DropdownButtonFormField(
+                  hint: Text('Emails'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: textFill,
+                  ),
+                  value: _email,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _email = newValue;
+                      _mail.text = _email;
+                    });
+                  },
+                  items: _emails.map((location) {
+                    return DropdownMenuItem(
+                      child: new Text(location),
+                      value: location,
+                    );
+                  }).toList(),
+                ),
+              ),
+              Container(
+                width:500,
+                height: 100,
+                child: TextField(
+                  controller: _description,
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    labelText: "Description",
+                    labelStyle: TextStyle(fontSize: 30),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              IconButton(onPressed: (){}, icon: Icon(Icons.attach_file)),
+              RaisedButton(onPressed: (){send();},child: Text("send"),),
+
+            ],
+          ),
+        )
+    );
+  }
+}
