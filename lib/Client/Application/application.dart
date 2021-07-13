@@ -200,8 +200,8 @@ class _ApplicationState extends State<Application> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => CRMData(
-                                            userName: widget.title,
-                                            type: widget.type,
+                                          userName: widget.title,
+                                          type: widget.type,
                                           ),
                                         ),
                                       );
