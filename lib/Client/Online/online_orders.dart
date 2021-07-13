@@ -1,7 +1,11 @@
 // @dart=2.9
+import 'package:erp/Client/Crm/crmmarian.dart';
+import 'package:erp/Client/Online/crm.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants.dart';
 
 class OnlineOrder extends StatefulWidget {
   final String userName;
@@ -28,8 +32,37 @@ class _OnlineOrderState extends State<OnlineOrder> {
           userName: widget.userName,
         ),
       ),
-      body: Center(),
-      floatingActionButton: ChatButton(),
+
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+
+                actionButtons('Create Order', () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => crmData(
+                       ),
+                    ),
+                  );
+
+
+                 }, Colors.blue.shade600),
+
+
+
+
+              ],
+            ),
+          ),
+        ),
+      ),
+
+
     );
   }
 }

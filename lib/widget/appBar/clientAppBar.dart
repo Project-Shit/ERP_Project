@@ -19,7 +19,7 @@ class _ClientAppBarState extends State<ClientAppBar> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color: darkBlue.withOpacity(0.3),
+        color: bar,
         child: Padding(
           padding: EdgeInsets.only(
             left: 120,

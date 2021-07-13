@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 // implementing the main colors for the all system
 Color primaryColor = Color.fromRGBO(255, 255, 255, 1);
 Color secondaryColor = Color.fromRGBO(64, 64, 64, 1);
-Color textColor = Color(0xFF1D1D1D);
+Color textColor = Color.fromRGBO(64, 64, 64, 1);
 Color hoverColor = Color.fromRGBO(41, 182, 230, 1);
 Color textFill = Colors.white;
-Color darkBlue = Color(0xff336faf);
+Color darkBlue = Color.fromRGBO(244, 246, 247, 1);
+Color bar = Color.fromRGBO(26, 82, 118, 1);
+
 
 // initializing variables for backend
 var setData = 'http://localhost/ERP/setAPI.php';

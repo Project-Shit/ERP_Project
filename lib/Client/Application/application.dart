@@ -5,27 +5,29 @@ import 'package:erp/Client/Crm/crmmarian.dart';
 import 'package:erp/Client/Inventory/InventoryDesktop2.dart';
 import 'package:erp/Client/Inventory/inventoryDesktop.dart';
 import 'package:erp/Client/Online/online_orders.dart';
+
 import 'package:erp/Client/Users/users.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatefulWidget {
-  final String title, type;
+  final String title="Zee", type="Admin";  // i gave values to them
 
-  Application({this.title, this.type});
+  Application({ title,  type});
 
   @override
   State<Application> createState() => _ApplicationState();
 }
 
 class _ApplicationState extends State<Application> {
-  bool admin = false;
-  bool seller = false;
-  bool accountant = false;
-  bool inventory = false;
-  bool online = false;
+  bool admin = true;// should be false but shawky is toxic
+  bool seller = true;
+  bool accountant = true;
+  bool inventory = true;
+  bool online = true;
 
   check() {
     if (widget.type == 'Admin') {
@@ -56,6 +58,11 @@ class _ApplicationState extends State<Application> {
     check();
     super.initState();
   }
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {

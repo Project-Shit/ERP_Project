@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:erp/Client/Online/create.dart';
 import 'package:erp/Client/Online/crmModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
@@ -17,11 +18,26 @@ class _crmDataState extends State<crmData> {
   TextEditingController _name = TextEditingController();
   TextEditingController _phone = TextEditingController();
   TextEditingController _address = TextEditingController();
+  TextEditingController _search = TextEditingController();
+
 
   apply() async {
     try {
       data = {
         "command": "insert into crm(name,phone,address)"
+            "values('${_name.text}','${_phone.text}','${_address.text}' )"
+      };
+      response = await http.post(Uri.parse(setData), body: data);
+    } catch (e) {
+      print(e);
+    }
+    fetchRecords();
+  }
+
+  apply2() async {
+    try {
+      data = {
+        "command": "insert into onlineorder(name,phone,address)"
             "values('${_name.text}','${_phone.text}','${_address.text}' )"
       };
       response = await http.post(Uri.parse(setData), body: data);
@@ -64,6 +80,32 @@ class _crmDataState extends State<crmData> {
       print(e);
     }
   }
+
+
+  Future<Null> search() async {
+    try {
+      data = {
+        "command":
+        "select * from crm where phone='${_search.text}'"
+      };
+      return await http
+          .post(Uri.parse(getData), body: data)
+          .then((http.Response response) {
+        final List fetchData = json.decode(response.body);
+        fetchData.forEach((onlineorder) {
+          setState(() {
+             _name.text = onlineorder['name'];
+             _phone.text = onlineorder['phone'];
+              _address.text = onlineorder['address'];
+           });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
 
   @override
   void initState() {
@@ -130,8 +172,8 @@ class _crmDataState extends State<crmData> {
                 textField(_address, width * 0.6, 40.0, false, 'Address'),
                 SizedBox(
                   height: 30,
-
-                ),
+                 ),
+                textField(_search, width * 0.6, 40.0, false, 'Search'),
                  Row(
                    children:[
                  actionButtons('Add', () {
@@ -149,10 +191,51 @@ class _crmDataState extends State<crmData> {
 
                   fetchRecords();
                 }, Colors.blue.shade600),
+                     SizedBox(
+                       width: 15,
+                     ),
+
+                     actionButtons('Next', () {
+                       if(_name.text=='' || _address.text==''){
+                         Navigator.push(
+                           context,
+                           MaterialPageRoute(
+                             builder: (context) =>  create(
+                             ),
+                           ),
+                         );
+
+
+                       }
+                       else
+                       apply2();
+                       Navigator.push(
+                         context,
+                         MaterialPageRoute(
+                           builder: (context) =>  create(
+                           ),
+                         ),
+                       );
+
+
+                     }, Colors.blue.shade600),
+
+                     actionButtons('Search', () {
+                        search();
+                        fetchRecords();
+
+
+
+                     }, Colors.orange.shade600),
+
   ]
                  )
               ],
+
+
             ),
+
+
           ),
         ),
       ),
