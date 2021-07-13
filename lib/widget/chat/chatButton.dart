@@ -11,7 +11,7 @@ class ChatButton extends StatelessWidget {
         distance: 112.0,
         children: [
           ActionButton(
-            onPressed: () => Scaffold.of(context).openDrawer(),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Task())),
             icon: const Icon(Icons.task),
           ),
           ActionButton(
