@@ -12,9 +12,9 @@ import 'package:http/http.dart' as http;
 import 'InventoryDesktop3.dart';
 
 class InventoryDesktop2 extends StatefulWidget {
-  final String Name;
+  final String Name,userName;
 
-  InventoryDesktop2({this.Name});
+  InventoryDesktop2({this.Name,this.userName});
   @override
   _InventoryDesktop2State createState() => _InventoryDesktop2State();
 }
