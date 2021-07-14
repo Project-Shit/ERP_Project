@@ -7,11 +7,10 @@ import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-void main() {
-  runApp(new MaterialApp(home: new PointData()));
-}
-
 class PointData extends StatefulWidget {
+  final String userName, type;
+
+  PointData({this.userName, this.type});
   @override
   _PointDataState createState() => _PointDataState();
 }
@@ -114,7 +113,7 @@ class _PointDataState extends State<PointData> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(),
+        child: ClientAppBar(userName: widget.userName,type: widget.type,),
       ),
       body: Center(
         child: SingleChildScrollView(

@@ -16,8 +16,9 @@ import 'package:http/http.dart' as http;
 import '../../constants.dart';
 
 class create extends StatefulWidget {
-  final String userName;
-   create({this.userName  });
+  final String userName, type;
+
+  create({this.userName, this.type});
 
   @override
   _createState createState() => _createState();
@@ -138,6 +139,7 @@ class _createState extends State<create> {
         preferredSize: Size(width, 70),
         child: ClientAppBar(
           userName: widget.userName,
+          type: widget.type,
         ),
       ),
 

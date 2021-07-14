@@ -1,6 +1,4 @@
 // @dart=2.9
-import 'dart:convert';
-import 'package:erp/Client/Online/crmModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
@@ -17,7 +15,6 @@ class CRMData extends StatefulWidget {
 }
 
 class _CRMDataState extends State<CRMData> {
-  List<crmModel> model = [];
   TextEditingController _name = TextEditingController();
   TextEditingController _category = TextEditingController();
   TextEditingController _email = TextEditingController();
@@ -49,9 +46,6 @@ class _CRMDataState extends State<CRMData> {
   }
 
   apply() async {
-    setState(() {
-      model = [];
-    });
     try {
       data = {
         "command": "insert into client(name,category,email,phone,address)"
@@ -61,51 +55,21 @@ class _CRMDataState extends State<CRMData> {
     } catch (e) {
       print(e);
     }
-    fetchRecords();
   }
 
   delete() async {
-    setState(() {
-      model = [];
-    });
     try {
       data = {"command": " DELETE FROM client where phone = '${_phone.text}'"};
       response = await http.post(Uri.parse(setData), body: data);
     } catch (e) {
       print(e);
     }
-    fetchRecords();
   }
 
-  Future fetchRecords() async {
-    setState(() {
-      model = [];
-    });
-    try {
-      data = {"command": "SELECT * FROM  client"};
-      http.post(Uri.parse(getData), body: data).then((http.Response response) {
-        var fetchDecode = jsonDecode(response.body);
-        fetchDecode.forEach((client) {
-          setState(() {
-            model.add(new crmModel(
-              id: client['id'],
-              name: client['name'],
-              category: client['category'],
-              email: client['email'],
-              phone: client['phone'],
-              address: client['address'],
-            ));
-          });
-        });
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
+
 
   @override
   void initState() {
-    fetchRecords();
     checkType();
     super.initState();
   }
@@ -122,7 +86,6 @@ class _CRMDataState extends State<CRMData> {
         ),
       ),
       body: Container(
-        color: Colors.grey.withOpacity(0.3),
         child: Center(
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -131,40 +94,6 @@ class _CRMDataState extends State<CRMData> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  DataTable(
-                    columns: [
-                      DataColumn(label: Text('ID')),
-                      DataColumn(label: Text('Name')),
-                      DataColumn(label: Text('category')),
-                      DataColumn(label: Text('email')),
-                      DataColumn(label: Text('Phone')),
-                      DataColumn(label: Text('Address')),
-                    ],
-                    rows: model
-                        .map((data) => DataRow(
-                              cells: [
-                                new DataCell(
-                                  Text(data.id),
-                                ),
-                                new DataCell(
-                                  Text(data.name),
-                                ),
-                                new DataCell(
-                                  Text(data.category),
-                                ),
-                                new DataCell(
-                                  Text(data.email),
-                                ),
-                                new DataCell(
-                                  Text(data.phone),
-                                ),
-                                new DataCell(
-                                  Text(data.address),
-                                ),
-                              ],
-                            ))
-                        .toList(),
-                  ),
                   SizedBox(
                     height: 50,
                   ),
@@ -197,21 +126,13 @@ class _CRMDataState extends State<CRMData> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     actionButtons('Add', () {
-                                      setState(() {
-                                        model = [];
-                                      });
                                       apply();
-                                      fetchRecords();
                                     }, Colors.green.shade600),
                                     SizedBox(
                                       width: 15,
                                     ),
                                     actionButtons('Delete', () {
-                                      setState(() {
-                                        model = [];
-                                      });
                                       delete();
-                                      fetchRecords();
                                     }, Colors.blue.shade600),
                                   ],
                                 )

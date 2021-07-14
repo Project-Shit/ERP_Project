@@ -1,6 +1,5 @@
 //@dart=2.9
 import 'dart:convert';
-import 'dart:io';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,13 +8,12 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'InventoryClass.dart';
-import 'InventoryDesktop2.dart';
 
 class InventoryDesktop extends StatefulWidget {
-  final String userName;
+  final String userName, type;
   List<InventoryClass> data;
 
-  InventoryDesktop({this.userName,this.data});
+  InventoryDesktop({this.userName,this.data,this.type});
 
   @override
   _InventoryDesktopState createState() => _InventoryDesktopState();
@@ -228,7 +226,8 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
         appBar: PreferredSize(
           preferredSize: Size(30, 70),
           child: ClientAppBar(
-              // userName: widget.userName,
+               userName: widget.userName,
+            type: widget.type,
               ),
         ),
         body: SingleChildScrollView(

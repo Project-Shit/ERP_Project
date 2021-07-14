@@ -12,9 +12,9 @@ import 'package:http/http.dart' as http;
 import 'InventoryDesktop3.dart';
 
 class InventoryDesktop2 extends StatefulWidget {
-  final String Name;
+  final String userName, type;
 
-  InventoryDesktop2({this.Name});
+  InventoryDesktop2({this.userName, this.type});
   @override
   _InventoryDesktop2State createState() => _InventoryDesktop2State();
 }
@@ -297,7 +297,7 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
         backgroundColor: Color(0xFFE8E8E8),
         appBar: PreferredSize(
           preferredSize: Size(30, 70),
-          child: ClientAppBar(),
+          child: ClientAppBar(userName: widget.userName,type: widget.type,),
         ),
         body: SingleChildScrollView(
             child: Padding(
@@ -355,7 +355,7 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
                               actionButtons('New Product', () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => InventoryDesktop(data: model,)),
+                                  MaterialPageRoute(builder: (context) => InventoryDesktop(data: model,userName: widget.userName,type: widget.type,)),
                                 );
                               }, Colors.blue),
                               SizedBox(
