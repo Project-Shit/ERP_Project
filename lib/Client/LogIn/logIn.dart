@@ -38,7 +38,7 @@ class _LogInState extends State<LogIn> {
     try {
       data = {
         "command":
-            "select * from users where email = '${_mail.text}' and password = '${_pass.text}'"
+        "select * from users where email = '${_mail.text}' and password = '${_pass.text}'"
       };
       response = await http.post(Uri.parse(conditionAPI), body: data);
       var user = json.decode(response.body);
@@ -47,8 +47,8 @@ class _LogInState extends State<LogIn> {
           context,
           MaterialPageRoute(
             builder: (context) => Application(
-              title: 'Zee',
-              type: 'Online Sale',
+              title: userName.text,
+              type: type.text,
             ),
           ),
         );
@@ -101,7 +101,7 @@ class _LogInState extends State<LogIn> {
     try {
       data = {
         "command":
-            "select * from users where email = '${_mail.text}' and phone = '${_phone.text}'"
+        "select * from users where email = '${_mail.text}' and phone = '${_phone.text}'"
       };
       response = await http.post(Uri.parse(conditionAPI), body: data);
       var user = json.decode(response.body);
@@ -140,7 +140,7 @@ class _LogInState extends State<LogIn> {
     try {
       data = {
         "command":
-            "update users set password = '${_newPass.text}' where email = '${_mail.text}'"
+        "update users set password = '${_newPass.text}' where email = '${_mail.text}'"
       };
       response = await http.post(Uri.parse(setData), body: data);
     } catch (e) {
