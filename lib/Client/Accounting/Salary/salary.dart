@@ -243,7 +243,7 @@ class _SalaryState extends State<Salary> {
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      actionButtons('Report', () {
+                                      actionButtons('Print', () {
                                         launch(
                                             'http://localhost/ERP/salaryPDF.php');
                                       }, Colors.blue.shade600),
@@ -283,7 +283,7 @@ class _SalaryState extends State<Salary> {
                                           SizedBox(
                                             width: 30,
                                           ),
-                                          actionButtons('Report', () {
+                                          actionButtons('Print', () {
                                             launch(
                                                 'http://localhost/ERP/salaryPDF.php');
                                           }, Colors.blue.shade600),

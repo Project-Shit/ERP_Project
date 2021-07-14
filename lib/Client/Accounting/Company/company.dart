@@ -360,7 +360,7 @@ class _CompanyState extends State<Company> {
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      actionButtons('Report', () {
+                                      actionButtons('Print', () {
                                         launch(
                                             'http://localhost/ERP/companyPDF.php');
                                       }, Colors.blue.shade600),
@@ -422,7 +422,7 @@ class _CompanyState extends State<Company> {
                                           SizedBox(
                                             width: 30,
                                           ),
-                                          actionButtons('Report', () {
+                                          actionButtons('Print', () {
                                             launch(
                                                 'http://localhost/ERP/companyPDF.php');
                                           }, Colors.blue.shade600),

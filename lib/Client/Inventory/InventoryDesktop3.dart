@@ -12,9 +12,9 @@ import 'package:provider/provider.dart';
 import 'InventoryClass.dart';
 
 class InventoryDesktop3 extends StatefulWidget {
-  final String Name;
+  final String userName,type;
   InventoryClass data;
-  InventoryDesktop3({this.Name,this.data});
+  InventoryDesktop3({this.userName,this.type,this.data});
 
   @override
   _InventoryDesktop3State createState() => _InventoryDesktop3State();
@@ -26,10 +26,8 @@ class _InventoryDesktop3State extends State<InventoryDesktop3> {
   final picker = ImagePicker();
   bool message1 = true;
   bool message2 = true;
-  var setData = "http://localhost:8080/ERP project/setAPI.php";
-  var getData = "http://localhost:8080/ERP project/getAPI.php";
   var setImageData = "http://localhost:8080/ERP project/SetImageAPI.php";
-  var data, response;
+
   TextEditingController Name = TextEditingController();
 
   // ignore: non_constant_identifier_names
@@ -201,7 +199,8 @@ class _InventoryDesktop3State extends State<InventoryDesktop3> {
         appBar: PreferredSize(
           preferredSize: Size(30, 70),
           child: ClientAppBar(
-            // userName: widget.userName,
+            userName: widget.userName,
+            type: widget.type,
           ),
         ),
         body: SingleChildScrollView(

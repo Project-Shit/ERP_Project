@@ -23,9 +23,6 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
   //Image QR_code=Image.asset("");
   bool message1 = true;
   bool message2 = true;
-  var setData = "http://localhost:8080/ERP project/setAPI.php";
-  var getData = "http://localhost:8080/ERP project/getAPI.php";
-  var data, response;
   TextEditingController Name = TextEditingController();
 
   // ignore: non_constant_identifier_names

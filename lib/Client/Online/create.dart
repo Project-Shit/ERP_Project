@@ -140,7 +140,6 @@ class _createState extends State<create> {
         fetchDecode.forEach((crm) {
           setState(() {
             model.add(new  createModel(
-
               name: crm['Name'],
               SKU: crm['SKU'],
               Selling_Price: crm['Selling Price'],

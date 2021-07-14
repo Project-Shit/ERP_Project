@@ -55,10 +55,6 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
 
   bool message1 = true;
   bool message2 = true;
-
-  var setData = "http://localhost:8080/ERP project/setAPI.php";
-  var getData = "http://localhost:8080/ERP project/getAPI.php";
-  var data, response;
   List fetchData = [];
   @override
   void initState() {
@@ -414,7 +410,7 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
                              if(selected){
                                Navigator.push(
                                  context,
-                                 MaterialPageRoute(builder: (context) => InventoryDesktop3(data: data,)),
+                                 MaterialPageRoute(builder: (context) => InventoryDesktop3(data: data,userName: widget.userName,type: widget.type)),
                                );
                              }
                            },
