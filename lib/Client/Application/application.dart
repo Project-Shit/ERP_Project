@@ -12,20 +12,20 @@ import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatefulWidget {
-    String title = "zee", type="admin";
+    String title, type;
 
-  Application({title,type});
+  Application({ this.title,  this.type});
 
   @override
   State<Application> createState() => _ApplicationState();
 }
 
 class _ApplicationState extends State<Application> {
-  bool admin = true;
-  bool seller = true;
-  bool accountant = true;
-  bool inventory = true;
-  bool online = true;
+  bool admin = false;
+  bool seller = false;
+  bool accountant = false;
+  bool inventory = false;
+  bool online = false;
 
   check() {
     if (widget.type == 'Admin') {
