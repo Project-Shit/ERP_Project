@@ -49,7 +49,6 @@ class _LogInState extends State<LogIn> {
             builder: (context) => Application(
               title: userName.text,
               type: type.text,
-              sender: _mail.text,
             ),
           ),
         );
