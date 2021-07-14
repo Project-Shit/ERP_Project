@@ -14,11 +14,11 @@ class MessageModel {
   String senderName;
   String sentAt;
   MessageModel.fromSnapshot(DocumentSnapshot snapshot) {
-    id = snapshot.data()[ID];
-    content = snapshot.data()[CONTENT];
-    senderId = snapshot.data()[SENDER_ID];
-    senderName = snapshot.data()[SENDER_NAME];
-    sentAt = snapshot.data()[SENT_AT];
+    id = snapshot[ID];
+    content = snapshot[CONTENT];
+    senderId = snapshot[SENDER_ID];
+    senderName = snapshot[SENDER_NAME];
+    sentAt = snapshot[SENT_AT];
 
   }
 }

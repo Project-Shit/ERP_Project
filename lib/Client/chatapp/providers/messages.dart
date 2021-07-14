@@ -3,7 +3,7 @@ import 'package:erp/Client/chatapp/services/messages.dart';
 import 'package:erp/Client/chatapp/models/user.dart';
 import 'package:flutter/material.dart';
 
-class MessagesProvider with ChangeNotifier {
+class MessagesProvider extends ChangeNotifier {
   TextEditingController messageController = TextEditingController();
   MessageServices _messageServices = MessageServices();
   sendMessage({UserModel sender}) {

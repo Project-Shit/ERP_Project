@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:erp/Client/chatapp/test.dart';
 import 'package:erp/widget/chat/taskapp.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,9 @@ class _ChatButtonState extends State<ChatButton> {
             icon: const Icon(Icons.task),
           ),
           ActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AppScreensController()));
+            },
             icon: const Icon(Icons.message),
           ),
         ],
