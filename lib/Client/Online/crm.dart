@@ -9,6 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class crmData extends StatefulWidget {
+  final String userName, type;
+
+  crmData({this.userName, this.type});
+
   @override
   _crmDataState createState() => _crmDataState();
 }
@@ -19,7 +23,6 @@ class _crmDataState extends State<crmData> {
   TextEditingController _phone = TextEditingController();
   TextEditingController _address = TextEditingController();
   TextEditingController _search = TextEditingController();
-
 
   apply() async {
     try {
@@ -59,7 +62,7 @@ class _crmDataState extends State<crmData> {
 
   Future fetchRecords() async {
     setState(() {
-      model= [];
+      model = [];
     });
     try {
       data = {"command": "SELECT * FROM  crm"};
@@ -81,31 +84,25 @@ class _crmDataState extends State<crmData> {
     }
   }
 
-
   Future<Null> search() async {
     try {
-      data = {
-        "command":
-        "select * from crm where phone='${_search.text}'"
-      };
+      data = {"command": "select * from crm where phone='${_search.text}'"};
       return await http
           .post(Uri.parse(getData), body: data)
           .then((http.Response response) {
         final List fetchData = json.decode(response.body);
         fetchData.forEach((onlineorder) {
           setState(() {
-             _name.text = onlineorder['name'];
-             _phone.text = onlineorder['phone'];
-              _address.text = onlineorder['address'];
-           });
+            _name.text = onlineorder['name'];
+            _phone.text = onlineorder['phone'];
+            _address.text = onlineorder['address'];
+          });
         });
       });
     } catch (e) {
       print(e);
     }
   }
-
-
 
   @override
   void initState() {
@@ -119,11 +116,8 @@ class _crmDataState extends State<crmData> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(),
-
+        child: ClientAppBar(userName: widget.userName,type: widget.type,),
       ),
-
-
       body: Center(
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -157,7 +151,10 @@ class _crmDataState extends State<crmData> {
                           ))
                       .toList(),
                 ),
-
+                SizedBox(
+                  height: 50,
+                ),
+                textField(_search, width * 0.6, 40.0, false, 'Search'),
                 SizedBox(
                   height: 50,
                 ),
@@ -172,70 +169,51 @@ class _crmDataState extends State<crmData> {
                 textField(_address, width * 0.6, 40.0, false, 'Address'),
                 SizedBox(
                   height: 30,
-                 ),
-                textField(_search, width * 0.6, 40.0, false, 'Search'),
-                 Row(
-                   children:[
-                 actionButtons('Add', () {
-                  apply();
-
-                  fetchRecords();
-
-                }, Colors.green.shade600),
-                SizedBox(
-                  width: 15,
                 ),
-                actionButtons('Edit', () {
-                  delete();
+                Row(children: [
+                  actionButtons('Add', () {
+                    apply();
 
+                    fetchRecords();
+                  }, Colors.green.shade600),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  actionButtons('Edit', () {
+                    delete();
 
-                  fetchRecords();
-                }, Colors.blue.shade600),
-                     SizedBox(
-                       width: 15,
-                     ),
-
-                     actionButtons('Next', () {
-                       if(_name.text=='' || _address.text==''){
-                         Navigator.push(
-                           context,
-                           MaterialPageRoute(
-                             builder: (context) =>  create(
-                             ),
-                           ),
-                         );
-
-
-                       }
-                       else
-                       apply2();
-                       Navigator.push(
-                         context,
-                         MaterialPageRoute(
-                           builder: (context) =>  create(
-                           ),
-                         ),
-                       );
-
-
-                     }, Colors.blue.shade600),
-
-                     actionButtons('Search', () {
-                        search();
-                        fetchRecords();
-
-
-
-                     }, Colors.orange.shade600),
-
-  ]
-                 )
+                    fetchRecords();
+                  }, Colors.blue.shade600),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  actionButtons('Next', () {
+                    if (_name.text == '' || _address.text == '') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => create(userName: widget.userName, type: widget.type,),
+                        ),
+                      );
+                    } else
+                      apply2();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => create(userName: widget.userName, type: widget.type,),
+                      ),
+                    );
+                  }, Colors.blue.shade600),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  actionButtons('Search', () {
+                    search();
+                    fetchRecords();
+                  }, Colors.orange.shade600),
+                ])
               ],
-
-
             ),
-
-
           ),
         ),
       ),

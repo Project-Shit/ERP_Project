@@ -58,7 +58,8 @@ class _ClientAppBarState extends State<ClientAppBar> {
               ),
               Text(
                 widget.userName,
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 20,color:Color.fromRGBO(224, 224, 224, 1)),
+
               ),
               SizedBox(
                 width: 20,

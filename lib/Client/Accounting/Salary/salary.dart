@@ -1,5 +1,4 @@
 // @dart=2.9
-import 'package:erp/Client/Accounting/Salary/salaryModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
@@ -35,7 +34,7 @@ class _SalaryState extends State<Salary> {
   // ignore: deprecated_member_use
   List _ids = List();
   String _id;
-  List<SalaryModel> model = [];
+
 
   checkType() {
     if (widget.type == 'Admin') {
@@ -109,35 +108,10 @@ class _SalaryState extends State<Salary> {
     });
   }
 
-  Future fetchRecords() async {
-    try {
-      data = {"command": "SELECT * FROM users where name <> '' ORDER BY ID"};
-      http.post(Uri.parse(getData), body: data).then((http.Response response) {
-        var fetchDecode = jsonDecode(response.body);
-        fetchDecode.forEach((salary) {
-          setState(() {
-            model.add(new SalaryModel(
-              id: salary['id'],
-              name: salary['name'],
-              salary: salary['salary'],
-              insurance: salary['insurance'],
-              tax: salary['tax'],
-              deduction: salary['deduction'],
-              note: salary['note'],
-              netSalary: salary['netSalary'],
-            ));
-          });
-        });
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
 
   @override
   void initState() {
     checkType();
-    fetchRecords();
     super.initState();
     idList();
   }
@@ -157,7 +131,6 @@ class _SalaryState extends State<Salary> {
       ),
       // implementing th body with scroll View and row widget
       body: Container(
-        color: Colors.grey.withOpacity(0.3),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
@@ -294,10 +267,6 @@ class _SalaryState extends State<Salary> {
                                                     Navigator.pop(context);
                                                     fetchData();
                                                     apply();
-                                                    setState(() {
-                                                      model = [];
-                                                    });
-                                                    fetchRecords();
                                                   },
                                                   child: Text(
                                                     "OK",
@@ -326,64 +295,6 @@ class _SalaryState extends State<Salary> {
                       ),
                     ),
                   ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  width: width * 0.7,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          DataTable(
-                            columns: [
-                              DataColumn(label: Text('ID')),
-                              DataColumn(label: Text('Name')),
-                              DataColumn(label: Text('Salary')),
-                              DataColumn(label: Text('Insurance')),
-                              DataColumn(label: Text('Tax')),
-                              DataColumn(label: Text('Deduction')),
-                              DataColumn(label: Text('Note')),
-                              DataColumn(label: Text('Net Salary')),
-                            ],
-                            rows: model
-                                .map((data) => DataRow(
-                                      cells: [
-                                        new DataCell(
-                                          Text(data.id),
-                                        ),
-                                        new DataCell(
-                                          Text(data.name),
-                                        ),
-                                        new DataCell(
-                                          Text(data.salary),
-                                        ),
-                                        new DataCell(
-                                          Text(data.insurance),
-                                        ),
-                                        new DataCell(
-                                          Text(data.tax),
-                                        ),
-                                        new DataCell(
-                                          Text(data.deduction),
-                                        ),
-                                        new DataCell(
-                                          Text(data.note),
-                                        ),
-                                        new DataCell(
-                                          Text(data.netSalary),
-                                        ),
-                                      ],
-                                    ))
-                                .toList(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ),
               ],
             ),

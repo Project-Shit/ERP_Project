@@ -1,10 +1,16 @@
 import 'dart:math' as math;
+import 'package:erp/Client/chatapp/test.dart';
 import 'package:erp/widget/chat/taskapp.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class ChatButton extends StatelessWidget {
+class ChatButton extends StatefulWidget {
 
+  @override
+  State<ChatButton> createState() => _ChatButtonState();
+}
+
+class _ChatButtonState extends State<ChatButton> {
   @override
   Widget build(BuildContext context) {
     return ExpandableFab(
@@ -15,7 +21,9 @@ class ChatButton extends StatelessWidget {
             icon: const Icon(Icons.task),
           ),
           ActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => AppScreensController()));
+            },
             icon: const Icon(Icons.message),
           ),
         ],

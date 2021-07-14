@@ -228,7 +228,6 @@ class _UsersState extends State<Users> {
       ),
       // implementing th body with scroll View and row widget
       body: Container(
-        color: Colors.grey.withOpacity(0.3),
         width: width,
         height: height,
         child: SingleChildScrollView(

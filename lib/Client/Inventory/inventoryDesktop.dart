@@ -1,18 +1,19 @@
 //@dart=2.9
 import 'dart:convert';
-import 'dart:io';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'InventoryClass.dart';
 
 class InventoryDesktop extends StatefulWidget {
-  final String userName;
+  final String userName, type;
+  List<InventoryClass> data;
 
-  InventoryDesktop({this.userName});
+  InventoryDesktop({this.userName,this.data,this.type});
 
   @override
   _InventoryDesktopState createState() => _InventoryDesktopState();
@@ -20,13 +21,10 @@ class InventoryDesktop extends StatefulWidget {
 
 class _InventoryDesktopState extends State<InventoryDesktop> {
   //Image QR_code=Image.asset("");
-  File image;
-  final picker = ImagePicker();
   bool message1 = true;
   bool message2 = true;
   var setData = "http://localhost:8080/ERP project/setAPI.php";
   var getData = "http://localhost:8080/ERP project/getAPI.php";
-  var setImageData = "http://localhost:8080/ERP project/SetImageAPI.php";
   var data, response;
   TextEditingController Name = TextEditingController();
 
@@ -50,13 +48,13 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
 
   // ignore: non_constant_identifier_names
 
-  Future choosePhoto() async {
-    var pickedImage = await picker.getImage(source: ImageSource.gallery);
-    if (pickedImage != null) {
-      image = File(pickedImage.path);
-      setState(() {});
-    }
-  }
+  // Future choosePhoto() async {
+  //   var pickedImage = await picker.getImage(source: ImageSource.gallery);
+  //   if (pickedImage != null) {
+  //     image = File(pickedImage.path);
+  //     setState(() {});
+  //   }
+  // }
 
   // Future imageEncoder() async{
   //   if(file==null)
@@ -66,30 +64,79 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
   //   print(imageName);
   // }
 
+  clearValues() {
+    widget.data.clear();
+  }
   // ignore: non_constant_identifier_names
   AddData() async {
-  //   print(Image_of_product.text);
-    data = {
-      "command": "INSERT INTO `product`(`Name`, `SKU`, `QR code`,"
-          " `Quantity`, `Image of product`, `Cost price`, `Variant`, `Selling price`, `Compared at price`) VALUES ('"
-          "${Name.text}','${SKU.text}','${Quantity.text}'"
-          ",'${Cost_price.text}','${Variant.text}','${Selling_price.text}','${Compared_at_price.text}')"
-    };
-    // var request =http.MultipartRequest('POST',Uri.parse(setData));
-    // var pic = await http.MultipartFile.fromPath('Image of product',image.path);
-    // request.files.add(pic);
-    response = await http.post(Uri.parse(setData), body: data);
-    if (200 == response.statusCode) {
-      return message1;
-    } else {
-      return !message1;
+    clearValues();
+    SelectData();
+    if(SKU.text==""){
+      Alert(
+        context: context,
+        title: 'SKU is empty',
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              "OK",
+              style: TextStyle(
+                color: primaryColor,
+                fontSize: 20,
+              ),
+            ),
+            color: hoverColor,
+          )
+        ],
+      ).show();
+      clearValues();
+    }
+    else if(model.isEmpty==false){
+      Alert(
+        context: context,
+        title: 'This Data Already Exist',
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              "OK",
+              style: TextStyle(
+                color: primaryColor,
+                fontSize: 20,
+              ),
+            ),
+            color: hoverColor,
+          )
+        ],
+      ).show();
+      clearValues();
+    }else {
+      data = {
+        "command": "INSERT INTO `product`(`Name`, `SKU`,"
+            " `Quantity`, `Cost price`, `Variant`, `Selling price`, `Compared at price`) VALUES ('"
+            "${Name.text}','${SKU.text}','${Quantity.text}'"
+            ",'${Cost_price.text}','${Variant.text}','${Selling_price
+            .text}','${Compared_at_price.text}')"
+      };
+      // var request =http.MultipartRequest('POST',Uri.parse(setData));
+      // var pic = await http.MultipartFile.fromPath('Image of product',image.path);
+      // request.files.add(pic);
+      response = await http.post(Uri.parse(setData), body: data);
+      if (200 == response.statusCode) {
+        return message1;
+      } else {
+        return !message1;
+      }
     }
   }
 
   // ignore: non_constant_identifier_names
   // AddData() async {
-  //   print(Image_of_product.text);
-  //   var request = http.MultipartRequest('POST', Uri.parse(setImageData));
+  //   var request = http.MultipartRequest('POST', Uri.parse(setData));
   //   request.fields['Name'] = Name.text;
   //   request.fields['SKU'] = SKU.text;
   //   request.fields['Quantity'] = Quantity.text;
@@ -97,9 +144,6 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
   //   request.fields['Variant'] = Variant.text;
   //   request.fields['Selling_price'] = Selling_price.text;
   //   request.fields['Compared_at_price'] = Compared_at_price.text;
-  //   var pic = await http.MultipartFile.fromPath(
-  //       'Image of product', Image_of_product.text);
-  //   request.files.add(pic);
   //   var response = await request.send();
   //   if (200 == response.statusCode) {
   //     return message1;
@@ -118,7 +162,9 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
       return !message1;
     }
   }
-
+ process(){
+    Compared_at_price.text=(int.parse(Selling_price.text) - int.parse(Cost_price.text)).toString();
+ }
   // ignore: non_constant_identifier_names
   UpdateData() async {
     data = {
@@ -134,31 +180,31 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
       return !message1;
     }
   }
-
+  List<InventoryClass> model = [];
   // ignore: non_constant_identifier_names
   SelectData() async {
-    data = {"command": "select * from product"};
+    data = {"command": "select * from product where SKU = '${SKU.text}'"};
     return await http
         .post(Uri.parse(getData), body: data)
         .then((http.Response response) {
       final List fetchData = json.decode(response.body);
-      var i = 0;
       fetchData.forEach((product) {
         setState(() {
-          Name.text = product['Name'];
-          SKU.text = product['SKU'];
-          Quantity.text = product['Quantity'];
-          Cost_price.text = product['Cost price'];
-          Variant.text = product['Variant'];
-          Selling_price.text = product['Selling price'];
-          Compared_at_price.text = product['Compared at price'];
-          print(i++);
+          model.add(new InventoryClass(
+              Name: product['Name'],
+              SKU: product['SKU'],
+              Quantity: product['Quantity'],
+              Variant: product['Variant'],
+              Cost_price: product['Cost price'],
+              Selling_price: product['Selling price'],
+              Compared_at_price: product['Compared at price']
+          ));
         });
       });
     });
   }
 
-  Future uploadImage() async {}
+  // Future uploadImage() async {}
 
   // Widget decideImageView() {
   //   if (image == null)
@@ -180,7 +226,8 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
         appBar: PreferredSize(
           preferredSize: Size(30, 70),
           child: ClientAppBar(
-              // userName: widget.userName,
+               userName: widget.userName,
+            type: widget.type,
               ),
         ),
         body: SingleChildScrollView(
@@ -225,34 +272,28 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
                                             // implementing a column to call custom label widget with sizedBox between them
                                             Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.start,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                  MainAxisAlignment.start,
                                               children: [
-                                                textField(Name, width * 0.20,
+                                                textField(Name, width * 0.41,
                                                     40.0, false, 'Name'),
                                                 SizedBox(
                                                   height: 30,
                                                 ),
-                                                textField(SKU, width * 0.20,
+                                                textField(SKU, width * 0.41,
                                                     40.0, false, 'SKU'),
                                                 SizedBox(
                                                   height: 30,
                                                 ),
                                                 // textField(QR_code, width * 0.20,
                                                 //     40.0, false, 'QR Code'),
-                                                SizedBox(
-                                                  height: 30,
-                                                ),
                                                 textField(
                                                     Quantity,
-                                                    width * 0.20,
+                                                    width * 0.41,
                                                     40.0,
                                                     false,
                                                     'Quantity'),
-                                                SizedBox(
-                                                  height: 30,
-                                                ),
                                                 // Row(children: [
                                                 //   textField(
                                                 //       Image_of_product,
@@ -300,35 +341,50 @@ class _InventoryDesktopState extends State<InventoryDesktop> {
                                                 SizedBox(
                                                   height: 30,
                                                 ),
-                                                textField(
-                                                    Cost_price,
-                                                    width * 0.20,
-                                                    40.0,
-                                                    false,
-                                                    'Cost price'),
+                                                Row(
+                                                  children: [
+                                                    textField(
+                                                        Cost_price,
+                                                        width * 0.20,
+                                                        40.0,
+                                                        false,
+                                                        'Cost price'),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    textField(
+                                                        Selling_price,
+                                                        width * 0.20,
+                                                        40.0,
+                                                        false,
+                                                        'Selling price'),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                  ],
+                                                ),
                                                 SizedBox(
                                                   height: 30,
                                                 ),
-                                                textField(Variant, width * 0.20,
+                                                Row(
+                                                  children: [
+                                                    textField(
+                                                        Compared_at_price,
+                                                        width * 0.20,
+                                                        40.0,
+                                                        true,
+                                                        'Compared at price'),
+                                                    SizedBox(
+                                                      width: 90,
+                                                    ),
+                                                    actionButtons('Process', process, Color(0xFF00B9FF))
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 30,
+                                                ),
+                                                textField(Variant, width * 0.41,
                                                     40.0, false, 'Variant'),
-                                                SizedBox(
-                                                  height: 30,
-                                                ),
-                                                textField(
-                                                    Selling_price,
-                                                    width * 0.20,
-                                                    40.0,
-                                                    false,
-                                                    'Selling price'),
-                                                SizedBox(
-                                                  height: 30,
-                                                ),
-                                                textField(
-                                                    Compared_at_price,
-                                                    width * 0.20,
-                                                    40.0,
-                                                    false,
-                                                    'Compared at price'),
                                               ],
                                             ),
                                             SizedBox(

@@ -42,10 +42,10 @@ class Album {
 
 
 class Task extends StatefulWidget {
-  Task({this.title});
+  /*Task({this.title});
 
 
-  final String title;
+  final String title;*/
 
   @override
   _TaskState createState() => _TaskState();
@@ -104,7 +104,7 @@ class _TaskState extends State<Task> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text('Task'),
         ),
         body: Container(
           child: Column(

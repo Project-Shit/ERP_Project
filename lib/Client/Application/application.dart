@@ -1,29 +1,27 @@
 // @dart=2.9
-import 'package:erp/Client/Accounting/Salary/salary.dart';
-import 'package:erp/Client/Accounting/Company/company.dart';
-import 'package:erp/Client/Crm/crmmarian.dart';
+import 'package:erp/Client/Accounting/Company/company_datatable.dart';
+import 'package:erp/Client/Accounting/Salary/salary_datatable.dart';
+import 'package:erp/Client/Crm/crm_table.dart';
 import 'package:erp/Client/Inventory/InventoryDesktop2.dart';
 import 'package:erp/Client/Inventory/inventoryDesktop.dart';
 import 'package:erp/Client/Online/online_orders.dart';
-
 import 'package:erp/Client/Users/users.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatefulWidget {
-  final String title="Zee", type="Admin";  // i gave values to them
+  final String title, type;
 
-  Application({ title,  type});
+  Application({this.title, this.type});
 
   @override
   State<Application> createState() => _ApplicationState();
 }
 
 class _ApplicationState extends State<Application> {
-  bool admin = true;// should be false but shawky is toxic
+  bool admin = true;
   bool seller = true;
   bool accountant = true;
   bool inventory = true;
@@ -59,11 +57,6 @@ class _ApplicationState extends State<Application> {
     super.initState();
   }
 
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     // Media Query object for responsive layout
@@ -72,7 +65,7 @@ class _ApplicationState extends State<Application> {
     return Scaffold(
       // calling the client's custom AppBar
       appBar: PreferredSize(
-        preferredSize: Size(width, 70),
+        preferredSize: Size(width, 80),
         child: ClientAppBar(
           userName: widget.title,
           type: widget.type,
@@ -105,7 +98,7 @@ class _ApplicationState extends State<Application> {
                               children: [
                                 Container(
                                   child: applicationCard(
-                                    'assets/team.png',
+                                    'assets/admin.png',
                                     width * 0.18,
                                     100,
                                     () {
@@ -126,14 +119,14 @@ class _ApplicationState extends State<Application> {
                                 ),
                                 Container(
                                   child: applicationCard(
-                                    'assets/HR.png',
+                                    'assets/hr.png',
                                     width * 0.18,
                                     100,
                                     () {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Salary(
+                                          builder: (context) => SalaryTable(
                                             userName: widget.title,
                                             type: widget.type,
                                           ),
@@ -154,7 +147,7 @@ class _ApplicationState extends State<Application> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => Company(
+                                          builder: (context) => CompanyTable(
                                             userName: widget.title,
                                             type: widget.type,
                                           ),
@@ -168,7 +161,7 @@ class _ApplicationState extends State<Application> {
                                 ),
                                 Container(
                                   child: applicationCard(
-                                    'assets/online.png',
+                                    'assets/onlineorders.png',
                                     width * 0.18,
                                     100,
                                     () {
@@ -177,6 +170,7 @@ class _ApplicationState extends State<Application> {
                                         MaterialPageRoute(
                                           builder: (context) => OnlineOrder(
                                             userName: widget.title,
+                                            type: widget.type,
                                           ),
                                         ),
                                       );
@@ -199,9 +193,9 @@ class _ApplicationState extends State<Application> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => CRMData(
-                                            userName: widget.title,
-                                            type: widget.type,
+                                          builder: (context) => CRMTable(
+                                          userName: widget.title,
+                                          type: widget.type,
                                           ),
                                         ),
                                       );
@@ -223,6 +217,7 @@ class _ApplicationState extends State<Application> {
                                           builder: (context) =>
                                               InventoryDesktop(
                                             userName: widget.title,
+                                                type: widget.type,
                                           ),
                                         ),
                                       );
@@ -243,7 +238,8 @@ class _ApplicationState extends State<Application> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               InventoryDesktop2(
-                                           // userName: widget.title,
+                                            userName: widget.title,
+                                                type: widget.type,
                                           ),
                                         ),
                                       );
@@ -271,6 +267,7 @@ class _ApplicationState extends State<Application> {
                                             MaterialPageRoute(
                                               builder: (context) => OnlineOrder(
                                                 userName: widget.title,
+                                                type: widget.type,
                                               ),
                                             ),
                                           );
@@ -289,7 +286,7 @@ class _ApplicationState extends State<Application> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => CRMData(
+                                              builder: (context) => CRMTable(
                                                 userName: widget.title,
                                                 type: widget.type,
                                               ),
@@ -313,6 +310,7 @@ class _ApplicationState extends State<Application> {
                                               builder: (context) =>
                                                   InventoryDesktop(
                                                 userName: widget.title,
+                                                    type: widget.type,
                                               ),
                                             ),
                                           );
@@ -339,7 +337,7 @@ class _ApplicationState extends State<Application> {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) => Salary(
+                                                  builder: (context) => SalaryTable(
                                                     userName: widget.title,
                                                     type: widget.type,
                                                   ),
@@ -360,7 +358,7 @@ class _ApplicationState extends State<Application> {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) => Company(
+                                                  builder: (context) => CompanyTable(
                                                     userName: widget.title,
                                                     type: widget.type,
                                                   ),
@@ -384,6 +382,7 @@ class _ApplicationState extends State<Application> {
                                                   builder: (context) =>
                                                       InventoryDesktop(
                                                     userName: widget.title,
+                                                        type: widget.type,
                                                   ),
                                                 ),
                                               );
@@ -409,7 +408,7 @@ class _ApplicationState extends State<Application> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          CRMData(
+                                                          CRMTable(
                                                         userName: widget.title,
                                                         type: widget.type,
                                                       ),
@@ -433,6 +432,7 @@ class _ApplicationState extends State<Application> {
                                                       builder: (context) =>
                                                           InventoryDesktop(
                                                         userName: widget.title,
+                                                            type: widget.type,
                                                       ),
                                                     ),
                                                   );
@@ -463,6 +463,7 @@ class _ApplicationState extends State<Application> {
                                                               OnlineOrder(
                                                             userName:
                                                                 widget.title,
+                                                                type: widget.type,
                                                           ),
                                                         ),
                                                       );
@@ -482,7 +483,7 @@ class _ApplicationState extends State<Application> {
                                                         context,
                                                         MaterialPageRoute(
                                                           builder: (context) =>
-                                                              CRMData(
+                                                              CRMTable(
                                                             userName:
                                                                 widget.title,
                                                             type: widget.type,

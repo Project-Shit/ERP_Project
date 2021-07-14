@@ -308,7 +308,7 @@ class _LogInState extends State<LogIn> {
                     height: 60,
                     // ignore: deprecated_member_use
                     child: RaisedButton(
-                      color: darkBlue,
+                      color: bar,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(6),

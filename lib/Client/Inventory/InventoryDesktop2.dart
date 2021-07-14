@@ -12,9 +12,9 @@ import 'package:http/http.dart' as http;
 import 'InventoryDesktop3.dart';
 
 class InventoryDesktop2 extends StatefulWidget {
-  final String Name;
+  final String userName, type;
 
-  InventoryDesktop2({this.Name});
+  InventoryDesktop2({this.userName, this.type});
   @override
   _InventoryDesktop2State createState() => _InventoryDesktop2State();
 }
@@ -22,15 +22,15 @@ class InventoryDesktop2 extends StatefulWidget {
 class _InventoryDesktop2State extends State<InventoryDesktop2> {
 
   // this list will hold the filtered inventory
-  List listName = [];
-  List listSKU = [];
-  List listQR_code= [];
-  List listQuantity = [];
-  List listImage_of_product = [];
-  List listCost_price = [];
-  List listVariant = [];
-  List listSelling_price = [];
-  List listCompared_at_price = [];
+  // List listName = [];
+  // List listSKU = [];
+  // List listQR_code= [];
+  // List listQuantity = [];
+  // List listImage_of_product = [];
+  // List listCost_price = [];
+  // List listVariant = [];
+  // List listSelling_price = [];
+  // List listCompared_at_price = [];
   TextEditingController Name = TextEditingController();
 
   // ignore: non_constant_identifier_names
@@ -62,9 +62,9 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
   List fetchData = [];
   @override
   void initState() {
-    super.initState();
+    clearValues();
     SelectAllData();
-
+    super.initState();
   }
 
 
@@ -147,26 +147,26 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
     model.clear();
   }
 
-  showValues(int i) {
-     return DataRow(cells: <DataCell>[
-        DataCell(Text(listName[i])),
-        DataCell(Text(listSKU[i])),
-        DataCell(Text(listQuantity[i])),
-        DataCell(Text(listCost_price[i])),
-        DataCell(Text(listVariant[i])),
-        DataCell(Text(listSelling_price[i])),
-        DataCell(Text(listCompared_at_price[i])),
-        DataCell(IconButton(
-          icon: Icon(Icons.delete),
-          onPressed: () {
-            DeleteData(listSKU[i]);
-            SelectAllData();
-            showValues(i);
-          },
-        )
-        )
-    ]);
-  }
+  // showValues(int i) {
+  //    return DataRow(cells: <DataCell>[
+  //       DataCell(Text(listName[i])),
+  //       DataCell(Text(listSKU[i])),
+  //       DataCell(Text(listQuantity[i])),
+  //       DataCell(Text(listCost_price[i])),
+  //       DataCell(Text(listVariant[i])),
+  //       DataCell(Text(listSelling_price[i])),
+  //       DataCell(Text(listCompared_at_price[i])),
+  //       DataCell(IconButton(
+  //         icon: Icon(Icons.delete),
+  //         onPressed: () {
+  //           DeleteData(listSKU[i]);
+  //           SelectAllData();
+  //           showValues(i);
+  //         },
+  //       )
+  //       )
+  //   ]);
+  // }
 
   // _showSnackBar(message) {
   //   _scaffoldKey.currentState.showSnackBar(
@@ -297,7 +297,7 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
         backgroundColor: Color(0xFFE8E8E8),
         appBar: PreferredSize(
           preferredSize: Size(30, 70),
-          child: ClientAppBar(),
+          child: ClientAppBar(userName: widget.userName,type: widget.type,),
         ),
         body: SingleChildScrollView(
             child: Padding(
@@ -355,9 +355,16 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
                               actionButtons('New Product', () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => InventoryDesktop()),
+                                  MaterialPageRoute(builder: (context) => InventoryDesktop(data: model,userName: widget.userName,type: widget.type,)),
                                 );
                               }, Colors.blue),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              IconButton(onPressed: (){
+                                clearValues();
+                                SelectAllData();
+                              }, icon: Icon(Icons.refresh)),
                               SizedBox(
                                 width: 190,
                               )
@@ -371,6 +378,8 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
                             children: [
                           DataTable(
                          showCheckboxColumn: false,
+                              sortColumnIndex: 0,
+                              sortAscending: true,
                               columns: [
                           DataColumn(
                             label: Text('Name'),
@@ -379,19 +388,19 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
                             label: Text('SKU'),
                           ),
                           DataColumn(
-                            label: Text('Quantity'),
+                            label: Text('Stock'),
                           ),
                           DataColumn(
-                            label: Text('Cost_price'),
+                            label: Text('Cost price'),
                           ),
                           DataColumn(
                             label: Text('Variant'),
                           ),
                           DataColumn(
-                            label: Text('Selling_price'),
+                            label: Text('Selling price'),
                           ),
                           DataColumn(
-                            label: Text('Compared_at_price'),
+                            label: Text('Compared at price'),
                           ),
                           // Lets add one more column to show a delete button
                           DataColumn(
@@ -405,7 +414,7 @@ class _InventoryDesktop2State extends State<InventoryDesktop2> {
                              if(selected){
                                Navigator.push(
                                  context,
-                                 MaterialPageRoute(builder: (context) => InventoryDesktop3(Name: data.Name,)),
+                                 MaterialPageRoute(builder: (context) => InventoryDesktop3(data: data,)),
                                );
                              }
                            },

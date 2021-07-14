@@ -7,7 +7,7 @@ Color secondaryColor = Color.fromRGBO(64, 64, 64, 1);
 Color textColor = Color.fromRGBO(64, 64, 64, 1);
 Color hoverColor = Color.fromRGBO(41, 182, 230, 1);
 Color textFill = Colors.white;
-Color darkBlue = Color.fromRGBO(244, 246, 247, 1);
+Color darkBlue = Color.fromRGBO(224, 224, 224, 1);
 Color bar = Color.fromRGBO(26, 82, 118, 1);
 
 
@@ -26,7 +26,7 @@ Widget appButton(String title, VoidCallback onTap) {
     child: Text(
       title,
       style: TextStyle(
-        color: textColor,
+        color: Color.fromRGBO(224, 224, 224, 1),
         fontSize: 20,
       ),
     ),

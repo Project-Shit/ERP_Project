@@ -1,6 +1,5 @@
 // @dart=2.9
 import 'dart:convert';
-import 'package:erp/Client/Accounting/Company/companyModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
@@ -51,7 +50,7 @@ class _CompanyState extends State<Company> {
   // ignore: deprecated_member_use
   List _years = List();
   String _month, _year;
-  List<CompanyModel> model = [];
+
 
   checkType() {
     if (widget.type == 'Admin') {
@@ -65,31 +64,7 @@ class _CompanyState extends State<Company> {
     }
   }
 
-  Future fetchRecords() async {
-    try {
-      data = {"command": "SELECT * FROM company ORDER BY ID"};
-      http.post(Uri.parse(getData), body: data).then((http.Response response) {
-        var fetchDecode = jsonDecode(response.body);
-        fetchDecode.forEach((company) {
-          setState(() {
-            model.add(new CompanyModel(
-              month: company['month'],
-              year: company['year'],
-              balance: company['Balance'],
-              expenses: company['expenses'],
-              salary: company['salary'],
-              income: company['income'],
-              tax: company['tax'],
-              newBalance: company['newBalance'],
-              profit: company['profit'],
-            ));
-          });
-        });
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
+
 
   apply() async {
     try {
@@ -208,7 +183,6 @@ class _CompanyState extends State<Company> {
   @override
   void initState() {
     checkType();
-    fetchRecords();
     super.initState();
     fetchSalary();
     fetchBalance();
@@ -232,7 +206,6 @@ class _CompanyState extends State<Company> {
       ),
       // implementing th body with scroll View and row widget
       body: Container(
-        color: Colors.grey.withOpacity(0.3),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
@@ -444,10 +417,6 @@ class _CompanyState extends State<Company> {
                                                   )
                                                 ],
                                               ).show();
-                                              setState(() {
-                                                model = [];
-                                              });
-                                              fetchRecords();
                                             }
                                           }, Colors.green),
                                           SizedBox(
@@ -465,67 +434,6 @@ class _CompanyState extends State<Company> {
                       ),
                     ),
                   ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          DataTable(
-                            columns: [
-                              DataColumn(label: Text('Month')),
-                              DataColumn(label: Text('Year')),
-                              DataColumn(label: Text('Balance')),
-                              DataColumn(label: Text('Expenses')),
-                              DataColumn(label: Text('Salary')),
-                              DataColumn(label: Text('Income')),
-                              DataColumn(label: Text('Tax')),
-                              DataColumn(label: Text('New Balance')),
-                              DataColumn(label: Text('Profit')),
-                            ],
-                            rows: model
-                                .map((data) => DataRow(
-                                      cells: [
-                                        new DataCell(
-                                          Text(data.month),
-                                        ),
-                                        new DataCell(
-                                          Text(data.year),
-                                        ),
-                                        new DataCell(
-                                          Text(data.balance),
-                                        ),
-                                        new DataCell(
-                                          Text(data.expenses),
-                                        ),
-                                        new DataCell(
-                                          Text(data.salary),
-                                        ),
-                                        new DataCell(
-                                          Text(data.income),
-                                        ),
-                                        new DataCell(
-                                          Text(data.tax),
-                                        ),
-                                        new DataCell(
-                                          Text(data.newBalance),
-                                        ),
-                                        new DataCell(
-                                          Text(data.profit),
-                                        ),
-                                      ],
-                                    ))
-                                .toList(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ),
               ],
             ),
