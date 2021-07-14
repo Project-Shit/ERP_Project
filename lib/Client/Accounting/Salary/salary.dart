@@ -131,7 +131,6 @@ class _SalaryState extends State<Salary> {
       ),
       // implementing th body with scroll View and row widget
       body: Container(
-        color: Colors.grey.withOpacity(0.3),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
