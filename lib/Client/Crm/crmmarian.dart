@@ -49,6 +49,9 @@ class _CRMDataState extends State<CRMData> {
   }
 
   apply() async {
+    setState(() {
+      model = [];
+    });
     try {
       data = {
         "command": "insert into client(name,category,email,phone,address)"
@@ -62,6 +65,9 @@ class _CRMDataState extends State<CRMData> {
   }
 
   delete() async {
+    setState(() {
+      model = [];
+    });
     try {
       data = {"command": " DELETE FROM client where phone = '${_phone.text}'"};
       response = await http.post(Uri.parse(setData), body: data);

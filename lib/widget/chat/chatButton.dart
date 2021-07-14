@@ -3,8 +3,13 @@ import 'package:erp/widget/chat/taskapp.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class ChatButton extends StatelessWidget {
+class ChatButton extends StatefulWidget {
 
+  @override
+  State<ChatButton> createState() => _ChatButtonState();
+}
+
+class _ChatButtonState extends State<ChatButton> {
   @override
   Widget build(BuildContext context) {
     return ExpandableFab(
