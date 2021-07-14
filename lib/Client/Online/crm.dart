@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:erp/Client/Online/CreateOrder.dart';
 import 'package:erp/Client/Online/create.dart';
 import 'package:erp/Client/Online/crmModel.dart';
 import 'package:erp/constants.dart';
@@ -9,9 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class crmData extends StatefulWidget {
-  final String userName, type;
+    String userName="zee", type="admin";
 
-  crmData({this.userName, this.type});
+  crmData({userName,type});
 
   @override
   _crmDataState createState() => _crmDataState();
@@ -192,7 +193,7 @@ class _crmDataState extends State<crmData> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => create(userName: widget.userName, type: widget.type,),
+                          builder: (context) => CreateOrder(),
                         ),
                       );
                     } else
@@ -200,7 +201,7 @@ class _crmDataState extends State<crmData> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => create(userName: widget.userName, type: widget.type,),
+                        builder: (context) => create( ),
                       ),
                     );
                   }, Colors.blue.shade600),

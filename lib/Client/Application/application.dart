@@ -12,9 +12,9 @@ import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatefulWidget {
-  final String title, type;
+    String title = "zee", type="admin";
 
-  Application({this.title, this.type});
+  Application({ title,  type});
 
   @override
   State<Application> createState() => _ApplicationState();
