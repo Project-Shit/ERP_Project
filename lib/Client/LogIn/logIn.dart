@@ -47,8 +47,8 @@ class _LogInState extends State<LogIn> {
           context,
           MaterialPageRoute(
             builder: (context) => Application(
-              title: userName.text,
-              type: type.text,
+              title: 'Zee',
+              type: 'Online Sale',
             ),
           ),
         );

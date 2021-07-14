@@ -1,7 +1,6 @@
 // @dart=2.9
 import 'dart:convert';
-import 'package:erp/Client/Online/CreateOrder.dart';
-import 'package:erp/Client/Online/create.dart';
+ import 'package:erp/Client/Online/create.dart';
 import 'package:erp/Client/Online/crmModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
@@ -155,7 +154,20 @@ class _crmDataState extends State<crmData> {
                 SizedBox(
                   height: 50,
                 ),
-                textField(_search, width * 0.6, 40.0, false, 'Search'),
+
+               Row(
+                 children: [
+                   textField(_search, width * 0.6, 40.0, false, 'Search'),
+SizedBox(
+  width: 20,
+),
+                   IconButton(onPressed: (){
+                     search();
+                     fetchRecords();
+                  }, icon: Icon(Icons.search)),
+
+                 ],
+               ),
                 SizedBox(
                   height: 50,
                 ),
@@ -188,12 +200,13 @@ class _crmDataState extends State<crmData> {
                   SizedBox(
                     width: 15,
                   ),
+
                   actionButtons('Next', () {
                     if (_name.text == '' || _address.text == '') {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CreateOrder(),
+                          builder: (context) => create(),
                         ),
                       );
                     } else
@@ -208,10 +221,7 @@ class _crmDataState extends State<crmData> {
                   SizedBox(
                     width: 15,
                   ),
-                  actionButtons('Search', () {
-                    search();
-                    fetchRecords();
-                  }, Colors.orange.shade600),
+
                 ])
               ],
             ),

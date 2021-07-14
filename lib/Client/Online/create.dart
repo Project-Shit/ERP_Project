@@ -12,11 +12,13 @@ import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../constants.dart';
+import 'crmModel.dart';
 
 class create extends StatefulWidget {
-  final String userName, type;
+    String userName, type;
 
   create({this.userName, this.type});
 
@@ -26,12 +28,14 @@ class create extends StatefulWidget {
 
 class _createState extends State<create> {
   List<createModel> model = [];
+  List<crmModel> model2 = [];
 
   TextEditingController _SKU = TextEditingController();
   TextEditingController _Name = TextEditingController();
   TextEditingController _Seliing_price = TextEditingController();
   TextEditingController _q = TextEditingController();
   TextEditingController _cus_id = TextEditingController();
+  TextEditingController _search_cus = TextEditingController();
 
   TextEditingController _cus_Name = TextEditingController();
   TextEditingController _cus_phone = TextEditingController();
@@ -43,8 +47,30 @@ class _createState extends State<create> {
 
   void initState() {
     super.initState();
-    fetchRecords2();
+     fetchRecords();
    }
+
+
+
+  Future<Null> searchCus() async {
+    try {
+      data = {"command": "select * from crm where phone='${_search_cus.text}'"};
+      return await http
+          .post(Uri.parse(getData), body: data)
+          .then((http.Response response) {
+        final List fetchData = json.decode(response.body);
+        fetchData.forEach((onlineorder) {
+          setState(() {
+            _cus_Name.text = onlineorder['name'];
+            _cus_phone.text = onlineorder['phone'];
+            _cus_address.text = onlineorder['address'];
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   applytoorder() async {
     try {
@@ -56,10 +82,10 @@ class _createState extends State<create> {
     } catch (e) {
       print(e);
     }
-    fetchRecords2();
-  }
+   }
 
-  Future fetchRecords2() async {
+
+  /*Future fetchRecords2() async {
     setState(() {
       model= [];
     });
@@ -80,8 +106,28 @@ class _createState extends State<create> {
       print(e);
     }
   }
+*/
+  Future fetchRecords_cus() async {
+    setState(() {
+      model2 = [];
+    });
+    try {
+      data = {"command": "SELECT * FROM  crm"};
+      http.post(Uri.parse(getData), body: data).then((http.Response response) {
+        var fetchDecode = jsonDecode(response.body);
+        fetchDecode.forEach((crm) {
+          setState(() {
+            _cus_Name.text = crm['name'];
+            _cus_address.text =crm['address'];
+            _cus_phone.text=crm['phone'];
 
-
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Future fetchRecords() async {
     setState(() {
@@ -150,31 +196,54 @@ class _createState extends State<create> {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
+                Row(
+                  children: [
+                    textField(_SKU, width * 0.6, 40.0, false, 'Inter SKU'),
 
-                textField(_SKU, width * 0.6, 40.0, false, 'Inter SKU'),
-                SizedBox(
-                  height: 30,
+
+                    IconButton(onPressed: (){
+                      search();
+                    }, icon: Icon(Icons.search)),
+
+
+                    IconButton(onPressed: (){
+                      fetchRecords();
+
+                    }, icon: Icon(Icons.add)),
+                    SizedBox(
+                      width: 10,
+                    ),
+
+                    textField(_q, width * 0.1, 40.0, false, 'Quantity'),
+                    IconButton(onPressed: (){
+                      applytoorder();
+                    }, icon: Icon(Icons.create_new_folder)),
+                    SizedBox(
+                      height: 30,
+                    ),
+
+
+
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                        _Name.text
+
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                        _Seliing_price.text
+
+                    ),
+
+
+                  ],
                 ),
 
-                textField(_q, width * 0.6, 40.0, false, 'Quantity'),
-
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                 _Name.text
-
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                     _Seliing_price.text
-
-                ),
-                SizedBox(
-                  height: 50,
-                ),
                 DataTable(
                   columns: [
                      DataColumn(label: Text('Name')),
@@ -208,30 +277,56 @@ class _createState extends State<create> {
                 SizedBox(
                  height: 30,
                 ),
-                actionButtons('Search', () {
-                  search();
-
-
-                }, Colors.blue.shade600),
-                SizedBox(
-                  height: 30,
-                ),
-                actionButtons('Add', () {
-
-               fetchRecords();
-
-
-                }, Colors.green.shade600),
 
                 SizedBox(
                   height: 30,
                 ),
-                actionButtons('Create', () {
-                   fetchRecords2();
-                   applytoorder();
+               Row(
+                 children: [
+                   textField(_cus_Name, width * 0.6, 40.0, false, 'Enter Customer Phone'),
+
+                   IconButton(onPressed: (){
+                     fetchRecords_cus();
+                     searchCus();
+                    }, icon: Icon(Icons.search)),
+                   SizedBox(
+                     width: 30,
+                   ),
+
+                   actionButtons('New Cus', () {
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                         builder: (context) => crmData(),
+                       ),
+                     );
 
 
-                }, Colors.green.shade600),
+                   }, Colors.green.shade600),
+                 ],
+               ),
+                Row(
+                  children: [
+                    Text(
+                        _cus_Name.text
+
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                        _cus_phone.text
+
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                        _cus_address.text
+
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

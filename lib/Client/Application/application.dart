@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 class Application extends StatefulWidget {
     String title = "zee", type="admin";
 
-  Application({ title,  type});
+  Application({title,type});
 
   @override
   State<Application> createState() => _ApplicationState();
