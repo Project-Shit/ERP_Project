@@ -1,5 +1,7 @@
 // @dart=2.9
 import 'dart:convert';
+import 'package:erp/Client/Accounting/Company/companyModel.dart';
+import 'package:erp/Client/Accounting/Company/company_datatable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
@@ -10,8 +12,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 class Company extends StatefulWidget {
   final String userName, type;
+  final CompanyModel model;
+  final bool check;
 
-  Company({this.userName, this.type});
+  Company({this.userName, this.type, this.model, this.check});
 
   @override
   _CompanyState createState() => _CompanyState();
@@ -23,6 +27,7 @@ class _CompanyState extends State<Company> {
   bool status = true;
   bool admin = false;
   bool accountant = false;
+  TextEditingController _search = TextEditingController();
   TextEditingController _balanceController = TextEditingController();
   TextEditingController _expensesController = TextEditingController();
   TextEditingController _salaryController = TextEditingController();
@@ -51,7 +56,6 @@ class _CompanyState extends State<Company> {
   List _years = List();
   String _month, _year;
 
-
   checkType() {
     if (widget.type == 'Admin') {
       setState(() {
@@ -64,8 +68,6 @@ class _CompanyState extends State<Company> {
     }
   }
 
-
-
   apply() async {
     try {
       data = {
@@ -73,6 +75,25 @@ class _CompanyState extends State<Company> {
             "values('${_month.toString()}','${_year.toString()}',${_balanceController.text},"
             "${_expensesController.text},${_salaryController.text},${_incomeController.text},"
             "(((salary+income)*14)/100),(Balance+income-expenses-salary-tax),((Balance+income-expenses-salary-tax)-Balance))"
+      };
+      response = await http.post(Uri.parse(setData), body: data);
+      if (200 == response.statusCode) {
+        return message;
+      } else {
+        return !message;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  update() async {
+    try {
+      data = {
+        "command": "update company set expenses = ${_expensesController.text}, "
+            "income = ${_incomeController.text}, tax = (((salary+income)*14)/100) , "
+            "newBalance = (Balance+income-expenses-salary-tax), profit = (newBalance-Balance) "
+            "where id = ${_search.text}"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -140,52 +161,58 @@ class _CompanyState extends State<Company> {
     }
   }
 
-  // function to check the date
-  check() async {
+  Future<Null> search() async {
     try {
-      data = {
-        "command":
-            "select * from company where month = '${_month.toString()}' and year = '${_year.toString()}'"
-      };
-      response = await http.post(Uri.parse(conditionAPI), body: data);
-      var date = json.decode(response.body);
-      if (date == 'Success') {
-        Alert(
-          context: context,
-          title: 'This Data Already Exist',
-          buttons: [
-            DialogButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                "OK",
-                style: TextStyle(
-                  color: primaryColor,
-                  fontSize: 20,
-                ),
-              ),
-              color: hoverColor,
-            )
-          ],
-        ).show();
-        setState(() {
-          status = false;
+      data = {"command": "select * from company where id = ${_search.text}"};
+      return await http
+          .post(Uri.parse(getData), body: data)
+          .then((http.Response response) {
+        final List fetchData = json.decode(response.body);
+        fetchData.forEach((user) {
+          setState(() {
+            _month = user['month'];
+            _year = user['year'];
+            _balanceController.text = user['Balance'];
+            _expensesController.text = user['expenses'];
+            _salaryController.text = user['salary'];
+            _incomeController.text = user['income'];
+            _taxController.text = user['tax'];
+            _newController.text = user['newBalance'];
+            _profitController.text = user['profit'];
+          });
         });
-      } else {
-        status = true;
-      }
+      });
     } catch (e) {
       print(e);
     }
   }
 
+  getRecord() {
+    setState(() {
+      _search.text = widget.model.id;
+      /*_month = widget.model.month;
+      _year = widget.model.year;
+      _balanceController.text = widget.model.balance;
+      _expensesController.text = widget.model.expenses;
+      _salaryController.text = widget.model.salary;
+      _incomeController.text = widget.model.income;
+      _taxController.text = widget.model.tax;
+      _newController.text = widget.model.newBalance;
+      _profitController.text = widget.model.profit;*/
+    });
+  }
+
   @override
   void initState() {
+    getRecord();
+    if (widget.check == true) {
+      search();
+    } else {
+      fetchSalary();
+      fetchBalance();
+    }
     checkType();
     super.initState();
-    fetchSalary();
-    fetchBalance();
     for (int i = 2000; i <= 2100; i++) {
       _years.add(i.toString());
     }
@@ -218,7 +245,6 @@ class _CompanyState extends State<Company> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // implementing a container to make the outline border design
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(
@@ -268,7 +294,6 @@ class _CompanyState extends State<Company> {
                                             onChanged: (newValue) {
                                               setState(() {
                                                 _month = newValue;
-                                                check();
                                               });
                                             },
                                             items: _monthly.map((location) {
@@ -300,7 +325,6 @@ class _CompanyState extends State<Company> {
                                             onChanged: (newValue) {
                                               setState(() {
                                                 _year = newValue;
-                                                check();
                                               });
                                             },
                                             items: _years.map((location) {
@@ -317,37 +341,37 @@ class _CompanyState extends State<Company> {
                                       height: 15,
                                     ),
                                     textField(_balanceController, width * 0.6,
-                                        40.0, false, 'Balance'),
+                                        40.0, true, 'Balance'),
                                     SizedBox(
                                       height: 15,
                                     ),
                                     textField(_expensesController, width * 0.6,
-                                        40.0, true, 'Expenses'),
+                                        40.0, false, 'Expenses'),
                                     SizedBox(
                                       height: 15,
                                     ),
                                     textField(_salaryController, width * 0.6,
-                                        40.0, false, 'Salary'),
+                                        40.0, true, 'Salary'),
                                     SizedBox(
                                       height: 15,
                                     ),
                                     textField(_incomeController, width * 0.6,
-                                        40.0, true, 'Income'),
+                                        40.0, false, 'Income'),
                                     SizedBox(
                                       height: 15,
                                     ),
                                     textField(_taxController, width * 0.6, 40.0,
-                                        false, 'Tax'),
+                                        true, 'Tax'),
                                     SizedBox(
                                       height: 15,
                                     ),
                                     textField(_newController, width * 0.6, 40.0,
-                                        false, 'New Balance'),
+                                        true, 'New Balance'),
                                     SizedBox(
                                       height: 15,
                                     ),
                                     textField(_profitController, width * 0.6,
-                                        40.0, false, 'Profit'),
+                                        40.0, true, 'Profit'),
                                   ],
                                 ),
                               ],
@@ -364,6 +388,19 @@ class _CompanyState extends State<Company> {
                                         launch(
                                             'http://localhost/ERP/companyPDF.php');
                                       }, Colors.blue.shade600),
+                                      SizedBox(
+                                        width: 30,
+                                      ),
+                                      actionButtons('Back', () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CompanyTable(
+                                                      userName: widget.userName,
+                                                      type: widget.type,
+                                                    )));
+                                      }, Colors.blue.shade600),
                                     ],
                                   )
                                 : accountant
@@ -371,7 +408,38 @@ class _CompanyState extends State<Company> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          actionButtons('Apply', () {
+                                          actionButtons('Update', () {
+                                            if (status == true) {
+                                              update();
+                                              Alert(
+                                                context: context,
+                                                title: message
+                                                    ? 'Applied'
+                                                    : 'Couldn\'t Apply',
+                                                buttons: [
+                                                  DialogButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      update();
+                                                      fetchNew();
+                                                    },
+                                                    child: Text(
+                                                      "OK",
+                                                      style: TextStyle(
+                                                        color: primaryColor,
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                    color: hoverColor,
+                                                  )
+                                                ],
+                                              ).show();
+                                            }
+                                          }, Colors.green),
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          actionButtons('Add', () {
                                             if (status == true) {
                                               apply();
                                               Alert(
@@ -396,27 +464,6 @@ class _CompanyState extends State<Company> {
                                                   )
                                                 ],
                                               ).show();
-                                            } else {
-                                              Alert(
-                                                context: context,
-                                                title:
-                                                    'This Data Already Exist',
-                                                buttons: [
-                                                  DialogButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Text(
-                                                      "OK",
-                                                      style: TextStyle(
-                                                        color: primaryColor,
-                                                        fontSize: 20,
-                                                      ),
-                                                    ),
-                                                    color: hoverColor,
-                                                  )
-                                                ],
-                                              ).show();
                                             }
                                           }, Colors.green),
                                           SizedBox(
@@ -425,6 +472,20 @@ class _CompanyState extends State<Company> {
                                           actionButtons('Print', () {
                                             launch(
                                                 'http://localhost/ERP/companyPDF.php');
+                                          }, Colors.blue.shade600),
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          actionButtons('Back', () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        CompanyTable(
+                                                          userName:
+                                                              widget.userName,
+                                                          type: widget.type,
+                                                        )));
                                           }, Colors.blue.shade600),
                                         ],
                                       )

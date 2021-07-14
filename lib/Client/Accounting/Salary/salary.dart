@@ -1,4 +1,5 @@
 // @dart=2.9
+import 'package:erp/Client/Accounting/Salary/salary_datatable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:erp/widget/chat/chatButton.dart';
@@ -34,7 +35,6 @@ class _SalaryState extends State<Salary> {
   // ignore: deprecated_member_use
   List _ids = List();
   String _id;
-
 
   checkType() {
     if (widget.type == 'Admin') {
@@ -107,7 +107,6 @@ class _SalaryState extends State<Salary> {
       });
     });
   }
-
 
   @override
   void initState() {
@@ -247,6 +246,19 @@ class _SalaryState extends State<Salary> {
                                         launch(
                                             'http://localhost/ERP/salaryPDF.php');
                                       }, Colors.blue.shade600),
+                                      SizedBox(
+                                        width: 30,
+                                      ),
+                                      actionButtons('Back', () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SalaryTable(
+                                                      userName: widget.userName,
+                                                      type: widget.type,
+                                                    )));
+                                      }, Colors.blue.shade600),
                                     ],
                                   )
                                 : accountant
@@ -286,6 +298,20 @@ class _SalaryState extends State<Salary> {
                                           actionButtons('Print', () {
                                             launch(
                                                 'http://localhost/ERP/salaryPDF.php');
+                                          }, Colors.blue.shade600),
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          actionButtons('Back', () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SalaryTable(
+                                                          userName:
+                                                              widget.userName,
+                                                          type: widget.type,
+                                                        )));
                                           }, Colors.blue.shade600),
                                         ],
                                       )

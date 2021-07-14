@@ -1,5 +1,6 @@
 // @dart=2.9
 class CompanyModel {
+  String id;
   String month;
   String year;
   String balance;
@@ -11,6 +12,7 @@ class CompanyModel {
   String profit;
 
   CompanyModel({
+    this.id,
     this.month,
     this.year,
     this.balance,

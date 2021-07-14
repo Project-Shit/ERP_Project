@@ -4,6 +4,7 @@ import 'package:erp/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 Future<Album> createAlbum(String title) async {
   final response = await http.post(
     Uri.parse('https://jsonplaceholder.typicode.com/albums'),
@@ -30,7 +31,7 @@ class Album {
   final int id;
   final String title;
 
-  Album({ this.id,  this.title});
+  Album({this.id, this.title});
 
   factory Album.fromJson(Map<String, dynamic> json) {
     return Album(
@@ -39,7 +40,6 @@ class Album {
     );
   }
 }
-
 
 class Task extends StatefulWidget {
   /*Task({this.title});
@@ -52,27 +52,24 @@ class Task extends StatefulWidget {
 }
 
 class _TaskState extends State<Task> {
-  String dropdownValue = 'Assign To';
   var data, response;
-  TextEditingController _mail=TextEditingController();
-  TextEditingController _task=TextEditingController();
-  TextEditingController _description=TextEditingController();
+  TextEditingController _mail = TextEditingController();
+  TextEditingController _task = TextEditingController();
+  TextEditingController _description = TextEditingController();
+
 // ignore: deprecated_member_use
   List _emails = List();
   String _email;
 
-
-  send()async{
-    try{
-      data={
-        "email":_mail.text,
-        "task":_task.text,
+  send() async {
+    try {
+      data = {
+        "email": _mail.text,
+        "task": _task.text,
         "description": _description.text,
       };
-      response=await
-      http.post(Uri.parse(taskMail),body:data);
-    }
-    catch(e){
+      response = await http.post(Uri.parse(taskMail), body: data);
+    } catch (e) {
       print(e);
     }
   }
@@ -100,6 +97,7 @@ class _TaskState extends State<Task> {
     super.initState();
     emailList();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,8 +114,7 @@ class _TaskState extends State<Task> {
                   decoration: InputDecoration(
                       labelText: "Enter Your Task Name",
                       labelStyle: TextStyle(fontSize: 30),
-                      hintText: "Task Name"
-                  ),
+                      hintText: "Task Name"),
                 ),
               ),
               SizedBox(height: 20),
@@ -174,7 +171,7 @@ class _TaskState extends State<Task> {
                 ),
               ),
               Container(
-                width:500,
+                width: 500,
                 height: 100,
                 child: TextField(
                   controller: _description,
@@ -186,12 +183,15 @@ class _TaskState extends State<Task> {
                 ),
               ),
               SizedBox(height: 20),
-              IconButton(onPressed: (){}, icon: Icon(Icons.attach_file)),
-              RaisedButton(onPressed: (){send();},child: Text("send"),),
-
+              IconButton(onPressed: () {}, icon: Icon(Icons.attach_file)),
+              RaisedButton(
+                onPressed: () {
+                  send();
+                },
+                child: Text("send"),
+              ),
             ],
           ),
-        )
-    );
+        ));
   }
 }
