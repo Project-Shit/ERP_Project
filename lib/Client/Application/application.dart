@@ -243,7 +243,7 @@ class _ApplicationState extends State<Application> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               InventoryDesktop2(
-                                            userName: widget.title,
+                                           // userName: widget.title,
                                           ),
                                         ),
                                       );
