@@ -6,6 +6,7 @@ import 'package:erp/Client/Accounting/Company/companyModel.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CompanyTable extends StatefulWidget {
   final String userName, type;
@@ -135,7 +136,7 @@ class _CompanyTableState extends State<CompanyTable> {
                                                   userName: widget.userName,
                                                   type: widget.type,
                                                   check: selected,
-                                                )),
+                                                ),),
                                       );
                                     }
                                   },
@@ -151,15 +152,27 @@ class _CompanyTableState extends State<CompanyTable> {
               SizedBox(
                 height: 50,
               ),
-              actionButtons('Add', () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Company(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  actionButtons('Add', () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Company(
                               userName: widget.userName,
                               type: widget.type,
                             )));
-              }, Colors.blue.shade600),
+                  }, Colors.blue.shade600),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  actionButtons('Print', () {
+                    launch(
+                        'http://localhost/ERP/companyPDF.php');
+                  }, Colors.blue.shade600),
+                ],
+              ),
               SizedBox(
                 height: 50,
               ),

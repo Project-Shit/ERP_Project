@@ -1,4 +1,5 @@
 // @dart=2.9
+import 'package:erp/Client/Accounting/Salary/salaryModel.dart';
 import 'package:erp/Client/Accounting/Salary/salary_datatable.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
@@ -7,12 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Salary extends StatefulWidget {
   final String userName, type;
+  final SalaryModel model;
+  final bool check;
 
-  Salary({this.userName, this.type});
+  Salary({this.userName, this.type, this.model, this.check});
 
   @override
   _SalaryState createState() => _SalaryState();
@@ -21,9 +23,10 @@ class Salary extends StatefulWidget {
 // Salary accounting page for the client's system
 class _SalaryState extends State<Salary> {
   // objects implementation
-  bool message1 = true;
+  bool message = true;
   bool admin = false;
   bool accountant = false;
+  TextEditingController _search = TextEditingController();
   TextEditingController _name = TextEditingController();
   TextEditingController _salary = TextEditingController();
   TextEditingController _insurance = TextEditingController();
@@ -31,6 +34,26 @@ class _SalaryState extends State<Salary> {
   TextEditingController _deduction = TextEditingController();
   TextEditingController _note = TextEditingController();
   TextEditingController _netS = TextEditingController();
+
+  // ignore: deprecated_member_use
+  List _monthly = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  // ignore: deprecated_member_use
+  List _years = List();
+  String _month, _year;
 
   // ignore: deprecated_member_use
   List _ids = List();
@@ -48,32 +71,25 @@ class _SalaryState extends State<Salary> {
     }
   }
 
-  // function to change values of a record and calculate net salary
-  apply() async {
+  update() async {
     try {
-      data = {
-        "command": "update users set salary = ${_salary.text}, insurance = ${_insurance.text}, "
-            "tax = (salary*14)/100, deduction = ${_deduction.text},note = '${_note.text}'"
-            " ,netSalary = (salary-insurance-tax-deduction) where concat('User ',id) = '${_id.toString()}'"
-      };
+      data = {"command": "update users set salary = ${_salary.text}, insurance = ${_insurance.text}, "
+          "tax = (salary*14)/100, deduction = ${_deduction.text},note = '${_note.text}'"
+          " ,netSalary = (salary-insurance-tax-deduction) where id = ${_search.text}"};
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
-        return message1;
+        return message;
       } else {
-        return !message1;
+        return !message;
       }
     } catch (e) {
-      return message1;
+      print(e);
     }
   }
 
-  // function to fetch data from database and calculate columns
-  Future<Null> fetchData() async {
+  Future<Null> search() async {
     try {
-      data = {
-        "command": "select name,salary,insurance,(salary*14)/100 as tax,"
-            "deduction,note,(salary-insurance-tax-deduction) as netSalary from users where concat('User ',id) = '${_id.toString()}'"
-      };
+      data = {"command": "select * from salary where id = ${_search.text}"};
       return await http
           .post(Uri.parse(getData), body: data)
           .then((http.Response response) {
@@ -87,6 +103,71 @@ class _SalaryState extends State<Salary> {
             _deduction.text = user['deduction'];
             _note.text = user['note'];
             _netS.text = user['netSalary'];
+          });
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  getRecord() {
+    setState(() {
+      _search.text = widget.model.id;
+    });
+  }
+
+  // function to change values of a record and calculate net salary
+  apply() async {
+    try {
+      data = {
+        "command": "insert into salary values(${_search.text},'${_name.text}','${_month.toString()}'"
+            ",'${_year.toString()}',${_salary.text},${_insurance.text},((salary*14)/100),${_deduction.text},"
+            "'${_note.text}',(salary-insurance-tax-deduction))"
+      };
+      response = await http.post(Uri.parse(setData), body: data);
+      if (200 == response.statusCode) {
+        return message;
+      } else {
+        return !message;
+      }
+    } catch (e) {
+      return message;
+    }
+  }
+
+  // function to fetch data from database and calculate columns
+  Future<Null> fetchName() async {
+    try {
+      data = {
+        "command": "select * from users where concat('User ',id) = '${_id.toString()}'"
+      };
+      return await http
+          .post(Uri.parse(getData), body: data)
+          .then((http.Response response) {
+        final List fetchData = json.decode(response.body);
+        fetchData.forEach((user) {
+          setState(() {
+            _search.text = user['id'];
+            _name.text = user['name'];
+          });
+        });
+      });
+    } catch (e) {}
+  }
+
+  Future<Null> fetchSalary() async {
+    try {
+      data = {
+        "command": "select * from salary where id = ${_id.toString()}"
+      };
+      return await http
+          .post(Uri.parse(getData), body: data)
+          .then((http.Response response) {
+        final List fetchData = json.decode(response.body);
+        fetchData.forEach((user) {
+          setState(() {
+            _name.text = user['name'];
           });
         });
       });
@@ -110,9 +191,16 @@ class _SalaryState extends State<Salary> {
 
   @override
   void initState() {
+    if (widget.check == true) {
+      getRecord();
+      search();
+    }
     checkType();
     super.initState();
     idList();
+    for (int i = 2000; i <= 2100; i++) {
+      _years.add(i.toString());
+    }
   }
 
   @override
@@ -166,6 +254,72 @@ class _SalaryState extends State<Salary> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: width * 0.29,
+                                          height: 50.0,
+                                          child: DropdownButtonFormField(
+                                            hint: Text('Month'),
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0),
+                                                ),
+                                              ),
+                                              filled: true,
+                                              fillColor: textFill,
+                                            ),
+                                            value: _month,
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                _month = newValue;
+                                              });
+                                            },
+                                            items: _monthly.map((location) {
+                                              return DropdownMenuItem(
+                                                child: new Text(location),
+                                                value: location,
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 30,
+                                        ),
+                                        Container(
+                                          width: width * 0.29,
+                                          height: 50.0,
+                                          child: DropdownButtonFormField(
+                                            hint: Text('Year'),
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0),
+                                                ),
+                                              ),
+                                              filled: true,
+                                              fillColor: textFill,
+                                            ),
+                                            value: _year,
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                _year = newValue;
+                                              });
+                                            },
+                                            items: _years.map((location) {
+                                              return DropdownMenuItem(
+                                                child: new Text(location),
+                                                value: location,
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
                                     Container(
                                       width: width * 0.6,
                                       height: 50.0,
@@ -184,7 +338,7 @@ class _SalaryState extends State<Salary> {
                                         onChanged: (newValue) {
                                           setState(() {
                                             _id = newValue;
-                                            fetchData();
+                                            fetchName();
                                           });
                                         },
                                         items: _ids.map((location) {
@@ -242,13 +396,6 @@ class _SalaryState extends State<Salary> {
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      actionButtons('Print', () {
-                                        launch(
-                                            'http://localhost/ERP/salaryPDF.php');
-                                      }, Colors.blue.shade600),
-                                      SizedBox(
-                                        width: 30,
-                                      ),
                                       actionButtons('Back', () {
                                         Navigator.push(
                                             context,
@@ -257,7 +404,7 @@ class _SalaryState extends State<Salary> {
                                                     SalaryTable(
                                                       userName: widget.userName,
                                                       type: widget.type,
-                                                    )));
+                                                    ),),);
                                       }, Colors.blue.shade600),
                                     ],
                                   )
@@ -270,14 +417,14 @@ class _SalaryState extends State<Salary> {
                                             apply();
                                             Alert(
                                               context: context,
-                                              title: message1
+                                              title: message
                                                   ? 'Applied'
                                                   : 'Couldn\'t Apply',
                                               buttons: [
                                                 DialogButton(
                                                   onPressed: () {
                                                     Navigator.pop(context);
-                                                    fetchData();
+                                                    fetchName();
                                                     apply();
                                                   },
                                                   child: Text(
@@ -295,10 +442,32 @@ class _SalaryState extends State<Salary> {
                                           SizedBox(
                                             width: 30,
                                           ),
-                                          actionButtons('Print', () {
-                                            launch(
-                                                'http://localhost/ERP/salaryPDF.php');
-                                          }, Colors.blue.shade600),
+                                          actionButtons('Update', () {
+                                            update();
+                                            Alert(
+                                              context: context,
+                                              title: message
+                                                  ? 'Updated'
+                                                  : 'Couldn\'t Update',
+                                              buttons: [
+                                                DialogButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    update();
+                                                    search();
+                                                  },
+                                                  child: Text(
+                                                    "OK",
+                                                    style: TextStyle(
+                                                      color: primaryColor,
+                                                      fontSize: 20,
+                                                    ),
+                                                  ),
+                                                  color: hoverColor,
+                                                )
+                                              ],
+                                            ).show();
+                                          }, Colors.green),
                                           SizedBox(
                                             width: 30,
                                           ),

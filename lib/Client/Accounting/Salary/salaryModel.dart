@@ -2,6 +2,8 @@
 class SalaryModel {
   String id;
   String name;
+  String month;
+  String year;
   String salary;
   String insurance;
   String tax;
@@ -12,6 +14,8 @@ class SalaryModel {
   SalaryModel({
     this.id,
     this.name,
+    this.month,
+    this.year,
     this.salary,
     this.insurance,
     this.tax,

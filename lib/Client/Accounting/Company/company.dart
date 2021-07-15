@@ -8,7 +8,6 @@ import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Company extends StatefulWidget {
   final String userName, type;
@@ -24,7 +23,6 @@ class Company extends StatefulWidget {
 class _CompanyState extends State<Company> {
   // objects implementation
   bool message = true;
-  bool status = true;
   bool admin = false;
   bool accountant = false;
   TextEditingController _search = TextEditingController();
@@ -190,22 +188,13 @@ class _CompanyState extends State<Company> {
   getRecord() {
     setState(() {
       _search.text = widget.model.id;
-      /*_month = widget.model.month;
-      _year = widget.model.year;
-      _balanceController.text = widget.model.balance;
-      _expensesController.text = widget.model.expenses;
-      _salaryController.text = widget.model.salary;
-      _incomeController.text = widget.model.income;
-      _taxController.text = widget.model.tax;
-      _newController.text = widget.model.newBalance;
-      _profitController.text = widget.model.profit;*/
     });
   }
 
   @override
   void initState() {
-    getRecord();
     if (widget.check == true) {
+      getRecord();
       search();
     } else {
       fetchSalary();
@@ -384,13 +373,6 @@ class _CompanyState extends State<Company> {
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      actionButtons('Print', () {
-                                        launch(
-                                            'http://localhost/ERP/companyPDF.php');
-                                      }, Colors.blue.shade600),
-                                      SizedBox(
-                                        width: 30,
-                                      ),
                                       actionButtons('Back', () {
                                         Navigator.push(
                                             context,
@@ -409,83 +391,73 @@ class _CompanyState extends State<Company> {
                                             MainAxisAlignment.center,
                                         children: [
                                           actionButtons('Update', () {
-                                            if (status == true) {
-                                              update();
-                                              Alert(
-                                                context: context,
-                                                title: message
-                                                    ? 'Applied'
-                                                    : 'Couldn\'t Apply',
-                                                buttons: [
-                                                  DialogButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                      update();
-                                                      fetchNew();
-                                                    },
-                                                    child: Text(
-                                                      "OK",
-                                                      style: TextStyle(
-                                                        color: primaryColor,
-                                                        fontSize: 20,
-                                                      ),
+                                            update();
+                                            Alert(
+                                              context: context,
+                                              title: message
+                                                  ? 'Updated'
+                                                  : 'Couldn\'t Update',
+                                              buttons: [
+                                                DialogButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    update();
+                                                    fetchNew();
+                                                  },
+                                                  child: Text(
+                                                    "OK",
+                                                    style: TextStyle(
+                                                      color: primaryColor,
+                                                      fontSize: 20,
                                                     ),
-                                                    color: hoverColor,
-                                                  )
-                                                ],
-                                              ).show();
-                                            }
+                                                  ),
+                                                  color: hoverColor,
+                                                )
+                                              ],
+                                            ).show();
                                           }, Colors.green),
                                           SizedBox(
                                             width: 30,
                                           ),
                                           actionButtons('Add', () {
-                                            if (status == true) {
-                                              apply();
-                                              Alert(
-                                                context: context,
-                                                title: message
-                                                    ? 'Applied'
-                                                    : 'Couldn\'t Apply',
-                                                buttons: [
-                                                  DialogButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                      fetchNew();
-                                                    },
-                                                    child: Text(
-                                                      "OK",
-                                                      style: TextStyle(
-                                                        color: primaryColor,
-                                                        fontSize: 20,
-                                                      ),
+                                            apply();
+                                            Alert(
+                                              context: context,
+                                              title: message
+                                                  ? 'Added'
+                                                  : 'Couldn\'t Add',
+                                              buttons: [
+                                                DialogButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                    fetchNew();
+                                                  },
+                                                  child: Text(
+                                                    "OK",
+                                                    style: TextStyle(
+                                                      color: primaryColor,
+                                                      fontSize: 20,
                                                     ),
-                                                    color: hoverColor,
-                                                  )
-                                                ],
-                                              ).show();
-                                            }
+                                                  ),
+                                                  color: hoverColor,
+                                                )
+                                              ],
+                                            ).show();
                                           }, Colors.green),
-                                          SizedBox(
-                                            width: 30,
-                                          ),
-                                          actionButtons('Print', () {
-                                            launch(
-                                                'http://localhost/ERP/companyPDF.php');
-                                          }, Colors.blue.shade600),
                                           SizedBox(
                                             width: 30,
                                           ),
                                           actionButtons('Back', () {
                                             Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        CompanyTable(
-                                                          userName:
-                                                              widget.userName,
-                                                          type: widget.type,
-                                                        )));
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CompanyTable(
+                                                  userName: widget.userName,
+                                                  type: widget.type,
+                                                ),
+                                              ),
+                                            );
                                           }, Colors.blue.shade600),
                                         ],
                                       )
