@@ -36,7 +36,7 @@ class _SalaryTableState extends State<SalaryTable> {
               insurance: salary['insurance'],
               tax: salary['tax'],
               deduction: salary['deduction'],
-              note: salary['note'],
+              note: salary['notes'],
               netSalary: salary['netSalary'],
             ));
           });

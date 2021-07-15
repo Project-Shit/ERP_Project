@@ -73,9 +73,11 @@ class _SalaryState extends State<Salary> {
 
   update() async {
     try {
-      data = {"command": "update users set salary = ${_salary.text}, insurance = ${_insurance.text}, "
-          "tax = (salary*14)/100, deduction = ${_deduction.text},note = '${_note.text}'"
-          " ,netSalary = (salary-insurance-tax-deduction) where id = ${_search.text}"};
+      data = {
+        "command": "update salary set salary = ${_salary.text}, insurance = ${_insurance.text}, "
+            "tax = (salary*14)/100, deduction = ${_deduction.text},notes = '${_note.text}'"
+            " ,netSalary = (salary-insurance-tax-deduction) where id = ${_search.text}"
+      };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
         return message;
@@ -96,12 +98,14 @@ class _SalaryState extends State<Salary> {
         final List fetchData = json.decode(response.body);
         fetchData.forEach((user) {
           setState(() {
+            _month = user['month'];
+            _year = user['year'];
             _name.text = user['name'];
             _salary.text = user['salary'];
             _insurance.text = user['insurance'];
             _tax.text = user['tax'];
             _deduction.text = user['deduction'];
-            _note.text = user['note'];
+            _note.text = user['notes'];
             _netS.text = user['netSalary'];
           });
         });
@@ -121,9 +125,10 @@ class _SalaryState extends State<Salary> {
   apply() async {
     try {
       data = {
-        "command": "insert into salary values(${_search.text},'${_name.text}','${_month.toString()}'"
-            ",'${_year.toString()}',${_salary.text},${_insurance.text},((salary*14)/100),${_deduction.text},"
-            "'${_note.text}',(salary-insurance-tax-deduction))"
+        "command":
+            "insert into salary values(${_search.text},'${_name.text}','${_month.toString()}'"
+                ",'${_year.toString()}',${_salary.text},${_insurance.text},((salary*14)/100),${_deduction.text},"
+                "'${_note.text}',(salary-insurance-tax-deduction))"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
@@ -140,7 +145,8 @@ class _SalaryState extends State<Salary> {
   Future<Null> fetchName() async {
     try {
       data = {
-        "command": "select * from users where concat('User ',id) = '${_id.toString()}'"
+        "command":
+            "select * from users where concat('User ',id) = '${_id.toString()}'"
       };
       return await http
           .post(Uri.parse(getData), body: data)
@@ -158,9 +164,7 @@ class _SalaryState extends State<Salary> {
 
   Future<Null> fetchSalary() async {
     try {
-      data = {
-        "command": "select * from salary where id = ${_id.toString()}"
-      };
+      data = {"command": "select * from salary where id = ${_id.toString()}"};
       return await http
           .post(Uri.parse(getData), body: data)
           .then((http.Response response) {
@@ -398,13 +402,14 @@ class _SalaryState extends State<Salary> {
                                     children: [
                                       actionButtons('Back', () {
                                         Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SalaryTable(
-                                                      userName: widget.userName,
-                                                      type: widget.type,
-                                                    ),),);
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => SalaryTable(
+                                              userName: widget.userName,
+                                              type: widget.type,
+                                            ),
+                                          ),
+                                        );
                                       }, Colors.blue.shade600),
                                     ],
                                   )
@@ -425,7 +430,7 @@ class _SalaryState extends State<Salary> {
                                                   onPressed: () {
                                                     Navigator.pop(context);
                                                     fetchName();
-                                                    apply();
+                                                    search();
                                                   },
                                                   child: Text(
                                                     "OK",
@@ -473,14 +478,15 @@ class _SalaryState extends State<Salary> {
                                           ),
                                           actionButtons('Back', () {
                                             Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SalaryTable(
-                                                          userName:
-                                                              widget.userName,
-                                                          type: widget.type,
-                                                        )));
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SalaryTable(
+                                                  userName: widget.userName,
+                                                  type: widget.type,
+                                                ),
+                                              ),
+                                            );
                                           }, Colors.blue.shade600),
                                         ],
                                       )
