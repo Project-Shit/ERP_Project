@@ -25,9 +25,7 @@ class _PointDataState extends State<PointData> {
 
   add() async {
     try {
-      data = {
-        "command": "Select * From product"
-      };
+      data = {"command": "INSERT INTO `product`(SKU,Name, Quantity, Selling price) VALUES ('${_SKU.text}','${_name.text}','${_quantity.text}','${_price.text}'"};
       response = await http.post(Uri.parse(setData), body: data);
     } catch (e) {
       print(e);
@@ -35,11 +33,9 @@ class _PointDataState extends State<PointData> {
     fetchRecords();
   }
 
-  delete() async {
+  clear() async {
     try {
-      data = {
-        "command": " DELETE FROM product where item = '${_SKU.text}'"
-      };
+      data = {"command": " DELETE FROM product where SKU = '${_SKU.text}'"};
       response = await http.post(Uri.parse(setData), body: data);
     } catch (e) {
       print(e);
@@ -47,25 +43,12 @@ class _PointDataState extends State<PointData> {
     fetchRecords();
   }
 
-  update() async {
-    try {
-      data = {
-        "command": " SELECT FROM product where item = '${_name.text}'"
-      };
-      response = await http.post(Uri.parse(setData), body: data);
-    } catch (e) {
-      print(e);
-    }
-    fetchRecords();
-  }
 
   // SELECT*FROM [db.table] ORDER BY id ASC;
 
   refresh() async {
     try {
-      data = {
-        "command": " SELECT FROM product where item = '${_name.text}'"
-      };
+      data = {"command": " SELECT * FROM product"};
       response = await http.post(Uri.parse(setData), body: data);
     } catch (e) {
       print(e);
@@ -90,7 +73,6 @@ class _PointDataState extends State<PointData> {
               price: product['Selling price'],
             ));
             print(model);
-
           });
         });
       });
@@ -121,6 +103,7 @@ class _PointDataState extends State<PointData> {
             child: Column(
               children: [
                 DataTable(
+                  showCheckboxColumn: false,
                   columns: [
                     DataColumn(label: Text('SKU')),
                     DataColumn(label: Text('Name')),
@@ -129,21 +112,29 @@ class _PointDataState extends State<PointData> {
                   ],
                   rows: model
                       .map((data) => DataRow(
-                    cells: [
-                      new DataCell(
-                        Text(data.SKU),
-                      ),
-                      new DataCell(
-                        Text(data.name),
-                      ),
-                      new DataCell(
-                        Text(data.quantity),
-                      ),
-                      new DataCell(
-                        Text(data.price),
-                      ),
-                    ],
-                  ))
+                            onSelectChanged: (bool selected) {
+                              if (selected) {
+                                _SKU.text = data.SKU;
+                                _name.text = data.name;
+                                _quantity.text = data.quantity;
+                                _price.text = data.price;
+                              }
+                            },
+                            cells: [
+                              new DataCell(
+                                Text(data.SKU),
+                              ),
+                              new DataCell(
+                                Text(data.name),
+                              ),
+                              new DataCell(
+                                Text(data.quantity),
+                              ),
+                              new DataCell(
+                                Text(data.price),
+                              ),
+                            ],
+                          ))
                       .toList(),
                 ),
                 SizedBox(
@@ -174,16 +165,8 @@ class _PointDataState extends State<PointData> {
                   SizedBox(
                     width: 15,
                   ),
-                  actionButtons('Cancel', () {
-                    delete();
-
-                    fetchRecords();
-                  }, Colors.blue.shade600),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  actionButtons('Update', () {
-                    update();
+                  actionButtons('Clear', () {
+                    clear();
 
                     fetchRecords();
                   }, Colors.blue.shade600),
