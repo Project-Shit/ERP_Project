@@ -7,11 +7,10 @@ import 'package:erp/widget/chat/chatButton.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-void main() {
-  runApp(new MaterialApp(home: new PointData()));
-}
 
 class PointData extends StatefulWidget {
+  final String userName, type;
+  PointData({this.userName,this.type});
   @override
   _PointDataState createState() => _PointDataState();
 }
@@ -25,7 +24,7 @@ class _PointDataState extends State<PointData> {
 
   add() async {
     try {
-      data = {"command": "INSERT INTO `product`(SKU,Name, Quantity, Selling price) VALUES ('${_SKU.text}','${_name.text}','${_quantity.text}','${_price.text}'"};
+      data = {"command": "Select * from `product` where (SKU) VALUES ('${_SKU.text}'"};
       response = await http.post(Uri.parse(setData), body: data);
     } catch (e) {
       print(e);
@@ -93,7 +92,7 @@ class _PointDataState extends State<PointData> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(width, 70),
-        child: ClientAppBar(),
+        child: ClientAppBar(userName: widget.userName,type: widget.type,),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -112,29 +111,29 @@ class _PointDataState extends State<PointData> {
                   ],
                   rows: model
                       .map((data) => DataRow(
-                            onSelectChanged: (bool selected) {
-                              if (selected) {
-                                _SKU.text = data.SKU;
-                                _name.text = data.name;
-                                _quantity.text = data.quantity;
-                                _price.text = data.price;
-                              }
-                            },
-                            cells: [
-                              new DataCell(
-                                Text(data.SKU),
-                              ),
-                              new DataCell(
-                                Text(data.name),
-                              ),
-                              new DataCell(
-                                Text(data.quantity),
-                              ),
-                              new DataCell(
-                                Text(data.price),
-                              ),
-                            ],
-                          ))
+                    onSelectChanged: (bool selected) {
+                      if (selected) {
+                        _SKU.text = data.SKU;
+                        _name.text = data.name;
+                        _quantity.text = data.quantity;
+                        _price.text = data.price;
+                      }
+                    },
+                    cells: [
+                      new DataCell(
+                        Text(data.SKU),
+                      ),
+                      new DataCell(
+                        Text(data.name),
+                      ),
+                      new DataCell(
+                        Text(data.quantity),
+                      ),
+                      new DataCell(
+                        Text(data.price),
+                      ),
+                    ],
+                  ))
                       .toList(),
                 ),
                 SizedBox(
@@ -144,7 +143,7 @@ class _PointDataState extends State<PointData> {
                 SizedBox(
                   height: 30,
                 ),
-                textField(_name, width * 0.6, 40.0, false, 'Name'),
+                /*textField(_name, width * 0.6, 40.0, false, 'Name'),
                 SizedBox(
                   height: 30,
                 ),
@@ -155,7 +154,7 @@ class _PointDataState extends State<PointData> {
                 textField(_price, width * 0.6, 40.0, false, 'Price'),
                 SizedBox(
                   height: 30,
-                ),
+                ),*/
                 Row(children: [
                   actionButtons('Add', () {
                     add();
