@@ -3,28 +3,296 @@ import 'package:erp/widget/chat/taskapp.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class ChatButton extends StatefulWidget {
-
-  @override
-  State<ChatButton> createState() => _ChatButtonState();
-}
-
-class _ChatButtonState extends State<ChatButton> {
+class ChatButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ExpandableFab(
-        distance: 112.0,
-        children: [
-          ActionButton(
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Task())),
-            icon: const Icon(Icons.task),
-          ),
-          ActionButton(
-            onPressed: () {},
-            icon: const Icon(Icons.message),
-          ),
-        ],
 
+
+    // set up the list options
+    Widget optionOne = SimpleDialogOption(
+      child: const Text('Note 1'),
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                scrollable: true,
+                title: Text('Edit your note'),
+                content: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'Note title',
+                            icon: Icon(Icons.note),
+                          ),
+                        ),
+                        TextFormField(
+                          maxLines: 6,
+                          decoration: InputDecoration(
+                            labelText: 'Note',
+                            icon: Icon(Icons.note_add_outlined),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                actions: [
+                  ActionButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.save),
+                  ),
+                ],
+              );
+            });
+      },
+    );
+    Widget optionTwo = SimpleDialogOption(
+      child: const Text('Note 2'),
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                scrollable: true,
+                title: Text('Edit your note'),
+                content: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'Note title',
+                            icon: Icon(Icons.note),
+                          ),
+                        ),
+                        TextFormField(
+                          maxLines: 6,
+                          decoration: InputDecoration(
+                            labelText: 'Note',
+                            icon: Icon(Icons.note_add_outlined),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                actions: [
+                  ActionButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.save),
+                  ),
+                ],
+              );
+            });
+      },
+    );
+    Widget optionThree = SimpleDialogOption(
+      child: const Text('Note 3'),
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                scrollable: true,
+                title: Text('Edit your note'),
+                content: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'Note title',
+                            icon: Icon(Icons.note),
+                          ),
+                        ),
+                        TextFormField(
+                          maxLines: 6,
+                          decoration: InputDecoration(
+                            labelText: 'Note',
+                            icon: Icon(Icons.note_add_outlined),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                actions: [
+                  ActionButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.save),
+                  ),
+                ],
+              );
+            });
+      },
+    );
+    Widget optionFour = SimpleDialogOption(
+      child: const Text('Note 4'),
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                scrollable: true,
+                title: Text('Edit your note'),
+                content: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'Note title',
+                            icon: Icon(Icons.note),
+                          ),
+                        ),
+                        TextFormField(
+                          maxLines: 6,
+                          decoration: InputDecoration(
+                            labelText: 'Note',
+                            icon: Icon(Icons.note_add_outlined),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                actions: [
+                  ActionButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.save),
+                  ),
+                ],
+              );
+            });
+      },
+    );
+    Widget optionFive = SimpleDialogOption(
+      child: const Text('Note 5'),
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                scrollable: true,
+                title: Text('Edit your note'),
+                content: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'Note title',
+                            icon: Icon(Icons.note),
+                          ),
+                        ),
+                        TextFormField(
+                          maxLines: 6,
+                          decoration: InputDecoration(
+                            labelText: 'Note',
+                            icon: Icon(Icons.note_add_outlined),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                actions: [
+                  ActionButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.save),
+                  ),
+                ],
+              );
+            });
+      },
+    );
+
+    // set up the SimpleDialog
+    SimpleDialog dialog = SimpleDialog(
+      title: const Text('Choose note'),
+      children: <Widget>[
+        optionOne,
+        optionTwo,
+        optionThree,
+        optionFour,
+        optionFive,
+      ],
+    );
+
+    return ExpandableFab(
+      distance: 112.0,
+      children: [
+        ActionButton(
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Task())),
+          icon: const Icon(Icons.task),
+        ),
+        ActionButton(
+          onPressed: () {},
+          icon: const Icon(Icons.message),
+        ),
+        ActionButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    scrollable: true,
+                    title: Text('Type your note'),
+                    content: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Form(
+                        child: Column(
+                          children: <Widget>[
+                            TextFormField(
+                              decoration: InputDecoration(
+                                labelText: 'Note title',
+                                icon: Icon(Icons.note),
+                              ),
+                            ),
+                            TextFormField(
+                              maxLines: 6,
+                              decoration: InputDecoration(
+                                labelText: 'Note',
+                                icon: Icon(Icons.note_add_outlined),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    actions: [
+                      ActionButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.save),
+                      ),
+                    ],
+                  );
+                });
+          },
+          icon: const Icon(Icons.note),
+        ),
+        ActionButton(
+          onPressed: () {
+            // show the dialog
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return dialog;
+              },
+            );
+          },
+          icon: const Icon(Icons.notes_sharp),
+        ),
+      ],
     );
   }
 }
@@ -239,4 +507,3 @@ class ActionButton extends StatelessWidget {
     );
   }
 }
-
