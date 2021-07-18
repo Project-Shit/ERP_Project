@@ -5,6 +5,7 @@ import 'package:erp/Client/Crm/crm_table.dart';
 import 'package:erp/Client/Inventory/InventoryDesktop2.dart';
 import 'package:erp/Client/Inventory/inventoryDesktop.dart';
 import 'package:erp/Client/Online/online_orders.dart';
+import 'package:erp/Client/POS/point.dart';
 import 'package:erp/Client/Users/users.dart';
 import 'package:erp/constants.dart';
 import 'package:erp/widget/appBar/clientAppBar.dart';
@@ -237,10 +238,7 @@ class _ApplicationState extends State<Application> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              InventoryDesktop2(
-                                            userName: widget.title,
-                                                type: widget.type,
-                                          ),
+                                              PointData(userName: widget.title,type:widget.type)
                                         ),
                                       );
                                     },
