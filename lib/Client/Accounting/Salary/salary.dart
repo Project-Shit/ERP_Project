@@ -76,7 +76,8 @@ class _SalaryState extends State<Salary> {
       data = {
         "command": "update salary set salary = ${_salary.text}, insurance = ${_insurance.text}, "
             "tax = (salary*14)/100, deduction = ${_deduction.text},notes = '${_note.text}'"
-            " ,netSalary = (salary-insurance-tax-deduction) where id = ${_search.text}"
+            " ,netSalary = (salary-insurance-tax-deduction) where id = ${_search.text} and "
+            "month = '${_month.toString()}' and year = '${_year.toString()}'"
       };
       response = await http.post(Uri.parse(setData), body: data);
       if (200 == response.statusCode) {
